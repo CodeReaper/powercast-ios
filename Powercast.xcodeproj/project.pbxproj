@@ -77,6 +77,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 387FF60A286B90A40051E3DC /* Build configuration list for PBXNativeTarget "Powercast" */;
 			buildPhases = (
+				387FF611286B98530051E3DC /* Swiftlint */,
 				387FF5F2286B909B0051E3DC /* Sources */,
 				387FF5F3286B909B0051E3DC /* Frameworks */,
 				387FF5F4286B909B0051E3DC /* Resources */,
@@ -134,6 +135,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		387FF611286B98530051E3DC /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=$HOME/.asdf/shims:$PATH\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		387FF5F2286B909B0051E3DC /* Sources */ = {
