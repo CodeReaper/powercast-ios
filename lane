@@ -1,0 +1,47 @@
+#!/bin/sh
+
+set -e
+
+OLD_PWD=$(pwd)
+
+trap 'set +x; cd "$OLD_PWD" >/dev/null 2>&1' 0
+trap 'exit 2' 1 2 3 15
+
+_DISPLAY_HELP()
+{
+    echo "$0: <name-of-lane>"
+    echo "Where the name of a lane indicates wich lane you wish to execute"
+}
+
+_DISPLAY_LANES()
+{
+    cd lanes
+    echo "The available lanes are:"
+    find . -type f -depth 1 | sed 's|^./||g;s|^|  |g' | grep -vE '\.ini$'
+}
+
+if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]] || [[ "$1" == "help" ]]; then
+    _DISPLAY_HELP
+    exit 0
+fi
+
+while [[ ! -d lanes ]] && [[ ! "$(pwd)" == '/' ]]; do
+    cd ..
+done
+
+if [[ ! -d lanes ]]; then
+    echo "Unable to find \`lanes\` working from $OLD_PWD" >&2
+    exit 1
+fi
+
+if [[ -z "$1" ]]; then
+    _DISPLAY_LANES
+    exit 0
+fi
+
+if [[ ! -f "lanes/$1" ]]; then
+    _DISPLAY_LANES
+    exit 1
+fi
+
+sh "lanes/$1" "lanes/${1}.ini"
