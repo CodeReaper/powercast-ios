@@ -1,7 +1,7 @@
-lane mobile-update-translations -i resources/translations/translations.csv -o Powercast/Assets/Translations.swift -t ios -m EN -k 1 \
-    -c "4 DA Powercast/Assets/Translations/da.lproj/Localizable.strings" \
-    -c "4 DA Powercast/Assets/Translations/da.lproj/InfoPlist.strings" \
-    -c "3 EN Powercast/Assets/Translations/en-GB.lproj/Localizable.strings" \
-    -c "3 EN Powercast/Assets/Translations/en-GB.lproj/InfoPlist.strings" \
-    -c "3 EN Powercast/Assets/Translations/Base.lproj/Localizable.strings" \
-    -c "3 EN Powercast/Assets/Translations/Base.lproj/InfoPlist.strings"
+lane mobile-update-translations -i resources/translations/translations.csv -o Powercast/Assets/Translations.swift -t ios -m 3 -k 1 \
+    -c "4 Powercast/Assets/Translations/da.lproj/Localizable.strings" \
+    -c "4 Powercast/Assets/Translations/da.lproj/InfoPlist.strings" \
+    -c "3 Powercast/Assets/Translations/en-GB.lproj/Localizable.strings" \
+    -c "3 Powercast/Assets/Translations/en-GB.lproj/InfoPlist.strings" \
+    -c "3 Powercast/Assets/Translations/Base.lproj/Localizable.strings" \
+    -c "3 Powercast/Assets/Translations/Base.lproj/InfoPlist.strings"
