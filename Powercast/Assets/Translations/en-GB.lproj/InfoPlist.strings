@@ -1,2 +1,9 @@
-"SETUP_MESSAGE_TIME_IS" = "The current time is %1";
-"SETUP_TITLE_WELCOME" = "Welcome to Powercast";
+"ABOUT_TITLE" = "About";
+"DASHBOARD_TITLE" = "Dashboard";
+"DATA_LOADING_TITLE" = "Data loading...";
+"INTRO_TITLE" = "Introduction";
+"INTRO_WELCOME_MESSAGE" = "The current time is %1";
+"INTRO_WELCOME_TITLE" = "Welcome to Powercast";
+"LICENSES_TITLE" = "Licenses";
+"REGION_SELECTION_TITLE" = "Region Selection";
+"SETTINGS_TITLE" = "Settings";

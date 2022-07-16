@@ -1,2 +1,9 @@
-"SETUP_MESSAGE_TIME_IS" = "Klokken er nu %1";
-"SETUP_TITLE_WELCOME" = "Velkommen til Powercast";
+"ABOUT_TITLE" = "Om";
+"DASHBOARD_TITLE" = "Dashboard";
+"DATA_LOADING_TITLE" = "Henter data...";
+"INTRO_TITLE" = "Introduktion";
+"INTRO_WELCOME_MESSAGE" = "Klokken er nu %1";
+"INTRO_WELCOME_TITLE" = "Velkommen til Powercast";
+"LICENSES_TITLE" = "Licenser";
+"REGION_SELECTION_TITLE" = "Region valg";
+"SETTINGS_TITLE" = "Indstillinger";

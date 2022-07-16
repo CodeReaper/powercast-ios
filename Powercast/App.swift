@@ -1,9 +1,15 @@
-import Foundation
 import UIKit
 
-class App {
+protocol Dependenables: AnyObject {
+    var completedSetup: Bool { get }
+}
+
+class App: Dependenables {
+    private lazy var navigation = AppNavigation(using: self)
+
+    var completedSetup: Bool { false }
+
     func didLaunch(with window: UIWindow) {
-        window.rootViewController = ViewController()
-        window.makeKeyAndVisible()
+        navigation.setup(using: window)
     }
 }
