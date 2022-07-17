@@ -18,6 +18,13 @@
 		38DF5ABE28707A7E008630FB /* Translations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DF5ABD28707A7E008630FB /* Translations.swift */; };
 		38DF5AC828708077008630FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 38DF5AC028708077008630FB /* Localizable.strings */; };
 		38DF5AC928708077008630FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 38DF5AC228708077008630FB /* InfoPlist.strings */; };
+		38E0FA61288441BE0096B98A /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 38E0FA60288441BE0096B98A /* GRDB */; };
+		38E0FA652884759B0096B98A /* EnergyPriceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E0FA642884759B0096B98A /* EnergyPriceRepository.swift */; };
+		38E0FA68288476C40096B98A /* PowercastDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E0FA67288476C40096B98A /* PowercastDataService.swift */; };
+		38E0FA6B288478DE0096B98A /* EnergyPriceDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E0FA6A288478DE0096B98A /* EnergyPriceDatabase.swift */; };
+		38E0FA6E2884803F0096B98A /* EnergyPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E0FA6D2884803F0096B98A /* EnergyPrice.swift */; };
+		38E0FA702884808D0096B98A /* Zone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E0FA6F2884808D0096B98A /* Zone.swift */; };
+		38E0FA722884822C0096B98A /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E0FA712884822C0096B98A /* Database.swift */; };
 		38FD15C7288335A1001C38F9 /* Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15C6288335A1001C38F9 /* Autolayout.swift */; };
 		38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15C828833A5B001C38F9 /* AppNavigation.swift */; };
 		38FD15CF28833AEA001C38F9 /* RegionSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15CE28833AEA001C38F9 /* RegionSelectionViewController.swift */; };
@@ -51,6 +58,12 @@
 		38DF5AC528708077008630FB /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		38DF5AC628708077008630FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		38DF5AC728708077008630FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		38E0FA642884759B0096B98A /* EnergyPriceRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyPriceRepository.swift; sourceTree = "<group>"; };
+		38E0FA67288476C40096B98A /* PowercastDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowercastDataService.swift; sourceTree = "<group>"; };
+		38E0FA6A288478DE0096B98A /* EnergyPriceDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyPriceDatabase.swift; sourceTree = "<group>"; };
+		38E0FA6D2884803F0096B98A /* EnergyPrice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyPrice.swift; sourceTree = "<group>"; };
+		38E0FA6F2884808D0096B98A /* Zone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zone.swift; sourceTree = "<group>"; };
+		38E0FA712884822C0096B98A /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		38FD15C6288335A1001C38F9 /* Autolayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Autolayout.swift; sourceTree = "<group>"; };
 		38FD15C828833A5B001C38F9 /* AppNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigation.swift; sourceTree = "<group>"; };
 		38FD15CE28833AEA001C38F9 /* RegionSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionSelectionViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38E0FA61288441BE0096B98A /* GRDB in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +118,7 @@
 				387FF5FB286B909B0051E3DC /* SceneDelegate.swift */,
 				387FF602286B90A40051E3DC /* Assets.xcassets */,
 				38DF5AAB287079DE008630FB /* Assets */,
+				38E0FA622884759B0096B98A /* Data */,
 				387FF604286B90A40051E3DC /* LaunchScreen.storyboard */,
 				38FD15C5288335A1001C38F9 /* UI */,
 			);
@@ -127,6 +142,51 @@
 				38DF5AC028708077008630FB /* Localizable.strings */,
 			);
 			path = Translations;
+			sourceTree = "<group>";
+		};
+		38E0FA622884759B0096B98A /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				38E0FA69288478DE0096B98A /* Bases */,
+				38E0FA6C2884803F0096B98A /* Models */,
+				38E0FA632884759B0096B98A /* Repositories */,
+				38E0FA66288476C40096B98A /* Services */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		38E0FA632884759B0096B98A /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				38E0FA642884759B0096B98A /* EnergyPriceRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		38E0FA66288476C40096B98A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				38E0FA67288476C40096B98A /* PowercastDataService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		38E0FA69288478DE0096B98A /* Bases */ = {
+			isa = PBXGroup;
+			children = (
+				38E0FA6A288478DE0096B98A /* EnergyPriceDatabase.swift */,
+			);
+			path = Bases;
+			sourceTree = "<group>";
+		};
+		38E0FA6C2884803F0096B98A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				38E0FA712884822C0096B98A /* Database.swift */,
+				38E0FA6D2884803F0096B98A /* EnergyPrice.swift */,
+				38E0FA6F2884808D0096B98A /* Zone.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		38FD15C5288335A1001C38F9 /* UI */ = {
@@ -174,6 +234,9 @@
 			dependencies = (
 			);
 			name = Powercast;
+			packageProductDependencies = (
+				38E0FA60288441BE0096B98A /* GRDB */,
+			);
 			productName = Powercast;
 			productReference = 387FF5F6286B909B0051E3DC /* Powercast.app */;
 			productType = "com.apple.product-type.application";
@@ -204,6 +267,9 @@
 				da,
 			);
 			mainGroup = 387FF5ED286B909B0051E3DC;
+			packageReferences = (
+				38E0FA5F288441BE0096B98A /* XCRemoteSwiftPackageReference "GRDB.swift" */,
+			);
 			productRefGroup = 387FF5F7286B909B0051E3DC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -255,12 +321,14 @@
 			files = (
 				38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */,
 				38FD15D52883461A001C38F9 /* StackViews.swift in Sources */,
+				38E0FA702884808D0096B98A /* Zone.swift in Sources */,
 				387FF5FE286B909B0051E3DC /* IntroViewController.swift in Sources */,
 				38FD15D3288344BA001C38F9 /* ImageViews.swift in Sources */,
 				38FD15D728835058001C38F9 /* DataLoadingViewController.swift in Sources */,
 				38DF5AB7287079DE008630FB /* Images.swift in Sources */,
 				38FD15C7288335A1001C38F9 /* Autolayout.swift in Sources */,
 				387FF60E286B95B00051E3DC /* App.swift in Sources */,
+				38E0FA652884759B0096B98A /* EnergyPriceRepository.swift in Sources */,
 				38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */,
 				38FD15D928835291001C38F9 /* DashboardViewController.swift in Sources */,
 				38FD15E3288358A5001C38F9 /* ViewControllers.swift in Sources */,
@@ -269,9 +337,13 @@
 				38DF5ABE28707A7E008630FB /* Translations.swift in Sources */,
 				38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */,
 				38FD15CF28833AEA001C38F9 /* RegionSelectionViewController.swift in Sources */,
+				38E0FA6E2884803F0096B98A /* EnergyPrice.swift in Sources */,
 				387FF5FC286B909B0051E3DC /* SceneDelegate.swift in Sources */,
+				38E0FA68288476C40096B98A /* PowercastDataService.swift in Sources */,
 				38FD15E128835582001C38F9 /* Buttons.swift in Sources */,
+				38E0FA6B288478DE0096B98A /* EnergyPriceDatabase.swift in Sources */,
 				387FF610286B95BB0051E3DC /* global.swift in Sources */,
+				38E0FA722884822C0096B98A /* Database.swift in Sources */,
 				38FD15D128833FFC001C38F9 /* Labels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -498,6 +570,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		38E0FA5F288441BE0096B98A /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDB.swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.26.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		38E0FA60288441BE0096B98A /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38E0FA5F288441BE0096B98A /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			productName = GRDB;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 387FF5EE286B909B0051E3DC /* Project object */;
 }

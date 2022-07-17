@@ -1,6 +1,29 @@
 import UIKit
 
 class DataLoadingViewController: ViewController {
+    private let repository: EnergyPriceRepository
+
+    init(navigation: AppNavigation, repository: EnergyPriceRepository) {
+        self.repository = repository
+        super.init(navigation: navigation)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        Task {
+            do {
+                try await repository.refresh()
+            } catch {
+                print(error)
+            }
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

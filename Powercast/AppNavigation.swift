@@ -41,7 +41,7 @@ class AppNavigation {
         case .regionSelection:
             navigationController.pushViewController(RegionSelectionViewController(navigation: self), animated: true)
         case .loadData:
-            navigationController.pushViewController(DataLoadingViewController(navigation: self), animated: true)
+            navigationController.pushViewController(DataLoadingViewController(navigation: self, repository: dependencies.energyPriceRepository), animated: true)
         case .dashboard:
             navigationController.setViewControllers([DashboardViewController(navigation: self)], animated: lastEndpoint != .intro)
         case .settings:
