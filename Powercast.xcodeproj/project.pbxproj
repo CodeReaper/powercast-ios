@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		380CE8E62888901A0003FF36 /* EnergyPriceMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE8E52888901A0003FF36 /* EnergyPriceMigration.swift */; };
+		380CE8E9288892490003FF36 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 380CE8E8288892490003FF36 /* Lottie */; };
+		380CE8EC288893E30003FF36 /* 112626-connecting.json in Resources */ = {isa = PBXBuildFile; fileRef = 380CE8EB288893E30003FF36 /* 112626-connecting.json */; };
+		380CE8EE288893F90003FF36 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE8ED288893F90003FF36 /* Animations.swift */; };
+		380CE8F1288AE4C30003FF36 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE8F0288AE4C20003FF36 /* LoadingView.swift */; };
+		380CE8FA288AE55A0003FF36 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE8F3288AE55A0003FF36 /* Buttons.swift */; };
+		380CE8FB288AE55A0003FF36 /* ImageViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE8F4288AE55A0003FF36 /* ImageViews.swift */; };
+		380CE8FC288AE55A0003FF36 /* StackViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE8F5288AE55A0003FF36 /* StackViews.swift */; };
+		380CE8FD288AE55A0003FF36 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE8F6288AE55A0003FF36 /* Labels.swift */; };
+		380CE8FE288AE55A0003FF36 /* Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE8F8288AE55A0003FF36 /* Autolayout.swift */; };
+		380CE8FF288AE55A0003FF36 /* ViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE8F9288AE55A0003FF36 /* ViewControllers.swift */; };
+		380CE901288AE7370003FF36 /* _View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE900288AE7370003FF36 /* _View.swift */; };
+		380CE903288AE9700003FF36 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE902288AE9700003FF36 /* Colors.swift */; };
+		380CE905288AF2040003FF36 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE904288AF2040003FF36 /* AppConfiguration.swift */; };
 		387FF5FA286B909B0051E3DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF5F9286B909B0051E3DC /* AppDelegate.swift */; };
 		387FF5FC286B909B0051E3DC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF5FB286B909B0051E3DC /* SceneDelegate.swift */; };
 		387FF5FE286B909B0051E3DC /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF5FD286B909B0051E3DC /* IntroViewController.swift */; };
@@ -18,22 +32,35 @@
 		38DF5ABE28707A7E008630FB /* Translations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DF5ABD28707A7E008630FB /* Translations.swift */; };
 		38DF5AC828708077008630FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 38DF5AC028708077008630FB /* Localizable.strings */; };
 		38DF5AC928708077008630FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 38DF5AC228708077008630FB /* InfoPlist.strings */; };
-		38FD15C7288335A1001C38F9 /* Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15C6288335A1001C38F9 /* Autolayout.swift */; };
+		38E0FA61288441BE0096B98A /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 38E0FA60288441BE0096B98A /* GRDB */; };
+		38E0FA652884759B0096B98A /* EnergyPriceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E0FA642884759B0096B98A /* EnergyPriceRepository.swift */; };
+		38E0FA68288476C40096B98A /* PowercastDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E0FA67288476C40096B98A /* PowercastDataService.swift */; };
+		38E0FA6E2884803F0096B98A /* EnergyPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E0FA6D2884803F0096B98A /* EnergyPrice.swift */; };
+		38E0FA702884808D0096B98A /* Zone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E0FA6F2884808D0096B98A /* Zone.swift */; };
+		38E0FA722884822C0096B98A /* _Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E0FA712884822C0096B98A /* _Database.swift */; };
 		38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15C828833A5B001C38F9 /* AppNavigation.swift */; };
 		38FD15CF28833AEA001C38F9 /* RegionSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15CE28833AEA001C38F9 /* RegionSelectionViewController.swift */; };
-		38FD15D128833FFC001C38F9 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15D028833FFC001C38F9 /* Labels.swift */; };
-		38FD15D3288344BA001C38F9 /* ImageViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15D2288344BA001C38F9 /* ImageViews.swift */; };
-		38FD15D52883461A001C38F9 /* StackViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15D42883461A001C38F9 /* StackViews.swift */; };
 		38FD15D728835058001C38F9 /* DataLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15D628835058001C38F9 /* DataLoadingViewController.swift */; };
 		38FD15D928835291001C38F9 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15D828835291001C38F9 /* DashboardViewController.swift */; };
 		38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DA28835353001C38F9 /* SettingsViewController.swift */; };
 		38FD15DD288354FF001C38F9 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DC288354FF001C38F9 /* AboutViewController.swift */; };
 		38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DE28835528001C38F9 /* LicensesViewController.swift */; };
-		38FD15E128835582001C38F9 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15E028835582001C38F9 /* Buttons.swift */; };
-		38FD15E3288358A5001C38F9 /* ViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15E2288358A5001C38F9 /* ViewControllers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		380CE8E52888901A0003FF36 /* EnergyPriceMigration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyPriceMigration.swift; sourceTree = "<group>"; };
+		380CE8EB288893E30003FF36 /* 112626-connecting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "112626-connecting.json"; sourceTree = "<group>"; };
+		380CE8ED288893F90003FF36 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
+		380CE8F0288AE4C20003FF36 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		380CE8F3288AE55A0003FF36 /* Buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		380CE8F4288AE55A0003FF36 /* ImageViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViews.swift; sourceTree = "<group>"; };
+		380CE8F5288AE55A0003FF36 /* StackViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackViews.swift; sourceTree = "<group>"; };
+		380CE8F6288AE55A0003FF36 /* Labels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
+		380CE8F8288AE55A0003FF36 /* Autolayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Autolayout.swift; sourceTree = "<group>"; };
+		380CE8F9288AE55A0003FF36 /* ViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllers.swift; sourceTree = "<group>"; };
+		380CE900288AE7370003FF36 /* _View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _View.swift; sourceTree = "<group>"; };
+		380CE902288AE9700003FF36 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		380CE904288AF2040003FF36 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		387FF5F6286B909B0051E3DC /* Powercast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Powercast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		387FF5F9286B909B0051E3DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		387FF5FB286B909B0051E3DC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,19 +78,18 @@
 		38DF5AC528708077008630FB /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		38DF5AC628708077008630FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		38DF5AC728708077008630FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		38FD15C6288335A1001C38F9 /* Autolayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Autolayout.swift; sourceTree = "<group>"; };
+		38E0FA642884759B0096B98A /* EnergyPriceRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyPriceRepository.swift; sourceTree = "<group>"; };
+		38E0FA67288476C40096B98A /* PowercastDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowercastDataService.swift; sourceTree = "<group>"; };
+		38E0FA6D2884803F0096B98A /* EnergyPrice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyPrice.swift; sourceTree = "<group>"; };
+		38E0FA6F2884808D0096B98A /* Zone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zone.swift; sourceTree = "<group>"; };
+		38E0FA712884822C0096B98A /* _Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Database.swift; sourceTree = "<group>"; };
 		38FD15C828833A5B001C38F9 /* AppNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigation.swift; sourceTree = "<group>"; };
 		38FD15CE28833AEA001C38F9 /* RegionSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionSelectionViewController.swift; sourceTree = "<group>"; };
-		38FD15D028833FFC001C38F9 /* Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
-		38FD15D2288344BA001C38F9 /* ImageViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViews.swift; sourceTree = "<group>"; };
-		38FD15D42883461A001C38F9 /* StackViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViews.swift; sourceTree = "<group>"; };
 		38FD15D628835058001C38F9 /* DataLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadingViewController.swift; sourceTree = "<group>"; };
 		38FD15D828835291001C38F9 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		38FD15DA28835353001C38F9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		38FD15DC288354FF001C38F9 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		38FD15DE28835528001C38F9 /* LicensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
-		38FD15E028835582001C38F9 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
-		38FD15E2288358A5001C38F9 /* ViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,12 +97,60 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38E0FA61288441BE0096B98A /* GRDB in Frameworks */,
+				380CE8E9288892490003FF36 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		380CE8E42888901A0003FF36 /* Migrations */ = {
+			isa = PBXGroup;
+			children = (
+				380CE8E52888901A0003FF36 /* EnergyPriceMigration.swift */,
+			);
+			path = Migrations;
+			sourceTree = "<group>";
+		};
+		380CE8EA288893E30003FF36 /* Assets.Animations */ = {
+			isa = PBXGroup;
+			children = (
+				380CE8EB288893E30003FF36 /* 112626-connecting.json */,
+			);
+			path = Assets.Animations;
+			sourceTree = "<group>";
+		};
+		380CE8EF288AE4C20003FF36 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				380CE900288AE7370003FF36 /* _View.swift */,
+				380CE8F0288AE4C20003FF36 /* LoadingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		380CE8F2288AE55A0003FF36 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				380CE8F3288AE55A0003FF36 /* Buttons.swift */,
+				380CE8F4288AE55A0003FF36 /* ImageViews.swift */,
+				380CE8F6288AE55A0003FF36 /* Labels.swift */,
+				380CE8F5288AE55A0003FF36 /* StackViews.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		380CE8F7288AE55A0003FF36 /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				380CE8F8288AE55A0003FF36 /* Autolayout.swift */,
+				380CE902288AE9700003FF36 /* Colors.swift */,
+				380CE8F9288AE55A0003FF36 /* ViewControllers.swift */,
+			);
+			path = Setup;
+			sourceTree = "<group>";
+		};
 		387FF5ED286B909B0051E3DC = {
 			isa = PBXGroup;
 			children = (
@@ -98,12 +172,15 @@
 			children = (
 				387FF607286B90A40051E3DC /* Info.plist */,
 				387FF60D286B95B00051E3DC /* App.swift */,
+				380CE904288AF2040003FF36 /* AppConfiguration.swift */,
 				387FF5F9286B909B0051E3DC /* AppDelegate.swift */,
 				38FD15C828833A5B001C38F9 /* AppNavigation.swift */,
 				387FF60F286B95BB0051E3DC /* global.swift */,
 				387FF5FB286B909B0051E3DC /* SceneDelegate.swift */,
 				387FF602286B90A40051E3DC /* Assets.xcassets */,
 				38DF5AAB287079DE008630FB /* Assets */,
+				380CE8EA288893E30003FF36 /* Assets.Animations */,
+				38E0FA622884759B0096B98A /* Data */,
 				387FF604286B90A40051E3DC /* LaunchScreen.storyboard */,
 				38FD15C5288335A1001C38F9 /* UI */,
 			);
@@ -113,9 +190,10 @@
 		38DF5AAB287079DE008630FB /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				38DF5ABF28708077008630FB /* Translations */,
+				380CE8ED288893F90003FF36 /* Animations.swift */,
 				38DF5AAC287079DE008630FB /* Images.swift */,
 				38DF5ABD28707A7E008630FB /* Translations.swift */,
+				38DF5ABF28708077008630FB /* Translations */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -129,16 +207,50 @@
 			path = Translations;
 			sourceTree = "<group>";
 		};
+		38E0FA622884759B0096B98A /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				380CE8E42888901A0003FF36 /* Migrations */,
+				38E0FA6C2884803F0096B98A /* Models */,
+				38E0FA632884759B0096B98A /* Repositories */,
+				38E0FA66288476C40096B98A /* Services */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		38E0FA632884759B0096B98A /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				38E0FA642884759B0096B98A /* EnergyPriceRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		38E0FA66288476C40096B98A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				38E0FA67288476C40096B98A /* PowercastDataService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		38E0FA6C2884803F0096B98A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				38E0FA712884822C0096B98A /* _Database.swift */,
+				38E0FA6D2884803F0096B98A /* EnergyPrice.swift */,
+				38E0FA6F2884808D0096B98A /* Zone.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		38FD15C5288335A1001C38F9 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				38FD15C6288335A1001C38F9 /* Autolayout.swift */,
-				38FD15E028835582001C38F9 /* Buttons.swift */,
-				38FD15D2288344BA001C38F9 /* ImageViews.swift */,
-				38FD15D028833FFC001C38F9 /* Labels.swift */,
-				38FD15D42883461A001C38F9 /* StackViews.swift */,
-				38FD15E2288358A5001C38F9 /* ViewControllers.swift */,
+				380CE8F2288AE55A0003FF36 /* Common */,
 				38FD15CD28833AEA001C38F9 /* Screens */,
+				380CE8F7288AE55A0003FF36 /* Setup */,
+				380CE8EF288AE4C20003FF36 /* Views */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -174,6 +286,10 @@
 			dependencies = (
 			);
 			name = Powercast;
+			packageProductDependencies = (
+				38E0FA60288441BE0096B98A /* GRDB */,
+				380CE8E8288892490003FF36 /* Lottie */,
+			);
 			productName = Powercast;
 			productReference = 387FF5F6286B909B0051E3DC /* Powercast.app */;
 			productType = "com.apple.product-type.application";
@@ -204,6 +320,10 @@
 				da,
 			);
 			mainGroup = 387FF5ED286B909B0051E3DC;
+			packageReferences = (
+				38E0FA5F288441BE0096B98A /* XCRemoteSwiftPackageReference "GRDB.swift" */,
+				380CE8E7288892480003FF36 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			productRefGroup = 387FF5F7286B909B0051E3DC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -219,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				387FF606286B90A40051E3DC /* LaunchScreen.storyboard in Resources */,
+				380CE8EC288893E30003FF36 /* 112626-connecting.json in Resources */,
 				38DF5AC928708077008630FB /* InfoPlist.strings in Resources */,
 				38DF5AC828708077008630FB /* Localizable.strings in Resources */,
 				387FF603286B90A40051E3DC /* Assets.xcassets in Resources */,
@@ -253,26 +374,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				380CE8E62888901A0003FF36 /* EnergyPriceMigration.swift in Sources */,
+				380CE903288AE9700003FF36 /* Colors.swift in Sources */,
 				38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */,
-				38FD15D52883461A001C38F9 /* StackViews.swift in Sources */,
+				38E0FA702884808D0096B98A /* Zone.swift in Sources */,
 				387FF5FE286B909B0051E3DC /* IntroViewController.swift in Sources */,
-				38FD15D3288344BA001C38F9 /* ImageViews.swift in Sources */,
+				380CE8F1288AE4C30003FF36 /* LoadingView.swift in Sources */,
+				380CE8FF288AE55A0003FF36 /* ViewControllers.swift in Sources */,
 				38FD15D728835058001C38F9 /* DataLoadingViewController.swift in Sources */,
 				38DF5AB7287079DE008630FB /* Images.swift in Sources */,
-				38FD15C7288335A1001C38F9 /* Autolayout.swift in Sources */,
 				387FF60E286B95B00051E3DC /* App.swift in Sources */,
+				380CE8FE288AE55A0003FF36 /* Autolayout.swift in Sources */,
+				38E0FA652884759B0096B98A /* EnergyPriceRepository.swift in Sources */,
 				38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */,
 				38FD15D928835291001C38F9 /* DashboardViewController.swift in Sources */,
-				38FD15E3288358A5001C38F9 /* ViewControllers.swift in Sources */,
+				380CE8FC288AE55A0003FF36 /* StackViews.swift in Sources */,
+				380CE8EE288893F90003FF36 /* Animations.swift in Sources */,
 				38FD15DD288354FF001C38F9 /* AboutViewController.swift in Sources */,
 				387FF5FA286B909B0051E3DC /* AppDelegate.swift in Sources */,
 				38DF5ABE28707A7E008630FB /* Translations.swift in Sources */,
+				380CE905288AF2040003FF36 /* AppConfiguration.swift in Sources */,
 				38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */,
+				380CE8FB288AE55A0003FF36 /* ImageViews.swift in Sources */,
 				38FD15CF28833AEA001C38F9 /* RegionSelectionViewController.swift in Sources */,
+				38E0FA6E2884803F0096B98A /* EnergyPrice.swift in Sources */,
 				387FF5FC286B909B0051E3DC /* SceneDelegate.swift in Sources */,
-				38FD15E128835582001C38F9 /* Buttons.swift in Sources */,
+				380CE901288AE7370003FF36 /* _View.swift in Sources */,
+				38E0FA68288476C40096B98A /* PowercastDataService.swift in Sources */,
+				380CE8FD288AE55A0003FF36 /* Labels.swift in Sources */,
+				380CE8FA288AE55A0003FF36 /* Buttons.swift in Sources */,
 				387FF610286B95BB0051E3DC /* global.swift in Sources */,
-				38FD15D128833FFC001C38F9 /* Labels.swift in Sources */,
+				38E0FA722884822C0096B98A /* _Database.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,6 +630,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		380CE8E7288892480003FF36 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = exactVersion;
+				version = 3.4.0;
+			};
+		};
+		38E0FA5F288441BE0096B98A /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDB.swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.26.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		380CE8E8288892490003FF36 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 380CE8E7288892480003FF36 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+		38E0FA60288441BE0096B98A /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38E0FA5F288441BE0096B98A /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			productName = GRDB;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 387FF5EE286B909B0051E3DC /* Project object */;
 }

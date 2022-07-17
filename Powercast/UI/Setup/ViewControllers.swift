@@ -3,7 +3,7 @@ import UIKit
 class ViewController: UIViewController {
     let navigation: AppNavigation
 
-    required init(navigation: AppNavigation) {
+    init(navigation: AppNavigation) {
         self.navigation = navigation
         super.init(nibName: nil, bundle: nil)
     }

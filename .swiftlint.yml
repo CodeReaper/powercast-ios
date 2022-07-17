@@ -5,18 +5,13 @@ disabled_rules:
 cyclomatic_complexity:
   ignores_case_statements: true
 
-excluded: # paths to ignore during linting. Takes precedence over `included`.
-  - vendor
-  - Pods
-  - Podfile
-  - Podfile.lock
-
 identifier_name:
   excluded:
     - id
     - io
     - on
     - of
+    - db
 
 force_try:
   severity: warning
