@@ -21,6 +21,7 @@
 		380CE901288AE7370003FF36 /* _View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE900288AE7370003FF36 /* _View.swift */; };
 		380CE903288AE9700003FF36 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE902288AE9700003FF36 /* Colors.swift */; };
 		380CE905288AF2040003FF36 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE904288AF2040003FF36 /* AppConfiguration.swift */; };
+		380CE908288AFC680003FF36 /* regions.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 380CE907288AFC680003FF36 /* regions.geojson */; };
 		387FF5FA286B909B0051E3DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF5F9286B909B0051E3DC /* AppDelegate.swift */; };
 		387FF5FC286B909B0051E3DC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF5FB286B909B0051E3DC /* SceneDelegate.swift */; };
 		387FF5FE286B909B0051E3DC /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF5FD286B909B0051E3DC /* IntroViewController.swift */; };
@@ -61,6 +62,7 @@
 		380CE900288AE7370003FF36 /* _View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _View.swift; sourceTree = "<group>"; };
 		380CE902288AE9700003FF36 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		380CE904288AF2040003FF36 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
+		380CE907288AFC680003FF36 /* regions.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = regions.geojson; sourceTree = "<group>"; };
 		387FF5F6286B909B0051E3DC /* Powercast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Powercast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		387FF5F9286B909B0051E3DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		387FF5FB286B909B0051E3DC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +153,14 @@
 			path = Setup;
 			sourceTree = "<group>";
 		};
+		380CE906288AFC680003FF36 /* Assets.GeoJSON */ = {
+			isa = PBXGroup;
+			children = (
+				380CE907288AFC680003FF36 /* regions.geojson */,
+			);
+			path = Assets.GeoJSON;
+			sourceTree = "<group>";
+		};
 		387FF5ED286B909B0051E3DC = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +190,7 @@
 				387FF602286B90A40051E3DC /* Assets.xcassets */,
 				38DF5AAB287079DE008630FB /* Assets */,
 				380CE8EA288893E30003FF36 /* Assets.Animations */,
+				380CE906288AFC680003FF36 /* Assets.GeoJSON */,
 				38E0FA622884759B0096B98A /* Data */,
 				387FF604286B90A40051E3DC /* LaunchScreen.storyboard */,
 				38FD15C5288335A1001C38F9 /* UI */,
@@ -338,6 +349,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				380CE908288AFC680003FF36 /* regions.geojson in Resources */,
 				387FF606286B90A40051E3DC /* LaunchScreen.storyboard in Resources */,
 				380CE8EC288893E30003FF36 /* 112626-connecting.json in Resources */,
 				38DF5AC928708077008630FB /* InfoPlist.strings in Resources */,

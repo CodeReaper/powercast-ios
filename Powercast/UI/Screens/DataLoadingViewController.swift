@@ -17,6 +17,25 @@ class DataLoadingViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        title = Translations.DATA_LOADING_TITLE
+
+        view.backgroundColor = .white
+
+        Stack.views(
+            aligned: .center,
+            on: .vertical,
+            FlexibleSpace(),
+            loadingView,
+            Label(text: Translations.DATA_LOADING_TITLE),
+            FlexibleSpace()
+        )
+        .apply(flexible: .fillEqual)
+        .setup(in: view)
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -39,24 +58,5 @@ class DataLoadingViewController: ViewController {
         statusSink = nil
 
         super.viewWillDisappear(animated)
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        title = Translations.DATA_LOADING_TITLE
-
-        view.backgroundColor = .white
-
-        Stack.views(
-            aligned: .center,
-            on: .vertical,
-            FlexibleSpace(),
-            loadingView,
-            Label(text: Translations.DATA_LOADING_TITLE),
-            FlexibleSpace()
-        )
-        .apply(flexible: .fillEqual)
-        .setup(in: view)
     }
 }

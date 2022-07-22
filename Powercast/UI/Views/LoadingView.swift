@@ -12,7 +12,7 @@ extension View {
         let view = AnimationView(name: Animations.connecting)
         view.loopMode = .loop
         view.setValueProvider(
-            ColorValueProvider(Color(r: red, g: green, b: blue, a: alpha * 255, denominator: .TwoFiftyFive)),
+            ColorValueProvider(Color(r: red, g: green, b: blue, a: alpha, denominator: .One)),
             keypath: AnimationKeypath(keypath: "**.Color")
         )
         return view
