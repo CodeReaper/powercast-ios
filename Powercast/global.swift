@@ -1,3 +1,3 @@
 import Foundation
 
-let app = App()
+let app = App(configuration: AppConfiguration())

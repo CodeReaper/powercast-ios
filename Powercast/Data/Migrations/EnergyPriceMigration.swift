@@ -3,11 +3,12 @@ import GRDB
 
 extension App {
     // swiftlint:disable function_body_length superfluous_disable_command
-    class func setup(energyPriceDatabase databaseQueue: DatabaseQueue) throws {
+    class func setup(energyPriceDatabase databaseQueue: DatabaseQueue, using configuration: AppConfiguration) throws {
         var migrator = DatabaseMigrator()
-        #if DEBUG
-        migrator.eraseDatabaseOnSchemaChange = true
-        #endif
+
+        if configuration.allowDatabaseErasure {
+            migrator.eraseDatabaseOnSchemaChange = true
+        }
 
         migrator.registerMigration("v1") { db in
             try db.create(table: "energyPrice") { table in

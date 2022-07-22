@@ -1,5 +1,6 @@
 import UIKit
 import GRDB
+import Lottie
 
 protocol Dependenables: AnyObject {
     var completedSetup: Bool { get }
@@ -10,37 +11,55 @@ protocol Dependenables: AnyObject {
 }
 
 class App: Dependenables {
+    private let configuration: AppConfiguration
+
     private lazy var navigation = AppNavigation(using: self)
-
-    lazy var energyPriceRepository = EnergyPriceRepository(service: powercastDataService, database: energyPriceDatabase)
-
-    let powercastDataService = PowercastDataService()
 
     let completedSetup = false
 
-    let energyPriceDatabase = setupEnergyPriceDatabase()
+    let powercastDataService: PowercastDataService
+    let energyPriceDatabase: DatabaseQueue
+
+    lazy var energyPriceRepository = EnergyPriceRepository(service: powercastDataService, database: energyPriceDatabase)
+
+    init(configuration: AppConfiguration) {
+        self.configuration = configuration
+        self.powercastDataService = Self.setupPowercastDataService(configuration)
+        self.energyPriceDatabase = Self.setupEnergyPriceDatabase(configuration)
+    }
 
     func didLaunch(with window: UIWindow) {
         navigation.setup(using: window)
     }
 
-    private class func setupEnergyPriceDatabase() -> DatabaseQueue {
+    // MARK: - setups
+
+    private class func setupEnergyPriceDatabase(_ configuration: AppConfiguration) -> DatabaseQueue {
         var energyPriceConfiguration = Configuration()
         energyPriceConfiguration.label = "EnergyPrice"
-        #if DEBUG
-        energyPriceConfiguration.prepareDatabase { db in
-            db.trace { print($0) }
+
+        if configuration.traceDatabaseStatments {
+            energyPriceConfiguration.prepareDatabase { db in
+                db.trace { print($0) }
+            }
         }
-        #endif
 
         // swiftlint:disable force_try
         let database = try! DatabaseQueue(
             path: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("energyPrice.db").path,
             configuration: energyPriceConfiguration
         )
-        try! setup(energyPriceDatabase: database)
+        try! setup(energyPriceDatabase: database, using: configuration)
         // swiftlint:enableforce_try
 
         return database
+    }
+
+    private class func setupPowercastDataService(_ configuration: AppConfiguration) -> PowercastDataService {
+        if configuration.usesDemoData {
+            return PowercastDataServiceDemoValues()
+        } else {
+            fatalError("Real data is not yet implemented")
+        }
     }
 }
