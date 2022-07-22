@@ -1,6 +1,5 @@
 import UIKit
 import GRDB
-import Lottie
 
 protocol Dependenables: AnyObject {
     var completedSetup: Bool { get }
