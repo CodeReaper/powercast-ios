@@ -8,6 +8,8 @@ class RegionSelectionViewController: ViewController {
     private let selectedFillColor  = UIColor.blue.withAlphaComponent(0.1)
     private let selectedStrokeColor  = UIColor.black.withAlphaComponent(0.2)
 
+    private let repository: StateRepository
+
     private var overlays: [PolygonWrapper] = []
 
     private var selectedRegion: String? {
@@ -18,6 +20,15 @@ class RegionSelectionViewController: ViewController {
                 navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(didTapSave))
             }
         }
+    }
+
+    init(navigation: AppNavigation, repository: StateRepository) {
+        self.repository = repository
+        super.init(navigation: navigation)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
@@ -83,8 +94,18 @@ class RegionSelectionViewController: ViewController {
     }
 
     @objc private func didTapSave() {
-        // TODO: convert region to zone and persist it
+        let region = Region(rawValue: selectedRegion ?? "")
+        let zone: Zone
+        switch region {
+        case .cph, .sjaelland:
+            zone = .dk2
+        case .mid, .north, .south:
+            zone = .dk1
+        default:
+            return
+        }
 
+        repository.select(zone)
         navigation.navigate(to: .loadData)
     }
 }
@@ -121,4 +142,12 @@ private class PolygonWrapper: NSObject, MKOverlay {
         self.region = region
         self.polygon = polygon
     }
+}
+
+enum Region: String {
+    case north = "1081"
+    case mid = "1082"
+    case south = "1083"
+    case cph = "1084"
+    case sjaelland = "1085"
 }

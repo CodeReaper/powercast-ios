@@ -22,7 +22,7 @@ class AppNavigation {
     }
 
     func setup(using window: UIWindow) {
-        if dependencies.completedSetup {
+        if dependencies.stateRepository.state.setupCompleted {
             navigate(to: .dashboard)
         } else {
             navigate(to: .intro)
@@ -39,7 +39,7 @@ class AppNavigation {
         case .intro:
             navigationController.setViewControllers([IntroViewController(navigation: self)], animated: false)
         case .regionSelection:
-            navigationController.pushViewController(RegionSelectionViewController(navigation: self), animated: true)
+            navigationController.pushViewController(RegionSelectionViewController(navigation: self, repository: dependencies.stateRepository), animated: true)
         case .loadData:
             navigationController.pushViewController(DataLoadingViewController(navigation: self, repository: dependencies.energyPriceRepository), animated: true)
         case .dashboard:

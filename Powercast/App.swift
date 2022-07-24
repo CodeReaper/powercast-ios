@@ -2,9 +2,9 @@ import UIKit
 import GRDB
 
 protocol Dependenables: AnyObject {
-    var completedSetup: Bool { get }
-
     var energyPriceRepository: EnergyPriceRepository { get }
+
+    var stateRepository: StateRepository { get }
 
     var powercastDataService: PowercastDataService { get }
 
@@ -16,10 +16,9 @@ class App: Dependenables {
 
     private lazy var navigation = AppNavigation(using: self as Dependenables)
 
-    let completedSetup = false
-
     let powercastDataService: PowercastDataService
     let energyPriceDatabase: DatabaseQueue
+    let stateRepository = StateRepository()
 
     lazy var energyPriceRepository = EnergyPriceRepository(service: powercastDataService, database: energyPriceDatabase)
     lazy var scheduler = BackgroundScheduler(repository: energyPriceRepository)
