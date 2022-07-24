@@ -37,7 +37,7 @@ class AppNavigation {
 
         switch endpoint {
         case .intro:
-            navigationController.setViewControllers([IntroViewController(navigation: self)], animated: false)
+            navigationController.setViewControllers([IntroViewController(navigation: self, state: dependencies.stateRepository.state, energyPriceDatabase: dependencies.energyPriceDatabase)], animated: false)
         case .regionSelection:
             navigationController.pushViewController(RegionSelectionViewController(navigation: self, repository: dependencies.stateRepository), animated: true)
         case .loadData:

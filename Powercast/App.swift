@@ -2,6 +2,8 @@ import UIKit
 import GRDB
 
 protocol Dependenables: AnyObject {
+    var energyPriceDatabase: EnergyPriceDatabase { get }
+
     var energyPriceRepository: EnergyPriceRepository { get }
 
     var stateRepository: StateRepository { get }
@@ -17,10 +19,10 @@ class App: Dependenables {
     private lazy var navigation = AppNavigation(using: self as Dependenables)
 
     let powercastDataService: PowercastDataService
-    let energyPriceDatabase: DatabaseQueue
+    let energyPriceDatabase: EnergyPriceDatabase
     let stateRepository = StateRepository()
 
-    lazy var energyPriceRepository = EnergyPriceRepository(service: powercastDataService, database: energyPriceDatabase)
+    lazy var energyPriceRepository = EnergyPriceRepository(service: powercastDataService, database: energyPriceDatabase.queue)
     lazy var scheduler = BackgroundScheduler(repository: energyPriceRepository)
 
     init(configuration: AppConfiguration) {
@@ -36,7 +38,7 @@ class App: Dependenables {
 
     // MARK: - setups
 
-    private class func setupEnergyPriceDatabase(_ configuration: AppConfiguration) -> DatabaseQueue {
+    private class func setupEnergyPriceDatabase(_ configuration: AppConfiguration) -> EnergyPriceDatabase {
         var energyPriceConfiguration = Configuration()
         energyPriceConfiguration.label = "EnergyPrice"
 
@@ -51,10 +53,9 @@ class App: Dependenables {
             path: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("energyPrice.db").path,
             configuration: energyPriceConfiguration
         )
-        try! setup(energyPriceDatabase: database, using: configuration)
-        // swiftlint:enableforce_try
+        // swiftlint:enable force_try
 
-        return database
+        return EnergyPriceDatabase(queue: database, configuration: configuration)
     }
 
     private class func setupPowercastDataService(_ configuration: AppConfiguration) -> PowercastDataService {

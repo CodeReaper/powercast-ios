@@ -2,7 +2,7 @@ import UIKit
 import Combine
 
 class DataLoadingViewController: ViewController {
-    private let loadingView = View.buildLoadingView(color: UIColor.from(hex: "#96D4E7"))
+    private let loadingView = View.buildLoadingView(color: UIColor.from(hex: "#2c90d3"))
     private let loadingLabel = Label(text: "")
 
     private let repository: EnergyPriceRepository

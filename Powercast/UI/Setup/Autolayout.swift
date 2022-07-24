@@ -19,13 +19,32 @@ extension UIView {
         return self
     }
 
-    func setContentHugging(priority: UILayoutPriority, for axis: NSLayoutConstraint.Axis) -> Self {
-        setContentHuggingPriority(priority, for: axis)
+    @discardableResult
+    func setup(centeredIn superview: UIView) -> Self {
+        superview.addSubview(self)
+        translatesAutoresizingMaskIntoConstraints = false
+        safeAreaLayoutGuide.centerXAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        safeAreaLayoutGuide.centerYAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.centerYAnchor).isActive = true
         return self
     }
 
-    func setContentCompressionResistance(priority: UILayoutPriority, for axis: NSLayoutConstraint.Axis) -> Self {
-        setContentCompressionResistancePriority(priority, for: axis)
+    @discardableResult
+    func setup(under view: UIView, in superview: UIView) -> Self {
+        superview.addSubview(self)
+        translatesAutoresizingMaskIntoConstraints = false
+        safeAreaLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        safeAreaLayoutGuide.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        safeAreaLayoutGuide.leadingAnchor.constraint(greaterThanOrEqualTo: superview.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        safeAreaLayoutGuide.trailingAnchor.constraint(lessThanOrEqualTo: superview.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        safeAreaLayoutGuide.bottomAnchor.constraint(lessThanOrEqualTo: superview.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        return self
+    }
+
+    @discardableResult
+    func set(size: CGSize) -> Self {
+        translatesAutoresizingMaskIntoConstraints = false
+        safeAreaLayoutGuide.widthAnchor.constraint(equalToConstant: size.width).isActive = true
+        safeAreaLayoutGuide.heightAnchor.constraint(equalToConstant: size.height).isActive = true
         return self
     }
 }

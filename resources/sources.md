@@ -1,5 +1,9 @@
 # Sources
 
+## Fonts
+
+- https://www.fontsquirrel.com/fonts/alex-brush
+- https://www.fontsquirrel.com/fonts/cooper-hewitt
 
 ## Images
 

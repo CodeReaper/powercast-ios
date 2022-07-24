@@ -1,9 +1,11 @@
 import Foundation
 import GRDB
 
-extension App {
-    // swiftlint:disable function_body_length superfluous_disable_command
-    class func setup(energyPriceDatabase databaseQueue: DatabaseQueue, using configuration: AppConfiguration) throws {
+struct EnergyPriceDatabase {
+    let queue: DatabaseQueue
+    let configuration: AppConfiguration
+
+    func migrate() throws {
         var migrator = DatabaseMigrator()
 
         if configuration.allowDatabaseErasure {
@@ -19,6 +21,6 @@ extension App {
             }
         }
 
-        try migrator.migrate(databaseQueue)
+        try migrator.migrate(queue)
     }
 }

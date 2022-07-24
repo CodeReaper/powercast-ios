@@ -6,21 +6,23 @@ class EnergyPriceRepository {
     private let service: PowercastDataService
     private let database: DatabaseQueue
 
-    private var statusSubject = PassthroughSubject<Status, Never>()
+    private var statusSubject = CurrentValueSubject<Status, Never>(.pending)
+    private var refreshTask: Task<Void, Never>?
 
     lazy var status = statusSubject.eraseToAnyPublisher()
 
     init(service: PowercastDataService, database: DatabaseQueue) {
         self.service = service
         self.database = database
-
-        statusSubject.send(.unknown)
     }
 
     func refresh() -> Task<Void, Never> {
+        let runningTask = refreshTask
+        guard runningTask == nil else { return runningTask! }
+
         statusSubject.send(.updating(progress: 0))
 
-        return Task {
+        let task = Task {
             do {
                 var work: [Zone: [Date]] = [:]
                 var completed: [Zone: [Date]] = [:]
@@ -71,11 +73,15 @@ class EnergyPriceRepository {
                 print(error)
                 statusSubject.send(.failed)
             }
+
+            refreshTask = nil
         }
+        refreshTask = task
+        return task
     }
 
     enum Status {
-        case unknown
+        case pending
         case updating(progress: Double)
         case updated
         case failed

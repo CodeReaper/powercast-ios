@@ -42,7 +42,7 @@ class BackgroundScheduler {
             switch $0 {
             case .updated:
                 task.setTaskCompleted(success: true)
-            case .failed, .cancelled, .unknown:
+            case .failed, .cancelled, .pending:
                 task.setTaskCompleted(success: false)
             case .updating: break
             }

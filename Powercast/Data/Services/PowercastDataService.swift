@@ -104,13 +104,6 @@ struct PowercastDataServiceAPI: PowercastDataService {
     }
 }
 
-private extension Task where Success == Never, Failure == Never {
-    static func sleep(seconds: Double) async throws {
-        let duration = UInt64(seconds * 1_000_000_000)
-        try await Task.sleep(nanoseconds: duration)
-    }
-}
-
 private extension URLSession {
     @available(iOS, deprecated: 15.0, message: "This extension is no longer necessary. Use API built into SDK")
     func data(from url: URL) async throws -> (Data, URLResponse) {
