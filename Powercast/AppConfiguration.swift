@@ -6,7 +6,7 @@ struct AppConfiguration {
     let traceDatabaseStatments: Bool
 
     init() {
-        usesDemoData = true
+        usesDemoData = false
         allowDatabaseErasure = true
         traceDatabaseStatments = true
     }

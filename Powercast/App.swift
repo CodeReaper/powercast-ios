@@ -58,7 +58,7 @@ class App: Dependenables {
         if configuration.usesDemoData {
             return PowercastDataServiceDemoValues()
         } else {
-            fatalError("Real data is not yet implemented")
+            return PowercastDataServiceAPI()
         }
     }
 }
