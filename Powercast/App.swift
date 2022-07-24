@@ -7,12 +7,14 @@ protocol Dependenables: AnyObject {
     var energyPriceRepository: EnergyPriceRepository { get }
 
     var powercastDataService: PowercastDataService { get }
+
+    var scheduler: BackgroundScheduler { get }
 }
 
 class App: Dependenables {
     private let configuration: AppConfiguration
 
-    private lazy var navigation = AppNavigation(using: self)
+    private lazy var navigation = AppNavigation(using: self as Dependenables)
 
     let completedSetup = false
 
@@ -20,6 +22,7 @@ class App: Dependenables {
     let energyPriceDatabase: DatabaseQueue
 
     lazy var energyPriceRepository = EnergyPriceRepository(service: powercastDataService, database: energyPriceDatabase)
+    lazy var scheduler = BackgroundScheduler(repository: energyPriceRepository)
 
     init(configuration: AppConfiguration) {
         self.configuration = configuration
@@ -28,6 +31,7 @@ class App: Dependenables {
     }
 
     func didLaunch(with window: UIWindow) {
+        scheduler.register()
         navigation.setup(using: window)
     }
 

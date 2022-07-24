@@ -22,6 +22,7 @@
 		380CE903288AE9700003FF36 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE902288AE9700003FF36 /* Colors.swift */; };
 		380CE905288AF2040003FF36 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE904288AF2040003FF36 /* AppConfiguration.swift */; };
 		380CE908288AFC680003FF36 /* regions.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 380CE907288AFC680003FF36 /* regions.geojson */; };
+		384E642E288D90EF004ADCB1 /* BackgroundScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E642D288D90EF004ADCB1 /* BackgroundScheduler.swift */; };
 		387FF5FA286B909B0051E3DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF5F9286B909B0051E3DC /* AppDelegate.swift */; };
 		387FF5FC286B909B0051E3DC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF5FB286B909B0051E3DC /* SceneDelegate.swift */; };
 		387FF5FE286B909B0051E3DC /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF5FD286B909B0051E3DC /* IntroViewController.swift */; };
@@ -63,6 +64,7 @@
 		380CE902288AE9700003FF36 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		380CE904288AF2040003FF36 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		380CE907288AFC680003FF36 /* regions.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = regions.geojson; sourceTree = "<group>"; };
+		384E642D288D90EF004ADCB1 /* BackgroundScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundScheduler.swift; sourceTree = "<group>"; };
 		387FF5F6286B909B0051E3DC /* Powercast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Powercast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		387FF5F9286B909B0051E3DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		387FF5FB286B909B0051E3DC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -161,6 +163,14 @@
 			path = Assets.GeoJSON;
 			sourceTree = "<group>";
 		};
+		384E642C288D90EF004ADCB1 /* Scheduler */ = {
+			isa = PBXGroup;
+			children = (
+				384E642D288D90EF004ADCB1 /* BackgroundScheduler.swift */,
+			);
+			path = Scheduler;
+			sourceTree = "<group>";
+		};
 		387FF5ED286B909B0051E3DC = {
 			isa = PBXGroup;
 			children = (
@@ -224,6 +234,7 @@
 				380CE8E42888901A0003FF36 /* Migrations */,
 				38E0FA6C2884803F0096B98A /* Models */,
 				38E0FA632884759B0096B98A /* Repositories */,
+				384E642C288D90EF004ADCB1 /* Scheduler */,
 				38E0FA66288476C40096B98A /* Services */,
 			);
 			path = Data;
@@ -405,6 +416,7 @@
 				38FD15DD288354FF001C38F9 /* AboutViewController.swift in Sources */,
 				387FF5FA286B909B0051E3DC /* AppDelegate.swift in Sources */,
 				38DF5ABE28707A7E008630FB /* Translations.swift in Sources */,
+				384E642E288D90EF004ADCB1 /* BackgroundScheduler.swift in Sources */,
 				380CE905288AF2040003FF36 /* AppConfiguration.swift in Sources */,
 				38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */,
 				380CE8FB288AE55A0003FF36 /* ImageViews.swift in Sources */,

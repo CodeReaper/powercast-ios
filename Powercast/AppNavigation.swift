@@ -43,6 +43,7 @@ class AppNavigation {
         case .loadData:
             navigationController.pushViewController(DataLoadingViewController(navigation: self, repository: dependencies.energyPriceRepository), animated: true)
         case .dashboard:
+            dependencies.scheduler.schedule()
             navigationController.setViewControllers([DashboardViewController(navigation: self)], animated: lastEndpoint != .intro)
         case .settings:
             navigationController.pushViewController(SettingsViewController(navigation: self), animated: true)
