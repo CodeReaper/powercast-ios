@@ -8,6 +8,7 @@ enum Navigation {
     case settings
     case about
     case licenses
+    case actionSheet(options: [ActionSheetOption])
 }
 
 class AppNavigation {
@@ -15,7 +16,7 @@ class AppNavigation {
 
     private let dependencies: Dependenables
 
-    private var lastEndpoint = Navigation.intro
+    private var setDashboardAnimated = false
 
     init(using dependencies: Dependenables) {
         self.dependencies = dependencies
@@ -25,6 +26,7 @@ class AppNavigation {
         if dependencies.stateRepository.state.setupCompleted {
             navigate(to: .dashboard)
         } else {
+            setDashboardAnimated = true
             navigate(to: .intro)
         }
 
@@ -33,24 +35,24 @@ class AppNavigation {
     }
 
     func navigate(to endpoint: Navigation) {
-        defer { lastEndpoint = endpoint }
-
         switch endpoint {
         case .intro:
-            navigationController.setViewControllers([IntroViewController(navigation: self)], animated: false)
+            navigationController.setViewControllers([IntroViewController(navigation: self, state: dependencies.stateRepository.state, energyPriceDatabase: dependencies.energyPriceDatabase)], animated: false)
         case .regionSelection:
             navigationController.pushViewController(RegionSelectionViewController(navigation: self, repository: dependencies.stateRepository), animated: true)
         case .loadData:
             navigationController.pushViewController(DataLoadingViewController(navigation: self, repository: dependencies.energyPriceRepository), animated: true)
         case .dashboard:
             dependencies.scheduler.schedule()
-            navigationController.setViewControllers([DashboardViewController(navigation: self)], animated: lastEndpoint != .intro)
+            navigationController.setViewControllers([DashboardViewController(navigation: self)], animated: setDashboardAnimated)
         case .settings:
             navigationController.pushViewController(SettingsViewController(navigation: self), animated: true)
         case .licenses:
             navigationController.pushViewController(LicensesViewController(navigation: self), animated: true)
         case .about:
             navigationController.pushViewController(AboutViewController(navigation: self), animated: true)
+        case .actionSheet(let options):
+            navigationController.present(UIAlertController.build(with: options), animated: true)
         }
     }
 }

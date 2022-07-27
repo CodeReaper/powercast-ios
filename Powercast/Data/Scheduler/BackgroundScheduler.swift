@@ -19,8 +19,9 @@ class BackgroundScheduler {
     }
 
     func schedule() {
+        let minutesToFull = (60 - Calendar.current.component(.minute, from: Date())) + 5
         let request = BGProcessingTaskRequest(identifier: energyPriceRefresh)
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 15 * 60) // TODO: determine a good schedule
+        request.earliestBeginDate = Date(timeIntervalSinceNow: TimeInterval(minutesToFull * 60))
         request.requiresNetworkConnectivity = true
         request.requiresExternalPower = false
         do {
@@ -42,7 +43,7 @@ class BackgroundScheduler {
             switch $0 {
             case .updated:
                 task.setTaskCompleted(success: true)
-            case .failed, .cancelled, .unknown:
+            case .failed, .cancelled, .pending:
                 task.setTaskCompleted(success: false)
             case .updating: break
             }

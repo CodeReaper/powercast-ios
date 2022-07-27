@@ -2,7 +2,7 @@ import UIKit
 import Combine
 
 class DataLoadingViewController: ViewController {
-    private let loadingView = View.buildLoadingView(color: UIColor.from(hex: "#96D4E7"))
+    private let loadingView = View.buildLoadingView(color: .white)
     private let loadingLabel = Label(text: "")
 
     private let repository: EnergyPriceRepository
@@ -24,8 +24,6 @@ class DataLoadingViewController: ViewController {
 
         title = Translations.DATA_LOADING_TITLE
 
-        view.backgroundColor = .white
-
         Stack.views(
             aligned: .center,
             on: .vertical,
@@ -44,18 +42,37 @@ class DataLoadingViewController: ViewController {
 
         loadingView.play()
 
+        let dispatch = DispatchGroup()
+
+        dispatch.enter()
+        Task {
+            try? await Task.sleep(seconds: 1.0)
+            dispatch.leave()
+        }
+
+        dispatch.enter()
         statusSink = repository.status.receive(on: DispatchQueue.main).sink { [weak self] in
             switch $0 {
             case let .updating(progress):
-                self?.loadingLabel.text = "\(progress)"
+                self?.loadingLabel.text = String(format: "%.0f%%", progress * 100)
             case .updated:
-                self?.navigation.navigate(to: .dashboard)
+                dispatch.leave()
             case .failed:
-                break // TODO: handle error
+                self?.navigation.navigate(to: .actionSheet(options: [
+                    ActionSheetOption.title(text: Translations.DATA_LOADING_REFRESH_FAILED_TITLE),
+                    .message(text: Translations.DATA_LOADING_REFRESH_FAILED_MESSAGE),
+                    .style(preference: .alert),
+                    .cancel(text: Translations.DATA_LOADING_REFRESH_FAILED_NEGATIVE_BUTTON, action: { self?.navigationController?.popViewController(animated: true) }),
+                    .button(text: Translations.DATA_LOADING_REFRESH_FAILED_POSITIVE_BUTTON, action: { self?.refreshTask = self?.repository.refresh() })
+                ]))
             default: break
             }
         }
         refreshTask = repository.refresh()
+
+        dispatch.notify(queue: .main) { [weak self] in
+            self?.navigation.navigate(to: .dashboard)
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {

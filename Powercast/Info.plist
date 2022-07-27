@@ -23,10 +23,32 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>AlexBrush-Regular.ttf</string>
+		<string>CooperHewitt-Bold.otf</string>
+		<string>CooperHewitt-BoldItalic.otf</string>
+		<string>CooperHewitt-Book.otf</string>
+		<string>CooperHewitt-BookItalic.otf</string>
+		<string>CooperHewitt-Heavy.otf</string>
+		<string>CooperHewitt-HeavyItalic.otf</string>
+		<string>CooperHewitt-Light.otf</string>
+		<string>CooperHewitt-LightItalic.otf</string>
+		<string>CooperHewitt-Medium.otf</string>
+		<string>CooperHewitt-MediumItalic.otf</string>
+		<string>CooperHewitt-Semibold.otf</string>
+		<string>CooperHewitt-SemiboldItalic.otf</string>
+		<string>CooperHewitt-Thin.otf</string>
+		<string>CooperHewitt-ThinItalic.otf</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
 		<string>processing</string>
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
 </dict>
 </plist>

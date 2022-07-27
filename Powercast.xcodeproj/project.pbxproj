@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		380CE8E62888901A0003FF36 /* EnergyPriceMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE8E52888901A0003FF36 /* EnergyPriceMigration.swift */; };
+		380CE8E62888901A0003FF36 /* EnergyPriceDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE8E52888901A0003FF36 /* EnergyPriceDatabase.swift */; };
 		380CE8E9288892490003FF36 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 380CE8E8288892490003FF36 /* Lottie */; };
 		380CE8EC288893E30003FF36 /* 112626-connecting.json in Resources */ = {isa = PBXBuildFile; fileRef = 380CE8EB288893E30003FF36 /* 112626-connecting.json */; };
 		380CE8EE288893F90003FF36 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE8ED288893F90003FF36 /* Animations.swift */; };
@@ -27,9 +27,32 @@
 		384E6437288D9FD9004ADCB1 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6436288D9FD9004ADCB1 /* State.swift */; };
 		384E643A288DAA56004ADCB1 /* Sourcery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6439288DAA56004ADCB1 /* Sourcery.swift */; };
 		384E643F288DAEBF004ADCB1 /* StateCopy.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E643E288DAEBF004ADCB1 /* StateCopy.generated.swift */; };
+		384E6444288DBD53004ADCB1 /* AlexBrush-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6443288DBD53004ADCB1 /* AlexBrush-Regular.ttf */; };
+		384E6446288DC430004ADCB1 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6445288DC430004ADCB1 /* Fonts.swift */; };
+		384E6455288DC80E004ADCB1 /* CooperHewitt-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6447288DC80D004ADCB1 /* CooperHewitt-Heavy.otf */; };
+		384E6456288DC80E004ADCB1 /* CooperHewitt-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6448288DC80D004ADCB1 /* CooperHewitt-LightItalic.otf */; };
+		384E6457288DC80E004ADCB1 /* CooperHewitt-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6449288DC80D004ADCB1 /* CooperHewitt-Bold.otf */; };
+		384E6458288DC80E004ADCB1 /* CooperHewitt-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E644A288DC80D004ADCB1 /* CooperHewitt-Book.otf */; };
+		384E6459288DC80E004ADCB1 /* CooperHewitt-BookItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E644B288DC80D004ADCB1 /* CooperHewitt-BookItalic.otf */; };
+		384E645A288DC80E004ADCB1 /* CooperHewitt-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E644C288DC80E004ADCB1 /* CooperHewitt-ThinItalic.otf */; };
+		384E645B288DC80E004ADCB1 /* CooperHewitt-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E644D288DC80E004ADCB1 /* CooperHewitt-Medium.otf */; };
+		384E645C288DC80E004ADCB1 /* CooperHewitt-SemiboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E644E288DC80E004ADCB1 /* CooperHewitt-SemiboldItalic.otf */; };
+		384E645D288DC80E004ADCB1 /* CooperHewitt-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E644F288DC80E004ADCB1 /* CooperHewitt-Thin.otf */; };
+		384E645E288DC80E004ADCB1 /* CooperHewitt-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6450288DC80E004ADCB1 /* CooperHewitt-Semibold.otf */; };
+		384E645F288DC80E004ADCB1 /* CooperHewitt-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6451288DC80E004ADCB1 /* CooperHewitt-MediumItalic.otf */; };
+		384E6460288DC80E004ADCB1 /* CooperHewitt-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6452288DC80E004ADCB1 /* CooperHewitt-Light.otf */; };
+		384E6461288DC80E004ADCB1 /* CooperHewitt-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6453288DC80E004ADCB1 /* CooperHewitt-BoldItalic.otf */; };
+		384E6462288DC80E004ADCB1 /* CooperHewitt-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6454288DC80E004ADCB1 /* CooperHewitt-HeavyItalic.otf */; };
+		384E6464288DD598004ADCB1 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6463288DD598004ADCB1 /* SpinnerView.swift */; };
+		384E6467288ED61D004ADCB1 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6466288ED61D004ADCB1 /* IntroViewController.swift */; };
+		384E6469288ED62D004ADCB1 /* IntroInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6468288ED62D004ADCB1 /* IntroInteractor.swift */; };
+		384E646B288EDAAF004ADCB1 /* Appearence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E646A288EDAAF004ADCB1 /* Appearence.swift */; };
+		384E646F288EDE96004ADCB1 /* RegionSelectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E646D288EDE96004ADCB1 /* RegionSelectionInteractor.swift */; };
+		384E6470288EDE96004ADCB1 /* RegionSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E646E288EDE96004ADCB1 /* RegionSelectionViewController.swift */; };
+		384E6472288EE5A3004ADCB1 /* ActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6471288EE5A3004ADCB1 /* ActionSheet.swift */; };
+		384E647528915F52004ADCB1 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E647428915F52004ADCB1 /* Task.swift */; };
 		387FF5FA286B909B0051E3DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF5F9286B909B0051E3DC /* AppDelegate.swift */; };
 		387FF5FC286B909B0051E3DC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF5FB286B909B0051E3DC /* SceneDelegate.swift */; };
-		387FF5FE286B909B0051E3DC /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF5FD286B909B0051E3DC /* IntroViewController.swift */; };
 		387FF603286B90A40051E3DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 387FF602286B90A40051E3DC /* Assets.xcassets */; };
 		387FF606286B90A40051E3DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 387FF604286B90A40051E3DC /* LaunchScreen.storyboard */; };
 		387FF60E286B95B00051E3DC /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF60D286B95B00051E3DC /* App.swift */; };
@@ -45,7 +68,6 @@
 		38E0FA702884808D0096B98A /* Zone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E0FA6F2884808D0096B98A /* Zone.swift */; };
 		38E0FA722884822C0096B98A /* _Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E0FA712884822C0096B98A /* _Database.swift */; };
 		38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15C828833A5B001C38F9 /* AppNavigation.swift */; };
-		38FD15CF28833AEA001C38F9 /* RegionSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15CE28833AEA001C38F9 /* RegionSelectionViewController.swift */; };
 		38FD15D728835058001C38F9 /* DataLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15D628835058001C38F9 /* DataLoadingViewController.swift */; };
 		38FD15D928835291001C38F9 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15D828835291001C38F9 /* DashboardViewController.swift */; };
 		38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DA28835353001C38F9 /* SettingsViewController.swift */; };
@@ -54,7 +76,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		380CE8E52888901A0003FF36 /* EnergyPriceMigration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyPriceMigration.swift; sourceTree = "<group>"; };
+		380CE8E52888901A0003FF36 /* EnergyPriceDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyPriceDatabase.swift; sourceTree = "<group>"; };
 		380CE8EB288893E30003FF36 /* 112626-connecting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "112626-connecting.json"; sourceTree = "<group>"; };
 		380CE8ED288893F90003FF36 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		380CE8F0288AE4C20003FF36 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -73,10 +95,33 @@
 		384E6436288D9FD9004ADCB1 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		384E6439288DAA56004ADCB1 /* Sourcery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sourcery.swift; sourceTree = "<group>"; };
 		384E643E288DAEBF004ADCB1 /* StateCopy.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateCopy.generated.swift; sourceTree = "<group>"; };
+		384E6443288DBD53004ADCB1 /* AlexBrush-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlexBrush-Regular.ttf"; sourceTree = "<group>"; };
+		384E6445288DC430004ADCB1 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		384E6447288DC80D004ADCB1 /* CooperHewitt-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Heavy.otf"; sourceTree = "<group>"; };
+		384E6448288DC80D004ADCB1 /* CooperHewitt-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-LightItalic.otf"; sourceTree = "<group>"; };
+		384E6449288DC80D004ADCB1 /* CooperHewitt-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Bold.otf"; sourceTree = "<group>"; };
+		384E644A288DC80D004ADCB1 /* CooperHewitt-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Book.otf"; sourceTree = "<group>"; };
+		384E644B288DC80D004ADCB1 /* CooperHewitt-BookItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-BookItalic.otf"; sourceTree = "<group>"; };
+		384E644C288DC80E004ADCB1 /* CooperHewitt-ThinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-ThinItalic.otf"; sourceTree = "<group>"; };
+		384E644D288DC80E004ADCB1 /* CooperHewitt-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Medium.otf"; sourceTree = "<group>"; };
+		384E644E288DC80E004ADCB1 /* CooperHewitt-SemiboldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-SemiboldItalic.otf"; sourceTree = "<group>"; };
+		384E644F288DC80E004ADCB1 /* CooperHewitt-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Thin.otf"; sourceTree = "<group>"; };
+		384E6450288DC80E004ADCB1 /* CooperHewitt-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Semibold.otf"; sourceTree = "<group>"; };
+		384E6451288DC80E004ADCB1 /* CooperHewitt-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-MediumItalic.otf"; sourceTree = "<group>"; };
+		384E6452288DC80E004ADCB1 /* CooperHewitt-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Light.otf"; sourceTree = "<group>"; };
+		384E6453288DC80E004ADCB1 /* CooperHewitt-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-BoldItalic.otf"; sourceTree = "<group>"; };
+		384E6454288DC80E004ADCB1 /* CooperHewitt-HeavyItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-HeavyItalic.otf"; sourceTree = "<group>"; };
+		384E6463288DD598004ADCB1 /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
+		384E6466288ED61D004ADCB1 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
+		384E6468288ED62D004ADCB1 /* IntroInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroInteractor.swift; sourceTree = "<group>"; };
+		384E646A288EDAAF004ADCB1 /* Appearence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearence.swift; sourceTree = "<group>"; };
+		384E646D288EDE96004ADCB1 /* RegionSelectionInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionSelectionInteractor.swift; sourceTree = "<group>"; };
+		384E646E288EDE96004ADCB1 /* RegionSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionSelectionViewController.swift; sourceTree = "<group>"; };
+		384E6471288EE5A3004ADCB1 /* ActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheet.swift; sourceTree = "<group>"; };
+		384E647428915F52004ADCB1 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		387FF5F6286B909B0051E3DC /* Powercast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Powercast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		387FF5F9286B909B0051E3DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		387FF5FB286B909B0051E3DC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		387FF5FD286B909B0051E3DC /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		387FF602286B90A40051E3DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		387FF605286B90A40051E3DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		387FF607286B90A40051E3DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -96,7 +141,6 @@
 		38E0FA6F2884808D0096B98A /* Zone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zone.swift; sourceTree = "<group>"; };
 		38E0FA712884822C0096B98A /* _Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Database.swift; sourceTree = "<group>"; };
 		38FD15C828833A5B001C38F9 /* AppNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigation.swift; sourceTree = "<group>"; };
-		38FD15CE28833AEA001C38F9 /* RegionSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionSelectionViewController.swift; sourceTree = "<group>"; };
 		38FD15D628835058001C38F9 /* DataLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadingViewController.swift; sourceTree = "<group>"; };
 		38FD15D828835291001C38F9 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		38FD15DA28835353001C38F9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -120,7 +164,7 @@
 		380CE8E42888901A0003FF36 /* Migrations */ = {
 			isa = PBXGroup;
 			children = (
-				380CE8E52888901A0003FF36 /* EnergyPriceMigration.swift */,
+				380CE8E52888901A0003FF36 /* EnergyPriceDatabase.swift */,
 			);
 			path = Migrations;
 			sourceTree = "<group>";
@@ -138,6 +182,7 @@
 			children = (
 				380CE900288AE7370003FF36 /* _View.swift */,
 				380CE8F0288AE4C20003FF36 /* LoadingView.swift */,
+				384E6463288DD598004ADCB1 /* SpinnerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -145,6 +190,7 @@
 		380CE8F2288AE55A0003FF36 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				384E6471288EE5A3004ADCB1 /* ActionSheet.swift */,
 				380CE8F3288AE55A0003FF36 /* Buttons.swift */,
 				380CE8F4288AE55A0003FF36 /* ImageViews.swift */,
 				380CE8F6288AE55A0003FF36 /* Labels.swift */,
@@ -156,6 +202,7 @@
 		380CE8F7288AE55A0003FF36 /* Setup */ = {
 			isa = PBXGroup;
 			children = (
+				384E646A288EDAAF004ADCB1 /* Appearence.swift */,
 				380CE8F8288AE55A0003FF36 /* Autolayout.swift */,
 				380CE902288AE9700003FF36 /* Colors.swift */,
 				380CE8F9288AE55A0003FF36 /* ViewControllers.swift */,
@@ -185,6 +232,54 @@
 				384E643E288DAEBF004ADCB1 /* StateCopy.generated.swift */,
 			);
 			path = Autogenerated;
+			sourceTree = "<group>";
+		};
+		384E6442288DBD53004ADCB1 /* Assets.Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				384E6449288DC80D004ADCB1 /* CooperHewitt-Bold.otf */,
+				384E6453288DC80E004ADCB1 /* CooperHewitt-BoldItalic.otf */,
+				384E644A288DC80D004ADCB1 /* CooperHewitt-Book.otf */,
+				384E644B288DC80D004ADCB1 /* CooperHewitt-BookItalic.otf */,
+				384E6447288DC80D004ADCB1 /* CooperHewitt-Heavy.otf */,
+				384E6454288DC80E004ADCB1 /* CooperHewitt-HeavyItalic.otf */,
+				384E6452288DC80E004ADCB1 /* CooperHewitt-Light.otf */,
+				384E6448288DC80D004ADCB1 /* CooperHewitt-LightItalic.otf */,
+				384E644D288DC80E004ADCB1 /* CooperHewitt-Medium.otf */,
+				384E6451288DC80E004ADCB1 /* CooperHewitt-MediumItalic.otf */,
+				384E6450288DC80E004ADCB1 /* CooperHewitt-Semibold.otf */,
+				384E644E288DC80E004ADCB1 /* CooperHewitt-SemiboldItalic.otf */,
+				384E644F288DC80E004ADCB1 /* CooperHewitt-Thin.otf */,
+				384E644C288DC80E004ADCB1 /* CooperHewitt-ThinItalic.otf */,
+				384E6443288DBD53004ADCB1 /* AlexBrush-Regular.ttf */,
+			);
+			path = Assets.Fonts;
+			sourceTree = "<group>";
+		};
+		384E6465288ED61D004ADCB1 /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				384E6468288ED62D004ADCB1 /* IntroInteractor.swift */,
+				384E6466288ED61D004ADCB1 /* IntroViewController.swift */,
+			);
+			path = Intro;
+			sourceTree = "<group>";
+		};
+		384E646C288EDE96004ADCB1 /* RegionSelection */ = {
+			isa = PBXGroup;
+			children = (
+				384E646D288EDE96004ADCB1 /* RegionSelectionInteractor.swift */,
+				384E646E288EDE96004ADCB1 /* RegionSelectionViewController.swift */,
+			);
+			path = RegionSelection;
+			sourceTree = "<group>";
+		};
+		384E647328915F52004ADCB1 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				384E647428915F52004ADCB1 /* Task.swift */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 		387FF5ED286B909B0051E3DC = {
@@ -217,10 +312,12 @@
 				387FF602286B90A40051E3DC /* Assets.xcassets */,
 				38DF5AAB287079DE008630FB /* Assets */,
 				380CE8EA288893E30003FF36 /* Assets.Animations */,
+				384E6442288DBD53004ADCB1 /* Assets.Fonts */,
 				380CE906288AFC680003FF36 /* Assets.GeoJSON */,
 				384E643D288DAEBF004ADCB1 /* Autogenerated */,
 				38E0FA622884759B0096B98A /* Data */,
 				387FF604286B90A40051E3DC /* LaunchScreen.storyboard */,
+				384E647328915F52004ADCB1 /* Tools */,
 				38FD15C5288335A1001C38F9 /* UI */,
 			);
 			path = Powercast;
@@ -230,6 +327,7 @@
 			isa = PBXGroup;
 			children = (
 				380CE8ED288893F90003FF36 /* Animations.swift */,
+				384E6445288DC430004ADCB1 /* Fonts.swift */,
 				38DF5AAC287079DE008630FB /* Images.swift */,
 				38DF5ABD28707A7E008630FB /* Translations.swift */,
 				38DF5ABF28708077008630FB /* Translations */,
@@ -303,10 +401,10 @@
 				38FD15DC288354FF001C38F9 /* AboutViewController.swift */,
 				38FD15D828835291001C38F9 /* DashboardViewController.swift */,
 				38FD15D628835058001C38F9 /* DataLoadingViewController.swift */,
-				387FF5FD286B909B0051E3DC /* IntroViewController.swift */,
 				38FD15DE28835528001C38F9 /* LicensesViewController.swift */,
-				38FD15CE28833AEA001C38F9 /* RegionSelectionViewController.swift */,
 				38FD15DA28835353001C38F9 /* SettingsViewController.swift */,
+				384E6465288ED61D004ADCB1 /* Intro */,
+				384E646C288EDE96004ADCB1 /* RegionSelection */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -382,11 +480,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				380CE908288AFC680003FF36 /* regions.geojson in Resources */,
+				384E6459288DC80E004ADCB1 /* CooperHewitt-BookItalic.otf in Resources */,
+				384E6457288DC80E004ADCB1 /* CooperHewitt-Bold.otf in Resources */,
+				384E6462288DC80E004ADCB1 /* CooperHewitt-HeavyItalic.otf in Resources */,
 				387FF606286B90A40051E3DC /* LaunchScreen.storyboard in Resources */,
 				380CE8EC288893E30003FF36 /* 112626-connecting.json in Resources */,
 				38DF5AC928708077008630FB /* InfoPlist.strings in Resources */,
+				384E645A288DC80E004ADCB1 /* CooperHewitt-ThinItalic.otf in Resources */,
+				384E6461288DC80E004ADCB1 /* CooperHewitt-BoldItalic.otf in Resources */,
+				384E6455288DC80E004ADCB1 /* CooperHewitt-Heavy.otf in Resources */,
+				384E645C288DC80E004ADCB1 /* CooperHewitt-SemiboldItalic.otf in Resources */,
+				384E645D288DC80E004ADCB1 /* CooperHewitt-Thin.otf in Resources */,
+				384E6460288DC80E004ADCB1 /* CooperHewitt-Light.otf in Resources */,
+				384E6458288DC80E004ADCB1 /* CooperHewitt-Book.otf in Resources */,
 				38DF5AC828708077008630FB /* Localizable.strings in Resources */,
 				387FF603286B90A40051E3DC /* Assets.xcassets in Resources */,
+				384E645F288DC80E004ADCB1 /* CooperHewitt-MediumItalic.otf in Resources */,
+				384E6444288DBD53004ADCB1 /* AlexBrush-Regular.ttf in Resources */,
+				384E6456288DC80E004ADCB1 /* CooperHewitt-LightItalic.otf in Resources */,
+				384E645E288DC80E004ADCB1 /* CooperHewitt-Semibold.otf in Resources */,
+				384E645B288DC80E004ADCB1 /* CooperHewitt-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,11 +549,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				380CE8E62888901A0003FF36 /* EnergyPriceMigration.swift in Sources */,
+				380CE8E62888901A0003FF36 /* EnergyPriceDatabase.swift in Sources */,
 				380CE903288AE9700003FF36 /* Colors.swift in Sources */,
 				38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */,
 				38E0FA702884808D0096B98A /* Zone.swift in Sources */,
-				387FF5FE286B909B0051E3DC /* IntroViewController.swift in Sources */,
 				380CE8F1288AE4C30003FF36 /* LoadingView.swift in Sources */,
 				380CE8FF288AE55A0003FF36 /* ViewControllers.swift in Sources */,
 				38FD15D728835058001C38F9 /* DataLoadingViewController.swift in Sources */,
@@ -455,15 +567,19 @@
 				380CE8FC288AE55A0003FF36 /* StackViews.swift in Sources */,
 				380CE8EE288893F90003FF36 /* Animations.swift in Sources */,
 				38FD15DD288354FF001C38F9 /* AboutViewController.swift in Sources */,
+				384E6472288EE5A3004ADCB1 /* ActionSheet.swift in Sources */,
 				387FF5FA286B909B0051E3DC /* AppDelegate.swift in Sources */,
 				38DF5ABE28707A7E008630FB /* Translations.swift in Sources */,
+				384E6469288ED62D004ADCB1 /* IntroInteractor.swift in Sources */,
 				384E642E288D90EF004ADCB1 /* BackgroundScheduler.swift in Sources */,
+				384E6470288EDE96004ADCB1 /* RegionSelectionViewController.swift in Sources */,
 				380CE905288AF2040003FF36 /* AppConfiguration.swift in Sources */,
+				384E646B288EDAAF004ADCB1 /* Appearence.swift in Sources */,
 				38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */,
 				380CE8FB288AE55A0003FF36 /* ImageViews.swift in Sources */,
-				38FD15CF28833AEA001C38F9 /* RegionSelectionViewController.swift in Sources */,
 				38E0FA6E2884803F0096B98A /* EnergyPrice.swift in Sources */,
 				387FF5FC286B909B0051E3DC /* SceneDelegate.swift in Sources */,
+				384E6464288DD598004ADCB1 /* SpinnerView.swift in Sources */,
 				380CE901288AE7370003FF36 /* _View.swift in Sources */,
 				384E643F288DAEBF004ADCB1 /* StateCopy.generated.swift in Sources */,
 				38E0FA68288476C40096B98A /* PowercastDataService.swift in Sources */,
@@ -471,7 +587,11 @@
 				380CE8FA288AE55A0003FF36 /* Buttons.swift in Sources */,
 				387FF610286B95BB0051E3DC /* global.swift in Sources */,
 				384E643A288DAA56004ADCB1 /* Sourcery.swift in Sources */,
+				384E6446288DC430004ADCB1 /* Fonts.swift in Sources */,
 				38E0FA722884822C0096B98A /* _Database.swift in Sources */,
+				384E647528915F52004ADCB1 /* Task.swift in Sources */,
+				384E6467288ED61D004ADCB1 /* IntroViewController.swift in Sources */,
+				384E646F288EDE96004ADCB1 /* RegionSelectionInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

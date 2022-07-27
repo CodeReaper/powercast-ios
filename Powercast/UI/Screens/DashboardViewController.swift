@@ -6,8 +6,6 @@ class DashboardViewController: ViewController {
 
         title = Translations.DASHBOARD_TITLE
 
-        view.backgroundColor = .white
-
         Stack.views(
             aligned: .center,
             on: .vertical,
