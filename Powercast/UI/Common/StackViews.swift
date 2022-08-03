@@ -63,10 +63,3 @@ extension UIView {
         return Stack.views(inset: inset, self)
     }
 }
-
-private extension NSLayoutConstraint {
-    func set(priority: UILayoutPriority) -> Self {
-        self.priority = priority
-        return self
-    }
-}

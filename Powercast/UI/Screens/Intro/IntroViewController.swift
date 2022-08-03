@@ -3,9 +3,12 @@ import UIKit
 class IntroViewController: ViewController {
     private let overlayBackground = UIView()
     private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-    private let button: Button
 
+    private let button: Button
     private let pages: [UIViewController]
+
+    private var fullConstraints: [NSLayoutConstraint] = []
+    private var halfConstraints: [NSLayoutConstraint] = []
 
     private var interactor: IntroInteractor!
 
@@ -54,7 +57,7 @@ class IntroViewController: ViewController {
         ]
         self.button = RoundedButton(text: Translations.INTRO_PAGES_BUTTON_NEXT)
         super.init(navigation: navigation)
-        self.interactor = IntroInteractor(navigation: navigation, delegate: self, state: state, energyPriceDatabase: energyPriceDatabase)
+        self.interactor = IntroInteractor(delegate: self, state: state, energyPriceDatabase: energyPriceDatabase)
     }
 
     required init?(coder: NSCoder) {
@@ -86,7 +89,7 @@ class IntroViewController: ViewController {
         ImageView(image: Images.offshore_wind_power, mode: .scaleAspectFill).setup(in: view, usingSafeLayout: false)
 
         button.addTarget(self, action: #selector(didTap), for: .touchUpInside)
-        Stack.views(
+        let stackView = Stack.views(
             aligned: .center,
             on: .vertical,
             spacing: 15,
@@ -96,7 +99,20 @@ class IntroViewController: ViewController {
             button.set(height: 44).inset(NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
         )
         .fill()
-        .setup(in: view)
+        view.addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        fullConstraints.append(contentsOf: [
+            stackView.safeAreaLayoutGuide.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
+            stackView.safeAreaLayoutGuide.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor),
+            stackView.safeAreaLayoutGuide.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            stackView.safeAreaLayoutGuide.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+        ])
+        halfConstraints.append(contentsOf: [
+            stackView.safeAreaLayoutGuide.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.666),
+            stackView.safeAreaLayoutGuide.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor),
+            stackView.safeAreaLayoutGuide.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            stackView.safeAreaLayoutGuide.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+        ])
 
         overlayBackground.isUserInteractionEnabled = true
         overlayBackground.backgroundColor = UIColor.from(hex: "#2c90d3")
@@ -106,7 +122,24 @@ class IntroViewController: ViewController {
 
         SpinnerView(color: .white).startAnimating().set(height: 60).setup(under: imageView, in: overlayBackground)
 
+        layoutTrait(traitCollection: UIScreen.main.traitCollection)
+
         interactor.viewDidLoad()
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        layoutTrait(traitCollection: traitCollection)
+    }
+
+    private func layoutTrait(traitCollection: UITraitCollection) {
+        if traitCollection.userInterfaceIdiom != .phone {
+            NSLayoutConstraint.deactivate(fullConstraints)
+            NSLayoutConstraint.activate(halfConstraints)
+        } else {
+            NSLayoutConstraint.deactivate(halfConstraints)
+            NSLayoutConstraint.activate(fullConstraints)
+        }
     }
 
     @objc private func didTap() {
@@ -159,6 +192,11 @@ extension IntroViewController: IntroDelegate {
         } completion: { _ in
             self.overlayBackground.removeFromSuperview()
         }
+    }
+
+    func showDashboard() {
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigation.navigate(to: .dashboard)
     }
 }
 

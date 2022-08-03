@@ -40,9 +40,7 @@ class RegionSelectionViewController: ViewController {
     }
 
     @objc private func didTapMap(_ sender: UITapGestureRecognizer) {
-        let coordinate = MKMapPoint(mapView.convert(sender.location(in: mapView), toCoordinateFrom: mapView))
-
-        interactor.didTap(coordinate)
+        interactor.didTap(sender.location(in: mapView), in: mapView)
     }
 
     @objc private func didTapSave() {

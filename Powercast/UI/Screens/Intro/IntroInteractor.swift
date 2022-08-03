@@ -2,17 +2,16 @@ import Foundation
 
 protocol IntroDelegate: AnyObject {
     func showIntroduction()
+    func showDashboard()
 }
 
 struct IntroInteractor {
-    private let navigation: AppNavigation
     private let energyPriceDatabase: EnergyPriceDatabase
     private let state: State
 
     private weak var delegate: IntroDelegate?
 
-    init(navigation: AppNavigation, delegate: IntroDelegate, state: State, energyPriceDatabase: EnergyPriceDatabase) {
-        self.navigation = navigation
+    init(delegate: IntroDelegate, state: State, energyPriceDatabase: EnergyPriceDatabase) {
         self.delegate = delegate
         self.state = state
         self.energyPriceDatabase = energyPriceDatabase
@@ -37,7 +36,7 @@ struct IntroInteractor {
 
         dispatch.notify(queue: .main) {
             if state.setupCompleted {
-                navigation.navigate(to: .dashboard)
+                delegate?.showDashboard()
             } else {
                 delegate?.showIntroduction()
             }

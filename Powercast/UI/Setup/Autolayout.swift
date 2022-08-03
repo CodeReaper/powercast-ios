@@ -67,4 +67,19 @@ extension UIView {
         safeAreaLayoutGuide.heightAnchor.constraint(greaterThanOrEqualToConstant: height).isActive = true
         return self
     }
+
+    @discardableResult
+    func layout(in superview: UIView, setup: ((NSLayoutConstraint) -> Void, UIView) -> Void) -> Self {
+        superview.addSubview(self)
+        translatesAutoresizingMaskIntoConstraints = false
+        setup({ $0.isActive = true }, self)
+        return self
+    }
+}
+
+extension NSLayoutConstraint {
+    func set(priority: UILayoutPriority) -> Self {
+        self.priority = priority
+        return self
+    }
 }

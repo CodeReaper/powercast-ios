@@ -51,7 +51,8 @@ class RegionSelectionInteractor {
         delegate?.show(overlays: overlays, selectedRegion: nil)
     }
 
-    func didTap(_ coordinate: MKMapPoint) {
+    func didTap(_ location: CGPoint, in mapView: MKMapView) {
+        let coordinate = MKMapPoint(mapView.convert(location, toCoordinateFrom: mapView))
         for item in overlays {
             let render = MKPolygonRenderer(overlay: item.polygon)
             if render.path.contains(render.point(for: coordinate)) {
@@ -64,7 +65,8 @@ class RegionSelectionInteractor {
                         .message(text: Translations.REGION_SELECTION_CONFIRMATION_MESSAGE),
                         .style(preference: .actionSheet),
                         .cancel(text: Translations.REGION_SELECTION_CONFIRMATION_NEGATIVE_BUTTON, action: nil),
-                        .button(text: Translations.REGION_SELECTION_CONFIRMATION_POSITIVE_BUTTON, action: { self.didTapSave() })
+                        .button(text: Translations.REGION_SELECTION_CONFIRMATION_POSITIVE_BUTTON, action: { self.didTapSave() }),
+                        .source(view: mapView, rect: CGRect(origin: location, size: .zero))
                     ]))
                 }
                 break

@@ -16,7 +16,7 @@ protocol Dependenables: AnyObject {
 class App: Dependenables {
     private let configuration: AppConfiguration
 
-    private lazy var navigation = AppNavigation(using: self as Dependenables)
+    private lazy var navigation = AppNavigation(using: self as Dependenables, on: UIScreen.main.traitCollection.userInterfaceIdiom)
 
     let powercastDataService: PowercastDataService
     let energyPriceDatabase: EnergyPriceDatabase

@@ -9,6 +9,7 @@ enum ActionSheetOption {
     case style(preference: UIAlertController.Style)
     case cancel(text: String, action: ActionSheetAction?)
     case button(text: String, action: ActionSheetAction)
+    case source(view: UIView, rect: CGRect)
 }
 
 extension UIAlertController {
@@ -41,6 +42,9 @@ extension UIAlertController {
                 actionSheet.addAction(UIAlertAction(title: text, style: .cancel, handler: { _ in action?() }))
             case let .button(text, action):
                 actionSheet.addAction(UIAlertAction(title: text, style: .default, handler: { _ in action() }))
+            case let .source(view, rect):
+                actionSheet.popoverPresentationController?.sourceView = view
+                actionSheet.popoverPresentationController?.sourceRect = rect
             case .title, .message, .style:
                 break
             }
