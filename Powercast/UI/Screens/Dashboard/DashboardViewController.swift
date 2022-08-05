@@ -2,7 +2,7 @@ import UIKit
 
 class DashboardViewController: ViewController {
     private let graphView = GraphView()
-    private let spinnerView = SpinnerView(color: UIColor.from(hex: "#2c90d3"))
+    private let spinnerView = SpinnerView(color: Color.primary)
     private let backgroundView = UIView()
 
     private var data: [Zone: [Date: EnergyPrice]] = [:]

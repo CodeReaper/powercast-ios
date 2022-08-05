@@ -77,6 +77,7 @@
 		38ECF94B289B0ACF00ED8372 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF94A289B0ACF00ED8372 /* Date.swift */; };
 		38ECF94D289C467B00ED8372 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF94C289C467B00ED8372 /* TimeInterval.swift */; };
 		38ECF94F289C5A5000ED8372 /* UIBeizerPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF94E289C5A5000ED8372 /* UIBeizerPath.swift */; };
+		38ECF951289D6FF600ED8372 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF950289D6FF600ED8372 /* Colors.swift */; };
 		38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15C828833A5B001C38F9 /* AppNavigation.swift */; };
 		38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DA28835353001C38F9 /* SettingsViewController.swift */; };
 		38FD15DD288354FF001C38F9 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DC288354FF001C38F9 /* AboutViewController.swift */; };
@@ -158,6 +159,7 @@
 		38ECF94A289B0ACF00ED8372 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		38ECF94C289C467B00ED8372 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		38ECF94E289C5A5000ED8372 /* UIBeizerPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBeizerPath.swift; sourceTree = "<group>"; };
+		38ECF950289D6FF600ED8372 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		38FD15C828833A5B001C38F9 /* AppNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigation.swift; sourceTree = "<group>"; };
 		38FD15DA28835353001C38F9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		38FD15DC288354FF001C38F9 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 			isa = PBXGroup;
 			children = (
 				380CE8ED288893F90003FF36 /* Animations.swift */,
+				38ECF950289D6FF600ED8372 /* Colors.swift */,
 				384E6445288DC430004ADCB1 /* Fonts.swift */,
 				38DF5AAC287079DE008630FB /* Images.swift */,
 				38DF5ABD28707A7E008630FB /* Translations.swift */,
@@ -610,6 +613,7 @@
 				384E6472288EE5A3004ADCB1 /* ActionSheet.swift in Sources */,
 				384E64792891650E004ADCB1 /* DataLoadingInteractor.swift in Sources */,
 				389F7179289174200007C2E0 /* DashboardViewController.swift in Sources */,
+				38ECF951289D6FF600ED8372 /* Colors.swift in Sources */,
 				387FF5FA286B909B0051E3DC /* AppDelegate.swift in Sources */,
 				389F717F289982630007C2E0 /* Drawer.swift in Sources */,
 				380EA05C289ACC0200552391 /* GraphView.swift in Sources */,

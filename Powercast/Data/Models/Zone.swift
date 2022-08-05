@@ -10,9 +10,9 @@ extension Zone {
     var color: UIColor {
         switch self {
         case .dk1:
-            return UIColor.from(hex: "#467A56")
+            return Color.pastelGreen
         case .dk2:
-            return UIColor.from(hex: "#EA665C")
+            return Color.pastelRed
         }
     }
 }

@@ -115,7 +115,7 @@ class IntroViewController: ViewController {
         ])
 
         overlayBackground.isUserInteractionEnabled = true
-        overlayBackground.backgroundColor = UIColor.from(hex: "#2c90d3")
+        overlayBackground.backgroundColor = Color.primary
         overlayBackground.setup(in: view, usingSafeLayout: false)
 
         let imageView = ImageView(image: Images.powercast_splash, mode: .center).setup(centeredIn: overlayBackground, usingSafeLayout: false)
