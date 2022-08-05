@@ -16,3 +16,7 @@
 ## GeoJSON
 
 - https://github.com/Neogeografen/dagi
+
+## code bases
+
+- https://www.ramshandilya.com/blog/draw-smooth-curves/

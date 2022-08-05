@@ -1,4 +1,5 @@
 "ABOUT_TITLE" = "About";
+"DASHBOARD_GRAPH_LABEL_FORMAT" = "€ %.0f";
 "DASHBOARD_TITLE" = "Dashboard";
 "DATA_LOADING_REFRESH_FAILED_MESSAGE" = "An error occured while downloading data. Try Again?";
 "DATA_LOADING_REFRESH_FAILED_NEGATIVE_BUTTON" = "Cancel";

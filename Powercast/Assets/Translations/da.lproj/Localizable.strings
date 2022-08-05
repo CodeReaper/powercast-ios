@@ -1,4 +1,5 @@
 "ABOUT_TITLE" = "Om";
+"DASHBOARD_GRAPH_LABEL_FORMAT" = "€ %.0f";
 "DASHBOARD_TITLE" = "Dashboard";
 "DATA_LOADING_REFRESH_FAILED_MESSAGE" = "Der skete en fejl under download af data. Prøv igen?";
 "DATA_LOADING_REFRESH_FAILED_NEGATIVE_BUTTON" = "Afbryd";

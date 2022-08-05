@@ -14,4 +14,9 @@ class SpinnerView: UIActivityIndicatorView {
         super.startAnimating()
         return self
     }
+
+    func stopAnimating() -> Self {
+        super.stopAnimating()
+        return self
+    }
 }

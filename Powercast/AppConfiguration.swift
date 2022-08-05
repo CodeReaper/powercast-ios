@@ -8,6 +8,6 @@ struct AppConfiguration {
     init() {
         usesDemoData = false
         allowDatabaseErasure = true
-        traceDatabaseStatments = true
+        traceDatabaseStatments = false
     }
 }

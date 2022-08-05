@@ -16,6 +16,27 @@ class EnergyPriceRepository {
         self.database = database
     }
 
+    func data(in interval: DateInterval) async throws -> [EnergyPrice] {
+        let items = try await database.read { db in
+            return try Database.EnergyPrice
+                .filter(Database.EnergyPrice.Columns.timestamp >= interval.start)
+                .filter(Database.EnergyPrice.Columns.timestamp <= interval.end)
+                .fetchAll(db)
+        }
+        return items.map { EnergyPrice.from(model: $0) }
+    }
+
+    func data(for zone: Zone, in interval: DateInterval) async throws -> [EnergyPrice] {
+        let items = try await database.read { db in
+            return try Database.EnergyPrice
+                .filter(Database.EnergyPrice.Columns.zone == zone.rawValue)
+                .filter(Database.EnergyPrice.Columns.timestamp >= interval.start)
+                .filter(Database.EnergyPrice.Columns.timestamp <= interval.end)
+                .fetchAll(db)
+        }
+        return items.map { EnergyPrice.from(model: $0) }
+    }
+
     func refresh() -> Task<Void, Never> {
         let runningTask = refreshTask
         guard runningTask == nil else { return runningTask! }
@@ -40,7 +61,7 @@ class EnergyPriceRepository {
                     }
                     let start = Calendar.current.date(byAdding: .day, value: -1, to: known ?? oldest)!
 
-                    work[zone] = Date.dates(from: max(start, oldest), to: latest)
+                    work[zone] = DateInterval(start: max(start, oldest), end: latest).dates()
                     completed[zone] = []
                 }
 
@@ -86,19 +107,5 @@ class EnergyPriceRepository {
         case updated
         case failed
         case cancelled
-    }
-}
-
-private extension Date {
-    static func dates(from fromDate: Date, to toDate: Date) -> [Date] {
-        var dates: [Date] = []
-        var date = fromDate
-
-        while date <= toDate {
-            dates.append(date)
-            guard let newDate = Calendar.current.date(byAdding: .day, value: 1, to: date) else { break }
-            date = newDate
-        }
-        return dates
     }
 }

@@ -2,6 +2,7 @@
 import Foundation
 struct Translations {
 	static let ABOUT_TITLE = NSLocalizedString("ABOUT_TITLE", comment: "")
+	static let DASHBOARD_GRAPH_LABEL_FORMAT = NSLocalizedString("DASHBOARD_GRAPH_LABEL_FORMAT", comment: "")
 	static let DASHBOARD_TITLE = NSLocalizedString("DASHBOARD_TITLE", comment: "")
 	static let DATA_LOADING_REFRESH_FAILED_MESSAGE = NSLocalizedString("DATA_LOADING_REFRESH_FAILED_MESSAGE", comment: "")
 	static let DATA_LOADING_REFRESH_FAILED_NEGATIVE_BUTTON = NSLocalizedString("DATA_LOADING_REFRESH_FAILED_NEGATIVE_BUTTON", comment: "")
