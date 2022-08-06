@@ -10,6 +10,6 @@ struct AppConfiguration {
         usesDemoData = false
         allowDatabaseErasure = true
         inMemoryDatabase = false
-        traceDatabaseStatments = true
+        traceDatabaseStatments = false
     }
 }
