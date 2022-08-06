@@ -37,17 +37,15 @@ class EnergyPriceRepository {
         return items.map { EnergyPrice.from(model: $0) }
     }
 
+    // swiftlint:disable:next function_body_length
     func refresh() -> Task<Void, Never> {
         let runningTask = refreshTask
         guard runningTask == nil else { return runningTask! }
 
-        statusSubject.send(.updating(progress: 0))
+        statusSubject.send(.syncing)
 
         let task = Task {
             do {
-                var work: [Zone: [Date]] = [:]
-                var completed: [Zone: [Date]] = [:]
-
                 for zone in Zone.allCases {
                     guard !Task.isCancelled else {
                         statusSubject.send(.cancelled)
@@ -57,38 +55,45 @@ class EnergyPriceRepository {
                     let latest = try await service.latest(for: zone)
                     let oldest = try await service.oldest(for: zone)
                     let known = try await database.read { db in
-                        return try Date.fetchOne(db, Database.EnergyPrice.select(max(Database.EnergyPrice.Columns.timestamp)).filter(Database.EnergyPrice.Columns.zone == zone.rawValue))
+                        return try Date.fetchOne(db, Database.EnergyPriceSource.select(max(Database.EnergyPriceSource.Columns.timestamp)).filter(Database.EnergyPriceSource.Columns.zone == zone.rawValue))
                     }
                     let start = Calendar.current.date(byAdding: .day, value: -1, to: known ?? oldest)!
 
-                    work[zone] = DateInterval(start: max(start, oldest), end: latest).dates()
-                    completed[zone] = []
-                }
-
-                let workTotal = work.values.map { $0.count }.reduce(0, +)
-
-                for (zone, dates) in work {
-                    for date in dates {
-                        guard !Task.isCancelled else {
-                            statusSubject.send(.cancelled)
-                            return
+                    try database.inTransaction { db in
+                        for var item in DateInterval(start: max(start, oldest), end: latest).dates().map({ Database.EnergyPriceSource(fetched: false, zone: zone, timestamp: $0) }) {
+                            try item.insert(db)
                         }
-
-                        let items = try await service.data(for: zone, at: date)
-
-                        try await database.write { db in
-                            try items.map { Database.EnergyPrice.from(model: $0) }.forEach {
-                                var item = $0
-                                try item.insert(db)
-                            }
-                        }
-
-                        completed[zone]?.append(date)
-                        let completedTotal = completed.values.map { $0.count }.reduce(0, +)
-                        statusSubject.send(.updating(progress: Double(completedTotal)/Double(workTotal)))
+                        return .commit
                     }
                 }
-                statusSubject.send(.updating(progress: 1))
+
+                let sources = try await database.read { db in
+                    try Database.EnergyPriceSource.fetchAll(db, Database.EnergyPriceSource.filter(Database.EnergyPriceSource.Columns.fetched == false).order(Database.EnergyPriceSource.Columns.timestamp.desc))
+                }.map { EnergyPriceSource.from(model: $0) }
+
+                var current = sources.first?.timestamp ?? Calendar.current.startOfDay(for: Date())
+                for source in sources {
+                    guard !Task.isCancelled else {
+                        statusSubject.send(.cancelled)
+                        return
+                    }
+
+                    if current != source.timestamp {
+                        statusSubject.send(.synced(with: current))
+                        current = source.timestamp
+                    }
+
+                    let items = try await service.data(for: source.zone, at: source.timestamp)
+                    try database.inTransaction { db in
+                        try items.map { Database.EnergyPrice.from(model: $0) }.forEach {
+                            var item = $0
+                            try item.insert(db)
+                        }
+                        try Database.EnergyPriceSource.from(model: source.copy(fetched: true)).update(db)
+                        return .commit
+                    }
+                }
+
                 statusSubject.send(.updated)
             } catch {
                 print(error)
@@ -103,7 +108,8 @@ class EnergyPriceRepository {
 
     enum Status {
         case pending
-        case updating(progress: Double)
+        case syncing
+        case synced(with: Date)
         case updated
         case failed
         case cancelled

@@ -45,7 +45,7 @@ class BackgroundScheduler {
                 task.setTaskCompleted(success: true)
             case .failed, .cancelled, .pending:
                 task.setTaskCompleted(success: false)
-            case .updating: break
+            case .syncing, .synced: break
             }
         }
 

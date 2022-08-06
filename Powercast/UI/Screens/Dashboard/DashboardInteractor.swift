@@ -12,10 +12,12 @@ class DashboardInteractor {
     private let repository: EnergyPriceRepository
 
     private var isRefreshed = false
-    private var hasFetchedRefreshedData = false
+    private var hasLoadedRefreshedData = false
+    private var retryDelay: TimeInterval = 1
 
     private var statusSink: AnyCancellable?
-    private var fetchTask: Task<Void, Error>?
+    private var loadingTask: Task<Void, Error>?
+    private var dateLimit: Date?
 
     private weak var delegate: DashboardDelegate?
 
@@ -26,15 +28,29 @@ class DashboardInteractor {
 
     func viewDidLoad() {
         delegate?.show(loading: true)
-        fetchData()
+        startLoadData()
     }
 
     func viewWillAppear() {
-        statusSink = repository.status.receive(on: DispatchQueue.main).sink { [weak self] in
+        statusSink = repository.status.receive(on: DispatchQueue.main).sink { [weak self, startLoadData, repository] in
             switch $0 {
-            case .updated:
-                self?.hasFetchedRefreshedData = self?.fetchData() ?? false
-            default: break
+            case let .synced(with: date):
+                let load = self?.dateLimit == nil
+                self?.dateLimit = date
+                if load {
+                    _ = startLoadData()
+                }
+                self?.retryDelay = 1
+            case .updated, .cancelled:
+                self?.dateLimit = Date.distantPast
+                self?.retryDelay = 1
+                self?.hasLoadedRefreshedData = startLoadData()
+            case .failed:
+                DispatchQueue.main.asyncAfter(deadline: .now() + (self?.retryDelay ?? 1), execute: {
+                    self?.retryDelay += min(30, 1)
+                    _ = repository.refresh()
+                })
+            case .pending, .syncing: break
             }
         }
 
@@ -50,27 +66,41 @@ class DashboardInteractor {
 
     func showing(time: TimeInterval, in dateInterval: DateInterval) {
         if abs(dateInterval.start.timeIntervalSince1970 - time) < .thirtySixHours {
-            fetchData(in: DateInterval(start: calendar.date(byAdding: .day, value: -2, to: dateInterval.start)!, end: dateInterval.start))
-        } else if !hasFetchedRefreshedData && abs(dateInterval.end.timeIntervalSince1970 - time) < .thirtySixHours {
-            hasFetchedRefreshedData = fetchData()
+            let request = DateInterval(start: calendar.date(byAdding: .day, value: -2, to: dateInterval.start)!, end: dateInterval.start)
+            if let dateLimit = dateLimit {
+                if dateLimit >= request.end {
+                    self.dateLimit = nil
+                } else if dateLimit > request.start {
+                    loadData(in: DateInterval(start: dateLimit, end: request.end))
+                } else {
+                    loadData(in: request)
+                }
+            } else {
+                loadData(in: request)
+            }
+        } else if !hasLoadedRefreshedData && abs(dateInterval.end.timeIntervalSince1970 - time) < .thirtySixHours {
+            hasLoadedRefreshedData = startLoadData()
         }
     }
 
     @discardableResult
-    private func fetchData() -> Bool {
+    private func startLoadData() -> Bool {
         let now = Date()
         let interval = DateInterval(start: calendar.date(byAdding: .hour, value: -6, to: now)!, end: Calendar.current.date(byAdding: .hour, value: 36, to: now)!)
-        return fetchData(in: interval)
+        return loadData(in: interval)
     }
 
     @discardableResult
-    private func fetchData(in interval: DateInterval) -> Bool {
-        guard fetchTask == nil else { return false }
+    private func loadData(in interval: DateInterval) -> Bool {
+        guard loadingTask == nil else { return false }
 
-        fetchTask = Task {
+        loadingTask = Task {
             let items = try await repository.data(in: interval)
 
-            fetchTask = nil
+            loadingTask = nil
+
+            guard items.count > 0 else { return }
+
             DispatchQueue.main.async { [delegate] in
                 delegate?.show(items: items)
                 delegate?.show(loading: false)

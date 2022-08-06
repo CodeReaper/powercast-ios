@@ -10,4 +10,6 @@ extension TimeInterval {
     static var oneDay: TimeInterval = 86400
 
     static var thirtySixHours: TimeInterval = 129600
+
+    static var thirtyDays: TimeInterval = 2592000
 }

@@ -2,7 +2,6 @@ import Foundation
 import Combine
 
 protocol DataLoadingDelegate: AnyObject {
-    func display(progress: String)
     func displayFailed()
 }
 
@@ -35,8 +34,10 @@ class DataLoadingInteractor {
         dispatch.enter()
         statusSink = energyPriceRepository.status.receive(on: DispatchQueue.main).sink { [delegate] in
             switch $0 {
-            case let .updating(progress):
-                delegate?.display(progress: String(format: "%.0f%%", progress * 100))
+            case let .synced(with: date):
+                if abs(date.timeIntervalSince1970 - Date().timeIntervalSince1970) > .thirtyDays {
+                    dispatch.leave()
+                }
             case .updated:
                 dispatch.leave()
             case .failed:

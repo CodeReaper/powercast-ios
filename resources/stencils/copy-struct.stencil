@@ -2,10 +2,11 @@
 {% set newFileName %}{{ type.name }}Copy{% endset %}
 
 // sourcery:file:{{ newFileName }}
-//  {{ newFileName }}.generated.swift
 //
 
 // swiftlint:disable all
+import Foundation
+
 extension {{ type.name }} {
 	func copy() -> {{ type.name }} {
 		return {{type.name}}(

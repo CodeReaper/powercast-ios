@@ -49,12 +49,17 @@ class App: Dependenables {
             }
         }
 
-        // swiftlint:disable force_try
-        let database = try! DatabaseQueue(
-            path: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("energyPrice.db").path,
-            configuration: energyPriceConfiguration
-        )
-        // swiftlint:enable force_try
+        let database: DatabaseQueue
+        if configuration.inMemoryDatabase {
+            database = DatabaseQueue(configuration: energyPriceConfiguration)
+        } else {
+            // swiftlint:disable force_try
+            database = try! DatabaseQueue(
+                path: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("energyPrice.db").path,
+                configuration: energyPriceConfiguration
+            )
+            // swiftlint:enable force_try
+        }
 
         return EnergyPriceDatabase(queue: database, configuration: configuration)
     }

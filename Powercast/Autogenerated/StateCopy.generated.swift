@@ -1,9 +1,10 @@
 // Generated using Sourcery 1.8.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//  StateCopy.generated.swift
 //
 
 // swiftlint:disable all
+import Foundation
+
 extension State {
 	func copy() -> State {
 		return State(

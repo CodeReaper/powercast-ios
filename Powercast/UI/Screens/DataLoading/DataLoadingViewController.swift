@@ -2,7 +2,6 @@ import UIKit
 
 class DataLoadingViewController: ViewController {
     private let loadingView = View.buildLoadingView(color: .white)
-    private let loadingLabel = Label(text: "")
 
     private var interactor: DataLoadingInteractor!
 
@@ -25,7 +24,6 @@ class DataLoadingViewController: ViewController {
             on: .vertical,
             FlexibleSpace(),
             loadingView,
-            loadingLabel,
             Label(text: Translations.DATA_LOADING_TITLE),
             FlexibleSpace()
         )
@@ -47,10 +45,6 @@ class DataLoadingViewController: ViewController {
 }
 
 extension DataLoadingViewController: DataLoadingDelegate {
-    func display(progress: String) {
-        loadingLabel.text = progress
-    }
-
     func displayFailed() {
         navigation.navigate(to: .actionSheet(options: [
             ActionSheetOption.title(text: Translations.DATA_LOADING_REFRESH_FAILED_TITLE),
