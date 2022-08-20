@@ -2,17 +2,29 @@ import UIKit
 import MapKit
 
 class RegionSelectionViewController: ViewController {
+    struct Configuration {
+        enum Behavior {
+            case navigate(endpoint: Navigation)
+            case pop
+        }
+
+        let behavior: Behavior
+    }
+
     private let mapView = MKMapView(frame: .zero)
     private let fillColor  = UIColor.blue.withAlphaComponent(0.05)
     private let strokeColor  = UIColor.black.withAlphaComponent(0.2)
     private let selectedFillColor  = UIColor.blue.withAlphaComponent(0.1)
     private let selectedStrokeColor  = UIColor.black.withAlphaComponent(0.2)
 
+    private let configuration: Configuration
+
     private var interactor: RegionSelectionInteractor!
 
     private var selectedRegion: String?
 
-    init(navigation: AppNavigation, repository: StateRepository) {
+    init(navigation: AppNavigation, configuration: Configuration, repository: StateRepository) {
+        self.configuration = configuration
         super.init(navigation: navigation)
         self.interactor = RegionSelectionInteractor(navigation: navigation, delegate: self, repository: repository)
     }
@@ -75,6 +87,15 @@ extension RegionSelectionViewController: MKMapViewDelegate {
             return render
         }
         fatalError("Received unknown overlay: \(overlay)")
+    }
+
+    func didSelect(zone: Zone) {
+        switch configuration.behavior {
+        case .navigate(let endpoint):
+            navigation.navigate(to: endpoint)
+        case .pop:
+            navigationController?.popViewController(animated: true)
+        }
     }
 }
 

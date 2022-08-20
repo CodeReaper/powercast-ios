@@ -64,6 +64,8 @@
 		389F717B289174390007C2E0 /* DashboardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F717A289174390007C2E0 /* DashboardInteractor.swift */; };
 		389F717D28997B2C0007C2E0 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F717C28997B2B0007C2E0 /* MenuViewController.swift */; };
 		389F717F289982630007C2E0 /* Drawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F717E289982630007C2E0 /* Drawer.swift */; };
+		38CA8707289EEA21004CD163 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CA8706289EEA21004CD163 /* TableView.swift */; };
+		38CA8709289EEB28004CD163 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CA8708289EEB28004CD163 /* View.swift */; };
 		38DF5AB7287079DE008630FB /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DF5AAC287079DE008630FB /* Images.swift */; };
 		38DF5ABE28707A7E008630FB /* Translations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DF5ABD28707A7E008630FB /* Translations.swift */; };
 		38DF5AC828708077008630FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 38DF5AC028708077008630FB /* Localizable.strings */; };
@@ -145,6 +147,8 @@
 		389F717A289174390007C2E0 /* DashboardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardInteractor.swift; sourceTree = "<group>"; };
 		389F717C28997B2B0007C2E0 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		389F717E289982630007C2E0 /* Drawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawer.swift; sourceTree = "<group>"; };
+		38CA8706289EEA21004CD163 /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
+		38CA8708289EEB28004CD163 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		38DF5AAC287079DE008630FB /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		38DF5ABD28707A7E008630FB /* Translations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Translations.swift; sourceTree = "<group>"; };
 		38DF5AC128708077008630FB /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -219,19 +223,9 @@
 				380CE8F4288AE55A0003FF36 /* ImageViews.swift */,
 				380CE8F6288AE55A0003FF36 /* Labels.swift */,
 				380CE8F5288AE55A0003FF36 /* StackViews.swift */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
-		380CE8F7288AE55A0003FF36 /* Setup */ = {
-			isa = PBXGroup;
-			children = (
-				384E646A288EDAAF004ADCB1 /* Appearence.swift */,
-				380CE8F8288AE55A0003FF36 /* Autolayout.swift */,
-				380CE902288AE9700003FF36 /* HexColors.swift */,
 				380CE8F9288AE55A0003FF36 /* ViewControllers.swift */,
 			);
-			path = Setup;
+			path = Common;
 			sourceTree = "<group>";
 		};
 		380CE906288AFC680003FF36 /* Assets.GeoJSON */ = {
@@ -302,10 +296,15 @@
 		384E647328915F52004ADCB1 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				384E646A288EDAAF004ADCB1 /* Appearence.swift */,
+				380CE8F8288AE55A0003FF36 /* Autolayout.swift */,
 				38ECF94A289B0ACF00ED8372 /* Date.swift */,
+				380CE902288AE9700003FF36 /* HexColors.swift */,
+				38CA8706289EEA21004CD163 /* TableView.swift */,
 				384E647428915F52004ADCB1 /* Task.swift */,
 				38ECF94C289C467B00ED8372 /* TimeInterval.swift */,
 				38ECF94E289C5A5000ED8372 /* UIBeizerPath.swift */,
+				38CA8708289EEB28004CD163 /* View.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -437,7 +436,6 @@
 			children = (
 				380CE8F2288AE55A0003FF36 /* Common */,
 				38FD15CD28833AEA001C38F9 /* Screens */,
-				380CE8F7288AE55A0003FF36 /* Setup */,
 				380CE8EF288AE4C20003FF36 /* Views */,
 			);
 			path = UI;
@@ -629,6 +627,7 @@
 				384E6470288EDE96004ADCB1 /* RegionSelectionViewController.swift in Sources */,
 				380CE905288AF2040003FF36 /* AppConfiguration.swift in Sources */,
 				384E646B288EDAAF004ADCB1 /* Appearence.swift in Sources */,
+				38CA8707289EEA21004CD163 /* TableView.swift in Sources */,
 				38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */,
 				380CE8FB288AE55A0003FF36 /* ImageViews.swift in Sources */,
 				38E0FA6E2884803F0096B98A /* EnergyPrice.swift in Sources */,
@@ -637,6 +636,7 @@
 				380CE901288AE7370003FF36 /* _View.swift in Sources */,
 				384E643F288DAEBF004ADCB1 /* StateCopy.generated.swift in Sources */,
 				38ECF94F289C5A5000ED8372 /* UIBeizerPath.swift in Sources */,
+				38CA8709289EEB28004CD163 /* View.swift in Sources */,
 				38ECF94B289B0ACF00ED8372 /* Date.swift in Sources */,
 				38E0FA68288476C40096B98A /* PowercastDataService.swift in Sources */,
 				380CE8FD288AE55A0003FF36 /* Labels.swift in Sources */,

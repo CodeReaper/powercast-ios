@@ -28,4 +28,8 @@
 "REGION_NAME_SOUTH","","Region of Southern Denmark","Region Syddanmark",""
 "REGION_NAME_CAPTIAL","","Captial Region of Denmark","Region Hovedstaden",""
 "REGION_NAME_ZEALAND","","Region Zealand","Region Sjælland",""
+"ZONE_DK1","","DK1","DK1",""
+"ZONE_DK2","","DK2","DK2",""
 "SETTINGS_TITLE","","Settings","Indstillinger",""
+"SETTINGS_REGIONS_TITLE","","Regions","Regioner",""
+"SETTINGS_REGIONS_CHOOSEN_TITLE","","Choosen region","Valgte region",""

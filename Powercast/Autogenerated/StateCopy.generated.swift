@@ -19,7 +19,7 @@ extension State {
 			selectedZone: selectedZone
 		)
 	}
-	func copy(selectedZone: Zone?) -> State {
+	func copy(selectedZone: Zone) -> State {
 		return State(
 			setupCompleted: setupCompleted,
 			selectedZone: selectedZone

@@ -150,7 +150,7 @@ class IntroViewController: ViewController {
                 self.pageViewController(self.pageViewController, didFinishAnimating: $0, previousViewControllers: [], transitionCompleted: true)
             }
         } else {
-            navigation.navigate(to: .regionSelection)
+            navigation.navigate(to: .regionSelection(configuration: RegionSelectionViewController.Configuration(behavior: .navigate(endpoint: .loadData))))
         }
     }
 

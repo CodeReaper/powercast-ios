@@ -30,5 +30,9 @@ struct Translations {
 	static let REGION_SELECTION_CONFIRMATION_NEGATIVE_BUTTON = NSLocalizedString("REGION_SELECTION_CONFIRMATION_NEGATIVE_BUTTON", comment: "")
 	static let REGION_SELECTION_CONFIRMATION_POSITIVE_BUTTON = NSLocalizedString("REGION_SELECTION_CONFIRMATION_POSITIVE_BUTTON", comment: "")
 	static let REGION_SELECTION_TITLE = NSLocalizedString("REGION_SELECTION_TITLE", comment: "")
+	static let SETTINGS_REGIONS_CHOOSEN_TITLE = NSLocalizedString("SETTINGS_REGIONS_CHOOSEN_TITLE", comment: "")
+	static let SETTINGS_REGIONS_TITLE = NSLocalizedString("SETTINGS_REGIONS_TITLE", comment: "")
 	static let SETTINGS_TITLE = NSLocalizedString("SETTINGS_TITLE", comment: "")
+	static let ZONE_DK1 = NSLocalizedString("ZONE_DK1", comment: "")
+	static let ZONE_DK2 = NSLocalizedString("ZONE_DK2", comment: "")
 }

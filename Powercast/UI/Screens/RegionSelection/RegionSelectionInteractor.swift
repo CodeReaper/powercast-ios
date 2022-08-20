@@ -3,6 +3,7 @@ import MapKit
 
 protocol RegionSelectionDelegate: AnyObject {
     func show(overlays: [MKOverlay], selectedRegion: String?)
+    func didSelect(zone: Zone)
 }
 
 class RegionSelectionInteractor {
@@ -86,7 +87,7 @@ class RegionSelectionInteractor {
         }
 
         repository.select(zone)
-        navigation.navigate(to: .loadData)
+        delegate?.didSelect(zone: zone)
     }
 }
 

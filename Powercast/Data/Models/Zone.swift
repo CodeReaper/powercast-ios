@@ -15,4 +15,13 @@ extension Zone {
             return Color.pastelRed
         }
     }
+
+    var name: String {
+        switch self {
+        case .dk1:
+            return Translations.ZONE_DK1
+        case .dk2:
+            return Translations.ZONE_DK2
+        }
+    }
 }

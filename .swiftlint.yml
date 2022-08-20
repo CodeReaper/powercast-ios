@@ -1,6 +1,7 @@
 disabled_rules:
   - line_length
   - orphaned_doc_comment
+  - nesting
 
 cyclomatic_complexity:
   ignores_case_statements: true
