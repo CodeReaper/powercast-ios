@@ -12,6 +12,7 @@ class ZoneSelectionViewController: ViewController {
     }
 
     private let mapView = MKMapView(frame: .zero)
+    private let spinnerView = SpinnerView()
     private let fillColor  = UIColor.blue.withAlphaComponent(0.05)
     private let strokeColor  = UIColor.black.withAlphaComponent(0.2)
     private let selectedFillColor  = UIColor.blue.withAlphaComponent(0.1)
@@ -37,6 +38,8 @@ class ZoneSelectionViewController: ViewController {
         super.viewDidLoad()
 
         title = Translations.ZONE_SELECTION_TITLE
+
+        spinnerView.setup(centeredIn: view)
 
         mapView.delegate = self
         mapView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapMap)))
@@ -97,5 +100,15 @@ extension ZoneSelectionViewController: ZoneSelectionDelegate {
         self.selected = selected
         mapView.removeOverlays(mapView.overlays)
         mapView.addOverlays(overlays)
+    }
+
+    func show(loading: Bool) {
+        if loading {
+            spinnerView.startAnimating().isHidden = false
+            mapView.isHidden = true
+        } else {
+            spinnerView.stopAnimating().isHidden = true
+            mapView.isHidden = false
+        }
     }
 }

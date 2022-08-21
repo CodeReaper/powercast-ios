@@ -2,6 +2,7 @@ import Foundation
 import MapKit
 
 protocol ZoneSelectionDelegate: AnyObject {
+    func show(loading: Bool)
     func show(overlays: [MKOverlay], selected: Int?)
     func didSelect(zone: Zone)
 }
@@ -23,34 +24,41 @@ class ZoneSelectionInteractor {
     }
 
     func viewDidLoad() {
-        guard let url = Bundle.main.url(forResource: "postnumre", withExtension: "geojson") else {
-            fatalError("Unable to find regions geojson in main bundle")
-        }
+        delegate?.show(loading: true)
 
-        let geoJson: [MKGeoJSONObject]
-        do {
-            geoJson = try MKGeoJSONDecoder().decode(Data(contentsOf: url))
-        } catch {
-            fatalError("Unable to decode JSON: \(error)")
-        }
-
-        for item in geoJson {
-            guard
-                let feature = item as? MKGeoJSONFeature,
-                let propertyData = feature.properties,
-                let number = (try? JSONDecoder().decode(Properties.self, from: propertyData))?.nr,
-                let code = Int(number),
-                let polygons = Optional.some(feature.geometry.compactMap({ $0 as? MKMultiPolygon }))
-            else {
-                continue
+        DispatchQueue.global(qos: .userInitiated).async {
+            guard let url = Bundle.main.url(forResource: "postnumre", withExtension: "geojson") else {
+                fatalError("Unable to find regions geojson in main bundle")
             }
 
-            for item in polygons {
-                overlays.append(ZoneSelectionViewController.Polygon(code: code, polygon: item))
+            let geoJson: [MKGeoJSONObject]
+            do {
+                geoJson = try MKGeoJSONDecoder().decode(Data(contentsOf: url))
+            } catch {
+                fatalError("Unable to decode JSON: \(error)")
+            }
+
+            for item in geoJson {
+                guard
+                    let feature = item as? MKGeoJSONFeature,
+                    let propertyData = feature.properties,
+                    let number = (try? JSONDecoder().decode(Properties.self, from: propertyData))?.nr,
+                    let code = Int(number),
+                    let polygons = Optional.some(feature.geometry.compactMap({ $0 as? MKMultiPolygon }))
+                else {
+                    continue
+                }
+
+                for item in polygons {
+                    self.overlays.append(ZoneSelectionViewController.Polygon(code: code, polygon: item))
+                }
+            }
+
+            DispatchQueue.main.async {
+                self.delegate?.show(overlays: self.overlays, selected: nil)
+                self.delegate?.show(loading: false)
             }
         }
-
-        delegate?.show(overlays: overlays, selected: nil)
     }
 
     func didTap(_ location: CGPoint, in mapView: MKMapView) {
