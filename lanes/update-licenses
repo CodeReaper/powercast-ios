@@ -1,12 +1,5 @@
 OUT=Powercast/Assets.Licenses
 
-#
-# PACKAGES
-#
-
-mkdir -p $OUT/packages
-find $OUT/packages -type f -exec rm -f {} \;
-
 github_license() {
 	rm -f /tmp/license || true
 
@@ -19,10 +12,21 @@ github_license() {
 	jq --arg name "$3" --arg content "$content" '. | .name=$name | .content=$content' <<< '{}' > $OUT/$1/$filename.json
 }
 
+#
+# PACKAGES
+#
+
+mkdir -p $OUT/packages
+find $OUT/packages -type f -exec rm -f {} \;
+
+## -----
+
 packages=$(jq -r '.pins | map(.location) | .[]' < Powercast.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved | sed 's|\.git$||' | sed 's|^https://github.com/||')
 for package in $packages; do
 	github_license packages "$package" "$package"
 done
+
+## -----
 
 github_license packages "Ramshandilya/Bezier" "Ramshandilya/Bezier"
 
@@ -32,6 +36,10 @@ github_license packages "Ramshandilya/Bezier" "Ramshandilya/Bezier"
 
 mkdir -p $OUT/assets
 find $OUT/assets -type f -exec rm -f {} \;
+
+## -----
+
+github_license assets "CodeReaper/powercast-data" "CodeReaper/powercast-data"
 
 ## -----
 
