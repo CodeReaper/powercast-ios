@@ -1,0 +1,173 @@
+OUT=Powercast/Assets.Licenses
+
+#
+# PACKAGES
+#
+
+mkdir -p $OUT/packages
+find $OUT/packages -type f -exec rm -f {} \;
+
+github_license() {
+	rm -f /tmp/license || true
+
+	curl --silent --fail -L -o /tmp/license "https://api.github.com/repos/$2/contents/LICENSE"
+
+	content=$(jq -r '.content' /tmp/license | base64 -d)
+
+	filename=$(echo "$3" | tr '/' '_')
+
+	jq --arg name "$3" --arg content "$content" '. | .name=$name | .content=$content' <<< '{}' > $OUT/$1/$filename.json
+}
+
+packages=$(jq -r '.pins | map(.location) | .[]' < Powercast.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved | sed 's|\.git$||' | sed 's|^https://github.com/||')
+for package in $packages; do
+	github_license packages "$package" "$package"
+done
+
+github_license packages "Ramshandilya/Bezier" "Ramshandilya/Bezier"
+
+#
+# ASSETS
+#
+
+mkdir -p $OUT/assets
+find $OUT/assets -type f -exec rm -f {} \;
+
+cat << EOF > /tmp/license
+Lottie Simple License (FL 9.13.21)
+
+Copyright © 2021 Design Barn Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of the public animation files available for download at the LottieFiles site (“Files”) to download, reproduce, modify, publish, distribute, publicly display, and publicly digitally perform such Files, including for commercial purposes, provided that any display, publication, performance, or distribution of Files must contain (and be subject to) the same terms and conditions of this license. Modifications to Files are deemed derivative works and must also be expressly distributed under the same terms and conditions of this license. You may not purport to impose any additional or different terms or conditions on, or apply any technical measures that restrict exercise of, the rights granted under this license. This license does not include the right to collect or compile Files from LottieFiles to replicate or develop a similar or competing service.
+
+Use of Files without attributing the creator(s) of the Files is permitted under this license, though attribution is strongly encouraged. If attributions are included, such attributions should be visible to the end user.
+
+FILES ARE PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. EXCEPT TO THE EXTENT REQUIRED BY APPLICABLE LAW, IN NO EVENT WILL THE CREATOR(S) OF FILES OR DESIGN BARN, INC. BE LIABLE ON ANY LEGAL THEORY FOR ANY SPECIAL, INCIDENTAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES ARISING OUT OF THIS LICENSE OR THE USE OF SUCH FILES.
+EOF
+cat << EOF > $OUT/assets/lottiefiles.json
+{
+  "name": "lottiefiles.com",
+  "content": "$(cat /tmp/license | sed 's/$/\\n/'| tr -d '\n' )"
+}
+EOF
+
+cat << EOF > /tmp/license
+Unsplash grants you an irrevocable, nonexclusive, worldwide copyright license to download, copy, modify, distribute, perform, and use photos from Unsplash for free, including for commercial purposes, without permission from or attributing the photographer or Unsplash. This license does not include the right to compile photos from Unsplash to replicate a similar or competing service.
+EOF
+cat << EOF > $OUT/assets/unsplash.json
+{
+  "name": "unsplash.com",
+  "content": "$(cat /tmp/license | sed 's/$/\\n/'| tr -d '\n' )"
+}
+EOF
+
+cat << EOF > /tmp/license
+License for 'Alex Brush'
+SIL Open Font License
+
+Copyright (c) 2011 TypeSETit, LLC (typesetit@att.net),
+with Reserved Font Name “Alex Brush”
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at: http://scripts.sil.org/OFL
+
+—————————————————————————————-
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+—————————————————————————————-
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide development of collaborative font projects, to support the font creation efforts of academic and linguistic communities, and to provide a free and open framework in which fonts may be shared and improved in partnership with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and redistributed freely as long as they are not sold by themselves. The fonts, including any derivative works, can be bundled, embedded, redistributed and/or sold with any software provided that any reserved names are not used by derivative works. The fonts and derivatives, however, cannot be released under any other type of license. The requirement for fonts to remain under this license does not apply to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+“Font Software” refers to the set of files released by the Copyright Holder(s) under this license and clearly marked as such. This may include source files, build scripts and documentation.
+
+“Reserved Font Name” refers to any names specified as such after the copyright statement(s).
+
+“Original Version” refers to the collection of Font Software components as distributed by the Copyright Holder(s).
+
+“Modified Version” refers to any derivative made by adding to, deleting, or substituting—in part or in whole—any of the components of the Original Version, by changing formats or by porting the Font Software to a new environment.
+
+“Author” refers to any designer, engineer, programmer, technical writer or other person who contributed to the Font Software.
+
+PERMISSION & CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining a copy of the Font Software, to use, study, copy, merge, embed, modify, redistribute, and sell modified and unmodified copies of the Font Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components, in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled, redistributed and/or sold with any software, provided that each copy contains the above copyright notice and this license. These can be included either as stand-alone text files, human-readable headers or in the appropriate machine-readable metadata fields within text or binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font Name(s) unless explicit written permission is granted by the corresponding Copyright Holder. This restriction only applies to the primary font name as presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font Software shall not be used to promote, endorse or advertise any Modified Version, except to acknowledge the contribution(s) of the Copyright Holder(s) and the Author(s) or with their explicit written permission.
+
+5) The Font Software, modified or unmodified, in part or in whole, must be distributed entirely under this license, and must not be distributed under any other license. The requirement for fonts to remain under this license does not apply to any document created using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM OTHER DEALINGS IN THE FONT SOFTWARE.
+EOF
+cat << EOF > $OUT/assets/fontsquirrel-alex-brush.json
+{
+  "name": "fontsquirrel.com - alex-brush",
+  "content": "$(cat /tmp/license | sed 's/$/\\n/'| tr -d '\n' )"
+}
+EOF
+
+cat << EOF > /tmp/license
+Vilkår for brug af frie geografiske data
+
+Vilkår for brug af SDFE's frie geografiske data bliver justeret pr. 1. november 2021
+
+Vi har foretaget en mindre justeringer af vilkårene for at gøre det mere tydeligt, hvad det betyder, hvis der sker ændringer i vilkårene eller hvis data indeholder personoplysninger.
+
+Se vilkår gældende fra 1. november 2021.
+
+Generel information
+Bemærk at der er særlige vilkår for anvendelse af GeoDanmark-data (tidl. FOT-data) . Se Vilkår for brug af GeoDanmark-data
+
+Styrelsen for Dataforsyning og Effektivisering (SDFE), herefter Myndigheden, har de immaterielle rettigheder til de frie geografiske data (herefter data), og giver på nedenstående vilkår brugsret til data.
+
+Vilkårene accepteres ved enhver brug af data. Vilkårene reguleres af dansk ret.
+
+Brugsret
+
+Myndigheden giver en verdensomspændende, gratis, ikke-eksklusiv, og i øvrigt ubegrænset brugsret til data, som frit bl.a. kan:
+
+kopieres, distribueres og offentliggøres,
+ændres og sammensættes med andet materiale,
+bruges kommercielt og ikke-kommercielt
+Vilkår
+
+Data må ikke bruges på en måde, så det kan fremstå som om, at myndigheden godkender, støtter, anbefaler eller markedsfører brugeren, brugerens produkter eller tjenester. Det skal sikres, at brug af data er i overensstemmelse med dansk ret.
+
+Kildeangivelse
+Myndigheden håndhæver sin ophavsret. Når data anvendes skal brugeren:
+
+på et rimeligt sted egnet til distributionsmediet indsætte følgende:
+
+ ”Indeholder data fra Styrelsen for Dataforsyning og Effektivisering”
+
+Navnet på datasættet(ene)
+
+Tidspunkt, hvor datasættet(ene) er hentet hos myndigheden, eller om der er tale om en datatjeneste.
+(fx: ”Indeholder data fra Styrelsen for Dataforsyning og Effektivisering, Kort10, januar 2016”. Eller: ”Indeholder data fra Geodatastyrelsen, Matrikelkortet, WMS-tjeneste”)
+
+sikre, at ”Styrelsen for Dataforsyning og Effektivisering” fremgår på forsiden af servicen, såfremt andre kilder også nævnes på forsiden
+
+stille en kopi af disse vilkår, evt. ved hjælp af et link, til rådighed for tredjepart
+
+Ovennævnte vilkår gælder også, såfremt brugeren videregiver data fra Styrelsen for Dataforsyning og Effektivisering til tredjepart.
+
+Myndighedens rettigheder og ansvar
+Data stilles til rådighed, som de er, og myndigheden har intet ansvar for hverken indhold, oprindelse, fejl og mangler eller nogen form for skade, der måtte følge af brug af data.  Myndigheden garanterer ikke den fortsatte tilrådighedsstillelse af data.  Myndigheden kan til enhver tid ændre brugsretten til data og vilkårene herfor.
+EOF
+cat << EOF > $OUT/assets/kortforsyningen.json
+{
+  "name": "DAWA",
+  "content": "$(cat /tmp/license | sed 's/$/\\n/'| tr -d '\n' )"
+}
+EOF

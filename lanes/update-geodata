@@ -1,0 +1,1 @@
+curl "https://api.dataforsyningen.dk/postnumre?format=geojson" > Powercast/Assets.GeoJSON/postnumre.geojson

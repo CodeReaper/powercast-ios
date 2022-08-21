@@ -2,13 +2,14 @@ import UIKit
 
 indirect enum Navigation {
     case intro
-    case regionSelection(configuration: RegionSelectionViewController.Configuration)
+    case regionSelection(configuration: ZoneSelectionViewController.Configuration)
     case loadData
     case dashboard
     case settings
     case specificSettings(configuration: [SettingsViewController.Section])
     case about
     case licenses
+    case license(title: String, content: String)
     case actionSheet(options: [ActionSheetOption])
     case menu
 }
@@ -48,7 +49,7 @@ class AppNavigation {
         case .intro:
             navigationController.setViewControllers([IntroViewController(navigation: self, state: dependencies.stateRepository.state, energyPriceDatabase: dependencies.energyPriceDatabase)], animated: false)
         case let .regionSelection(configuration):
-            navigationController.pushViewController(RegionSelectionViewController(navigation: self, configuration: configuration, repository: dependencies.stateRepository), animated: true)
+            navigationController.pushViewController(ZoneSelectionViewController(navigation: self, configuration: configuration, repository: dependencies.stateRepository), animated: true)
         case .loadData:
             navigationController.pushViewController(DataLoadingViewController(navigation: self, energyPriceRepository: dependencies.energyPriceRepository, stateRepository: dependencies.stateRepository), animated: true)
         case .menu:
@@ -74,6 +75,8 @@ class AppNavigation {
             navigationController.pushViewController(SettingsViewController(navigation: self, repository: dependencies.stateRepository, sections: configuration), animated: true)
         case .licenses:
             navigationController.pushViewController(LicensesViewController(navigation: self), animated: true)
+        case let .license(title, content):
+            navigationController.pushViewController(LicenseViewController(navigation: self, title: title, content: content), animated: true)
         case .about:
             navigationController.pushViewController(AboutViewController(navigation: self), animated: true)
         case .actionSheet(let options):

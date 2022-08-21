@@ -115,10 +115,11 @@ extension SettingsViewController: UITableViewDelegate {
 extension SettingsViewController {
     func buildSettings(state: State) -> [Section] {
         return [
-            SettingsViewController.Section(title: Translations.SETTINGS_REGIONS_TITLE, rows: [
-                .item(label: Translations.SETTINGS_REGIONS_CHOOSEN_TITLE, detailLabel: state.selectedZone.rawValue, onSelection: { [navigation] in
-                    navigation.navigate(to: .regionSelection(configuration: RegionSelectionViewController.Configuration(behavior: .pop)))
-                })
+            SettingsViewController.Section(title: Translations.SETTINGS_ZONE_TITLE, rows: [
+                .item(label: Translations.SETTINGS_ZONE_ZIPCODE_TITLE, detailLabel: "\(state.selectedZipCode)", onSelection: { [navigation] in
+                    navigation.navigate(to: .regionSelection(configuration: ZoneSelectionViewController.Configuration(behavior: .pop)))
+                }),
+                .item(label: Translations.SETTINGS_ZONE_ZONE_TITLE, detailLabel: state.selectedZone.name, onSelection: nil)
             ])
         ]
     }

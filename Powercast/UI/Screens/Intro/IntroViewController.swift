@@ -19,8 +19,8 @@ class IntroViewController: ViewController {
                     aligned: .center,
                     on: .vertical,
                     spacing: 10,
-                    Label(style: .title1, text: Translations.INTRO_PAGE_REGION_SELECTION_TITLE, color: .black).aligned(to: .center),
-                    Label(style: .body, text: Translations.INTRO_PAGE_REGION_SELECTION_MESSAGE, color: .black),
+                    Label(style: .title1, text: Translations.INTRO_PAGE_ZIP_SELECTION_TITLE, color: .black).aligned(to: .center),
+                    Label(style: .body, text: Translations.INTRO_PAGE_ZIP_SELECTION_MESSAGE, color: .black),
                     ImageView(image: Images.powercast_splash, mode: .center).set(height: 175)
                 ).fill()
             ),
@@ -150,7 +150,7 @@ class IntroViewController: ViewController {
                 self.pageViewController(self.pageViewController, didFinishAnimating: $0, previousViewControllers: [], transitionCompleted: true)
             }
         } else {
-            navigation.navigate(to: .regionSelection(configuration: RegionSelectionViewController.Configuration(behavior: .navigate(endpoint: .loadData))))
+            navigation.navigate(to: .regionSelection(configuration: ZoneSelectionViewController.Configuration(behavior: .navigate(endpoint: .loadData))))
         }
     }
 
