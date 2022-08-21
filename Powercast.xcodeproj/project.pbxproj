@@ -83,7 +83,6 @@
 		38ECF957289E969100ED8372 /* EnergyPriceSourceCopy.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF956289E969100ED8372 /* EnergyPriceSourceCopy.generated.swift */; };
 		38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15C828833A5B001C38F9 /* AppNavigation.swift */; };
 		38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DA28835353001C38F9 /* SettingsViewController.swift */; };
-		38FD15DD288354FF001C38F9 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DC288354FF001C38F9 /* AboutViewController.swift */; };
 		38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DE28835528001C38F9 /* LicensesViewController.swift */; };
 		CD5E307A28B17C6C00DBA019 /* postnumre.geojson in Resources */ = {isa = PBXBuildFile; fileRef = CD5E307928B17C6C00DBA019 /* postnumre.geojson */; };
 		CD5E309228B2583600DBA019 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309028B2583600DBA019 /* assets */; };
@@ -172,7 +171,6 @@
 		38ECF956289E969100ED8372 /* EnergyPriceSourceCopy.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyPriceSourceCopy.generated.swift; sourceTree = "<group>"; };
 		38FD15C828833A5B001C38F9 /* AppNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigation.swift; sourceTree = "<group>"; };
 		38FD15DA28835353001C38F9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		38FD15DC288354FF001C38F9 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		38FD15DE28835528001C38F9 /* LicensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
 		CD5E307928B17C6C00DBA019 /* postnumre.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = postnumre.geojson; sourceTree = "<group>"; };
 		CD5E309028B2583600DBA019 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
@@ -451,7 +449,6 @@
 		38FD15CD28833AEA001C38F9 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				38FD15DC288354FF001C38F9 /* AboutViewController.swift */,
 				38FD15DE28835528001C38F9 /* LicensesViewController.swift */,
 				CD5E309428B25B1800DBA019 /* LicenseViewController.swift */,
 				389F717C28997B2B0007C2E0 /* MenuViewController.swift */,
@@ -633,7 +630,6 @@
 				38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */,
 				380CE8FC288AE55A0003FF36 /* StackViews.swift in Sources */,
 				380CE8EE288893F90003FF36 /* Animations.swift in Sources */,
-				38FD15DD288354FF001C38F9 /* AboutViewController.swift in Sources */,
 				384E6472288EE5A3004ADCB1 /* ActionSheet.swift in Sources */,
 				384E64792891650E004ADCB1 /* DataLoadingInteractor.swift in Sources */,
 				389F7179289174200007C2E0 /* DashboardViewController.swift in Sources */,

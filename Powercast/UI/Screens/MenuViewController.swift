@@ -17,7 +17,6 @@ class MenuViewController: ViewController {
             ImageView(image: Images.powercast_splash, mode: .center),
             MenuButton(symbolName: "square.3.stack.3d.middle.filled", text: Translations.DASHBOARD_TITLE, target: self, action: #selector(didTapDashboard)).set(height: 44),
             MenuButton(symbolName: "gearshape", text: Translations.SETTINGS_TITLE, target: self, action: #selector(didTapSettings)).set(height: 44),
-            MenuButton(symbolName: "person", text: Translations.ABOUT_TITLE, target: self, action: #selector(didTapAbout)).set(height: 44),
             MenuButton(symbolName: "paragraphsign", text: Translations.LICENSES_TITLE, target: self, action: #selector(didTapLicense)).set(height: 44),
             FlexibleSpace()
         )
@@ -42,9 +41,5 @@ class MenuViewController: ViewController {
 
     @objc private func didTapLicense() {
         navigation.navigate(to: .licenses)
-    }
-
-    @objc private func didTapAbout() {
-        navigation.navigate(to: .about)
     }
 }

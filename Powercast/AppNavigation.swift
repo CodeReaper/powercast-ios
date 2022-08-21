@@ -7,7 +7,6 @@ indirect enum Navigation {
     case dashboard
     case settings
     case specificSettings(configuration: [SettingsViewController.Section])
-    case about
     case licenses
     case license(title: String, content: String)
     case actionSheet(options: [ActionSheetOption])
@@ -77,8 +76,6 @@ class AppNavigation {
             navigationController.pushViewController(LicensesViewController(navigation: self), animated: true)
         case let .license(title, content):
             navigationController.pushViewController(LicenseViewController(navigation: self, title: title, content: content), animated: true)
-        case .about:
-            navigationController.pushViewController(AboutViewController(navigation: self), animated: true)
         case .actionSheet(let options):
             navigationController.present(UIAlertController.build(with: options), animated: true)
         }

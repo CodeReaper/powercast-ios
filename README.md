@@ -12,7 +12,7 @@ Below follows a roadmap arranged by current best guess for completion:
  - [x] Region selection
  - [x] Data updates
  - [ ] Current values for price/renewables/co2
- - [ ] Settings
+ - [x] Settings
  - [ ] Graphs for price/renewables/co2
  - [ ] Logo and branding
  - [ ] IAP
