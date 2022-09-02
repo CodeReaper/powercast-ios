@@ -37,6 +37,10 @@ class App: Dependenables {
         navigation.setup(using: window)
     }
 
+    func willEnterForeground() {
+        energyPriceRepository.refresh()
+    }
+
     // MARK: - setups
 
     private class func setupEnergyPriceDatabase(_ configuration: AppConfiguration) -> EnergyPriceDatabase {

@@ -59,8 +59,8 @@
 		387FF606286B90A40051E3DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 387FF604286B90A40051E3DC /* LaunchScreen.storyboard */; };
 		387FF60E286B95B00051E3DC /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF60D286B95B00051E3DC /* App.swift */; };
 		387FF610286B95BB0051E3DC /* global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF60F286B95BB0051E3DC /* global.swift */; };
-		389F7179289174200007C2E0 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F7178289174200007C2E0 /* DashboardViewController.swift */; };
-		389F717B289174390007C2E0 /* DashboardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F717A289174390007C2E0 /* DashboardInteractor.swift */; };
+		389F7179289174200007C2E0 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F7178289174200007C2E0 /* GraphViewController.swift */; };
+		389F717B289174390007C2E0 /* GraphInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F717A289174390007C2E0 /* GraphInteractor.swift */; };
 		389F717D28997B2C0007C2E0 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F717C28997B2B0007C2E0 /* MenuViewController.swift */; };
 		389F717F289982630007C2E0 /* Drawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F717E289982630007C2E0 /* Drawer.swift */; };
 		38CA8707289EEA21004CD163 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CA8706289EEA21004CD163 /* TableView.swift */; };
@@ -88,6 +88,11 @@
 		CD5E309228B2583600DBA019 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309028B2583600DBA019 /* assets */; };
 		CD5E309328B2583600DBA019 /* packages in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309128B2583600DBA019 /* packages */; };
 		CD5E309528B25B1800DBA019 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5E309428B25B1800DBA019 /* LicenseViewController.swift */; };
+		CD8A4BC028B2755A00EC68E3 /* PricesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BBE28B2755A00EC68E3 /* PricesViewController.swift */; };
+		CD8A4BC128B2755A00EC68E3 /* PricesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BBF28B2755A00EC68E3 /* PricesInteractor.swift */; };
+		CD8A4BC328BA616E00EC68E3 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BC228BA616E00EC68E3 /* Formatter.swift */; };
+		CD8A4BC528BA6DB000EC68E3 /* Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BC428BA6DB000EC68E3 /* Price.swift */; };
+		CD8A4BCA28BC1B9100EC68E3 /* Local.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD8A4BC928BC1B9100EC68E3 /* Local.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -144,8 +149,8 @@
 		387FF607286B90A40051E3DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		387FF60D286B95B00051E3DC /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		387FF60F286B95BB0051E3DC /* global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = global.swift; sourceTree = "<group>"; };
-		389F7178289174200007C2E0 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
-		389F717A289174390007C2E0 /* DashboardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardInteractor.swift; sourceTree = "<group>"; };
+		389F7178289174200007C2E0 /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
+		389F717A289174390007C2E0 /* GraphInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphInteractor.swift; sourceTree = "<group>"; };
 		389F717C28997B2B0007C2E0 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		389F717E289982630007C2E0 /* Drawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawer.swift; sourceTree = "<group>"; };
 		38CA8706289EEA21004CD163 /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
@@ -176,6 +181,11 @@
 		CD5E309028B2583600DBA019 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		CD5E309128B2583600DBA019 /* packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = packages; sourceTree = "<group>"; };
 		CD5E309428B25B1800DBA019 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
+		CD8A4BBE28B2755A00EC68E3 /* PricesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PricesViewController.swift; sourceTree = "<group>"; };
+		CD8A4BBF28B2755A00EC68E3 /* PricesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PricesInteractor.swift; sourceTree = "<group>"; };
+		CD8A4BC228BA616E00EC68E3 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
+		CD8A4BC428BA6DB000EC68E3 /* Price.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
+		CD8A4BC928BC1B9100EC68E3 /* Local.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +313,7 @@
 				384E646A288EDAAF004ADCB1 /* Appearence.swift */,
 				380CE8F8288AE55A0003FF36 /* Autolayout.swift */,
 				38ECF94A289B0ACF00ED8372 /* Date.swift */,
+				CD8A4BC228BA616E00EC68E3 /* Formatter.swift */,
 				380CE902288AE9700003FF36 /* HexColors.swift */,
 				38CA8706289EEA21004CD163 /* TableView.swift */,
 				384E647428915F52004ADCB1 /* Task.swift */,
@@ -350,6 +361,7 @@
 				387FF5FB286B909B0051E3DC /* SceneDelegate.swift */,
 				384E6439288DAA56004ADCB1 /* Sourcery.swift */,
 				387FF602286B90A40051E3DC /* Assets.xcassets */,
+				CD8A4BC928BC1B9100EC68E3 /* Local.xcconfig */,
 				38DF5AAB287079DE008630FB /* Assets */,
 				380CE8EA288893E30003FF36 /* Assets.Animations */,
 				384E6442288DBD53004ADCB1 /* Assets.Fonts */,
@@ -364,13 +376,13 @@
 			path = Powercast;
 			sourceTree = "<group>";
 		};
-		389F7177289174200007C2E0 /* Dashboard */ = {
+		389F7177289174200007C2E0 /* Graph */ = {
 			isa = PBXGroup;
 			children = (
-				389F717A289174390007C2E0 /* DashboardInteractor.swift */,
-				389F7178289174200007C2E0 /* DashboardViewController.swift */,
+				389F717A289174390007C2E0 /* GraphInteractor.swift */,
+				389F7178289174200007C2E0 /* GraphViewController.swift */,
 			);
-			path = Dashboard;
+			path = Graph;
 			sourceTree = "<group>";
 		};
 		38DF5AAB287079DE008630FB /* Assets */ = {
@@ -430,6 +442,7 @@
 				38E0FA712884822C0096B98A /* _Database.swift */,
 				38E0FA6D2884803F0096B98A /* EnergyPrice.swift */,
 				38ECF954289DAEF400ED8372 /* EnergyPriceSource.swift */,
+				CD8A4BC428BA6DB000EC68E3 /* Price.swift */,
 				384E6436288D9FD9004ADCB1 /* State.swift */,
 				38E0FA6F2884808D0096B98A /* Zone.swift */,
 			);
@@ -453,9 +466,10 @@
 				CD5E309428B25B1800DBA019 /* LicenseViewController.swift */,
 				389F717C28997B2B0007C2E0 /* MenuViewController.swift */,
 				38FD15DA28835353001C38F9 /* SettingsViewController.swift */,
-				389F7177289174200007C2E0 /* Dashboard */,
+				389F7177289174200007C2E0 /* Graph */,
 				384E64762891650E004ADCB1 /* DataLoading */,
 				384E6465288ED61D004ADCB1 /* Intro */,
+				CD8A4BBD28B2755A00EC68E3 /* Prices */,
 				384E646C288EDE96004ADCB1 /* ZoneSelection */,
 			);
 			path = Screens;
@@ -468,6 +482,15 @@
 				CD5E309128B2583600DBA019 /* packages */,
 			);
 			path = Assets.Licenses;
+			sourceTree = "<group>";
+		};
+		CD8A4BBD28B2755A00EC68E3 /* Prices */ = {
+			isa = PBXGroup;
+			children = (
+				CD8A4BBF28B2755A00EC68E3 /* PricesInteractor.swift */,
+				CD8A4BBE28B2755A00EC68E3 /* PricesViewController.swift */,
+			);
+			path = Prices;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -556,6 +579,7 @@
 				384E6458288DC80E004ADCB1 /* CooperHewitt-Book.otf in Resources */,
 				38DF5AC828708077008630FB /* Localizable.strings in Resources */,
 				387FF603286B90A40051E3DC /* Assets.xcassets in Resources */,
+				CD8A4BCA28BC1B9100EC68E3 /* Local.xcconfig in Resources */,
 				CD5E309328B2583600DBA019 /* packages in Resources */,
 				384E645F288DC80E004ADCB1 /* CooperHewitt-MediumItalic.otf in Resources */,
 				384E6444288DBD53004ADCB1 /* AlexBrush-Regular.ttf in Resources */,
@@ -612,12 +636,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD8A4BC028B2755A00EC68E3 /* PricesViewController.swift in Sources */,
 				380CE8E62888901A0003FF36 /* EnergyPriceDatabase.swift in Sources */,
 				380CE903288AE9700003FF36 /* HexColors.swift in Sources */,
 				38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */,
 				38E0FA702884808D0096B98A /* Zone.swift in Sources */,
 				380CE8F1288AE4C30003FF36 /* LoadingView.swift in Sources */,
-				389F717B289174390007C2E0 /* DashboardInteractor.swift in Sources */,
+				389F717B289174390007C2E0 /* GraphInteractor.swift in Sources */,
 				380CE8FF288AE55A0003FF36 /* ViewControllers.swift in Sources */,
 				38DF5AB7287079DE008630FB /* Images.swift in Sources */,
 				387FF60E286B95B00051E3DC /* App.swift in Sources */,
@@ -625,14 +650,16 @@
 				384E647A2891650E004ADCB1 /* DataLoadingViewController.swift in Sources */,
 				384E6435288D9E38004ADCB1 /* StateRepository.swift in Sources */,
 				38E0FA652884759B0096B98A /* EnergyPriceRepository.swift in Sources */,
+				CD8A4BC128B2755A00EC68E3 /* PricesInteractor.swift in Sources */,
 				CD5E309528B25B1800DBA019 /* LicenseViewController.swift in Sources */,
+				CD8A4BC328BA616E00EC68E3 /* Formatter.swift in Sources */,
 				384E6437288D9FD9004ADCB1 /* State.swift in Sources */,
 				38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */,
 				380CE8FC288AE55A0003FF36 /* StackViews.swift in Sources */,
 				380CE8EE288893F90003FF36 /* Animations.swift in Sources */,
 				384E6472288EE5A3004ADCB1 /* ActionSheet.swift in Sources */,
 				384E64792891650E004ADCB1 /* DataLoadingInteractor.swift in Sources */,
-				389F7179289174200007C2E0 /* DashboardViewController.swift in Sources */,
+				389F7179289174200007C2E0 /* GraphViewController.swift in Sources */,
 				38ECF953289DAC6500ED8372 /* Colors.swift in Sources */,
 				387FF5FA286B909B0051E3DC /* AppDelegate.swift in Sources */,
 				389F717F289982630007C2E0 /* Drawer.swift in Sources */,
@@ -662,6 +689,7 @@
 				387FF610286B95BB0051E3DC /* global.swift in Sources */,
 				384E643A288DAA56004ADCB1 /* Sourcery.swift in Sources */,
 				384E6446288DC430004ADCB1 /* Fonts.swift in Sources */,
+				CD8A4BC528BA6DB000EC68E3 /* Price.swift in Sources */,
 				38ECF955289DAEF400ED8372 /* EnergyPriceSource.swift in Sources */,
 				38E0FA722884822C0096B98A /* _Database.swift in Sources */,
 				384E647528915F52004ADCB1 /* Task.swift in Sources */,
@@ -821,6 +849,7 @@
 		};
 		387FF60B286B90A40051E3DC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD8A4BC928BC1B9100EC68E3 /* Local.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -837,7 +866,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.codereaper.Powercast;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).Powercast";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -863,7 +892,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.codereaper.Powercast;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).Powercast";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -1,12 +1,12 @@
 import Foundation
 import Combine
 
-protocol DashboardDelegate: AnyObject {
+protocol GraphDelegate: AnyObject {
     func show(loading: Bool)
     func show(items: [EnergyPrice])
 }
 
-class DashboardInteractor {
+class GraphInteractor {
     private let calendar = Calendar.current
 
     private let repository: EnergyPriceRepository
@@ -19,9 +19,9 @@ class DashboardInteractor {
     private var loadingTask: Task<Void, Error>?
     private var dateLimit: Date?
 
-    private weak var delegate: DashboardDelegate?
+    private weak var delegate: GraphDelegate?
 
-    init(delegate: DashboardDelegate, repository: EnergyPriceRepository) {
+    init(delegate: GraphDelegate, repository: EnergyPriceRepository) {
         self.delegate = delegate
         self.repository = repository
     }
@@ -32,7 +32,7 @@ class DashboardInteractor {
     }
 
     func viewWillAppear() {
-        statusSink = repository.status.receive(on: DispatchQueue.main).sink { [weak self, startLoadData, repository] in
+        statusSink = repository.publishedStatus.receive(on: DispatchQueue.main).sink { [weak self, startLoadData, repository] in
             switch $0 {
             case let .synced(with: date):
                 let load = self?.dateLimit == nil
@@ -48,7 +48,7 @@ class DashboardInteractor {
             case .failed:
                 DispatchQueue.main.asyncAfter(deadline: .now() + (self?.retryDelay ?? 1), execute: {
                     self?.retryDelay += min(30, 1)
-                    _ = repository.refresh()
+                    repository.refresh()
                 })
             case .pending, .syncing: break
             }

@@ -39,7 +39,7 @@ class SettingsViewController: ViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        stateSink = repository.statePublisher.receive(on: DispatchQueue.main).sink { [weak self, buildSettings] in
+        stateSink = repository.publishedState.receive(on: DispatchQueue.main).sink { [weak self, buildSettings] in
             self?.sections = buildSettings($0)
             self?.tableView.reloadData()
         }

@@ -7,7 +7,7 @@ class StateRepository {
 
     private var stateSubject = CurrentValueSubject<State, Never>(State())
 
-    lazy var statePublisher = stateSubject.eraseToAnyPublisher()
+    lazy var publishedState = stateSubject.eraseToAnyPublisher()
 
     var state: State { stateSubject.value }
 

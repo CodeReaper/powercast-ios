@@ -3,7 +3,7 @@ import Combine
 import BackgroundTasks
 
 class BackgroundScheduler {
-    private let energyPriceRefresh = "com.codereaper.Powercast.energyprice.refresh"
+    private let energyPriceRefresh = "Powercast.energyprice.refresh"
 
     private var statusSink: AnyCancellable?
     private var refreshTask: Task<Void, Never>?
@@ -39,7 +39,7 @@ class BackgroundScheduler {
             self?.refreshTask?.cancel()
         }
 
-        statusSink = repository.status.receive(on: DispatchQueue.main).sink {
+        statusSink = repository.publishedStatus.receive(on: DispatchQueue.main).sink {
             switch $0 {
             case .updated:
                 task.setTaskCompleted(success: true)

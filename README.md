@@ -11,10 +11,13 @@ Below follows a roadmap arranged by current best guess for completion:
  - [ ] Intro Pages
  - [x] Region selection
  - [x] Data updates
- - [ ] Current values for price/renewables/co2
+ - [x] Current prices
  - [x] Settings
- - [ ] Graphs for price/renewables/co2
- - [ ] Logo and branding
- - [ ] IAP
+ - [ ] Graphs for price
+ - [x] Logo
+ - [ ] Branding
+ - [ ] Historic drilldown of prices
  - [ ] Customizable notification for forecast at preset times
  - [ ] Pricedrop notifcations
+ - [ ] IAP
+ - [ ] Dark mode

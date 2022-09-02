@@ -9,7 +9,9 @@ class EnergyPriceRepository {
     private var statusSubject = CurrentValueSubject<Status, Never>(.pending)
     private var refreshTask: Task<Void, Never>?
 
-    lazy var status = statusSubject.eraseToAnyPublisher()
+    lazy var publishedStatus = statusSubject.eraseToAnyPublisher()
+
+    var status: Status { statusSubject.value }
 
     init(service: PowercastDataService, database: DatabaseQueue) {
         self.service = service
@@ -37,7 +39,11 @@ class EnergyPriceRepository {
         return items.map { EnergyPrice.from(model: $0) }
     }
 
-    // swiftlint:disable:next function_body_length
+    func source(for zone: Zone) throws -> PriceTableDatasource {
+        return try TableDatasource(database: database, zone: zone)
+    }
+
+    @discardableResult // swiftlint:disable:next function_body_length
     func refresh() -> Task<Void, Never> {
         let runningTask = refreshTask
         guard runningTask == nil else { return runningTask! }
@@ -114,4 +120,104 @@ class EnergyPriceRepository {
         case failed
         case cancelled
     }
+
+    private class TableDatasource: PriceTableDatasource {
+        private let database: DatabaseQueue
+        private let zone: Zone
+        private let items: [[Date]]
+        private let sections: [Date]
+
+        init(database: DatabaseQueue, zone: Zone) throws {
+            let max = try database.read { db in
+                return try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.max(Database.EnergyPrice.Columns.timestamp)))
+            }
+            let min = try database.read { db in
+                return try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.min(Database.EnergyPrice.Columns.timestamp)))
+            }
+
+            let calendar = Calendar.current
+            guard let max = max, let min = min, var tomorrow = calendar.nextDate(after: min, matching: DateComponents(hour: 0), matchingPolicy: .strict), max > min else {
+                throw Failure.dataMissing
+            }
+
+            var date = tomorrow
+            var items: [[Date]] = []
+            var sections: [Date] = []
+            repeat {
+                sections.append(tomorrow)
+                tomorrow = calendar.date(byAdding: .day, value: 1, to: date)!
+
+                var weekdays: [Date] = []
+                repeat {
+                    weekdays.append(date)
+                    date = calendar.date(byAdding: .hour, value: 1, to: date)!
+                } while date != tomorrow && date <= max
+                items.append(weekdays.reversed())
+
+            } while date < max
+
+            self.items = items.reversed()
+            self.sections = sections.reversed()
+            self.database = database
+            self.zone = zone
+        }
+
+        var sectionCount: Int { sections.count }
+
+        func numberOfRows(in section: Int) -> Int {
+            return items[section].count
+        }
+
+        func item(at indexPath: IndexPath) -> Price? {
+            let dates = items[indexPath.section]
+            guard let max = dates.max(), let min = dates.min() else { return nil }
+
+            let models = try? database.read { db in
+                return try Database.EnergyPrice
+                    .filter(Database.EnergyPrice.Columns.zone == zone.rawValue)
+                    .filter(Database.EnergyPrice.Columns.timestamp >= min)
+                    .filter(Database.EnergyPrice.Columns.timestamp <= max)
+                    .order(Database.EnergyPriceSource.Columns.timestamp.desc)
+                    .fetchAll(db).map {
+                        EnergyPrice.from(model: $0)
+                    }
+            }
+
+            guard let models = models, dates.count == models.count else { return nil }
+
+            let model = models[indexPath.item]
+
+            let high = models.reduce(-Double.infinity, { $0 < $1.price ? $1.price : $0 })
+            let low = models.reduce(Double.infinity, { $0 > $1.price ? $1.price : $0 })
+
+            return Price(price: model.price, priceSpan: low...high, zone: model.zone, duration: model.timestamp...model.timestamp.addingTimeInterval(.oneHour))
+        }
+
+        func activeIndexPath(at date: Date) -> IndexPath? {
+            for (section, rows) in items.enumerated() {
+                for (row, item) in rows.enumerated() where date >= item && date < item.addingTimeInterval(.oneHour) {
+                    return IndexPath(row: row, section: section)
+                }
+            }
+            return nil
+        }
+
+        enum Failure: Error {
+            case dataMissing
+        }
+    }
+}
+
+protocol PriceTableDatasource {
+    var sectionCount: Int { get }
+    func numberOfRows(in section: Int) -> Int
+    func item(at indexPath: IndexPath) -> Price?
+    func activeIndexPath(at date: Date) -> IndexPath?
+}
+
+struct EmptyPriceTableDatasource: PriceTableDatasource {
+    let sectionCount: Int = 0
+    func numberOfRows(in section: Int) -> Int { 0 }
+    func item(at indexPath: IndexPath) -> Price? { nil }
+    func activeIndexPath(at date: Date) -> IndexPath? { nil }
 }

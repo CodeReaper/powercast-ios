@@ -1,4 +1,3 @@
-"ABOUT_TITLE" = "About";
 "DASHBOARD_GRAPH_LABEL_FORMAT" = "€ %.0f";
 "DASHBOARD_TITLE" = "Dashboard";
 "DATA_LOADING_REFRESH_FAILED_MESSAGE" = "An error occured while downloading data. Try Again?";
@@ -20,6 +19,10 @@
 "LICENSES_ASSETS_TITLE" = "Assets";
 "LICENSES_PACKAGES_TITLE" = "Packages";
 "LICENSES_TITLE" = "Licenses";
+"PRICES_DAY_PRICE_SPAN" = "%1 - %2 €/MWh";
+"PRICES_HOUR_COST" = "%1 €/MWh";
+"PRICES_HOUR_TIME" = "%1 - %2";
+"PRICES_TITLE" = "Prices";
 "SETTINGS_TITLE" = "Settings";
 "SETTINGS_ZONE_TITLE" = "Zone";
 "SETTINGS_ZONE_ZIPCODE_TITLE" = "Zip code";

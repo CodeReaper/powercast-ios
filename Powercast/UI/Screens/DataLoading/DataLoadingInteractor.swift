@@ -32,7 +32,7 @@ class DataLoadingInteractor {
         }
 
         dispatch.enter()
-        statusSink = energyPriceRepository.status.receive(on: DispatchQueue.main).sink { [delegate] in
+        statusSink = energyPriceRepository.publishedStatus.receive(on: DispatchQueue.main).sink { [delegate] in
             switch $0 {
             case let .synced(with: date):
                 if abs(date.timeIntervalSince1970 - Date().timeIntervalSince1970) > .thirtyDays {

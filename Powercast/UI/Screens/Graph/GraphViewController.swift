@@ -1,6 +1,6 @@
 import UIKit
 
-class DashboardViewController: ViewController {
+class GraphViewController: ViewController {
     private let graphView = GraphView()
     private let spinnerView = SpinnerView(color: Color.primary)
     private let backgroundView = UIView()
@@ -8,11 +8,11 @@ class DashboardViewController: ViewController {
     private var data: [Zone: [Date: EnergyPrice]] = [:]
     private var hasCentered = false
 
-    private var interactor: DashboardInteractor!
+    private var interactor: GraphInteractor!
 
     init(navigation: AppNavigation, repository: EnergyPriceRepository) {
         super.init(navigation: navigation)
-        interactor = DashboardInteractor(delegate: self, repository: repository)
+        interactor = GraphInteractor(delegate: self, repository: repository)
         graphView.delegate = self
         for zone in Zone.allCases {
             data[zone] = [:]
@@ -103,7 +103,7 @@ class DashboardViewController: ViewController {
     }
 }
 
-extension DashboardViewController: DashboardDelegate {
+extension GraphViewController: GraphDelegate {
     func show(loading: Bool) {
         if loading {
             spinnerView.startAnimating().isHidden = false
@@ -190,13 +190,13 @@ extension DashboardViewController: DashboardDelegate {
     }
 }
 
-extension DashboardViewController: GraphViewDelegate {
+extension GraphViewController: GraphViewDelegate {
     func showing(time: TimeInterval, in interval: DateInterval) {
         interactor.showing(time: time, in: interval)
     }
 }
 
-extension DashboardViewController: UINavigationBarDelegate {
+extension GraphViewController: UINavigationBarDelegate {
     func position(for bar: UIBarPositioning) -> UIBarPosition {
         return .topAttached
     }
