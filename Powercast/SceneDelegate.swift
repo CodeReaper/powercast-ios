@@ -19,4 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         app.willEnterForeground()
     }
+
+    func sceneDidEnterBackground(_ scene: UIScene) {
+        app.didEnterBackground()
+    }
 }

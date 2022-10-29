@@ -10,6 +10,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         app.willEnterForeground()
     }
 
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        app.didEnterBackground()
+    }
+
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

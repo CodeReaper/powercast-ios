@@ -1,7 +1,7 @@
 import Foundation
 import GRDB
 
-struct EnergyPriceDatabase {
+struct EnergyPriceDatabase: Migratable {
     let queue: DatabaseQueue
     let configuration: AppConfiguration
 

@@ -211,3 +211,5 @@ cat << EOF > $OUT/assets/eds.json
   "content": "$(cat /tmp/license | sed 's/$/\\n/'| tr -d '\n' )"
 }
 EOF
+
+# TODO: add https://simplemaps.com/resources/svg-dk

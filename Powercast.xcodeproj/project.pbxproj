@@ -47,7 +47,6 @@
 		384E6467288ED61D004ADCB1 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6466288ED61D004ADCB1 /* IntroViewController.swift */; };
 		384E6469288ED62D004ADCB1 /* IntroInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6468288ED62D004ADCB1 /* IntroInteractor.swift */; };
 		384E646B288EDAAF004ADCB1 /* Appearence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E646A288EDAAF004ADCB1 /* Appearence.swift */; };
-		384E646F288EDE96004ADCB1 /* ZoneSelectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E646D288EDE96004ADCB1 /* ZoneSelectionInteractor.swift */; };
 		384E6470288EDE96004ADCB1 /* ZoneSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E646E288EDE96004ADCB1 /* ZoneSelectionViewController.swift */; };
 		384E6472288EE5A3004ADCB1 /* ActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6471288EE5A3004ADCB1 /* ActionSheet.swift */; };
 		384E647528915F52004ADCB1 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E647428915F52004ADCB1 /* Task.swift */; };
@@ -84,6 +83,8 @@
 		38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15C828833A5B001C38F9 /* AppNavigation.swift */; };
 		38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DA28835353001C38F9 /* SettingsViewController.swift */; };
 		38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DE28835528001C38F9 /* LicensesViewController.swift */; };
+		CD114F3928F1FBFF00EBBAFE /* BackgroundIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD114F3828F1FBFF00EBBAFE /* BackgroundIdentifiers.swift */; };
+		CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */; };
 		CD5E307A28B17C6C00DBA019 /* postnumre.geojson in Resources */ = {isa = PBXBuildFile; fileRef = CD5E307928B17C6C00DBA019 /* postnumre.geojson */; };
 		CD5E309228B2583600DBA019 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309028B2583600DBA019 /* assets */; };
 		CD5E309328B2583600DBA019 /* packages in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309128B2583600DBA019 /* packages */; };
@@ -92,7 +93,7 @@
 		CD8A4BC128B2755A00EC68E3 /* PricesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BBF28B2755A00EC68E3 /* PricesInteractor.swift */; };
 		CD8A4BC328BA616E00EC68E3 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BC228BA616E00EC68E3 /* Formatter.swift */; };
 		CD8A4BC528BA6DB000EC68E3 /* Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BC428BA6DB000EC68E3 /* Price.swift */; };
-		CD8A4BCA28BC1B9100EC68E3 /* Local.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD8A4BC928BC1B9100EC68E3 /* Local.xcconfig */; };
+		CDE77AC428C369370021EEDD /* Migratable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE77AC328C369370021EEDD /* Migratable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -135,7 +136,6 @@
 		384E6466288ED61D004ADCB1 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		384E6468288ED62D004ADCB1 /* IntroInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroInteractor.swift; sourceTree = "<group>"; };
 		384E646A288EDAAF004ADCB1 /* Appearence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearence.swift; sourceTree = "<group>"; };
-		384E646D288EDE96004ADCB1 /* ZoneSelectionInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoneSelectionInteractor.swift; sourceTree = "<group>"; };
 		384E646E288EDE96004ADCB1 /* ZoneSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoneSelectionViewController.swift; sourceTree = "<group>"; };
 		384E6471288EE5A3004ADCB1 /* ActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheet.swift; sourceTree = "<group>"; };
 		384E647428915F52004ADCB1 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -177,6 +177,8 @@
 		38FD15C828833A5B001C38F9 /* AppNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigation.swift; sourceTree = "<group>"; };
 		38FD15DA28835353001C38F9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		38FD15DE28835528001C38F9 /* LicensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
+		CD114F3828F1FBFF00EBBAFE /* BackgroundIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundIdentifiers.swift; sourceTree = "<group>"; };
+		CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		CD5E307928B17C6C00DBA019 /* postnumre.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = postnumre.geojson; sourceTree = "<group>"; };
 		CD5E309028B2583600DBA019 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		CD5E309128B2583600DBA019 /* packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = packages; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 		CD8A4BC228BA616E00EC68E3 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		CD8A4BC428BA6DB000EC68E3 /* Price.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
 		CD8A4BC928BC1B9100EC68E3 /* Local.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
+		CDE77AC328C369370021EEDD /* Migratable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migratable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				380CE8E52888901A0003FF36 /* EnergyPriceDatabase.swift */,
+				CDE77AC328C369370021EEDD /* Migratable.swift */,
 			);
 			path = Migrations;
 			sourceTree = "<group>";
@@ -254,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				384E642D288D90EF004ADCB1 /* BackgroundScheduler.swift */,
+				CD114F3828F1FBFF00EBBAFE /* BackgroundIdentifiers.swift */,
 			);
 			path = Scheduler;
 			sourceTree = "<group>";
@@ -296,15 +301,6 @@
 				384E6466288ED61D004ADCB1 /* IntroViewController.swift */,
 			);
 			path = Intro;
-			sourceTree = "<group>";
-		};
-		384E646C288EDE96004ADCB1 /* ZoneSelection */ = {
-			isa = PBXGroup;
-			children = (
-				384E646D288EDE96004ADCB1 /* ZoneSelectionInteractor.swift */,
-				384E646E288EDE96004ADCB1 /* ZoneSelectionViewController.swift */,
-			);
-			path = ZoneSelection;
 			sourceTree = "<group>";
 		};
 		384E647328915F52004ADCB1 /* Tools */ = {
@@ -423,6 +419,7 @@
 			isa = PBXGroup;
 			children = (
 				38E0FA642884759B0096B98A /* EnergyPriceRepository.swift */,
+				CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */,
 				384E6434288D9E38004ADCB1 /* StateRepository.swift */,
 			);
 			path = Repositories;
@@ -466,11 +463,11 @@
 				CD5E309428B25B1800DBA019 /* LicenseViewController.swift */,
 				389F717C28997B2B0007C2E0 /* MenuViewController.swift */,
 				38FD15DA28835353001C38F9 /* SettingsViewController.swift */,
-				389F7177289174200007C2E0 /* Graph */,
+				384E646E288EDE96004ADCB1 /* ZoneSelectionViewController.swift */,
 				384E64762891650E004ADCB1 /* DataLoading */,
+				389F7177289174200007C2E0 /* Graph */,
 				384E6465288ED61D004ADCB1 /* Intro */,
 				CD8A4BBD28B2755A00EC68E3 /* Prices */,
-				384E646C288EDE96004ADCB1 /* ZoneSelection */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -527,7 +524,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					387FF5F5286B909B0051E3DC = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -579,7 +576,6 @@
 				384E6458288DC80E004ADCB1 /* CooperHewitt-Book.otf in Resources */,
 				38DF5AC828708077008630FB /* Localizable.strings in Resources */,
 				387FF603286B90A40051E3DC /* Assets.xcassets in Resources */,
-				CD8A4BCA28BC1B9100EC68E3 /* Local.xcconfig in Resources */,
 				CD5E309328B2583600DBA019 /* packages in Resources */,
 				384E645F288DC80E004ADCB1 /* CooperHewitt-MediumItalic.otf in Resources */,
 				384E6444288DBD53004ADCB1 /* AlexBrush-Regular.ttf in Resources */,
@@ -595,6 +591,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		384E6438288DA97A004ADCB1 /* Sourcery */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -613,6 +610,7 @@
 		};
 		387FF611286B98530051E3DC /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -664,6 +662,8 @@
 				387FF5FA286B909B0051E3DC /* AppDelegate.swift in Sources */,
 				389F717F289982630007C2E0 /* Drawer.swift in Sources */,
 				380EA05C289ACC0200552391 /* GraphView.swift in Sources */,
+				CDE77AC428C369370021EEDD /* Migratable.swift in Sources */,
+				CD114F3928F1FBFF00EBBAFE /* BackgroundIdentifiers.swift in Sources */,
 				38DF5ABE28707A7E008630FB /* Translations.swift in Sources */,
 				384E6469288ED62D004ADCB1 /* IntroInteractor.swift in Sources */,
 				384E642E288D90EF004ADCB1 /* BackgroundScheduler.swift in Sources */,
@@ -681,6 +681,7 @@
 				38ECF94F289C5A5000ED8372 /* UIBeizerPath.swift in Sources */,
 				38CA8709289EEB28004CD163 /* View.swift in Sources */,
 				38ECF94B289B0ACF00ED8372 /* Date.swift in Sources */,
+				CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */,
 				38E0FA68288476C40096B98A /* PowercastDataService.swift in Sources */,
 				380CE8FD288AE55A0003FF36 /* Labels.swift in Sources */,
 				38ECF957289E969100ED8372 /* EnergyPriceSourceCopy.generated.swift in Sources */,
@@ -694,7 +695,6 @@
 				38E0FA722884822C0096B98A /* _Database.swift in Sources */,
 				384E647528915F52004ADCB1 /* Task.swift in Sources */,
 				384E6467288ED61D004ADCB1 /* IntroViewController.swift in Sources */,
-				384E646F288EDE96004ADCB1 /* ZoneSelectionInteractor.swift in Sources */,
 				389F717D28997B2C0007C2E0 /* MenuViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -737,6 +737,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -797,6 +798,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -859,8 +861,10 @@
 				INFOPLIST_FILE = Powercast/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -885,8 +889,10 @@
 				INFOPLIST_FILE = Powercast/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

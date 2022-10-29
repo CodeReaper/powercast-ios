@@ -32,8 +32,6 @@ struct Translations {
 	static let SETTINGS_ZONE_ZONE_TITLE = NSLocalizedString("SETTINGS_ZONE_ZONE_TITLE", comment: "")
 	static let ZONE_DK1 = NSLocalizedString("ZONE_DK1", comment: "")
 	static let ZONE_DK2 = NSLocalizedString("ZONE_DK2", comment: "")
-	static func ZONE_SELECTION_CONFIRMATION_MESSAGE(_ p1: String) -> String { return NSLocalizedString("ZONE_SELECTION_CONFIRMATION_MESSAGE", comment: "").replacingOccurrences(of: "%1", with: p1) }
-	static let ZONE_SELECTION_CONFIRMATION_NEGATIVE_BUTTON = NSLocalizedString("ZONE_SELECTION_CONFIRMATION_NEGATIVE_BUTTON", comment: "")
 	static let ZONE_SELECTION_CONFIRMATION_POSITIVE_BUTTON = NSLocalizedString("ZONE_SELECTION_CONFIRMATION_POSITIVE_BUTTON", comment: "")
 	static let ZONE_SELECTION_TITLE = NSLocalizedString("ZONE_SELECTION_TITLE", comment: "")
 }

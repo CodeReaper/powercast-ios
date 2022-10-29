@@ -6,15 +6,15 @@ protocol IntroDelegate: AnyObject {
 }
 
 struct IntroInteractor {
-    private let energyPriceDatabase: EnergyPriceDatabase
+    private let databases: [Migratable]
     private let state: State
 
     private weak var delegate: IntroDelegate?
 
-    init(delegate: IntroDelegate, state: State, energyPriceDatabase: EnergyPriceDatabase) {
+    init(delegate: IntroDelegate, state: State, databases: [Migratable]) {
         self.delegate = delegate
         self.state = state
-        self.energyPriceDatabase = energyPriceDatabase
+        self.databases = databases
     }
 
     func viewDidLoad() {
@@ -27,10 +27,12 @@ struct IntroInteractor {
         }
 
         // swiftlint:disable force_try
-        dispatch.enter()
-        Task {
-            try! energyPriceDatabase.migrate()
-            dispatch.leave()
+        for database in databases {
+            dispatch.enter()
+            Task {
+                try! database.migrate()
+                dispatch.leave()
+            }
         }
         // swiftlint:enable force_try
 

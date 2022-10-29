@@ -11,6 +11,7 @@ class PricesInteractor {
     private let energyPriceRepository: EnergyPriceRepository
     private let stateRepository: StateRepository
 
+    private var syncedData = Date.distantPast
     private var sink = Set<AnyCancellable>()
 
     private weak var delegate: PricesDelegate?
@@ -30,10 +31,14 @@ class PricesInteractor {
             .CombineLatest(energyPriceRepository.publishedStatus, stateRepository.publishedState)
             .prepend((energyPriceRepository.status, stateRepository.state))
             .receive(on: DispatchQueue.main)
-            .sink { [energyPriceRepository, delegate] (status, state) in
+            .sink { [energyPriceRepository, delegate, weak self] (status, state) in
                 defer { delegate?.show(loading: false) }
                 switch status {
-                case .synced, .updated, .cancelled, .failed:
+                case .synced(let date):
+                    guard let syncedData = self?.syncedData, date > syncedData else { return }
+                    self?.syncedData = date
+                    fallthrough
+                case .updated, .cancelled, .failed:
                     guard let source = try? energyPriceRepository.source(for: state.selectedZone) else {
                         delegate?.showNoData()
                         return

@@ -13,27 +13,18 @@ enum PowercastDataServiceError: Error {
     case unresolvableDate(givenZone: String, type: String)
 }
 
-struct PowercastDataServiceDemoValues: PowercastDataService {
-    func latest(for zone: Zone) async throws -> Date {
-        return Date(timeIntervalSince1970: 1658016000)
+struct PowercastDataServiceFactory {
+    enum Mode {
+        case ephemeral
+        case background
     }
 
-    func oldest(for zone: Zone) async throws -> Date {
-        return Date(timeIntervalSince1970: 1658016000)
-    }
-
-    func data(for zone: Zone, at date: Date) async throws -> [EnergyPrice] {
-        try? await Task.sleep(seconds: 3)
-        return [
-            EnergyPrice(price: 0, zone: zone, timestamp: Date(timeIntervalSince1970: 1658016000)),
-            EnergyPrice(price: 1, zone: zone, timestamp: Date(timeIntervalSince1970: 1658019600)),
-            EnergyPrice(price: 2, zone: zone, timestamp: Date(timeIntervalSince1970: 1658023200)),
-            EnergyPrice(price: 3, zone: zone, timestamp: Date(timeIntervalSince1970: 1658026800))
-        ]
+    func build(_ mode: Mode) -> PowercastDataService {
+        return PowercastDataServiceAPI(mode: mode)
     }
 }
 
-struct PowercastDataServiceAPI: PowercastDataService {
+class PowercastDataServiceAPI: NSObject, PowercastDataService {
     private let endpoint = "https://codereaper.github.io/powercast-data/api/energy-price"
     private let decoder = JSONDecoder()
     private let formatter: DateFormatter = {
@@ -41,11 +32,23 @@ struct PowercastDataServiceAPI: PowercastDataService {
         formatter.dateFormat = "yyyy/MM/dd"
         return formatter
     }()
-    private let session: URLSession = {
-        let configuration = URLSessionConfiguration.ephemeral
-        let session = URLSession(configuration: configuration)
-        return session
-    }()
+
+    private let configuration: URLSessionConfiguration
+    private lazy var session: URLSession = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
+
+    fileprivate init(mode: PowercastDataServiceFactory.Mode) {
+        switch mode {
+        case .ephemeral:
+            configuration = URLSessionConfiguration.ephemeral
+        case .background:
+            let configuration = URLSessionConfiguration.background(withIdentifier: BackgroundIdentifiers.energyPrice)
+            configuration.isDiscretionary = true
+            configuration.timeoutIntervalForRequest = 30
+            self.configuration = configuration
+        }
+
+        super.init()
+    }
 
     func latest(for zone: Zone) async throws -> Date {
         return try await lookup(.latest, in: zone)
@@ -57,7 +60,7 @@ struct PowercastDataServiceAPI: PowercastDataService {
 
     func data(for zone: Zone, at date: Date) async throws -> [EnergyPrice] {
         let url = URL(string: "\(endpoint)/\(formatter.string(from: date))/\(zone.rawValue).json")!
-        let (data, _) = try await session.data(from: url)
+        let data = try await data(from: url)
         let list = try decoder.decode([Item].self, from: data)
         return list.map {
             EnergyPrice(price: $0.euro, zone: zone, timestamp: Date(timeIntervalSince1970: $0.timestamp))
@@ -66,7 +69,7 @@ struct PowercastDataServiceAPI: PowercastDataService {
 
     private func lookup(_ type: IndexType, in zone: Zone) async throws -> Date {
         let url = URL(string: "\(endpoint)/index.json")!
-        let (data, _) = try await session.data(from: url)
+        let data = try await data(from: url)
         let list = try decoder.decode([Index].self, from: data)
         guard let item = list.first(where: { $0.zone.lowercased() == zone.rawValue.lowercased() }) else {
             throw PowercastDataServiceError.unknownZone(givenZone: zone.rawValue)
@@ -98,24 +101,33 @@ struct PowercastDataServiceAPI: PowercastDataService {
         return components.date
     }
 
+    private var continuation: CheckedContinuation<Data, Error>?
+    private var buffer = Data()
+    private func data(from url: URL) async throws -> Data {
+        return try await withCheckedThrowingContinuation { continuation in
+            self.buffer = Data()
+            self.continuation = continuation
+            self.session.dataTask(with: url).resume()
+        }
+    }
+
     private enum IndexType {
         case latest
         case oldest
     }
 }
 
-private extension URLSession {
-    @available(iOS, deprecated: 15.0, message: "This extension is no longer necessary. Use API built into SDK")
-    func data(from url: URL) async throws -> (Data, URLResponse) {
-        try await withCheckedThrowingContinuation { continuation in
-            let task = self.dataTask(with: url) { data, response, error in
-                guard let data = data, let response = response else {
-                    return continuation.resume(throwing: error ?? URLError(.badServerResponse))
-                }
-                continuation.resume(returning: (data, response))
-            }
-            task.resume()
+extension PowercastDataServiceAPI: URLSessionDataDelegate {
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        if let error = error {
+            continuation?.resume(throwing: error)
+        } else {
+            continuation?.resume(returning: buffer)
         }
+    }
+
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+        buffer.append(contentsOf: data)
     }
 }
 

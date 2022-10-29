@@ -3,19 +3,38 @@ import Combine
 import GRDB
 
 class EnergyPriceRepository {
-    private let service: PowercastDataService
+    private let factory: PowercastDataServiceFactory
     private let database: DatabaseQueue
 
     private var statusSubject = CurrentValueSubject<Status, Never>(.pending)
     private var refreshTask: Task<Void, Never>?
+    private var sink: AnyCancellable?
 
     lazy var publishedStatus = statusSubject.eraseToAnyPublisher()
 
     var status: Status { statusSubject.value }
 
-    init(service: PowercastDataService, database: DatabaseQueue) {
-        self.service = service
+    init(factory: PowercastDataServiceFactory, database: DatabaseQueue) {
+        self.factory = factory
         self.database = database
+
+        sink = publishedStatus.receive(on: DispatchQueue.main).sink(receiveValue: { status in
+            switch status {
+            case .syncing, .pending, .synced:
+                break
+            case .updated(let newData):
+                print("PriceSync: Finished - newData: \(newData)")
+            case .failed(let error):
+                switch (error as? URLError)?.code {
+                case .some(.timedOut):
+                    print("PriceSync: Timed out.")
+                default:
+                    print("PriceSync: Failed: \(error)")
+                }
+            case .cancelled:
+                print("PriceSync: Was cancelled")
+            }
+        })
     }
 
     func data(in interval: DateInterval) async throws -> [EnergyPrice] {
@@ -39,16 +58,29 @@ class EnergyPriceRepository {
         return items.map { EnergyPrice.from(model: $0) }
     }
 
+    func latest(for zone: Zone) throws -> Date? {
+        try database.read { db in
+            try Date.fetchOne(
+                db,
+                Database.EnergyPrice
+                    .filter(Database.EnergyPrice.Columns.zone == zone.rawValue)
+                    .select(max(Database.EnergyPrice.Columns.timestamp))
+            )
+        }
+    }
+
     func source(for zone: Zone) throws -> PriceTableDatasource {
         return try TableDatasource(database: database, zone: zone)
     }
 
     @discardableResult // swiftlint:disable:next function_body_length
-    func refresh() -> Task<Void, Never> {
+    func refresh(mode: PowercastDataServiceFactory.Mode = .ephemeral) -> Task<Void, Never> {
         let runningTask = refreshTask
         guard runningTask == nil else { return runningTask! }
 
         statusSubject.send(.syncing)
+
+        let service = factory.build(mode)
 
         let task = Task {
             do {
@@ -77,6 +109,7 @@ class EnergyPriceRepository {
                     try Database.EnergyPriceSource.fetchAll(db, Database.EnergyPriceSource.filter(Database.EnergyPriceSource.Columns.fetched == false).order(Database.EnergyPriceSource.Columns.timestamp.desc))
                 }.map { EnergyPriceSource.from(model: $0) }
 
+                var hasNewData = false
                 var current = sources.first?.timestamp ?? Calendar.current.startOfDay(for: Date())
                 for source in sources {
                     guard !Task.isCancelled else {
@@ -84,26 +117,26 @@ class EnergyPriceRepository {
                         return
                     }
 
-                    if current != source.timestamp {
-                        statusSubject.send(.synced(with: current))
-                        current = source.timestamp
-                    }
-
                     let items = try await service.data(for: source.zone, at: source.timestamp)
                     try database.inTransaction { db in
                         try items.map { Database.EnergyPrice.from(model: $0) }.forEach {
                             var item = $0
+                            hasNewData = try hasNewData || !item.exists(db)
                             try item.insert(db)
                         }
                         try Database.EnergyPriceSource.from(model: source.copy(fetched: true)).update(db)
                         return .commit
                     }
+
+                    if current != source.timestamp {
+                        statusSubject.send(.synced(with: current))
+                        current = source.timestamp
+                    }
                 }
 
-                statusSubject.send(.updated)
+                statusSubject.send(.updated(newData: hasNewData))
             } catch {
-                print(error)
-                statusSubject.send(.failed)
+                statusSubject.send(.failed(error: error))
             }
 
             refreshTask = nil
@@ -116,8 +149,8 @@ class EnergyPriceRepository {
         case pending
         case syncing
         case synced(with: Date)
-        case updated
-        case failed
+        case updated(newData: Bool)
+        case failed(error: Error)
         case cancelled
     }
 
@@ -177,7 +210,7 @@ class EnergyPriceRepository {
                     .filter(Database.EnergyPrice.Columns.zone == zone.rawValue)
                     .filter(Database.EnergyPrice.Columns.timestamp >= min)
                     .filter(Database.EnergyPrice.Columns.timestamp <= max)
-                    .order(Database.EnergyPriceSource.Columns.timestamp.desc)
+                    .order(Database.EnergyPrice.Columns.timestamp.desc)
                     .fetchAll(db).map {
                         EnergyPrice.from(model: $0)
                     }

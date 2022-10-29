@@ -17,7 +17,19 @@ class AppNavigation {
     private let dependencies: Dependenables
     private let device: UIUserInterfaceIdiom
 
-    private lazy var drawer = Drawer(covering: device == .phone ? 0.65 : 0.25, drawer: MenuViewController(navigation: self), main: PricesViewController(navigation: self, energyPriceRepository: dependencies.energyPriceRepository, stateRepository: dependencies.stateRepository))
+    private lazy var drawer = Drawer(
+        covering: device == .phone ? 0.65 : 0.25,
+        drawer: MenuViewController(
+            navigation: self,
+            configuration: dependencies.configuration,
+            repository: dependencies.energyPriceRepository
+        ),
+        main: PricesViewController(
+            navigation: self,
+            energyPriceRepository: dependencies.energyPriceRepository,
+            stateRepository: dependencies.stateRepository
+        )
+    )
 
     private var navigationController = UINavigationController()
 
@@ -46,7 +58,7 @@ class AppNavigation {
 
         switch endpoint {
         case .intro:
-            navigationController.setViewControllers([IntroViewController(navigation: self, state: dependencies.stateRepository.state, energyPriceDatabase: dependencies.energyPriceDatabase)], animated: false)
+            navigationController.setViewControllers([IntroViewController(navigation: self, state: dependencies.stateRepository.state, databases: dependencies.databases)], animated: false)
         case let .regionSelection(configuration):
             navigationController.pushViewController(ZoneSelectionViewController(navigation: self, configuration: configuration, repository: dependencies.stateRepository), animated: true)
         case .loadData:
@@ -54,8 +66,6 @@ class AppNavigation {
         case .menu:
             drawer.set(drawer.state == .opened ? .closed : .opened, animated: true)
         case .dashboard:
-            dependencies.scheduler.schedule()
-            dependencies.energyPriceRepository.refresh()
             if hasCompletedIntroduction {
                 drawer.set(.closed, animated: true) {
                     self.navigationController.setViewControllers([self.drawer], animated: true)

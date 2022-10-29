@@ -29,7 +29,5 @@
 "SETTINGS_ZONE_ZONE_TITLE" = "Zone";
 "ZONE_DK1" = "DK1";
 "ZONE_DK2" = "DK2";
-"ZONE_SELECTION_CONFIRMATION_MESSAGE" = "Er du sikker på at du vil vælge postnummer %1? Du kan vælge et anden postnummer under indstillinger.";
-"ZONE_SELECTION_CONFIRMATION_NEGATIVE_BUTTON" = "Afbryd";
-"ZONE_SELECTION_CONFIRMATION_POSITIVE_BUTTON" = "Ja";
-"ZONE_SELECTION_TITLE" = "Valg af post nummer";
+"ZONE_SELECTION_CONFIRMATION_POSITIVE_BUTTON" = "Vælg";
+"ZONE_SELECTION_TITLE" = "Zone valg";

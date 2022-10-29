@@ -6,7 +6,7 @@ class Label: UILabel {
         attributedText = string
     }
 
-    init(style: UIFont.TextStyle = .body, text string: String, color: UIColor = .white) {
+    init(style: UIFont.TextStyle = .body, text string: String = "", color: UIColor = .white) {
         super.init(frame: .zero)
         text = string
         textColor = color

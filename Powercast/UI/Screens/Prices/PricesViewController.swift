@@ -88,8 +88,8 @@ class PricesViewController: ViewController {
         private static let dateFormatter = DateFormatter.with(dateStyle: .medium, timeStyle: .none)
         private static let numberFormatter = NumberFormatter.with(style: .decimal)
 
-        private let dateLabel = Label(style: .body, text: "", color: .white)
-        private let pricesLabel = Label(style: .body, text: "", color: .white)
+        private let dateLabel = Label(style: .body, color: .white)
+        private let pricesLabel = Label(style: .body, color: .white)
 
         override init(reuseIdentifier: String?) {
             super.init(reuseIdentifier: reuseIdentifier)
@@ -119,8 +119,8 @@ class PricesViewController: ViewController {
         private static let numberFormatter = NumberFormatter.with(style: .decimal, fractionDigits: 2)
 
         private let selectionIndicator = UIView()
-        private let dateLabel = Label(text: "", color: .black)
-        private let priceLabel = Label(text: "", color: .black)
+        private let dateLabel = Label(color: .black)
+        private let priceLabel = Label(color: .black)
         private let gaugeView = UIProgressView()
 
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -155,6 +155,14 @@ class PricesViewController: ViewController {
             fatalError("init(coder:) has not been implemented")
         }
 
+        override func prepareForReuse() {
+            super.prepareForReuse()
+            selectionIndicator.set(hidden: true)
+            gaugeView.setProgress(0, animated: false)
+            dateLabel.text = nil
+            priceLabel.text = nil
+        }
+
         func update(using model: Price, current: Bool) {
             contentView.backgroundColor = current ? .white : .black.withAlphaComponent(0.03)
             selectionIndicator.set(hidden: !current)
@@ -185,7 +193,7 @@ extension PricesViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let item = source.item(at: IndexPath(item: 0, section: section)) as Price? else { return nil }
+        guard let item = source.item(at: IndexPath(item: 0, section: section)) else { return nil }
 
         let view = tableView.dequeueReusableHeaderFooter(Header.self)
         view.update(using: item)
@@ -195,7 +203,7 @@ extension PricesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(Cell.self, forIndexPath: indexPath)
 
-        guard let item = source.item(at: indexPath) as Price? else { return cell }
+        guard let item = source.item(at: indexPath) else { return cell }
 
         cell.update(using: item, current: item.isActive(at: now))
         return cell

@@ -26,13 +26,16 @@ class DataLoadingInteractor {
         let dispatch = DispatchGroup()
 
         dispatch.enter()
-        Task {
+        let task = Task {
             try? await Task.sleep(seconds: 1.0)
-            dispatch.leave()
+
+            if !Task.isCancelled {
+                dispatch.leave()
+            }
         }
 
         dispatch.enter()
-        statusSink = energyPriceRepository.publishedStatus.receive(on: DispatchQueue.main).sink { [delegate] in
+        statusSink = energyPriceRepository.publishedStatus.receive(on: DispatchQueue.main).sink { [delegate] in  // TODO: leave's will fail since refresh, loads data for all zones
             switch $0 {
             case let .synced(with: date):
                 if abs(date.timeIntervalSince1970 - Date().timeIntervalSince1970) > .thirtyDays {
@@ -48,6 +51,7 @@ class DataLoadingInteractor {
         refreshTask = energyPriceRepository.refresh()
 
         dispatch.notify(queue: .main) { [weak self] in
+            task.cancel()
             self?.statusSink = nil
             self?.refreshTask?.cancel()
             self?.stateRepository.setupCompleted()

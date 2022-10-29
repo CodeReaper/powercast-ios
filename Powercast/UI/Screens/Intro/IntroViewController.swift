@@ -12,7 +12,7 @@ class IntroViewController: ViewController {
 
     private var interactor: IntroInteractor!
 
-    init(navigation: AppNavigation, state: State, energyPriceDatabase: EnergyPriceDatabase) {
+    init(navigation: AppNavigation, state: State, databases: [Migratable]) {
         self.pages = [
             Page(
                 view: Stack.views(
@@ -57,7 +57,7 @@ class IntroViewController: ViewController {
         ]
         self.button = RoundedButton(text: Translations.INTRO_PAGES_BUTTON_NEXT)
         super.init(navigation: navigation)
-        self.interactor = IntroInteractor(delegate: self, state: state, energyPriceDatabase: energyPriceDatabase)
+        self.interactor = IntroInteractor(delegate: self, state: state, databases: databases)
     }
 
     required init?(coder: NSCoder) {
