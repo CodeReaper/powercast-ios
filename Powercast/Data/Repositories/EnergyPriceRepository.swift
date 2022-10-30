@@ -23,16 +23,16 @@ class EnergyPriceRepository {
             case .syncing, .pending, .synced:
                 break
             case .updated(let newData):
-                print("PriceSync: Finished - newData: \(newData)")
+                Humio.info("PriceSync: Finished - newData: \(newData)")
             case .failed(let error):
                 switch (error as? URLError)?.code {
                 case .some(.timedOut):
-                    print("PriceSync: Timed out.")
+                    Humio.warn("PriceSync: Timed out.")
                 default:
-                    print("PriceSync: Failed: \(error)")
+                    Humio.warn("PriceSync: Failed: \(error)")
                 }
             case .cancelled:
-                print("PriceSync: Was cancelled")
+                Humio.info("PriceSync: Was cancelled")
             }
         })
     }

@@ -30,10 +30,9 @@ class BackgroundScheduler {
         request.requiresNetworkConnectivity = true
         do {
             try BGTaskScheduler.shared.submit(request)
-            print("Scheduling: Request scheduled at \(Self.formatter.string(from: date))")
+            Humio.info("Scheduling: Request scheduled at \(Self.formatter.string(from: date))")
         } catch {
-            os_log("Could not schedule app refresh, error: %{private}@", type: .error, "\(error)")
-            print("Scheduling: Request scheduling failed, \(error).")
+            Humio.error("Scheduling: Request scheduling failed, \(error).")
         }
     }
 
@@ -47,10 +46,10 @@ class BackgroundScheduler {
     private func handle(task: BGTask) { // TODO: remove debugging
         schedule()
 
-        print("Scheduling: Task started")
+        Humio.info("Scheduling: Task started")
 
         task.expirationHandler = { [refreshTask, notification, weak self] in
-            print("Scheduling: Task expired")
+            Humio.info("Scheduling: Task expired")
             notification.show(
                 message: NotificationRepository.Message(
                     title: "Background",
@@ -65,7 +64,7 @@ class BackgroundScheduler {
         statusSink = repository.publishedStatus.receive(on: DispatchQueue.main).sink { [notification, weak self] in
             switch $0 {
             case .updated(let newData):
-                print("Scheduling: Task finished succesfully - newData: \(newData)")
+                Humio.info("Scheduling: Task finished succesfully - newData: \(newData)")
                 notification.show(
                     message: NotificationRepository.Message(
                         title: "Background",
@@ -75,7 +74,7 @@ class BackgroundScheduler {
                 task.setTaskCompleted(success: newData)
                 self?.statusSink = nil
             case .failed(let error):
-                print("Scheduling: Task failed")
+                Humio.info("Scheduling: Task failed, error: \(error.localizedDescription)")
                 notification.show(
                     message: NotificationRepository.Message(
                         title: "Background",

@@ -9,7 +9,7 @@ class NotificationRepository: NSObject {
     func request() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { _, error in
             if let error = error {
-                print(error.localizedDescription)
+                Humio.error(error.localizedDescription)
             }
         }
     }
@@ -22,7 +22,7 @@ class NotificationRepository: NSObject {
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
-                print(error.localizedDescription)
+                Humio.error(error.localizedDescription)
             }
         }
     }
