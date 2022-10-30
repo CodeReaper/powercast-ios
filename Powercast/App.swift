@@ -39,6 +39,9 @@ class App: Dependenables {
     }
 
     func didLaunch(with window: UIWindow) {
+        Humio.setup()
+        Humio.info("Cold start")
+
         setupAppearence()
         scheduler.register()
         notificationRepository.register()

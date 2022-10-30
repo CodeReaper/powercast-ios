@@ -85,6 +85,7 @@
 		38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DE28835528001C38F9 /* LicensesViewController.swift */; };
 		CD114F3928F1FBFF00EBBAFE /* BackgroundIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD114F3828F1FBFF00EBBAFE /* BackgroundIdentifiers.swift */; };
 		CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */; };
+		CD366239290D9CC1009FAC8B /* Humio.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD366238290D9CC1009FAC8B /* Humio.swift */; };
 		CD5E307A28B17C6C00DBA019 /* postnumre.geojson in Resources */ = {isa = PBXBuildFile; fileRef = CD5E307928B17C6C00DBA019 /* postnumre.geojson */; };
 		CD5E309228B2583600DBA019 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309028B2583600DBA019 /* assets */; };
 		CD5E309328B2583600DBA019 /* packages in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309128B2583600DBA019 /* packages */; };
@@ -179,6 +180,7 @@
 		38FD15DE28835528001C38F9 /* LicensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
 		CD114F3828F1FBFF00EBBAFE /* BackgroundIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundIdentifiers.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
+		CD366238290D9CC1009FAC8B /* Humio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Humio.swift; sourceTree = "<group>"; };
 		CD5E307928B17C6C00DBA019 /* postnumre.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = postnumre.geojson; sourceTree = "<group>"; };
 		CD5E309028B2583600DBA019 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		CD5E309128B2583600DBA019 /* packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = packages; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 				38ECF94C289C467B00ED8372 /* TimeInterval.swift */,
 				38ECF94E289C5A5000ED8372 /* UIBeizerPath.swift */,
 				38CA8708289EEB28004CD163 /* View.swift */,
+				CD366238290D9CC1009FAC8B /* Humio.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -638,6 +641,7 @@
 				380CE8E62888901A0003FF36 /* EnergyPriceDatabase.swift in Sources */,
 				380CE903288AE9700003FF36 /* HexColors.swift in Sources */,
 				38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */,
+				CD366239290D9CC1009FAC8B /* Humio.swift in Sources */,
 				38E0FA702884808D0096B98A /* Zone.swift in Sources */,
 				380CE8F1288AE4C30003FF36 /* LoadingView.swift in Sources */,
 				389F717B289174390007C2E0 /* GraphInteractor.swift in Sources */,
