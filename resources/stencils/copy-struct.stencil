@@ -1,5 +1,5 @@
 {% for type in types.implementing.AutoCopy %}
-{% set newFileName %}{{ type.name }}Copy{% endset %}
+{% set newFileName %}AutoCopy{{ type.parentName }}{{ type.localName }}{% endset %}
 
 // sourcery:file:{{ newFileName }}
 //

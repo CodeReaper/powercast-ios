@@ -4,8 +4,8 @@ import os
 
 struct Humio {
     private struct Configuration {
-        let configured: Bool
-        let enabled: Bool
+        var configured: Bool
+        var enabled: Bool
         let printMessages: Bool
         let token: String
         let storage: URL
@@ -18,6 +18,13 @@ struct Humio {
 
     static func setup(enabled: Bool = true, enabledPrintMessages: Bool = true, allowsCellularAccess: Bool = true, frequencyTrigger: TimeInterval = 60, amountTrigger: Int = 50, additionalTags: [String: String] = [:]) {
         guard !configuration.configured else { fatalError("Calling setup(...) multiple times is not supported.") }
+
+        guard enabled else {
+            configuration.enabled = false
+            configuration.configured = true
+            return
+        }
+
         guard let token = Bundle.main.infoDictionary?["HUMIO_INGEST_TOKEN"] as? String else { fatalError("Did not find required 'HUMIO_INGEST_TOKEN' key in info.plist") }
         guard let space = Bundle.main.infoDictionary?["HUMIO_DATA_SPACE"] as? String else { fatalError("Did not find required 'HUMIO_DATA_SPACE' key in info.plist") }
         guard let endpoint = URL(string: "https://cloud.humio.com/api/v1/dataspaces/\(space)/ingest") else { fatalError("Unable to construct a valid URL with configured data space value: '\(space)'") }
@@ -36,8 +43,6 @@ struct Humio {
             amountTrigger: min(100, max(10, amountTrigger)),
             additionalTags: additionalTags
         )
-
-        guard configuration.enabled else { return }
 
         NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: .main) { _ in
             Self.flush()
