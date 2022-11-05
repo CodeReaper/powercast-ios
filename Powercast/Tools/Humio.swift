@@ -13,7 +13,7 @@ struct Humio {
         let allowsCellularAccess: Bool
         let frequencyTrigger: TimeInterval
         let amountTrigger: Int
-        let additionalTags: [String: String]
+        let tags: [String: String]
     }
 
     static func setup(enabled: Bool = true, enabledPrintMessages: Bool = true, allowsCellularAccess: Bool = true, frequencyTrigger: TimeInterval = 60, amountTrigger: Int = 50, additionalTags: [String: String] = [:]) {
@@ -34,6 +34,11 @@ struct Humio {
 
         let storage = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
 
+        var tags = self.tags
+        for (key, value) in additionalTags {
+            tags[key] = value
+        }
+
         configuration = Configuration(
             configured: true,
             enabled: enabled,
@@ -44,7 +49,7 @@ struct Humio {
             allowsCellularAccess: allowsCellularAccess,
             frequencyTrigger: max(5, frequencyTrigger),
             amountTrigger: min(100, max(10, amountTrigger)),
-            additionalTags: additionalTags
+            tags: tags
         )
 
         NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: .main) { _ in
@@ -68,7 +73,7 @@ struct Humio {
         allowsCellularAccess: false,
         frequencyTrigger: 0,
         amountTrigger: 0,
-        additionalTags: [:]
+        tags: [:]
     )
 }
 
@@ -144,7 +149,7 @@ private extension Humio {
         request.addValue("Bearer \(configuration.token)", forHTTPHeaderField: "Authorization")
 
         let preparedEvents = [[
-            "tags": tags,
+            "tags": configuration.tags,
             "events": events
         ]]
 
@@ -203,7 +208,7 @@ private extension Humio {
 }
 
 private extension Humio {
-    private static var tags: [String: Codable] = {
+    private static var tags: [String: String] = {
         let version = ProcessInfo().operatingSystemVersion
         let versionString = "\(version.majorVersion).\(version.minorVersion).\(version.patchVersion)"
 
