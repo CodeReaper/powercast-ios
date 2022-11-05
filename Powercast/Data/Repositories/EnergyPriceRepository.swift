@@ -3,38 +3,12 @@ import Combine
 import GRDB
 
 class EnergyPriceRepository {
-    private let factory: PowercastDataServiceFactory
     private let database: DatabaseQueue
+    private let service: PowercastDataService
 
-    private var statusSubject = CurrentValueSubject<Status, Never>(.pending)
-    private var refreshTask: Task<Void, Never>?
-    private var sink: AnyCancellable?
-
-    lazy var publishedStatus = statusSubject.eraseToAnyPublisher()
-
-    var status: Status { statusSubject.value }
-
-    init(factory: PowercastDataServiceFactory, database: DatabaseQueue) {
-        self.factory = factory
+    init(database: DatabaseQueue, service: PowercastDataService) {
         self.database = database
-
-        sink = publishedStatus.receive(on: DispatchQueue.main).sink(receiveValue: { status in
-            switch status {
-            case .syncing, .pending, .synced:
-                break
-            case .updated(let newData):
-                Humio.info("PriceSync: Finished - newData: \(newData)")
-            case .failed(let error):
-                switch (error as? URLError)?.code {
-                case .some(.timedOut):
-                    Humio.warn("PriceSync: Timed out.")
-                default:
-                    Humio.warn("PriceSync: Failed: \(error)")
-                }
-            case .cancelled:
-                Humio.info("PriceSync: Was cancelled")
-            }
-        })
+        self.service = service
     }
 
     func data(in interval: DateInterval) async throws -> [EnergyPrice] {
@@ -73,85 +47,33 @@ class EnergyPriceRepository {
         return try TableDatasource(database: database, zone: zone)
     }
 
-    @discardableResult // swiftlint:disable:next function_body_length
-    func refresh(mode: PowercastDataServiceFactory.Mode = .ephemeral) -> Task<Void, Never> {
-        let runningTask = refreshTask
-        guard runningTask == nil else { return runningTask! }
+    func refresh(in zone: Zone) async throws {
+        let max = try await database.read { db in
+            return try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.max(Database.EnergyPrice.Columns.timestamp)).filter(Database.EnergyPrice.Columns.zone == zone.rawValue))
+        } ?? Date()
 
-        statusSubject.send(.syncing)
+        let start = Calendar.current.date(byAdding: .day, value: -2, to: max)!
+        let end = Calendar.current.date(byAdding: .day, value: 2, to: Calendar.current.startOfDay(for: Date()))!
 
-        let service = factory.build(mode)
+        var items: [EnergyPrice] = []
+        for date in DateInterval(start: start, end: end).dates() {
+            guard let list = try? await service.data(for: zone, at: date) else { break }
 
-        let task = Task {
-            do {
-                for zone in Zone.allCases {
-                    guard !Task.isCancelled else {
-                        statusSubject.send(.cancelled)
-                        return
-                    }
-
-                    let latest = try await service.latest(for: zone)
-                    let oldest = try await service.oldest(for: zone)
-                    let known = try await database.read { db in
-                        return try Date.fetchOne(db, Database.EnergyPriceSource.select(max(Database.EnergyPriceSource.Columns.timestamp)).filter(Database.EnergyPriceSource.Columns.zone == zone.rawValue))
-                    }
-                    let start = Calendar.current.date(byAdding: .day, value: -1, to: known ?? oldest)!
-
-                    try database.inTransaction { db in
-                        for var item in DateInterval(start: max(start, oldest), end: latest).dates().map({ Database.EnergyPriceSource(fetched: false, zone: zone, timestamp: $0) }) {
-                            try item.insert(db)
-                        }
-                        return .commit
-                    }
-                }
-
-                let sources = try await database.read { db in
-                    try Database.EnergyPriceSource.fetchAll(db, Database.EnergyPriceSource.filter(Database.EnergyPriceSource.Columns.fetched == false).order(Database.EnergyPriceSource.Columns.timestamp.desc))
-                }.map { EnergyPriceSource.from(model: $0) }
-
-                var hasNewData = false
-                var current = sources.first?.timestamp ?? Calendar.current.startOfDay(for: Date())
-                for source in sources {
-                    guard !Task.isCancelled else {
-                        statusSubject.send(.cancelled)
-                        return
-                    }
-
-                    let items = try await service.data(for: source.zone, at: source.timestamp)
-                    try database.inTransaction { db in
-                        try items.map { Database.EnergyPrice.from(model: $0) }.forEach {
-                            var item = $0
-                            hasNewData = try hasNewData || !item.exists(db)
-                            try item.insert(db)
-                        }
-                        try Database.EnergyPriceSource.from(model: source.copy(fetched: true)).update(db)
-                        return .commit
-                    }
-
-                    if current != source.timestamp {
-                        statusSubject.send(.synced(with: current))
-                        current = source.timestamp
-                    }
-                }
-
-                statusSubject.send(.updated(newData: hasNewData))
-            } catch {
-                statusSubject.send(.failed(error: error))
-            }
-
-            refreshTask = nil
+            items.append(contentsOf: list)
         }
-        refreshTask = task
-        return task
+
+        Humio.info("EnergyPriceRepository: Updating \(items.count) items")
+
+        try await database.write { [items] db in
+            try items.map { Database.EnergyPrice.from(model: $0) }.forEach {
+                var item = $0
+                try item.insert(db)
+            }
+        }
     }
 
-    enum Status {
-        case pending
-        case syncing
-        case synced(with: Date)
-        case updated(newData: Bool)
-        case failed(error: Error)
-        case cancelled
+    func pull() {
+        // TODO: load previous prices
     }
 
     private class TableDatasource: PriceTableDatasource {

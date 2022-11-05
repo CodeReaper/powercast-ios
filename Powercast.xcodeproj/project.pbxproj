@@ -21,7 +21,6 @@
 		380CE901288AE7370003FF36 /* _View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE900288AE7370003FF36 /* _View.swift */; };
 		380CE903288AE9700003FF36 /* HexColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE902288AE9700003FF36 /* HexColors.swift */; };
 		380CE905288AF2040003FF36 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE904288AF2040003FF36 /* AppConfiguration.swift */; };
-		380EA05C289ACC0200552391 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380EA05B289ACC0200552391 /* GraphView.swift */; };
 		384E642E288D90EF004ADCB1 /* BackgroundScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E642D288D90EF004ADCB1 /* BackgroundScheduler.swift */; };
 		384E6435288D9E38004ADCB1 /* StateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6434288D9E38004ADCB1 /* StateRepository.swift */; };
 		384E6437288D9FD9004ADCB1 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6436288D9FD9004ADCB1 /* State.swift */; };
@@ -57,8 +56,6 @@
 		387FF606286B90A40051E3DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 387FF604286B90A40051E3DC /* LaunchScreen.storyboard */; };
 		387FF60E286B95B00051E3DC /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF60D286B95B00051E3DC /* App.swift */; };
 		387FF610286B95BB0051E3DC /* global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF60F286B95BB0051E3DC /* global.swift */; };
-		389F7179289174200007C2E0 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F7178289174200007C2E0 /* GraphViewController.swift */; };
-		389F717B289174390007C2E0 /* GraphInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F717A289174390007C2E0 /* GraphInteractor.swift */; };
 		389F717D28997B2C0007C2E0 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F717C28997B2B0007C2E0 /* MenuViewController.swift */; };
 		389F717F289982630007C2E0 /* Drawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F717E289982630007C2E0 /* Drawer.swift */; };
 		38CA8707289EEA21004CD163 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CA8706289EEA21004CD163 /* TableView.swift */; };
@@ -77,14 +74,12 @@
 		38ECF94D289C467B00ED8372 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF94C289C467B00ED8372 /* TimeInterval.swift */; };
 		38ECF94F289C5A5000ED8372 /* UIBeizerPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF94E289C5A5000ED8372 /* UIBeizerPath.swift */; };
 		38ECF953289DAC6500ED8372 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF952289DAC6500ED8372 /* Colors.swift */; };
-		38ECF955289DAEF400ED8372 /* EnergyPriceSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF954289DAEF400ED8372 /* EnergyPriceSource.swift */; };
 		38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15C828833A5B001C38F9 /* AppNavigation.swift */; };
 		38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DA28835353001C38F9 /* SettingsViewController.swift */; };
 		38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DE28835528001C38F9 /* LicensesViewController.swift */; };
 		CD114F3928F1FBFF00EBBAFE /* BackgroundIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD114F3828F1FBFF00EBBAFE /* BackgroundIdentifiers.swift */; };
 		CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */; };
 		CD366239290D9CC1009FAC8B /* Humio.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD366238290D9CC1009FAC8B /* Humio.swift */; };
-		CD36624129169B20009FAC8B /* AutoCopyEnergyPriceSource.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD36623E29169B20009FAC8B /* AutoCopyEnergyPriceSource.generated.swift */; };
 		CD36624329169B20009FAC8B /* AutoCopyState.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD36624029169B20009FAC8B /* AutoCopyState.generated.swift */; };
 		CD5E307A28B17C6C00DBA019 /* postnumre.geojson in Resources */ = {isa = PBXBuildFile; fileRef = CD5E307928B17C6C00DBA019 /* postnumre.geojson */; };
 		CD5E309228B2583600DBA019 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309028B2583600DBA019 /* assets */; };
@@ -111,7 +106,6 @@
 		380CE900288AE7370003FF36 /* _View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _View.swift; sourceTree = "<group>"; };
 		380CE902288AE9700003FF36 /* HexColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColors.swift; sourceTree = "<group>"; };
 		380CE904288AF2040003FF36 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
-		380EA05B289ACC0200552391 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		384E642D288D90EF004ADCB1 /* BackgroundScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundScheduler.swift; sourceTree = "<group>"; };
 		384E6434288D9E38004ADCB1 /* StateRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateRepository.swift; sourceTree = "<group>"; };
 		384E6436288D9FD9004ADCB1 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
@@ -149,8 +143,6 @@
 		387FF607286B90A40051E3DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		387FF60D286B95B00051E3DC /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		387FF60F286B95BB0051E3DC /* global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = global.swift; sourceTree = "<group>"; };
-		389F7178289174200007C2E0 /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
-		389F717A289174390007C2E0 /* GraphInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphInteractor.swift; sourceTree = "<group>"; };
 		389F717C28997B2B0007C2E0 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		389F717E289982630007C2E0 /* Drawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawer.swift; sourceTree = "<group>"; };
 		38CA8706289EEA21004CD163 /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
@@ -172,14 +164,12 @@
 		38ECF94C289C467B00ED8372 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		38ECF94E289C5A5000ED8372 /* UIBeizerPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBeizerPath.swift; sourceTree = "<group>"; };
 		38ECF952289DAC6500ED8372 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		38ECF954289DAEF400ED8372 /* EnergyPriceSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyPriceSource.swift; sourceTree = "<group>"; };
 		38FD15C828833A5B001C38F9 /* AppNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigation.swift; sourceTree = "<group>"; };
 		38FD15DA28835353001C38F9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		38FD15DE28835528001C38F9 /* LicensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
 		CD114F3828F1FBFF00EBBAFE /* BackgroundIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundIdentifiers.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		CD366238290D9CC1009FAC8B /* Humio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Humio.swift; sourceTree = "<group>"; };
-		CD36623E29169B20009FAC8B /* AutoCopyEnergyPriceSource.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCopyEnergyPriceSource.generated.swift; sourceTree = "<group>"; };
 		CD36624029169B20009FAC8B /* AutoCopyState.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCopyState.generated.swift; sourceTree = "<group>"; };
 		CD5E307928B17C6C00DBA019 /* postnumre.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = postnumre.geojson; sourceTree = "<group>"; };
 		CD5E309028B2583600DBA019 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
@@ -227,7 +217,6 @@
 			isa = PBXGroup;
 			children = (
 				380CE900288AE7370003FF36 /* _View.swift */,
-				380EA05B289ACC0200552391 /* GraphView.swift */,
 				380CE8F0288AE4C20003FF36 /* LoadingView.swift */,
 				384E6463288DD598004ADCB1 /* SpinnerView.swift */,
 			);
@@ -268,7 +257,6 @@
 		384E643D288DAEBF004ADCB1 /* Autogenerated */ = {
 			isa = PBXGroup;
 			children = (
-				CD36623E29169B20009FAC8B /* AutoCopyEnergyPriceSource.generated.swift */,
 				CD36624029169B20009FAC8B /* AutoCopyState.generated.swift */,
 			);
 			path = Autogenerated;
@@ -313,12 +301,12 @@
 				38ECF94A289B0ACF00ED8372 /* Date.swift */,
 				CD8A4BC228BA616E00EC68E3 /* Formatter.swift */,
 				380CE902288AE9700003FF36 /* HexColors.swift */,
+				CD366238290D9CC1009FAC8B /* Humio.swift */,
 				38CA8706289EEA21004CD163 /* TableView.swift */,
 				384E647428915F52004ADCB1 /* Task.swift */,
 				38ECF94C289C467B00ED8372 /* TimeInterval.swift */,
 				38ECF94E289C5A5000ED8372 /* UIBeizerPath.swift */,
 				38CA8708289EEB28004CD163 /* View.swift */,
-				CD366238290D9CC1009FAC8B /* Humio.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -373,15 +361,6 @@
 				38FD15C5288335A1001C38F9 /* UI */,
 			);
 			path = Powercast;
-			sourceTree = "<group>";
-		};
-		389F7177289174200007C2E0 /* Graph */ = {
-			isa = PBXGroup;
-			children = (
-				389F717A289174390007C2E0 /* GraphInteractor.swift */,
-				389F7178289174200007C2E0 /* GraphViewController.swift */,
-			);
-			path = Graph;
 			sourceTree = "<group>";
 		};
 		38DF5AAB287079DE008630FB /* Assets */ = {
@@ -441,7 +420,6 @@
 			children = (
 				38E0FA712884822C0096B98A /* _Database.swift */,
 				38E0FA6D2884803F0096B98A /* EnergyPrice.swift */,
-				38ECF954289DAEF400ED8372 /* EnergyPriceSource.swift */,
 				CD8A4BC428BA6DB000EC68E3 /* Price.swift */,
 				384E6436288D9FD9004ADCB1 /* State.swift */,
 				38E0FA6F2884808D0096B98A /* Zone.swift */,
@@ -468,7 +446,6 @@
 				38FD15DA28835353001C38F9 /* SettingsViewController.swift */,
 				384E646E288EDE96004ADCB1 /* ZoneSelectionViewController.swift */,
 				384E64762891650E004ADCB1 /* DataLoading */,
-				389F7177289174200007C2E0 /* Graph */,
 				384E6465288ED61D004ADCB1 /* Intro */,
 				CD8A4BBD28B2755A00EC68E3 /* Prices */,
 			);
@@ -644,7 +621,6 @@
 				CD366239290D9CC1009FAC8B /* Humio.swift in Sources */,
 				38E0FA702884808D0096B98A /* Zone.swift in Sources */,
 				380CE8F1288AE4C30003FF36 /* LoadingView.swift in Sources */,
-				389F717B289174390007C2E0 /* GraphInteractor.swift in Sources */,
 				380CE8FF288AE55A0003FF36 /* ViewControllers.swift in Sources */,
 				38DF5AB7287079DE008630FB /* Images.swift in Sources */,
 				CD36624329169B20009FAC8B /* AutoCopyState.generated.swift in Sources */,
@@ -657,17 +633,14 @@
 				CD5E309528B25B1800DBA019 /* LicenseViewController.swift in Sources */,
 				CD8A4BC328BA616E00EC68E3 /* Formatter.swift in Sources */,
 				384E6437288D9FD9004ADCB1 /* State.swift in Sources */,
-				CD36624129169B20009FAC8B /* AutoCopyEnergyPriceSource.generated.swift in Sources */,
 				38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */,
 				380CE8FC288AE55A0003FF36 /* StackViews.swift in Sources */,
 				380CE8EE288893F90003FF36 /* Animations.swift in Sources */,
 				384E6472288EE5A3004ADCB1 /* ActionSheet.swift in Sources */,
 				384E64792891650E004ADCB1 /* DataLoadingInteractor.swift in Sources */,
-				389F7179289174200007C2E0 /* GraphViewController.swift in Sources */,
 				38ECF953289DAC6500ED8372 /* Colors.swift in Sources */,
 				387FF5FA286B909B0051E3DC /* AppDelegate.swift in Sources */,
 				389F717F289982630007C2E0 /* Drawer.swift in Sources */,
-				380EA05C289ACC0200552391 /* GraphView.swift in Sources */,
 				CDE77AC428C369370021EEDD /* Migratable.swift in Sources */,
 				CD114F3928F1FBFF00EBBAFE /* BackgroundIdentifiers.swift in Sources */,
 				38DF5ABE28707A7E008630FB /* Translations.swift in Sources */,
@@ -695,7 +668,6 @@
 				384E643A288DAA56004ADCB1 /* Sourcery.swift in Sources */,
 				384E6446288DC430004ADCB1 /* Fonts.swift in Sources */,
 				CD8A4BC528BA6DB000EC68E3 /* Price.swift in Sources */,
-				38ECF955289DAEF400ED8372 /* EnergyPriceSource.swift in Sources */,
 				38E0FA722884822C0096B98A /* _Database.swift in Sources */,
 				384E647528915F52004ADCB1 /* Task.swift in Sources */,
 				384E6467288ED61D004ADCB1 /* IntroViewController.swift in Sources */,

@@ -6,7 +6,7 @@ struct Humio {
     private struct Configuration {
         var configured: Bool
         var enabled: Bool
-        let printMessages: Bool
+        var printMessages: Bool
         let token: String
         let storage: URL
         let endpoint: URL
@@ -22,6 +22,9 @@ struct Humio {
         guard enabled else {
             configuration.enabled = false
             configuration.configured = true
+            configuration.printMessages = enabledPrintMessages
+
+            logger.warning("Humio was set up to be disabled.")
             return
         }
 
@@ -97,6 +100,11 @@ private extension Humio {
 
     private static func queue(severity: String, _ message: String, _ file: String, _ line: Int) {
         guard configuration.configured else { fatalError("A logging statement was attempted before setup(...) was called.") }
+
+        if configuration.printMessages {
+            print("\(message)")
+        }
+
         guard configuration.enabled else { return }
 
         let event: [String: Any] = [
@@ -115,10 +123,6 @@ private extension Humio {
                 self.flush()
             }
         }
-
-        guard configuration.printMessages else { return }
-
-        print("Humio: \(message)")
     }
 
     private static func flush() {

@@ -23,43 +23,34 @@ class DataLoadingInteractor {
     }
 
     func viewDidLoad() {
-        let dispatch = DispatchGroup()
-
-        dispatch.enter()
-        let task = Task {
-            try? await Task.sleep(seconds: 1.0)
-
-            if !Task.isCancelled {
-                dispatch.leave()
-            }
-        }
-
-        dispatch.enter()
-        statusSink = energyPriceRepository.publishedStatus.receive(on: DispatchQueue.main).sink { [delegate] in  // TODO: leave's will fail since refresh, loads data for all zones
-            switch $0 {
-            case let .synced(with: date):
-                if abs(date.timeIntervalSince1970 - Date().timeIntervalSince1970) > .thirtyDays {
-                    dispatch.leave()
-                }
-            case .updated:
-                dispatch.leave()
-            case .failed:
-                delegate?.displayFailed()
-            default: break
-            }
-        }
-        refreshTask = energyPriceRepository.refresh()
-
-        dispatch.notify(queue: .main) { [weak self] in
-            task.cancel()
-            self?.statusSink = nil
-            self?.refreshTask?.cancel()
-            self?.stateRepository.setupCompleted()
-            self?.navigation.navigate(to: .dashboard)
-        }
+        update()
     }
 
     func retry() {
-        refreshTask = energyPriceRepository.refresh()
+        update()
+    }
+
+    private func update() {
+        Task {
+            let minimumTime = DispatchTime.now() + 2
+
+            let success: Bool
+            do {
+                try await energyPriceRepository.refresh(in: stateRepository.state.selectedZone)
+                success = true
+            } catch {
+                success = false
+            }
+
+            DispatchQueue.main.asyncAfter(deadline: success ? minimumTime : DispatchTime.now()) { [self] in
+                if success {
+                    stateRepository.setupCompleted()
+                    navigation.navigate(to: .dashboard)
+                    energyPriceRepository.pull()
+                } else {
+                    delegate?.displayFailed()
+                }
+            }
+        }
     }
 }

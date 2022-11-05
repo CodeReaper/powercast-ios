@@ -14,6 +14,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         app.didEnterBackground()
     }
 
+    func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String) async {
+        Humio.debug("AppDelegate stuff with \(identifier)")
+    }
+
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

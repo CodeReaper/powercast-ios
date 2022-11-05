@@ -21,8 +21,7 @@ class AppNavigation {
         covering: device == .phone ? 0.65 : 0.25,
         drawer: MenuViewController(
             navigation: self,
-            configuration: dependencies.configuration,
-            repository: dependencies.energyPriceRepository
+            configuration: dependencies.configuration
         ),
         main: PricesViewController(
             navigation: self,

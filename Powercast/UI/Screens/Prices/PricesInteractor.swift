@@ -11,8 +11,7 @@ class PricesInteractor {
     private let energyPriceRepository: EnergyPriceRepository
     private let stateRepository: StateRepository
 
-    private var syncedData = Date.distantPast
-    private var sink = Set<AnyCancellable>()
+    private var refresh = false
 
     private weak var delegate: PricesDelegate?
 
@@ -24,32 +23,38 @@ class PricesInteractor {
 
     func viewDidLoad() {
         delegate?.show(loading: true)
+        refresh = true
     }
 
     func viewWillAppear() {
-        Publishers
-            .CombineLatest(energyPriceRepository.publishedStatus, stateRepository.publishedState)
-            .prepend((energyPriceRepository.status, stateRepository.state))
-            .receive(on: DispatchQueue.main)
-            .sink { [energyPriceRepository, delegate, weak self] (status, state) in
+        Task {
+            let zone = stateRepository.state.selectedZone
+            let source = try? energyPriceRepository.source(for: zone)
+
+            DispatchQueue.main.async { [delegate] in
                 defer { delegate?.show(loading: false) }
-                switch status {
-                case .synced(let date):
-                    guard let syncedData = self?.syncedData, date > syncedData else { return }
-                    self?.syncedData = date
-                    fallthrough
-                case .updated, .cancelled, .failed:
-                    guard let source = try? energyPriceRepository.source(for: state.selectedZone) else {
-                        delegate?.showNoData()
-                        return
-                    }
-                    delegate?.show(data: source)
-                case .pending, .syncing: break
+                guard let source = source else {
+                    delegate?.showNoData()
+                    return
                 }
-            }.store(in: &sink)
+                delegate?.show(data: source)
+            }
+
+            guard refresh else { return }
+            refresh = false
+
+            try? await energyPriceRepository.refresh(in: stateRepository.state.selectedZone)
+            let updatedSource = try? energyPriceRepository.source(for: zone)
+
+            DispatchQueue.main.async { [delegate] in
+                guard let source = updatedSource else {
+                    delegate?.showNoData()
+                    return
+                }
+                delegate?.show(data: source)
+            }
+        }
     }
 
-    func viewWillDisappear() {
-        sink.removeAll()
-    }
+    func viewWillDisappear() { }
 }

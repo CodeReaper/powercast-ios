@@ -2,11 +2,9 @@ import UIKit
 
 class MenuViewController: ViewController {
     private let configuration: AppConfiguration
-    private let repository: EnergyPriceRepository
 
-    init(navigation: AppNavigation, configuration: AppConfiguration, repository: EnergyPriceRepository) {
+    init(navigation: AppNavigation, configuration: AppConfiguration) {
         self.configuration = configuration
-        self.repository = repository
         super.init(navigation: navigation)
     }
 
@@ -45,7 +43,6 @@ class MenuViewController: ViewController {
     }
 
     @objc private func didTapDashboard() {
-        repository.refresh()
         navigation.navigate(to: .dashboard)
     }
 

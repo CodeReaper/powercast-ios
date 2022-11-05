@@ -22,13 +22,12 @@ class App: Dependenables {
     let stateRepository = StateRepository()
     let databases: [Migratable]
 
-    lazy var energyPriceRepository = EnergyPriceRepository(factory: PowercastDataServiceFactory(), database: energyPriceDatabase.queue)
+    lazy var energyPriceRepository = EnergyPriceRepository(database: energyPriceDatabase.queue, service: PowercastDataServiceAPI())
     lazy var notificationRepository = NotificationRepository()
     var scheduler: BackgroundScheduler {
         BackgroundScheduler(
             zone: stateRepository.state.selectedZone,
-            repository: energyPriceRepository,
-            notification: notificationRepository
+            repository: energyPriceRepository
         )
     }
 
@@ -39,22 +38,25 @@ class App: Dependenables {
     }
 
     func didLaunch(with window: UIWindow) {
-        Humio.setup()
-        Humio.info("Cold start")
+#if targetEnvironment(simulator)
+        Humio.setup(enabled: false)
+#else
+        Humio.setup(additionalTags: ["session": UUID().uuidString])
+#endif
+        Humio.info("App: Cold start")
 
         setupAppearence()
         scheduler.register()
+        scheduler.schedule()
         notificationRepository.register()
         navigation.setup(using: window)
 
-        notificationRepository.request() // TODO: move to intro
-    }
-
-    func willEnterForeground() {
         if stateRepository.state.setupCompleted {
-            energyPriceRepository.refresh()
+            energyPriceRepository.pull()
         }
     }
+
+    func willEnterForeground() { }
 
     func didEnterBackground() {
         scheduler.schedule()
