@@ -134,63 +134,6 @@ EOF
 ## -----
 
 cat << EOF > /tmp/license
-Vilkår for brug af frie geografiske data
-
-Vilkår for brug af SDFE's frie geografiske data bliver justeret pr. 1. november 2021
-
-Vi har foretaget en mindre justeringer af vilkårene for at gøre det mere tydeligt, hvad det betyder, hvis der sker ændringer i vilkårene eller hvis data indeholder personoplysninger.
-
-Se vilkår gældende fra 1. november 2021.
-
-Generel information
-Bemærk at der er særlige vilkår for anvendelse af GeoDanmark-data (tidl. FOT-data) . Se Vilkår for brug af GeoDanmark-data
-
-Styrelsen for Dataforsyning og Effektivisering (SDFE), herefter Myndigheden, har de immaterielle rettigheder til de frie geografiske data (herefter data), og giver på nedenstående vilkår brugsret til data.
-
-Vilkårene accepteres ved enhver brug af data. Vilkårene reguleres af dansk ret.
-
-Brugsret
-
-Myndigheden giver en verdensomspændende, gratis, ikke-eksklusiv, og i øvrigt ubegrænset brugsret til data, som frit bl.a. kan:
-
-kopieres, distribueres og offentliggøres,
-ændres og sammensættes med andet materiale,
-bruges kommercielt og ikke-kommercielt
-Vilkår
-
-Data må ikke bruges på en måde, så det kan fremstå som om, at myndigheden godkender, støtter, anbefaler eller markedsfører brugeren, brugerens produkter eller tjenester. Det skal sikres, at brug af data er i overensstemmelse med dansk ret.
-
-Kildeangivelse
-Myndigheden håndhæver sin ophavsret. Når data anvendes skal brugeren:
-
-på et rimeligt sted egnet til distributionsmediet indsætte følgende:
-
- ”Indeholder data fra Styrelsen for Dataforsyning og Effektivisering”
-
-Navnet på datasættet(ene)
-
-Tidspunkt, hvor datasættet(ene) er hentet hos myndigheden, eller om der er tale om en datatjeneste.
-(fx: ”Indeholder data fra Styrelsen for Dataforsyning og Effektivisering, Kort10, januar 2016”. Eller: ”Indeholder data fra Geodatastyrelsen, Matrikelkortet, WMS-tjeneste”)
-
-sikre, at ”Styrelsen for Dataforsyning og Effektivisering” fremgår på forsiden af servicen, såfremt andre kilder også nævnes på forsiden
-
-stille en kopi af disse vilkår, evt. ved hjælp af et link, til rådighed for tredjepart
-
-Ovennævnte vilkår gælder også, såfremt brugeren videregiver data fra Styrelsen for Dataforsyning og Effektivisering til tredjepart.
-
-Myndighedens rettigheder og ansvar
-Data stilles til rådighed, som de er, og myndigheden har intet ansvar for hverken indhold, oprindelse, fejl og mangler eller nogen form for skade, der måtte følge af brug af data.  Myndigheden garanterer ikke den fortsatte tilrådighedsstillelse af data.  Myndigheden kan til enhver tid ændre brugsretten til data og vilkårene herfor.
-EOF
-cat << EOF > $OUT/assets/kortforsyningen.json
-{
-  "name": "DAWA",
-  "content": "$(cat /tmp/license | sed 's/$/\\n/'| tr -d '\n' )"
-}
-EOF
-
-## -----
-
-cat << EOF > /tmp/license
 Conditions for use of Danish public-sector data - License for use of data in EDS
 
 CONDITIONS FOR USE OF DANISH PUBLICSECTOR DATA

@@ -28,7 +28,6 @@ struct Translations {
 	static let PRICES_TITLE = NSLocalizedString("PRICES_TITLE", comment: "")
 	static let SETTINGS_TITLE = NSLocalizedString("SETTINGS_TITLE", comment: "")
 	static let SETTINGS_ZONE_TITLE = NSLocalizedString("SETTINGS_ZONE_TITLE", comment: "")
-	static let SETTINGS_ZONE_ZIPCODE_TITLE = NSLocalizedString("SETTINGS_ZONE_ZIPCODE_TITLE", comment: "")
 	static let SETTINGS_ZONE_ZONE_TITLE = NSLocalizedString("SETTINGS_ZONE_ZONE_TITLE", comment: "")
 	static let ZONE_DK1 = NSLocalizedString("ZONE_DK1", comment: "")
 	static let ZONE_DK2 = NSLocalizedString("ZONE_DK2", comment: "")

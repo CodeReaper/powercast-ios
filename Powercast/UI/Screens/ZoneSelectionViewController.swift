@@ -64,7 +64,7 @@ class ZoneSelectionViewController: ViewController {
     }
 
     @objc private func didTapChoose() {
-        repository.select(zone: zones[segmentedControl.selectedSegmentIndex], zipCode: 0)
+        repository.select(zone: zones[segmentedControl.selectedSegmentIndex])
         switch configuration.behavior {
         case .navigate(let endpoint):
             navigation.navigate(to: endpoint)
