@@ -78,7 +78,6 @@
 		38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15C828833A5B001C38F9 /* AppNavigation.swift */; };
 		38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DA28835353001C38F9 /* SettingsViewController.swift */; };
 		38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DE28835528001C38F9 /* LicensesViewController.swift */; };
-		CD114F3928F1FBFF00EBBAFE /* BackgroundIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD114F3828F1FBFF00EBBAFE /* BackgroundIdentifiers.swift */; };
 		CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */; };
 		CD36624329169B20009FAC8B /* AutoCopyState.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD36624029169B20009FAC8B /* AutoCopyState.generated.swift */; };
 		CD5E309228B2583600DBA019 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309028B2583600DBA019 /* assets */; };
@@ -166,7 +165,6 @@
 		38FD15C828833A5B001C38F9 /* AppNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigation.swift; sourceTree = "<group>"; };
 		38FD15DA28835353001C38F9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		38FD15DE28835528001C38F9 /* LicensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
-		CD114F3828F1FBFF00EBBAFE /* BackgroundIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundIdentifiers.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		CD36624029169B20009FAC8B /* AutoCopyState.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCopyState.generated.swift; sourceTree = "<group>"; };
 		CD5E309028B2583600DBA019 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
@@ -239,7 +237,6 @@
 			isa = PBXGroup;
 			children = (
 				384E642D288D90EF004ADCB1 /* BackgroundScheduler.swift */,
-				CD114F3828F1FBFF00EBBAFE /* BackgroundIdentifiers.swift */,
 			);
 			path = Scheduler;
 			sourceTree = "<group>";
@@ -630,7 +627,6 @@
 				387FF5FA286B909B0051E3DC /* AppDelegate.swift in Sources */,
 				389F717F289982630007C2E0 /* Drawer.swift in Sources */,
 				CDE77AC428C369370021EEDD /* Migratable.swift in Sources */,
-				CD114F3928F1FBFF00EBBAFE /* BackgroundIdentifiers.swift in Sources */,
 				38DF5ABE28707A7E008630FB /* Translations.swift in Sources */,
 				384E6469288ED62D004ADCB1 /* IntroInteractor.swift in Sources */,
 				384E642E288D90EF004ADCB1 /* BackgroundScheduler.swift in Sources */,

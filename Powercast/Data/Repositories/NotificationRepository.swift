@@ -2,9 +2,17 @@ import Foundation
 import UserNotifications
 import HumioLogger
 
-class NotificationRepository: NSObject {
+struct NotificationRepository {
+    private let delegate = Delegate()
+
+    private let prices: EnergyPriceRepository
+
+    init(prices: EnergyPriceRepository) {
+        self.prices = prices
+    }
+
     func register() {
-        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().delegate = delegate
     }
 
     func request() {
@@ -15,7 +23,12 @@ class NotificationRepository: NSObject {
         }
     }
 
-    func show(message: Message, after seconds: TimeInterval = 1) {
+    func schedule() async {
+        // TODO: look up settings schedule approiate notifications instead of this no-sense
+        show(message: Message(title: "Powercast - updated", body: "Yay!"))
+    }
+
+    private func show(message: Message, after seconds: TimeInterval = 1) {
         let content = UNMutableNotificationContent()
         content.title = message.title
         content.body = message.body
@@ -28,13 +41,15 @@ class NotificationRepository: NSObject {
         }
     }
 
-    struct Message {
+    private struct Message {
         let title: String
         let body: String
     }
+
+    class Delegate: NSObject { }
 }
 
-extension NotificationRepository: UNUserNotificationCenterDelegate {
+extension NotificationRepository.Delegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner, .badge, .sound])
     }
