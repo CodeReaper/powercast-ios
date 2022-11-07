@@ -25,6 +25,7 @@ struct Translations {
 	static func PRICES_DAY_PRICE_SPAN(_ p1: String, _ p2: String) -> String { return NSLocalizedString("PRICES_DAY_PRICE_SPAN", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
 	static func PRICES_HOUR_COST(_ p1: String) -> String { return NSLocalizedString("PRICES_HOUR_COST", comment: "").replacingOccurrences(of: "%1", with: p1) }
 	static func PRICES_HOUR_TIME(_ p1: String, _ p2: String) -> String { return NSLocalizedString("PRICES_HOUR_TIME", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
+	static let PRICES_REFRESH_CONTROL_MESSAGE = NSLocalizedString("PRICES_REFRESH_CONTROL_MESSAGE", comment: "")
 	static let PRICES_TITLE = NSLocalizedString("PRICES_TITLE", comment: "")
 	static let SETTINGS_TITLE = NSLocalizedString("SETTINGS_TITLE", comment: "")
 	static let SETTINGS_ZONE_TITLE = NSLocalizedString("SETTINGS_ZONE_TITLE", comment: "")

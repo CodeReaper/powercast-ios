@@ -4,6 +4,7 @@ class PricesViewController: ViewController {
     private let spinnerView = SpinnerView(color: Color.primary)
     private let backgroundView = UIView()
     private let tableView = UITableView(frame: .zero, style: .plain)
+    private let refreshControl = UIRefreshControl()
 
     private var source = EmptyPriceTableDatasource() as PriceTableDatasource
     private var now = Date()
@@ -58,12 +59,17 @@ class PricesViewController: ViewController {
                 make(its.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor))
             }
 
+        tableView.backgroundView = refreshControl
         tableView.showsVerticalScrollIndicator = false
         tableView.sectionFooterHeight = 0
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
         }
+
+        refreshControl.tintColor = .white
+        refreshControl.attributedTitle = NSAttributedString(string: Translations.PRICES_REFRESH_CONTROL_MESSAGE, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
 
         interactor.viewDidLoad()
     }
@@ -82,6 +88,10 @@ class PricesViewController: ViewController {
 
     @objc private func didTapMenu() {
         navigation.navigate(to: .menu)
+    }
+
+    @objc func didPullToRefresh() {
+        interactor.refreshData()
     }
 
     private class Header: UITableViewHeaderFooterView {
@@ -240,6 +250,10 @@ extension PricesViewController: PricesDelegate {
             spinnerView.stopAnimating().isHidden = true
             tableView.isHidden = false
         }
+    }
+
+    func endRefreshing() {
+        refreshControl.endRefreshing()
     }
 }
 

@@ -13,6 +13,7 @@
 "DASHBOARD_TITLE","","Dashboard","Dashboard",""
 "DASHBOARD_GRAPH_LABEL_FORMAT","","€ %.0f","€ %.0f",""
 "PRICES_TITLE","","Prices","Priser",""
+"PRICES_REFRESH_CONTROL_MESSAGE","","Pull to refresh","Træk for at hente data",""
 "PRICES_DAY_PRICE_SPAN","","%1 - %2 €/MWh","%1 - %2 €/MWh",""
 "PRICES_HOUR_TIME","","%1 - %2","%1 - %2",""
 "PRICES_HOUR_COST","","%1 €/MWh","%1 €/MWh",""

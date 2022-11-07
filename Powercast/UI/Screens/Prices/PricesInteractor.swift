@@ -5,6 +5,7 @@ protocol PricesDelegate: AnyObject {
     func show(loading: Bool)
     func show(data: PriceTableDatasource)
     func showNoData()
+    func endRefreshing()
 }
 
 class PricesInteractor {
@@ -43,18 +44,34 @@ class PricesInteractor {
             guard refresh else { return }
             refresh = false
 
-            try? await energyPriceRepository.refresh(in: stateRepository.state.selectedZone)
-            let updatedSource = try? energyPriceRepository.source(for: zone)
-
-            DispatchQueue.main.async { [delegate] in
-                guard let source = updatedSource else {
-                    delegate?.showNoData()
-                    return
-                }
-                delegate?.show(data: source)
-            }
+            await refreshAsync()
         }
     }
 
     func viewWillDisappear() { }
+
+    func refreshData() {
+        Task {
+            await refreshAsync()
+
+            DispatchQueue.main.async { [delegate] in
+                delegate?.endRefreshing()
+            }
+        }
+    }
+
+    private func refreshAsync() async {
+        let zone = stateRepository.state.selectedZone
+
+        try? await energyPriceRepository.refresh(in: stateRepository.state.selectedZone)
+        let updatedSource = try? energyPriceRepository.source(for: zone)
+
+        DispatchQueue.main.async { [delegate] in
+            guard let source = updatedSource else {
+                delegate?.showNoData()
+                return
+            }
+            delegate?.show(data: source)
+        }
+    }
 }

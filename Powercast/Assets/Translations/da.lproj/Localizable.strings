@@ -22,6 +22,7 @@
 "PRICES_DAY_PRICE_SPAN" = "%1 - %2 €/MWh";
 "PRICES_HOUR_COST" = "%1 €/MWh";
 "PRICES_HOUR_TIME" = "%1 - %2";
+"PRICES_REFRESH_CONTROL_MESSAGE" = "Træk for at hente data";
 "PRICES_TITLE" = "Priser";
 "SETTINGS_TITLE" = "Indstillinger";
 "SETTINGS_ZONE_TITLE" = "Zone";
