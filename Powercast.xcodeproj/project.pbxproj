@@ -74,12 +74,12 @@
 		38ECF94D289C467B00ED8372 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF94C289C467B00ED8372 /* TimeInterval.swift */; };
 		38ECF94F289C5A5000ED8372 /* UIBeizerPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF94E289C5A5000ED8372 /* UIBeizerPath.swift */; };
 		38ECF953289DAC6500ED8372 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF952289DAC6500ED8372 /* Colors.swift */; };
+		38F7A94E2926342400280F7D /* HumioLogger in Frameworks */ = {isa = PBXBuildFile; productRef = 38F7A94D2926342400280F7D /* HumioLogger */; };
 		38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15C828833A5B001C38F9 /* AppNavigation.swift */; };
 		38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DA28835353001C38F9 /* SettingsViewController.swift */; };
 		38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DE28835528001C38F9 /* LicensesViewController.swift */; };
 		CD114F3928F1FBFF00EBBAFE /* BackgroundIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD114F3828F1FBFF00EBBAFE /* BackgroundIdentifiers.swift */; };
 		CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */; };
-		CD366239290D9CC1009FAC8B /* Humio.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD366238290D9CC1009FAC8B /* Humio.swift */; };
 		CD36624329169B20009FAC8B /* AutoCopyState.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD36624029169B20009FAC8B /* AutoCopyState.generated.swift */; };
 		CD5E307A28B17C6C00DBA019 /* postnumre.geojson in Resources */ = {isa = PBXBuildFile; fileRef = CD5E307928B17C6C00DBA019 /* postnumre.geojson */; };
 		CD5E309228B2583600DBA019 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309028B2583600DBA019 /* assets */; };
@@ -169,7 +169,6 @@
 		38FD15DE28835528001C38F9 /* LicensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
 		CD114F3828F1FBFF00EBBAFE /* BackgroundIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundIdentifiers.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
-		CD366238290D9CC1009FAC8B /* Humio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Humio.swift; sourceTree = "<group>"; };
 		CD36624029169B20009FAC8B /* AutoCopyState.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCopyState.generated.swift; sourceTree = "<group>"; };
 		CD5E307928B17C6C00DBA019 /* postnumre.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = postnumre.geojson; sourceTree = "<group>"; };
 		CD5E309028B2583600DBA019 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
@@ -188,6 +187,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38F7A94E2926342400280F7D /* HumioLogger in Frameworks */,
 				38E0FA61288441BE0096B98A /* GRDB in Frameworks */,
 				380CE8E9288892490003FF36 /* Lottie in Frameworks */,
 			);
@@ -301,7 +301,6 @@
 				38ECF94A289B0ACF00ED8372 /* Date.swift */,
 				CD8A4BC228BA616E00EC68E3 /* Formatter.swift */,
 				380CE902288AE9700003FF36 /* HexColors.swift */,
-				CD366238290D9CC1009FAC8B /* Humio.swift */,
 				38CA8706289EEA21004CD163 /* TableView.swift */,
 				384E647428915F52004ADCB1 /* Task.swift */,
 				38ECF94C289C467B00ED8372 /* TimeInterval.swift */,
@@ -491,6 +490,7 @@
 			packageProductDependencies = (
 				38E0FA60288441BE0096B98A /* GRDB */,
 				380CE8E8288892490003FF36 /* Lottie */,
+				38F7A94D2926342400280F7D /* HumioLogger */,
 			);
 			productName = Powercast;
 			productReference = 387FF5F6286B909B0051E3DC /* Powercast.app */;
@@ -525,6 +525,7 @@
 			packageReferences = (
 				38E0FA5F288441BE0096B98A /* XCRemoteSwiftPackageReference "GRDB.swift" */,
 				380CE8E7288892480003FF36 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				38F7A94C2926342400280F7D /* XCRemoteSwiftPackageReference "HumioLogger" */,
 			);
 			productRefGroup = 387FF5F7286B909B0051E3DC /* Products */;
 			projectDirPath = "";
@@ -618,7 +619,6 @@
 				380CE8E62888901A0003FF36 /* EnergyPriceDatabase.swift in Sources */,
 				380CE903288AE9700003FF36 /* HexColors.swift in Sources */,
 				38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */,
-				CD366239290D9CC1009FAC8B /* Humio.swift in Sources */,
 				38E0FA702884808D0096B98A /* Zone.swift in Sources */,
 				380CE8F1288AE4C30003FF36 /* LoadingView.swift in Sources */,
 				380CE8FF288AE55A0003FF36 /* ViewControllers.swift in Sources */,
@@ -922,6 +922,14 @@
 				version = 5.26.0;
 			};
 		};
+		38F7A94C2926342400280F7D /* XCRemoteSwiftPackageReference "HumioLogger" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CodeReaper/HumioLogger.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -934,6 +942,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 38E0FA5F288441BE0096B98A /* XCRemoteSwiftPackageReference "GRDB.swift" */;
 			productName = GRDB;
+		};
+		38F7A94D2926342400280F7D /* HumioLogger */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38F7A94C2926342400280F7D /* XCRemoteSwiftPackageReference "HumioLogger" */;
+			productName = HumioLogger;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

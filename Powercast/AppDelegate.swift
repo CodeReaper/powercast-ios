@@ -1,4 +1,5 @@
 import UIKit
+import HumioLogger
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

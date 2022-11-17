@@ -1,5 +1,6 @@
 import Foundation
 import BackgroundTasks
+import HumioLogger
 
 class BackgroundScheduler {
     private static let formatter = DateFormatter.with(format: "yyyy-MM-dd HH:mm.ss Z")

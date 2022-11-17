@@ -1,5 +1,6 @@
 import Foundation
 import UserNotifications
+import HumioLogger
 
 class NotificationRepository: NSObject {
     func register() {

@@ -1,4 +1,5 @@
 import Foundation
+import HumioLogger
 
 protocol PowercastDataService {
     func interval(for zone: Zone) async throws -> DateInterval

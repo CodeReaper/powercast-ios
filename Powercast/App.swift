@@ -1,5 +1,6 @@
 import UIKit
 import GRDB
+import HumioLogger
 
 protocol Dependenables: AnyObject {
     var configuration: AppConfiguration { get }

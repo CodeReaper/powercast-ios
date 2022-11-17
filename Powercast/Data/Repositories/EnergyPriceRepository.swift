@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 import GRDB
+import HumioLogger
 
 class EnergyPriceRepository {
     private let database: DatabaseQueue
