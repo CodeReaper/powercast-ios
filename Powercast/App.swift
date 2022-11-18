@@ -32,7 +32,6 @@ class App: Dependenables {
             notifications: notificationRepository
         )
     }
-    var flogger = Flogger(level: .debug)
 
     init(configuration: AppConfiguration) {
         self.configuration = configuration
@@ -42,12 +41,13 @@ class App: Dependenables {
 
     func didLaunch(with window: UIWindow) {
 #if targetEnvironment(simulator)
-        flogger.add(ConsoleLogger())
+        Flogger(level: .debug, [ConsoleLogger()])
 #else
         #if DEBUG
-        flogger.add(ConsoleLogger())
+        Flogger(level: .debug, [ConsoleLogger()])
+        #else
+        Flogger(level: .debug, [ConsoleLogger(), HumioLogger(tags: ["session": UUID().uuidString])])
         #endif
-        flogger.add(HumioLogger(tags: ["session": UUID().uuidString]))
 #endif
         Flog.info("App: Cold start")
 
