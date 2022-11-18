@@ -1,6 +1,6 @@
 import UIKit
 import GRDB
-import HumioLogger
+import Flogger
 
 protocol Dependenables: AnyObject {
     var configuration: AppConfiguration { get }
@@ -32,6 +32,7 @@ class App: Dependenables {
             notifications: notificationRepository
         )
     }
+    var flogger = Flogger(level: .debug)
 
     init(configuration: AppConfiguration) {
         self.configuration = configuration
@@ -41,11 +42,14 @@ class App: Dependenables {
 
     func didLaunch(with window: UIWindow) {
 #if targetEnvironment(simulator)
-        Humio.setup(enabled: false)
+        flogger.add(ConsoleLogger())
 #else
-        Humio.setup(additionalTags: ["session": UUID().uuidString])
+        #if DEBUG
+        flogger.add(ConsoleLogger())
+        #endif
+        flogger.add(HumioLogger(tags: ["session": UUID().uuidString]))
 #endif
-        Humio.info("App: Cold start")
+        Flog.info("App: Cold start")
 
         setupAppearence()
         scheduler.register()

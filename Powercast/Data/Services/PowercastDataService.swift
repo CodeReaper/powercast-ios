@@ -1,5 +1,5 @@
 import Foundation
-import HumioLogger
+import Flogger
 
 protocol PowercastDataService {
     func interval(for zone: Zone) async throws -> DateInterval
@@ -70,7 +70,7 @@ class PowercastDataServiceAPI: PowercastDataService {
         let (data, base) = try await session.data(from: url)
         let response = base as! HTTPURLResponse // swiftlint:disable:this force_cast
 
-        Humio.info("Powercast Service: GET \(url) \(response.statusCode) \(data.count)")
+        Flog.info("Powercast Service: GET \(url) \(response.statusCode) \(data.count)")
 
         return data
     }

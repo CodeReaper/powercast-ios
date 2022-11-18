@@ -1,6 +1,6 @@
 import Foundation
 import BackgroundTasks
-import HumioLogger
+import Flogger
 
 class BackgroundScheduler {
     private static let formatter = DateFormatter.with(format: "yyyy-MM-dd HH:mm.ss Z")
@@ -26,9 +26,9 @@ class BackgroundScheduler {
         request.earliestBeginDate = date
         do {
             try BGTaskScheduler.shared.submit(request)
-            Humio.info("Scheduling: Request scheduled at \(Self.formatter.string(from: date))")
+            Flog.info("Scheduling: Request scheduled at \(Self.formatter.string(from: date))")
         } catch {
-            Humio.error("Scheduling: Request scheduling failed, \(error).")
+            Flog.error("Scheduling: Request scheduling failed, \(error).")
         }
     }
 
@@ -41,21 +41,21 @@ class BackgroundScheduler {
     private func handle(task: BGTask) {
         schedule()
 
-        Humio.info("Scheduling: Task started")
+        Flog.info("Scheduling: Task started")
 
         task.expirationHandler = {
-            Humio.info("Scheduling: Task expired")
+            Flog.info("Scheduling: Task expired")
             task.setTaskCompleted(success: false)
         }
 
         Task {
             do {
                 try await prices.refresh(in: zone)
-                Humio.info("Scheduling: Task finished")
+                Flog.info("Scheduling: Task finished")
                 await notifications.schedule()
                 task.setTaskCompleted(success: true)
             } catch {
-                Humio.warn("Scheduling: Unable to complete refresh: \(error)")
+                Flog.warn("Scheduling: Unable to complete refresh: \(error)")
                 task.setTaskCompleted(success: false)
             }
         }

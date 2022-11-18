@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 import GRDB
-import HumioLogger
+import Flogger
 
 class EnergyPriceRepository {
     private let database: DatabaseQueue
@@ -63,7 +63,7 @@ class EnergyPriceRepository {
             items.append(contentsOf: list)
         }
 
-        Humio.info("EnergyPriceRepository: Updating \(items.count) items")
+        Flog.info("EnergyPriceRepository: Updating \(items.count) items")
 
         try await database.write { [items] db in
             try items.map { Database.EnergyPrice.from(model: $0) }.forEach {

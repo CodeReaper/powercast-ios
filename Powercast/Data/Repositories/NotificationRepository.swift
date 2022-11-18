@@ -1,6 +1,6 @@
 import Foundation
 import UserNotifications
-import HumioLogger
+import Flogger
 
 struct NotificationRepository {
     private let delegate = Delegate()
@@ -18,7 +18,7 @@ struct NotificationRepository {
     func request() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { _, error in
             if let error = error {
-                Humio.error(error.localizedDescription)
+                Flog.error(error.localizedDescription)
             }
         }
     }
@@ -36,7 +36,7 @@ struct NotificationRepository {
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
-                Humio.error(error.localizedDescription)
+                Flog.error(error.localizedDescription)
             }
         }
     }

@@ -1,5 +1,5 @@
 import UIKit
-import HumioLogger
+import Flogger
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String) async {
-        Humio.debug("AppDelegate stuff with \(identifier)")
+        Flog.debug("AppDelegate stuff with \(identifier)")
     }
 
     // MARK: UISceneSession Lifecycle
