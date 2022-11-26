@@ -57,7 +57,7 @@ class EnergyPriceRepository {
         let end = Calendar.current.date(byAdding: .day, value: 2, to: Calendar.current.startOfDay(for: Date()))!
 
         var items: [EnergyPrice] = []
-        for date in DateInterval(start: start, end: end).dates() {
+        for date in start.dates(until: end) {
             guard let list = try? await service.data(for: zone, at: date) else { break }
 
             items.append(contentsOf: list)
@@ -73,8 +73,24 @@ class EnergyPriceRepository {
         }
     }
 
-    func pull() {
-        // TODO: load previous prices
+    func pull(zone: Zone) {
+        guard let min = try? database.read({ db in
+            try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.min(Database.EnergyPrice.Columns.timestamp)).filter(Database.EnergyPrice.Columns.zone == zone.rawValue))
+        }) else { return }
+
+        let dates = Date.year2000.dates(until: min).reversed().prefix(30)
+
+        Task {
+            for date in dates {
+                let items = try await service.data(for: zone, at: date)
+                try await database.write { db in
+                    try items.map { Database.EnergyPrice.from(model: $0) }.forEach {
+                        var item = $0
+                        try item.insert(db)
+                    }
+                }
+            }
+        }
     }
 
     private class TableDatasource: PriceTableDatasource {
@@ -139,9 +155,8 @@ class EnergyPriceRepository {
                     }
             }
 
-            guard let models = models, dates.count == models.count else { return nil }
-
-            let model = models[indexPath.item]
+            let target = dates[indexPath.item]
+            guard let models = models, let model = models.first(where: { $0.timestamp == target }) else { return nil }
 
             let high = models.reduce(-Double.infinity, { $0 < $1.price ? $1.price : $0 })
             let low = models.reduce(Double.infinity, { $0 > $1.price ? $1.price : $0 })

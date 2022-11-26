@@ -78,9 +78,13 @@ class PricesViewController: ViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
         interactor.viewWillAppear()
+        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: .main) { [interactor] _ in
+            interactor?.viewWillAppear()
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
         navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillDisappear(animated)
         interactor.viewWillDisappear()
@@ -240,6 +244,10 @@ extension PricesViewController: PricesDelegate {
     func showNoData() {
         source = EmptyPriceTableDatasource()
         tableView.reloadData()
+    }
+
+    func showRefreshFailed() {
+        // TODO: show refresh failure indicator
     }
 
     func show(loading: Bool) {

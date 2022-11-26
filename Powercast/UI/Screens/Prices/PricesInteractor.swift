@@ -5,6 +5,7 @@ protocol PricesDelegate: AnyObject {
     func show(loading: Bool)
     func show(data: PriceTableDatasource)
     func showNoData()
+    func showRefreshFailed()
     func endRefreshing()
 }
 
@@ -63,7 +64,12 @@ class PricesInteractor {
     private func refreshAsync() async {
         let zone = stateRepository.state.selectedZone
 
-        try? await energyPriceRepository.refresh(in: stateRepository.state.selectedZone)
+        do {
+            try await energyPriceRepository.refresh(in: stateRepository.state.selectedZone)
+        } catch {
+            delegate?.showRefreshFailed()
+        }
+
         let updatedSource = try? energyPriceRepository.source(for: zone)
 
         DispatchQueue.main.async { [delegate] in

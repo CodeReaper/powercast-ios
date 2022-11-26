@@ -43,11 +43,7 @@ class App: Dependenables {
 #if targetEnvironment(simulator)
         Flogger(level: .debug, [ConsoleLogger()])
 #else
-        #if DEBUG
-        Flogger(level: .debug, [ConsoleLogger()])
-        #else
         Flogger(level: .debug, [ConsoleLogger(), HumioLogger(tags: ["session": UUID().uuidString])])
-        #endif
 #endif
         Flog.info("App: Cold start")
 
@@ -58,7 +54,7 @@ class App: Dependenables {
         navigation.setup(using: window)
 
         if stateRepository.state.setupCompleted {
-            energyPriceRepository.pull()
+            energyPriceRepository.pull(zone: stateRepository.state.selectedZone)
         }
     }
 
