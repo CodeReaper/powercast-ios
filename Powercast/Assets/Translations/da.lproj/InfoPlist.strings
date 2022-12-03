@@ -19,8 +19,8 @@
 "LICENSES_ASSETS_TITLE" = "Assets";
 "LICENSES_PACKAGES_TITLE" = "Packages";
 "LICENSES_TITLE" = "Licenser";
-"PRICES_DAY_PRICE_SPAN" = "%1 - %2 €/MWh";
-"PRICES_HOUR_COST" = "%1 €/MWh";
+"PRICES_DAY_PRICE_SPAN" = "%1 - %2 øre/kWh";
+"PRICES_HOUR_COST" = "%1 øre/kWh";
 "PRICES_HOUR_TIME" = "%1 - %2";
 "PRICES_REFRESH_CONTROL_MESSAGE" = "Træk for at hente data";
 "PRICES_TITLE" = "Priser";
