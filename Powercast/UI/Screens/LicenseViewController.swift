@@ -1,4 +1,5 @@
 import UIKit
+import SugarKit
 
 class LicenseViewController: ViewController {
     private let content: String

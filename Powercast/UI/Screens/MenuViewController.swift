@@ -1,4 +1,5 @@
 import UIKit
+import SugarKit
 
 class MenuViewController: ViewController {
     private let configuration: AppConfiguration

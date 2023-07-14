@@ -1,4 +1,5 @@
 import UIKit
+import SugarKit
 
 class DataLoadingViewController: ViewController {
     private let loadingView = View.buildLoadingView(color: .white)
@@ -50,8 +51,8 @@ extension DataLoadingViewController: DataLoadingDelegate {
             ActionSheetOption.title(text: Translations.DATA_LOADING_REFRESH_FAILED_TITLE),
             .message(text: Translations.DATA_LOADING_REFRESH_FAILED_MESSAGE),
             .style(preference: .alert),
-            .cancel(text: Translations.DATA_LOADING_REFRESH_FAILED_NEGATIVE_BUTTON, action: { self.navigationController?.popViewController(animated: true) }),
-            .button(text: Translations.DATA_LOADING_REFRESH_FAILED_POSITIVE_BUTTON, action: { self.interactor.retry() })
+            .cancel(text: Translations.DATA_LOADING_REFRESH_FAILED_NEGATIVE_BUTTON, action: { _ in self.navigationController?.popViewController(animated: true) }),
+            .button(text: Translations.DATA_LOADING_REFRESH_FAILED_POSITIVE_BUTTON, action: { _ in self.interactor.retry() })
         ]))
     }
 }
