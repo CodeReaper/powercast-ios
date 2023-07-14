@@ -1,3 +1,3 @@
 import Foundation
 
-struct View { }
+public struct View { }

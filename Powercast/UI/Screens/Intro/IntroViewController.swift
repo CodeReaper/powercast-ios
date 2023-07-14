@@ -1,4 +1,5 @@
 import UIKit
+import SugarKit
 
 class IntroViewController: ViewController {
     private let overlayBackground = UIView()

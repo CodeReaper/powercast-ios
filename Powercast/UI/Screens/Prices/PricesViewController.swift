@@ -1,4 +1,5 @@
 import UIKit
+import SugarKit
 
 class PricesViewController: ViewController {
     private let spinnerView = SpinnerView(color: Color.primary)

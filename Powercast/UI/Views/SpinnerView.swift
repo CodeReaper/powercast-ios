@@ -1,6 +1,6 @@
 import UIKit
 
-class SpinnerView: UIActivityIndicatorView {
+public class SpinnerView: UIActivityIndicatorView {
     init(color: UIColor = .white) {
         super.init(frame: .zero)
         self.color = color

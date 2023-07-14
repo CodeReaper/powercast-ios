@@ -1,7 +1,8 @@
 import UIKit
 import Lottie
+import SugarKit
 
-extension View {
+struct View {
     static func buildLoadingView(color: UIColor = .black) -> AnimationView {
         var red = CGFloat.zero
         var green = CGFloat.zero

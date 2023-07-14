@@ -1,4 +1,5 @@
 import UIKit
+import SugarKit
 import Combine
 
 class SettingsViewController: ViewController {
