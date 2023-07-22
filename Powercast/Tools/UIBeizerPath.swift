@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-// swiftlint:disable function_body_length identifier_name cyclomatic_complexity
+// swiftlint:disable function_body_length identifier_name cyclomatic_complexity large_tuple
 extension UIBezierPath {
     func addCurve(through points: [CGPoint]) {
         guard points.count > 1 else { return }
@@ -143,4 +143,4 @@ extension UIBezierPath {
         }
     }
 }
-// swiftlint:enable function_body_length identifier_name cyclomatic_complexity
+// swiftlint:enable function_body_length identifier_name cyclomatic_complexity large_tuple

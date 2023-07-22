@@ -14,8 +14,9 @@ jobs:
         run: |
           version=$(grep lane .tool-versions | cut -d\  -f2)
           echo "Using lane version: $version"
-          gh release download "$version" --repo CodeReaper/lane
-          tar -xJv -C ../bin < "lane-$version.tar.xz"
+          gh release download "$version" --repo CodeReaper/lane -O ..
+          mkdir ../bin
+          tar -xJv -C ../bin < "../lane-$version.tar.xz"
       - run: git diff-index --quiet HEAD --
       - run: PATH="../bin/:$PATH" lane images
       - run: git diff-index --quiet HEAD --
