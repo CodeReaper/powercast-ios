@@ -27,5 +27,8 @@ jobs:
       - run: git diff-index --quiet HEAD --
       - if: failure()
         run: |
-          echo "Unexpectedly found these files:"
+          echo "::error::Changed files"
           git diff-index --name-only HEAD --
+          echo "::group::Uncommitted changes:"
+          git diff HEAD --
+          echo "::endgroup::"
