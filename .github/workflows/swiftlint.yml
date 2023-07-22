@@ -1,0 +1,11 @@
+name: Swiftlint
+
+on:
+  workflow_call: {}
+
+jobs:
+  swiftlint:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: swiftlint --strict --config .swiftlint.ci.yml --config .swiftlint.yml
