@@ -9,7 +9,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: git diff-index --quiet HEAD --
-      - run: |
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
           version=$(grep lane .tool-versions | cut -d\  -f2)
           echo "Using lane version: $version"
           gh release download "$version" --repo CodeReaper/lane
@@ -25,5 +27,3 @@ jobs:
         run: |
           echo "Unexpectedly found these files:"
           git diff-index --name-only HEAD --
-
-
