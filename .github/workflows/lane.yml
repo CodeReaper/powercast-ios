@@ -17,7 +17,7 @@ jobs:
           gh release download "$version" --repo CodeReaper/lane
           mkdir ../bin
           tar -xJv -C ../bin < "lane-$version.tar.xz"
-          rm "lane-$version-*"
+          git clean -fdx .
       - run: git diff-index --quiet HEAD --
       - run: PATH="../bin/:$PATH" lane images
       - run: git diff-index --quiet HEAD --
