@@ -12,9 +12,11 @@ jobs:
         run: |
           cp Powercast/Local.xcconfig.sample Powercast/Local.xcconfig
 
+          set -o pipefail && \
           xcodebuild -project Powercast.xcodeproj \
           -scheme Powercast \
           -sdk iphonesimulator \
           -derivedDataPath './output' \
           build \
-          CODE_SIGNING_ALLOWED=NO
+          CODE_SIGNING_ALLOWED=NO \
+          | xcpretty
