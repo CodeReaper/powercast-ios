@@ -20,6 +20,7 @@ jobs:
           git diff-index --quiet HEAD --
       - run: lane images
       - run: lane update-licenses
+        shell: bash
       - run: lane update-translations
       - name: Verify no changes
         run: |
