@@ -22,10 +22,10 @@ jobs:
       - run: lane update-licenses
       - run: lane update-translations
       - name: Verify no changes
-        run: git diff-index --quiet HEAD --
-      - name: Print error details
-        if: failure()
         run: |
-          echo "::group::Uncommitted changes"
-          git status
-          echo "::endgroup::"
+          if [[ $(git status --porcelain | wc -l) -gt 0 ]]; then
+            echo "::error::Found changes"
+            echo "::group::Uncommitted changes"
+            git status
+            echo "::endgroup::"
+          fi
