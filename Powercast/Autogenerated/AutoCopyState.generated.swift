@@ -2,7 +2,6 @@
 // DO NOT EDIT
 //
 
-// swiftlint:disable all
 import Foundation
 
 extension State {

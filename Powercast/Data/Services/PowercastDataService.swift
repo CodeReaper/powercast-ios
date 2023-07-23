@@ -3,7 +3,6 @@ import Flogger
 
 protocol PowercastDataService {
     func interval(for zone: Zone) async throws -> DateInterval
-
     func data(for zone: Zone, at date: Date) async throws -> [EnergyPrice]
 }
 

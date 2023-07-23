@@ -23,7 +23,7 @@ class App: Dependenables {
     let stateRepository = StateRepository()
     let databases: [Migratable]
 
-    lazy var energyPriceRepository = EnergyPriceRepository(database: energyPriceDatabase.queue, service: PowercastDataServiceAPI())
+    lazy var energyPriceRepository = EnergyPriceRepository(database: energyPriceDatabase.queue, service: PowercastDataServiceAPI(), charges: Charges())
     lazy var notificationRepository = NotificationRepository(prices: energyPriceRepository)
     var scheduler: BackgroundScheduler {
         BackgroundScheduler(

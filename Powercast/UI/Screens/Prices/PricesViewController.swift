@@ -6,7 +6,7 @@ class PricesViewController: ViewController {
     private let backgroundView = UIView()
     private let tableView = UITableView(frame: .zero, style: .plain)
     private let refreshControl = UIRefreshControl()
-    private let priceFormatter = PriceFormatter()
+    private let formatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
 
     private var source = EmptyPriceTableDatasource() as PriceTableDatasource
     private var now = Date()
@@ -123,9 +123,9 @@ class PricesViewController: ViewController {
             fatalError("init(coder:) has not been implemented")
         }
 
-        func update(using model: Price, and formatter: PriceFormatter) {
+        func update(using model: Price, and formatter: NumberFormatter) {
             dateLabel.text = Self.dateFormatter.string(from: model.duration.lowerBound)
-            pricesLabel.text = Translations.PRICES_DAY_PRICE_SPAN(formatter.format(model.priceSpan.lowerBound), formatter.format(model.priceSpan.upperBound))
+            pricesLabel.text = Translations.PRICES_DAY_PRICE_SPAN(formatter.string(with: model.priceSpan.lowerBound), formatter.string(with: model.priceSpan.upperBound))
         }
     }
 
@@ -177,7 +177,7 @@ class PricesViewController: ViewController {
             priceLabel.text = nil
         }
 
-        func update(using model: Price, and formatter: PriceFormatter, current: Bool) {
+        func update(using model: Price, and formatter: NumberFormatter, current: Bool) {
             contentView.backgroundColor = current ? .white : .black.withAlphaComponent(0.03)
             selectionIndicator.set(hidden: !current)
 
@@ -192,7 +192,7 @@ class PricesViewController: ViewController {
             }
 
             dateLabel.text = Translations.PRICES_HOUR_TIME(Self.dateFormatter.string(from: model.duration.lowerBound), Self.dateFormatter.string(from: model.duration.upperBound))
-            priceLabel.text = Translations.PRICES_HOUR_COST(formatter.format(model.price))
+            priceLabel.text = Translations.PRICES_HOUR_COST(formatter.string(with: model.price))
         }
     }
 }
@@ -210,7 +210,7 @@ extension PricesViewController: UITableViewDataSource {
         guard let item = source.item(at: IndexPath(item: 0, section: section)) else { return nil }
 
         let view = tableView.dequeueReusableHeaderFooter(Header.self)
-        view.update(using: item, and: priceFormatter)
+        view.update(using: item, and: formatter)
         return view
     }
 
@@ -219,7 +219,7 @@ extension PricesViewController: UITableViewDataSource {
 
         guard let item = source.item(at: indexPath) else { return cell }
 
-        cell.update(using: item, and: priceFormatter, current: item.isActive(at: now))
+        cell.update(using: item, and: formatter, current: item.isActive(at: now))
         return cell
     }
 }
@@ -279,5 +279,11 @@ private extension PriceTableDatasource {
         guard section >= 0 else { return false }
 
         return numberOfRows(in: section) != source.numberOfRows(in: section)
+    }
+}
+
+private extension NumberFormatter {
+    func string(with value: Double) -> String {
+        return string(from: value as NSNumber)!
     }
 }
