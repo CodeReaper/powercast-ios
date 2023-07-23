@@ -8,24 +8,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: git diff-index --quiet HEAD --
-      - env:
+      - name: Install lane
+        env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          git diff-index --quiet HEAD --
           version=$(grep lane .tool-versions | cut -d\  -f2)
           echo "Using lane version: $version"
           gh release download "$version" --repo CodeReaper/lane
           mkdir ../bin
           tar -xJv -C ../bin < "lane-$version.tar.xz"
           git clean -fdx .
-      - run: git diff-index --quiet HEAD --
-      - run: PATH="../bin/:$PATH" lane images
-      - run: git diff-index --quiet HEAD --
-      - run: PATH="../bin/:$PATH" lane update-licenses
-      - run: git diff-index --quiet HEAD --
-      - run: PATH="../bin/:$PATH" lane update-translations
-      - run: git diff-index --quiet HEAD --
-      - if: failure()
+          git diff-index --quiet HEAD --
+      - run: |
+          PATH="../bin/:$PATH" lane images
+          git diff-index --quiet HEAD --
+      - run: |
+          PATH="../bin/:$PATH" lane update-licenses
+          git diff-index --quiet HEAD --
+      - run: |
+          PATH="../bin/:$PATH" lane update-translations
+          git diff-index --quiet HEAD --
+      - name: Print error details
+        if: failure()
         run: |
           echo "::error::Changed files"
           git diff-index --name-only HEAD --
