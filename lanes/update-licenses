@@ -1,6 +1,8 @@
 OUT=Powercast/Assets.Licenses
 
 github_license() {
+  echo "GitHub license for '$3'"
+
 	rm -f /tmp/license || true
   rm -f /tmp/empty || true
 
@@ -12,6 +14,19 @@ github_license() {
 
   echo '{}' > /tmp/empty
 	jq --arg name "$3" --arg content "$content" '. | .name=$name | .content=$content' < /tmp/empty > $OUT/$1/$filename.json
+}
+
+local_license() {
+  echo "Local license for '$2'"
+
+  filename=$(echo "$2" | tr '/' '_' | tr -d ' ')
+
+  cat << EOF > $OUT/$1/$filename.json
+{
+  "name": "$2",
+  "content": "$(cat $3 | sed 's/$/\\n/'| tr -d '\n' )"
+}
+EOF
 }
 
 #
@@ -56,24 +71,16 @@ Use of Files without attributing the creator(s) of the Files is permitted under 
 
 FILES ARE PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. EXCEPT TO THE EXTENT REQUIRED BY APPLICABLE LAW, IN NO EVENT WILL THE CREATOR(S) OF FILES OR DESIGN BARN, INC. BE LIABLE ON ANY LEGAL THEORY FOR ANY SPECIAL, INCIDENTAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES ARISING OUT OF THIS LICENSE OR THE USE OF SUCH FILES.
 EOF
-cat << EOF > $OUT/assets/lottiefiles.json
-{
-  "name": "lottiefiles.com",
-  "content": "$(cat /tmp/license | sed 's/$/\\n/'| tr -d '\n' )"
-}
-EOF
+
+local_license assets lottiefiles.com /tmp/license
 
 ## -----
 
 cat << EOF > /tmp/license
 Unsplash grants you an irrevocable, nonexclusive, worldwide copyright license to download, copy, modify, distribute, perform, and use photos from Unsplash for free, including for commercial purposes, without permission from or attributing the photographer or Unsplash. This license does not include the right to compile photos from Unsplash to replicate a similar or competing service.
 EOF
-cat << EOF > $OUT/assets/unsplash.json
-{
-  "name": "unsplash.com",
-  "content": "$(cat /tmp/license | sed 's/$/\\n/'| tr -d '\n' )"
-}
-EOF
+
+local_license assets unsplash.com /tmp/license
 
 ## -----
 
@@ -126,12 +133,8 @@ This license becomes null and void if any of the above conditions are not met.
 DISCLAIMER
 THE FONT SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM OTHER DEALINGS IN THE FONT SOFTWARE.
 EOF
-cat << EOF > $OUT/assets/fontsquirrel-alex-brush.json
-{
-  "name": "fontsquirrel.com - alex-brush",
-  "content": "$(cat /tmp/license | sed 's/$/\\n/'| tr -d '\n' )"
-}
-EOF
+
+local_license assets "fontsquirrel.com - alex-brush" /tmp/license
 
 ## -----
 
@@ -150,11 +153,7 @@ CONDITIONS FOR USE OF DANISH PUBLICSECTOR DATA
 
 5. Rights and responsibilities of the Licensor The Data is provided 'as is' and the Licensor shall not be liable for content, origin, errors or omissions in the Data and shall not be liable for any loss or damage caused by its use. The Licensor provides no guarantee for the continued availability of the Data, and may at all times change the right of use of the Data and the conditions for its use.
 EOF
-cat << EOF > $OUT/assets/eds.json
-{
-  "name": "energidataservice.dk",
-  "content": "$(cat /tmp/license | sed 's/$/\\n/'| tr -d '\n' )"
-}
-EOF
+
+local_license assets energidataservice.dk /tmp/license
 
 # TODO: add https://simplemaps.com/resources/svg-dk
