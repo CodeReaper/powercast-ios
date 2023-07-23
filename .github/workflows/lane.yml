@@ -16,24 +16,16 @@ jobs:
           version=$(grep lane .tool-versions | cut -d\  -f2)
           echo "Using lane version: $version"
           gh release download "$version" --repo CodeReaper/lane
-          mkdir ../bin
-          tar -xJv -C ../bin < "lane-$version.tar.xz"
+          tar -xJv -C /usr/local/bin < "lane-$version.tar.xz"
           git clean -fdx .
-          echo "path=../bin/:$PATH" >> $GITHUB_ENV
           git diff-index --quiet HEAD --
-      - env:
-          PATH: ${{ env.path }}
-        run: |
+      - run: |
           lane images
           git diff-index --quiet HEAD --
-      - env:
-          PATH: ${{ env.path }}
-        run: |
+      - run: |
           lane update-licenses
           git diff-index --quiet HEAD --
-      - env:
-          PATH: ${{ env.path }}
-        run: |
+      - run: |
           lane update-translations
           git diff-index --quiet HEAD --
       - name: Print error details
