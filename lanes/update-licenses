@@ -34,7 +34,7 @@ find $OUT/packages -type f -exec rm -f {} \;
 
 ## -----
 
-packages=$(xcodebuild -resolvePackageDependencies -disableAutomaticPackageResolution -skipPackageUpdates -json 2>/dev/null | jq -r 'map(.url) | .[]' | sed 's|\.git$||' | sed 's|^https://github.com/||')
+packages=$(cat Powercast.xcodeproj/project.pbxproj | grep "isa = XCRemoteSwiftPackageReference;" -A1|grep repositoryURL | cut -d\" -f2 | sed 's|\.git$||' | sed 's|^https://github.com/||')
 for package in $packages; do
 	github_license packages "$package" "$package"
 done
