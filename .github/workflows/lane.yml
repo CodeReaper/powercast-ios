@@ -26,6 +26,6 @@ jobs:
       - name: Print error details
         if: failure()
         run: |
-          echo "::group::Uncommitted changes:"
+          echo "::group::Uncommitted changes"
           git diff
           echo "::endgroup::"
