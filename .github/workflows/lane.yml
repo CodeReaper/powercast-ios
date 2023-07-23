@@ -28,4 +28,5 @@ jobs:
             echo "::group::Uncommitted changes"
             git status
             echo "::endgroup::"
+            exit 1
           fi
