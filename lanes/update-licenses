@@ -1,8 +1,6 @@
 OUT=Powercast/Assets.Licenses
 
 github_license() {
-  echo "GitHub license for '$3'"
-
 	rm -f /tmp/license || true
   rm -f /tmp/empty || true
 
@@ -17,8 +15,6 @@ github_license() {
 }
 
 local_license() {
-  echo "Local license for '$2'"
-
   filename=$(echo "$2" | tr '/' '_' | tr -d ' ')
 
   cat << EOF > $OUT/$1/$filename.json
@@ -38,7 +34,7 @@ find $OUT/packages -type f -exec rm -f {} \;
 
 ## -----
 
-packages=$(xcodebuild -resolvePackageDependencies -disableAutomaticPackageResolution -skipPackageUpdates -json | jq -r 'map(.url) | .[]' | sed 's|\.git$||' | sed 's|^https://github.com/||')
+packages=$(xcodebuild -resolvePackageDependencies -disableAutomaticPackageResolution -skipPackageUpdates -json 2>/dev/null | jq -r 'map(.url) | .[]' | sed 's|\.git$||' | sed 's|^https://github.com/||')
 for package in $packages; do
 	github_license packages "$package" "$package"
 done
