@@ -1,0 +1,60 @@
+name: Tests
+
+on:
+  workflow_dispatch: {}
+  pull_request: {}
+
+concurrency:
+  group: running-tests
+  cancel-in-progress: true
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    name: Check for specific changes
+    outputs:
+      xcode: ${{ steps.xcode.outputs.matches }}
+      lint: ${{ steps.lint.outputs.matches }}
+    steps:
+      - uses: CodeReaper/find-diff-action@v3
+        id: xcode
+        with:
+          paths: Powercast/ Powercast.xcodeproj/ .github/workflows/xcodebuild.yml
+      - uses: CodeReaper/find-diff-action@v3
+        id: lint
+        with:
+          paths: Powercast/ Powercast.xcodeproj/ .github/workflows/swiftlint.yml .swiftlint*
+
+  build-test:
+    needs: changes
+    if: needs.changes.outputs.xcode == 'true'
+    uses: ./.github/workflows/xcodebuild.yml
+
+  swiftlint:
+    needs: changes
+    if: needs.changes.outputs.lint == 'true'
+    uses: ./.github/workflows/swiftlint.yml
+
+  editorconfig-check:
+    name: Editorconfig check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: editorconfig-checker/action-editorconfig-checker@main
+      - run: editorconfig-checker
+
+  lane-check:
+    uses: ./.github/workflows/lane.yml
+
+  tests-succeeded:
+    name: Tests Succeeded
+    needs:
+      - build-test
+      - swiftlint
+      - editorconfig-check
+      - lane-check
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: All clear
+        run: exit 0

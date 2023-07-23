@@ -41,3 +41,4 @@ extension Database.EnergyPrice: TableRecord {
         static let timestamp = Column(CodingKeys.timestamp)
     }
 }
+// swiftlint:enable nesting

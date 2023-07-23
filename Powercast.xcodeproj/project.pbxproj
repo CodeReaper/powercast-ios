@@ -570,7 +570,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=$HOME/.asdf/shims:$PATH\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed\"\nfi\n";
+			shellScript = "export PATH=$HOME/.asdf/shims:$PATH\n\nif ! test -z $CI; then\n  echo \"info: SwiftLint not used for CI builds\"\nelif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
