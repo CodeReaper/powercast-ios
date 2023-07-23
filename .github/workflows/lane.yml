@@ -24,7 +24,6 @@ jobs:
       - name: Verify no changes
         run: |
           if [[ $(git status --porcelain | wc -l) -gt 0 ]]; then
-            echo "::error::Found changes"
             echo "::group::Uncommitted changes"
             git status
             echo "::endgroup::"
