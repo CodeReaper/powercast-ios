@@ -19,21 +19,26 @@ jobs:
           mkdir ../bin
           tar -xJv -C ../bin < "lane-$version.tar.xz"
           git clean -fdx .
+          echo "path=../bin/:$PATH" >> $GITHUB_ENV
           git diff-index --quiet HEAD --
-      - run: |
-          PATH="../bin/:$PATH" lane images
+      - env:
+          PATH: ${{ env.path }}
+        run: |
+          lane images
           git diff-index --quiet HEAD --
-      - run: |
-          PATH="../bin/:$PATH" lane update-licenses
+      - env:
+          PATH: ${{ env.path }}
+        run: |
+          lane update-licenses
           git diff-index --quiet HEAD --
-      - run: |
-          PATH="../bin/:$PATH" lane update-translations
+      - env:
+          PATH: ${{ env.path }}
+        run: |
+          lane update-translations
           git diff-index --quiet HEAD --
       - name: Print error details
         if: failure()
         run: |
-          echo "::error::Changed files"
-          git diff-index --name-only HEAD --
           echo "::group::Uncommitted changes:"
           git diff HEAD --
           echo "::endgroup::"
