@@ -2,6 +2,7 @@ OUT=Powercast/Assets.Licenses
 
 github_license() {
 	rm -f /tmp/license || true
+  rm -f /tmp/empty || true
 
 	curl --silent --fail -L -o /tmp/license "https://api.github.com/repos/$2/contents/LICENSE"
 
@@ -9,8 +10,8 @@ github_license() {
 
 	filename=$(echo "$3" | tr '/' '_')
 
-  echo "Generating $OUT/$1/$filename.json"
-	jq --arg name "$3" --arg content "$content" '. | .name=$name | .content=$content' <<< '{}' > $OUT/$1/$filename.json
+  echo '{}' > /tmp/empty
+	jq --arg name "$3" --arg content "$content" '. | .name=$name | .content=$content' < /tmp/empty > $OUT/$1/$filename.json
 }
 
 #
