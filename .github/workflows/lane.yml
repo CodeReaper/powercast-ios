@@ -27,5 +27,5 @@ jobs:
         if: failure()
         run: |
           echo "::group::Uncommitted changes"
-          git diff
+          git status
           echo "::endgroup::"
