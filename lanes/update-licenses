@@ -9,6 +9,7 @@ github_license() {
 
 	filename=$(echo "$3" | tr '/' '_')
 
+  echo "Generating $OUT/$1/$filename.json"
 	jq --arg name "$3" --arg content "$content" '. | .name=$name | .content=$content' <<< '{}' > $OUT/$1/$filename.json
 }
 

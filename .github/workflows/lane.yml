@@ -9,7 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install lane
-        shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -19,19 +18,14 @@ jobs:
           tar -xJv -C /usr/local/bin --exclude LICENSE.txt < "lane-$version.tar.xz"
           git clean -fdx .
           git diff-index --quiet HEAD --
-      - shell: bash
-        run: lane images
-      - shell: bash
-        run: lane update-licenses
-      - shell: bash
-        run: lane update-translations
+      - run: lane images
+      - run: lane update-licenses
+      - run: lane update-translations
       - name: Verify no changes
-        shell: bash
         run: git diff-index --quiet HEAD --
       - name: Print error details
-        shell: bash
         if: failure()
         run: |
           echo "::group::Uncommitted changes:"
-          git diff HEAD --
+          git diff
           echo "::endgroup::"
