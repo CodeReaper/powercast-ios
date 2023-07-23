@@ -12,22 +12,17 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git diff-index --quiet HEAD --
           version=$(grep lane .tool-versions | cut -d\  -f2)
           echo "Using lane version: $version"
           gh release download "$version" --repo CodeReaper/lane
-          tar -xJv -C /usr/local/bin < "lane-$version.tar.xz"
+          tar -xJv -C /usr/local/bin --exclude LICENSE.txt < "lane-$version.tar.xz"
           git clean -fdx .
           git diff-index --quiet HEAD --
-      - run: |
-          lane images
-          git diff-index --quiet HEAD --
-      - run: |
-          lane update-licenses
-          git diff-index --quiet HEAD --
-      - run: |
-          lane update-translations
-          git diff-index --quiet HEAD --
+      - run: lane images
+      - run: lane update-licenses
+      - run: lane update-translations
+      - name: Verify no changes
+        run: git diff-index --quiet HEAD --
       - name: Print error details
         if: failure()
         run: |
