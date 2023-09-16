@@ -59,13 +59,11 @@
 		38E0FA722884822C0096B98A /* _Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E0FA712884822C0096B98A /* _Database.swift */; };
 		38ECF94B289B0ACF00ED8372 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF94A289B0ACF00ED8372 /* Date.swift */; };
 		38ECF94D289C467B00ED8372 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF94C289C467B00ED8372 /* TimeInterval.swift */; };
-		38ECF94F289C5A5000ED8372 /* UIBeizerPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF94E289C5A5000ED8372 /* UIBeizerPath.swift */; };
 		38ECF953289DAC6500ED8372 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF952289DAC6500ED8372 /* Colors.swift */; };
 		38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15C828833A5B001C38F9 /* AppNavigation.swift */; };
 		38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DA28835353001C38F9 /* SettingsViewController.swift */; };
 		38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DE28835528001C38F9 /* LicensesViewController.swift */; };
 		CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */; };
-		CD36624329169B20009FAC8B /* AutoCopyState.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD36624029169B20009FAC8B /* AutoCopyState.generated.swift */; };
 		CD36624729281614009FAC8B /* Flogger in Frameworks */ = {isa = PBXBuildFile; productRef = CD36624629281614009FAC8B /* Flogger */; };
 		CD4022E82A34AA2B00027798 /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD4022E72A34AA2B00027798 /* SugarKit */; };
 		CD4022EC2A34ADA600027798 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4022EB2A34ADA600027798 /* LoadingView.swift */; };
@@ -73,6 +71,9 @@
 		CD5E309228B2583600DBA019 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309028B2583600DBA019 /* assets */; };
 		CD5E309328B2583600DBA019 /* packages in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309128B2583600DBA019 /* packages */; };
 		CD5E309528B25B1800DBA019 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5E309428B25B1800DBA019 /* LicenseViewController.swift */; };
+		CD81C59B2A6DBDD300E88418 /* Charges.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD81C59A2A6DBDD300E88418 /* Charges.swift */; };
+		CD81C5A42A6DEABD00E88418 /* AutoCopyState.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD81C5A12A6DEABD00E88418 /* AutoCopyState.generated.swift */; };
+		CD81C5A62A6DEABD00E88418 /* AutoCopyCharges.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD81C5A32A6DEABD00E88418 /* AutoCopyCharges.generated.swift */; };
 		CD8801242A61E18300A30B1D /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD8801232A61E18300A30B1D /* SugarKit */; };
 		CD8A4BC028B2755A00EC68E3 /* PricesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BBE28B2755A00EC68E3 /* PricesViewController.swift */; };
 		CD8A4BC128B2755A00EC68E3 /* PricesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BBF28B2755A00EC68E3 /* PricesInteractor.swift */; };
@@ -137,18 +138,19 @@
 		38E0FA712884822C0096B98A /* _Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Database.swift; sourceTree = "<group>"; };
 		38ECF94A289B0ACF00ED8372 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		38ECF94C289C467B00ED8372 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
-		38ECF94E289C5A5000ED8372 /* UIBeizerPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBeizerPath.swift; sourceTree = "<group>"; };
 		38ECF952289DAC6500ED8372 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		38FD15C828833A5B001C38F9 /* AppNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigation.swift; sourceTree = "<group>"; };
 		38FD15DA28835353001C38F9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		38FD15DE28835528001C38F9 /* LicensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
-		CD36624029169B20009FAC8B /* AutoCopyState.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCopyState.generated.swift; sourceTree = "<group>"; };
 		CD4022EB2A34ADA600027798 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CD43B67E293B783300D623E8 /* PriceFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceFormatter.swift; sourceTree = "<group>"; };
 		CD5E309028B2583600DBA019 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		CD5E309128B2583600DBA019 /* packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = packages; sourceTree = "<group>"; };
 		CD5E309428B25B1800DBA019 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
+		CD81C59A2A6DBDD300E88418 /* Charges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charges.swift; sourceTree = "<group>"; };
+		CD81C5A12A6DEABD00E88418 /* AutoCopyState.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCopyState.generated.swift; sourceTree = "<group>"; };
+		CD81C5A32A6DEABD00E88418 /* AutoCopyCharges.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCopyCharges.generated.swift; sourceTree = "<group>"; };
 		CD8A4BBE28B2755A00EC68E3 /* PricesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PricesViewController.swift; sourceTree = "<group>"; };
 		CD8A4BBF28B2755A00EC68E3 /* PricesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PricesInteractor.swift; sourceTree = "<group>"; };
 		CD8A4BC428BA6DB000EC68E3 /* Price.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
@@ -207,14 +209,6 @@
 			path = Schedulers;
 			sourceTree = "<group>";
 		};
-		384E643D288DAEBF004ADCB1 /* Autogenerated */ = {
-			isa = PBXGroup;
-			children = (
-				CD36624029169B20009FAC8B /* AutoCopyState.generated.swift */,
-			);
-			path = Autogenerated;
-			sourceTree = "<group>";
-		};
 		384E6442288DBD53004ADCB1 /* Assets.Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,7 +246,6 @@
 				384E646A288EDAAF004ADCB1 /* Appearence.swift */,
 				38ECF94A289B0ACF00ED8372 /* Date.swift */,
 				38ECF94C289C467B00ED8372 /* TimeInterval.swift */,
-				38ECF94E289C5A5000ED8372 /* UIBeizerPath.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -300,7 +293,7 @@
 				380CE8EA288893E30003FF36 /* Assets.Animations */,
 				384E6442288DBD53004ADCB1 /* Assets.Fonts */,
 				CD5E307F28B2540200DBA019 /* Assets.Licenses */,
-				384E643D288DAEBF004ADCB1 /* Autogenerated */,
+				CD81C5A02A6DEABD00E88418 /* Autogenerated */,
 				38E0FA622884759B0096B98A /* Data */,
 				387FF604286B90A40051E3DC /* LaunchScreen.storyboard */,
 				384E647328915F52004ADCB1 /* Tools */,
@@ -366,6 +359,7 @@
 			isa = PBXGroup;
 			children = (
 				38E0FA712884822C0096B98A /* _Database.swift */,
+				CD81C59A2A6DBDD300E88418 /* Charges.swift */,
 				38E0FA6D2884803F0096B98A /* EnergyPrice.swift */,
 				CD8A4BC428BA6DB000EC68E3 /* Price.swift */,
 				384E6436288D9FD9004ADCB1 /* State.swift */,
@@ -420,6 +414,15 @@
 				CD5E309128B2583600DBA019 /* packages */,
 			);
 			path = Assets.Licenses;
+			sourceTree = "<group>";
+		};
+		CD81C5A02A6DEABD00E88418 /* Autogenerated */ = {
+			isa = PBXGroup;
+			children = (
+				CD81C5A32A6DEABD00E88418 /* AutoCopyCharges.generated.swift */,
+				CD81C5A12A6DEABD00E88418 /* AutoCopyState.generated.swift */,
+			);
+			path = Autogenerated;
 			sourceTree = "<group>";
 		};
 		CD8A4BBD28B2755A00EC68E3 /* Prices */ = {
@@ -585,7 +588,7 @@
 				38E0FA702884808D0096B98A /* Zone.swift in Sources */,
 				380CE8FF288AE55A0003FF36 /* ViewControllers.swift in Sources */,
 				38DF5AB7287079DE008630FB /* Images.swift in Sources */,
-				CD36624329169B20009FAC8B /* AutoCopyState.generated.swift in Sources */,
+				CD81C5A62A6DEABD00E88418 /* AutoCopyCharges.generated.swift in Sources */,
 				387FF60E286B95B00051E3DC /* App.swift in Sources */,
 				384E647A2891650E004ADCB1 /* DataLoadingViewController.swift in Sources */,
 				384E6435288D9E38004ADCB1 /* StateRepository.swift in Sources */,
@@ -601,6 +604,7 @@
 				389F717F289982630007C2E0 /* Drawer.swift in Sources */,
 				CDE77AC428C369370021EEDD /* Migratable.swift in Sources */,
 				38DF5ABE28707A7E008630FB /* Translations.swift in Sources */,
+				CD81C59B2A6DBDD300E88418 /* Charges.swift in Sources */,
 				384E6469288ED62D004ADCB1 /* IntroInteractor.swift in Sources */,
 				384E642E288D90EF004ADCB1 /* BackgroundScheduler.swift in Sources */,
 				384E6470288EDE96004ADCB1 /* ZoneSelectionViewController.swift in Sources */,
@@ -609,12 +613,12 @@
 				38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */,
 				38E0FA6E2884803F0096B98A /* EnergyPrice.swift in Sources */,
 				387FF5FC286B909B0051E3DC /* SceneDelegate.swift in Sources */,
-				38ECF94F289C5A5000ED8372 /* UIBeizerPath.swift in Sources */,
 				38ECF94B289B0ACF00ED8372 /* Date.swift in Sources */,
 				CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */,
 				38E0FA68288476C40096B98A /* PowercastDataService.swift in Sources */,
 				38ECF94D289C467B00ED8372 /* TimeInterval.swift in Sources */,
 				387FF610286B95BB0051E3DC /* global.swift in Sources */,
+				CD81C5A42A6DEABD00E88418 /* AutoCopyState.generated.swift in Sources */,
 				384E643A288DAA56004ADCB1 /* Sourcery.swift in Sources */,
 				CD4022EC2A34ADA600027798 /* LoadingView.swift in Sources */,
 				384E6446288DC430004ADCB1 /* Fonts.swift in Sources */,
