@@ -17,10 +17,12 @@ jobs:
       lint: ${{ steps.lint.outputs.matches }}
     steps:
       - uses: CodeReaper/find-diff-action@v3
+        name: Changes requiring xcodebuild
         id: xcode
         with:
           paths: Powercast/ Powercast.xcodeproj/ .github/workflows/xcodebuild.yml
       - uses: CodeReaper/find-diff-action@v3
+        name: Changes requiring linting
         id: lint
         with:
           paths: Powercast/ Powercast.xcodeproj/ .github/workflows/swiftlint.yml .swiftlint*
