@@ -5,4 +5,6 @@ struct Color {
 
     static let pastelGreen = UIColor.from(hex: "#467A56")
     static let pastelRed = UIColor.from(hex: "#EA665C")
+    static let pastelOrange = UIColor.from(hex: "#eaa15c")
+
 }

@@ -133,6 +133,7 @@ class PricesViewController: ViewController {
         private static let dateFormatter = DateFormatter.with(format: "HH")
 
         private let selectionIndicator = UIView()
+        private let highLoadIndicator = UIView()
         private let dateLabel = Label(color: .black)
         private let priceLabel = Label(color: .black)
         private let gaugeView = UIProgressView()
@@ -149,6 +150,16 @@ class PricesViewController: ViewController {
                     make(its.topAnchor.constraint(equalTo: contentView.topAnchor))
                     make(its.bottomAnchor.constraint(equalTo: contentView.bottomAnchor))
                     make(its.leadingAnchor.constraint(equalTo: contentView.leadingAnchor))
+                    make(its.widthAnchor.constraint(equalToConstant: 4))
+                }
+
+            highLoadIndicator
+                .set(hidden: true)
+                .set(backgroundColor: Color.pastelOrange)
+                .layout(in: contentView) { (make, its) in
+                    make(its.topAnchor.constraint(equalTo: contentView.topAnchor))
+                    make(its.bottomAnchor.constraint(equalTo: contentView.bottomAnchor))
+                    make(its.trailingAnchor.constraint(equalTo: contentView.trailingAnchor))
                     make(its.widthAnchor.constraint(equalToConstant: 4))
                 }
 
@@ -180,8 +191,9 @@ class PricesViewController: ViewController {
         func update(using model: Price, and formatter: NumberFormatter, current: Bool) {
             contentView.backgroundColor = current ? .white : .black.withAlphaComponent(0.03)
             selectionIndicator.set(hidden: !current)
+            highLoadIndicator.set(hidden: !model.isHighLoad())
 
-            let ratio = Float(model.price / model.priceSpan.upperBound)
+            let ratio = Float(model.rawPrice / model.rawPriceSpan.upperBound)
             gaugeView.setProgress(ratio, animated: false)
 
             switch ratio {

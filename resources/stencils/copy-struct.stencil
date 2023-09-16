@@ -9,16 +9,16 @@ import Foundation
 extension {{ type.name }} {
 	func copy() -> {{ type.name }} {
 		return {{type.name}}(
-			{% for variable in type.storedVariables %}
+			{% for variable in type.storedVariables|!annotated:"skip" %}
 			{{variable.name}}: {{variable.name}}{{ ',' if not forloop.last }}
 			{% endfor %}
 		)
 	}
 
-	{% for variable in type.storedVariables %}
+	{% for variable in type.storedVariables|!annotated:"skip" %}
 	func copy({{variable.name}}: {{variable.typeName}}) -> {{ type.name }} {
 		return {{type.name}}(
-			{% for variable in type.storedVariables %}
+			{% for variable in type.storedVariables|!annotated:"skip" %}
 			{{variable.name}}: {{variable.name}}{{ ',' if not forloop.last }}
 			{% endfor %}
 		)

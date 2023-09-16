@@ -9,12 +9,12 @@ extension Charges {
 		return Charges(
 			valueAddedTax: valueAddedTax,
 			transmissionTarrif: transmissionTarrif,
-			networkTarrif: networkTarrif,
 			systemTarrif: systemTarrif,
 			electricityTarrif: electricityTarrif,
 			lowLoadTarrif: lowLoadTarrif,
 			highLoadTarrif: highLoadTarrif,
-			highLoadHours: highLoadHours
+			highLoadHours: highLoadHours,
+			highLoadMonths: highLoadMonths
 		)
 	}
 
@@ -22,96 +22,96 @@ extension Charges {
 		return Charges(
 			valueAddedTax: valueAddedTax,
 			transmissionTarrif: transmissionTarrif,
-			networkTarrif: networkTarrif,
 			systemTarrif: systemTarrif,
 			electricityTarrif: electricityTarrif,
 			lowLoadTarrif: lowLoadTarrif,
 			highLoadTarrif: highLoadTarrif,
-			highLoadHours: highLoadHours
+			highLoadHours: highLoadHours,
+			highLoadMonths: highLoadMonths
 		)
 	}
 	func copy(transmissionTarrif: Double) -> Charges {
 		return Charges(
 			valueAddedTax: valueAddedTax,
 			transmissionTarrif: transmissionTarrif,
-			networkTarrif: networkTarrif,
 			systemTarrif: systemTarrif,
 			electricityTarrif: electricityTarrif,
 			lowLoadTarrif: lowLoadTarrif,
 			highLoadTarrif: highLoadTarrif,
-			highLoadHours: highLoadHours
-		)
-	}
-	func copy(networkTarrif: Double) -> Charges {
-		return Charges(
-			valueAddedTax: valueAddedTax,
-			transmissionTarrif: transmissionTarrif,
-			networkTarrif: networkTarrif,
-			systemTarrif: systemTarrif,
-			electricityTarrif: electricityTarrif,
-			lowLoadTarrif: lowLoadTarrif,
-			highLoadTarrif: highLoadTarrif,
-			highLoadHours: highLoadHours
+			highLoadHours: highLoadHours,
+			highLoadMonths: highLoadMonths
 		)
 	}
 	func copy(systemTarrif: Double) -> Charges {
 		return Charges(
 			valueAddedTax: valueAddedTax,
 			transmissionTarrif: transmissionTarrif,
-			networkTarrif: networkTarrif,
 			systemTarrif: systemTarrif,
 			electricityTarrif: electricityTarrif,
 			lowLoadTarrif: lowLoadTarrif,
 			highLoadTarrif: highLoadTarrif,
-			highLoadHours: highLoadHours
+			highLoadHours: highLoadHours,
+			highLoadMonths: highLoadMonths
 		)
 	}
 	func copy(electricityTarrif: Double) -> Charges {
 		return Charges(
 			valueAddedTax: valueAddedTax,
 			transmissionTarrif: transmissionTarrif,
-			networkTarrif: networkTarrif,
 			systemTarrif: systemTarrif,
 			electricityTarrif: electricityTarrif,
 			lowLoadTarrif: lowLoadTarrif,
 			highLoadTarrif: highLoadTarrif,
-			highLoadHours: highLoadHours
+			highLoadHours: highLoadHours,
+			highLoadMonths: highLoadMonths
 		)
 	}
 	func copy(lowLoadTarrif: Double) -> Charges {
 		return Charges(
 			valueAddedTax: valueAddedTax,
 			transmissionTarrif: transmissionTarrif,
-			networkTarrif: networkTarrif,
 			systemTarrif: systemTarrif,
 			electricityTarrif: electricityTarrif,
 			lowLoadTarrif: lowLoadTarrif,
 			highLoadTarrif: highLoadTarrif,
-			highLoadHours: highLoadHours
+			highLoadHours: highLoadHours,
+			highLoadMonths: highLoadMonths
 		)
 	}
 	func copy(highLoadTarrif: Double) -> Charges {
 		return Charges(
 			valueAddedTax: valueAddedTax,
 			transmissionTarrif: transmissionTarrif,
-			networkTarrif: networkTarrif,
 			systemTarrif: systemTarrif,
 			electricityTarrif: electricityTarrif,
 			lowLoadTarrif: lowLoadTarrif,
 			highLoadTarrif: highLoadTarrif,
-			highLoadHours: highLoadHours
+			highLoadHours: highLoadHours,
+			highLoadMonths: highLoadMonths
 		)
 	}
 	func copy(highLoadHours: [Int]) -> Charges {
 		return Charges(
 			valueAddedTax: valueAddedTax,
 			transmissionTarrif: transmissionTarrif,
-			networkTarrif: networkTarrif,
 			systemTarrif: systemTarrif,
 			electricityTarrif: electricityTarrif,
 			lowLoadTarrif: lowLoadTarrif,
 			highLoadTarrif: highLoadTarrif,
-			highLoadHours: highLoadHours
+			highLoadHours: highLoadHours,
+			highLoadMonths: highLoadMonths
+		)
+	}
+	func copy(highLoadMonths: [Int]) -> Charges {
+		return Charges(
+			valueAddedTax: valueAddedTax,
+			transmissionTarrif: transmissionTarrif,
+			systemTarrif: systemTarrif,
+			electricityTarrif: electricityTarrif,
+			lowLoadTarrif: lowLoadTarrif,
+			highLoadTarrif: highLoadTarrif,
+			highLoadHours: highLoadHours,
+			highLoadMonths: highLoadMonths
 		)
 	}
 }

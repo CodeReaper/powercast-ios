@@ -39,10 +39,6 @@ for package in $packages; do
 	github_license packages "$package" "$package"
 done
 
-## -----
-
-github_license packages "Ramshandilya/Bezier" "Ramshandilya/Bezier"
-
 #
 # ASSETS
 #

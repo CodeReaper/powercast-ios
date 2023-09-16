@@ -162,6 +162,8 @@ class EnergyPriceRepository {
             let target = dates[indexPath.item]
             guard let models = models, let model = models.first(where: { $0.timestamp == target }) else { return nil }
 
+            let rawHigh = models.reduce(-Double.infinity, { $0 < $1.price ? $1.price : $0 })
+            let rawLow = models.reduce(-Double.infinity, { $0 > $1.price ? $1.price : $0 })
             let prices = models.map({ formatter.format($0.price, at: $0.timestamp) })
             let high = prices.reduce(-Double.infinity, { $0 < $1 ? $1 : $0 })
             let low = prices.reduce(Double.infinity, { $0 > $1 ? $1 : $0 })
@@ -169,6 +171,9 @@ class EnergyPriceRepository {
             return Price(
                 price: formatter.format(model.price, at: model.timestamp),
                 priceSpan: low...high,
+                rawPrice: model.price,
+                rawPriceSpan: rawLow...rawHigh,
+                charges: formatter.charges,
                 zone: model.zone,
                 duration: model.timestamp...model.timestamp.addingTimeInterval(.oneHour)
             )
