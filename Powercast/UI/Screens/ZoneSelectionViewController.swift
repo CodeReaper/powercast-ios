@@ -14,6 +14,7 @@ class ZoneSelectionViewController: ViewController {
 
     private let imageView = UIImageView()
     private let zones: [Zone] = [.dk1, .dk2]
+    private let zipLabel = UILabel()
 
     private let segmentedControl: UISegmentedControl
     private let configuration: Configuration
@@ -37,6 +38,9 @@ class ZoneSelectionViewController: ViewController {
 
         title = Translations.ZONE_SELECTION_TITLE
 
+        zipLabel.textColor = .white
+        zipLabel.textAlignment = .center
+
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .red
 
@@ -52,6 +56,7 @@ class ZoneSelectionViewController: ViewController {
             inset: NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10),
             FlexibleSpace(),
             imageView,
+            zipLabel.set(height: 44),
             segmentedControl.set(height: 44),
             button.set(height: 44)
         ).fill().layout(in: view) { make, its in
@@ -81,8 +86,10 @@ class ZoneSelectionViewController: ViewController {
     private func update(image zone: Zone) {
         switch zone {
         case .dk1:
+            zipLabel.text = Translations.ZONE_SELECTION_DK1_ZIP_LIST
             imageView.image = Images.dk1
         case .dk2:
+            zipLabel.text = Translations.ZONE_SELECTION_DK2_ZIP_LIST
             imageView.image = Images.dk2
         }
     }

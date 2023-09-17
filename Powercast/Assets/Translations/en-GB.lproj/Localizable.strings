@@ -23,6 +23,7 @@
 "PRICES_HOUR_COST" = "%1 øre/kWh";
 "PRICES_HOUR_TIME" = "%1 - %2";
 "PRICES_REFRESH_CONTROL_MESSAGE" = "Pull to refresh";
+"PRICES_REFRESH_FAILED_MESSAGE" = "Unable to fetch latest data";
 "PRICES_TITLE" = "Prices";
 "SETTINGS_TITLE" = "Settings";
 "SETTINGS_ZONE_TITLE" = "Zone";
@@ -30,4 +31,6 @@
 "ZONE_DK1" = "DK1";
 "ZONE_DK2" = "DK2";
 "ZONE_SELECTION_CONFIRMATION_POSITIVE_BUTTON" = "Choose";
+"ZONE_SELECTION_DK1_ZIP_LIST" = "Zip codes 5000 - 9999";
+"ZONE_SELECTION_DK2_ZIP_LIST" = "Zip codes 1000 - 4999";
 "ZONE_SELECTION_TITLE" = "Zone Selection";

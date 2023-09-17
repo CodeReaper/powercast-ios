@@ -23,6 +23,7 @@
 "PRICES_HOUR_COST" = "%1 øre/kWh";
 "PRICES_HOUR_TIME" = "%1 - %2";
 "PRICES_REFRESH_CONTROL_MESSAGE" = "Træk for at hente data";
+"PRICES_REFRESH_FAILED_MESSAGE" = "Kunne ikke hente nyeste data";
 "PRICES_TITLE" = "Priser";
 "SETTINGS_TITLE" = "Indstillinger";
 "SETTINGS_ZONE_TITLE" = "Zone";
@@ -30,4 +31,6 @@
 "ZONE_DK1" = "DK1";
 "ZONE_DK2" = "DK2";
 "ZONE_SELECTION_CONFIRMATION_POSITIVE_BUTTON" = "Vælg";
+"ZONE_SELECTION_DK1_ZIP_LIST" = "Post numre 5000 - 9999";
+"ZONE_SELECTION_DK2_ZIP_LIST" = "Post numre 1000 - 4999";
 "ZONE_SELECTION_TITLE" = "Zone valg";

@@ -33,8 +33,8 @@ class BackgroundScheduler {
     }
 
     private func beginDate() -> Date {
+        let calculatedDate = try? prices.latest(for: zone)?.date(byAdding: .hour, value: -10).date(byAdding: .minute, value: 15).date(bySetting: .second, value: 0)
         let fallbackDate = Date().date(bySetting: .minute, value: 0).date(bySetting: .second, value: 0)
-        let calculatedDate = try? prices.latest(for: zone)?.date(byAdding: .hour, value: -8).date(byAdding: .minute, value: 15).date(bySetting: .second, value: 0)
         return max(calculatedDate ?? fallbackDate, fallbackDate)
     }
 
