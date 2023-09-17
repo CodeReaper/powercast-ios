@@ -55,6 +55,7 @@ class App: Dependenables {
 
         if stateRepository.state.setupCompleted {
             energyPriceRepository.pull(zone: stateRepository.state.selectedZone)
+            notificationRepository.request() // TODO: move to an intro step
         }
     }
 

@@ -3,7 +3,7 @@ import SugarKit
 
 class PricesViewController: ViewController {
     private let spinnerView = SpinnerView(color: Color.primary)
-    private let backgroundView = UIView()
+    private let updateFailedLabel = Label(style: .subheadline, text: Translations.PRICES_REFRESH_FAILED_MESSAGE, color: .white)
     private let tableView = UITableView(frame: .zero, style: .plain)
     private let refreshControl = UIRefreshControl()
     private let formatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
@@ -37,31 +37,18 @@ class PricesViewController: ViewController {
         bar.shadowImage = UIImage()
         bar.delegate = self
         bar.items = [item]
-        bar.layout(in: view) { make, its in
-            make(its.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor))
-            make(its.leadingAnchor.constraint(equalTo: view.leadingAnchor))
-            make(its.trailingAnchor.constraint(equalTo: view.trailingAnchor))
-        }
 
-        spinnerView.setup(centeredIn: view)
-
-        backgroundView.backgroundColor = .white
-        backgroundView.setup(matching: view, in: view)
-        view.sendSubviewToBack(backgroundView)
+        updateFailedLabel.textAlignment = .center
+        updateFailedLabel
+            .set(backgroundColor: Color.pastelRed)
+            .set(hidden: true)
 
         tableView
-            .set(datasource: self, delegate: self)
-            .set(backgroundColor: Color.primary)
             .registerClass(Header.self)
             .registerClass(Cell.self)
-            .layout(in: view) { make, its in
-                make(its.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor))
-                make(its.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor))
-                make(its.topAnchor.constraint(equalTo: bar.bottomAnchor))
-                make(its.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor))
-            }
-
-        tableView.backgroundView = refreshControl
+            .set(datasource: self, delegate: self)
+            .set(backgroundColor: Color.primary)
+        tableView.refreshControl = refreshControl
         tableView.showsVerticalScrollIndicator = false
         tableView.sectionFooterHeight = 0
         tableView.sectionHeaderHeight = UITableView.automaticDimension
@@ -72,6 +59,8 @@ class PricesViewController: ViewController {
         refreshControl.tintColor = .white
         refreshControl.attributedTitle = NSAttributedString(string: Translations.PRICES_REFRESH_CONTROL_MESSAGE, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+
+        layout(with: bar)
 
         interactor.viewDidLoad()
     }
@@ -90,6 +79,27 @@ class PricesViewController: ViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillDisappear(animated)
         interactor.viewWillDisappear()
+    }
+
+    private func layout(with bar: UINavigationBar) {
+        bar.layout(in: view) { make, its in
+            make(its.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor))
+            make(its.leadingAnchor.constraint(equalTo: view.leadingAnchor))
+            make(its.trailingAnchor.constraint(equalTo: view.trailingAnchor))
+        }
+
+        spinnerView.setup(centeredIn: view)
+
+        updateFailedLabel.set(height: 33)
+
+        Stack
+            .views(on: .vertical, tableView, updateFailedLabel)
+            .layout(in: view) { make, its in
+                make(its.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor))
+                make(its.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor))
+                make(its.topAnchor.constraint(equalTo: bar.bottomAnchor))
+                make(its.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor))
+            }
     }
 
     @objc private func didTapMenu() {
@@ -244,6 +254,7 @@ extension PricesViewController: UITableViewDelegate {
 
 extension PricesViewController: PricesDelegate {
     func show(data: PriceTableDatasource) {
+        updateFailedLabel.set(hidden: true)
         let applyOffset = data.isUpdated(comparedTo: source)
         now = Date()
         source = data
@@ -254,12 +265,13 @@ extension PricesViewController: PricesDelegate {
     }
 
     func showNoData() {
+        updateFailedLabel.set(hidden: true)
         source = EmptyPriceTableDatasource()
         tableView.reloadData()
     }
 
     func showRefreshFailed() {
-        // TODO: show refresh failure indicator
+        updateFailedLabel.set(hidden: false)
     }
 
     func show(loading: Bool) {
