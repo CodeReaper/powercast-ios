@@ -24,7 +24,13 @@ class App: Dependenables {
     let databases: [Migratable]
 
     lazy var energyPriceRepository = EnergyPriceRepository(database: energyPriceDatabase.queue, service: PowercastDataServiceAPI(), charges: Charges())
-    lazy var notificationRepository = NotificationRepository(prices: energyPriceRepository)
+    var notificationRepository: NotificationRepository {
+        NotificationRepository(
+            zone: stateRepository.state.selectedZone,
+            charges: Charges(),
+            prices: energyPriceRepository
+        )
+    }
     var scheduler: BackgroundScheduler {
         BackgroundScheduler(
             zone: stateRepository.state.selectedZone,
@@ -40,11 +46,14 @@ class App: Dependenables {
     }
 
     func didLaunch(with window: UIWindow) {
-#if targetEnvironment(simulator)
-        Flogger(level: .debug, [ConsoleLogger()])
-#else
-        Flogger(level: .debug, [ConsoleLogger(), HumioLogger(tags: ["session": UUID().uuidString])])
-#endif
+        if configuration.isRunningOnSimulator || configuration.isRunningUnitTests {
+            Flogger(level: .debug, [ConsoleLogger()])
+        } else {
+            Flogger(level: .debug, [ConsoleLogger(), HumioLogger(tags: ["session": UUID().uuidString])])
+        }
+
+        if configuration.isRunningUnitTests { return }
+
         Flog.info("App: Cold start")
 
         setupAppearence()
@@ -56,6 +65,11 @@ class App: Dependenables {
         if stateRepository.state.setupCompleted {
             energyPriceRepository.pull(zone: stateRepository.state.selectedZone)
             notificationRepository.request() // TODO: move to an intro step
+
+            // FIXME: remove this
+            Task {
+                await notificationRepository.schedule()
+            }
         }
     }
 

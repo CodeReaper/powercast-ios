@@ -201,7 +201,7 @@ class PricesViewController: ViewController {
         func update(using model: Price, and formatter: NumberFormatter, current: Bool) {
             contentView.backgroundColor = current ? .white : .black.withAlphaComponent(0.03)
             selectionIndicator.set(hidden: !current)
-            highLoadIndicator.set(hidden: !model.isHighLoad())
+            highLoadIndicator.set(hidden: !model.isHighLoad)
 
             let ratio = Float(model.rawPrice / model.rawPriceSpan.upperBound)
             gaugeView.setProgress(ratio, animated: false)

@@ -7,6 +7,7 @@ import Foundation
 extension Charges {
 	func copy() -> Charges {
 		return Charges(
+			conversionRate: conversionRate,
 			valueAddedTax: valueAddedTax,
 			transmissionTarrif: transmissionTarrif,
 			systemTarrif: systemTarrif,
@@ -18,8 +19,22 @@ extension Charges {
 		)
 	}
 
+	func copy(conversionRate: Double) -> Charges {
+		return Charges(
+			conversionRate: conversionRate,
+			valueAddedTax: valueAddedTax,
+			transmissionTarrif: transmissionTarrif,
+			systemTarrif: systemTarrif,
+			electricityTarrif: electricityTarrif,
+			lowLoadTarrif: lowLoadTarrif,
+			highLoadTarrif: highLoadTarrif,
+			highLoadHours: highLoadHours,
+			highLoadMonths: highLoadMonths
+		)
+	}
 	func copy(valueAddedTax: Double) -> Charges {
 		return Charges(
+			conversionRate: conversionRate,
 			valueAddedTax: valueAddedTax,
 			transmissionTarrif: transmissionTarrif,
 			systemTarrif: systemTarrif,
@@ -32,6 +47,7 @@ extension Charges {
 	}
 	func copy(transmissionTarrif: Double) -> Charges {
 		return Charges(
+			conversionRate: conversionRate,
 			valueAddedTax: valueAddedTax,
 			transmissionTarrif: transmissionTarrif,
 			systemTarrif: systemTarrif,
@@ -44,6 +60,7 @@ extension Charges {
 	}
 	func copy(systemTarrif: Double) -> Charges {
 		return Charges(
+			conversionRate: conversionRate,
 			valueAddedTax: valueAddedTax,
 			transmissionTarrif: transmissionTarrif,
 			systemTarrif: systemTarrif,
@@ -56,6 +73,7 @@ extension Charges {
 	}
 	func copy(electricityTarrif: Double) -> Charges {
 		return Charges(
+			conversionRate: conversionRate,
 			valueAddedTax: valueAddedTax,
 			transmissionTarrif: transmissionTarrif,
 			systemTarrif: systemTarrif,
@@ -68,6 +86,7 @@ extension Charges {
 	}
 	func copy(lowLoadTarrif: Double) -> Charges {
 		return Charges(
+			conversionRate: conversionRate,
 			valueAddedTax: valueAddedTax,
 			transmissionTarrif: transmissionTarrif,
 			systemTarrif: systemTarrif,
@@ -80,6 +99,7 @@ extension Charges {
 	}
 	func copy(highLoadTarrif: Double) -> Charges {
 		return Charges(
+			conversionRate: conversionRate,
 			valueAddedTax: valueAddedTax,
 			transmissionTarrif: transmissionTarrif,
 			systemTarrif: systemTarrif,
@@ -92,6 +112,7 @@ extension Charges {
 	}
 	func copy(highLoadHours: [Int]) -> Charges {
 		return Charges(
+			conversionRate: conversionRate,
 			valueAddedTax: valueAddedTax,
 			transmissionTarrif: transmissionTarrif,
 			systemTarrif: systemTarrif,
@@ -104,6 +125,7 @@ extension Charges {
 	}
 	func copy(highLoadMonths: [Int]) -> Charges {
 		return Charges(
+			conversionRate: conversionRate,
 			valueAddedTax: valueAddedTax,
 			transmissionTarrif: transmissionTarrif,
 			systemTarrif: systemTarrif,

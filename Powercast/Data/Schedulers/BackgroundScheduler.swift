@@ -25,6 +25,7 @@ class BackgroundScheduler {
         let request = BGAppRefreshTaskRequest(identifier: Self.identifier)
         request.earliestBeginDate = date
         do {
+            BGTaskScheduler.shared.cancelAllTaskRequests()
             try BGTaskScheduler.shared.submit(request)
             Flog.info("Scheduling: Request scheduled at \(Self.formatter.string(from: date))")
         } catch {
@@ -33,9 +34,7 @@ class BackgroundScheduler {
     }
 
     private func beginDate() -> Date {
-        let calculatedDate = try? prices.latest(for: zone)?.date(byAdding: .hour, value: -10).date(byAdding: .minute, value: 15).date(bySetting: .second, value: 0)
-        let fallbackDate = Date().date(bySetting: .minute, value: 0).date(bySetting: .second, value: 0)
-        return max(calculatedDate ?? fallbackDate, fallbackDate)
+        return Date.now.date(byAdding: .hour, value: 1).date(bySetting: .minute, value: 15).date(bySetting: .second, value: 0)
     }
 
     private func handle(task: BGTask) {
@@ -59,15 +58,5 @@ class BackgroundScheduler {
                 task.setTaskCompleted(success: false)
             }
         }
-    }
-}
-
-private extension Date {
-    func date(byAdding component: Calendar.Component, value: Int) -> Date {
-        Calendar.current.date(byAdding: component, value: value, to: self)!
-    }
-
-    func date(bySetting component: Calendar.Component, value: Int) -> Date {
-        Calendar.current.date(bySetting: component, value: value, of: self)!
     }
 }

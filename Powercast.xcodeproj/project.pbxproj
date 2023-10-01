@@ -67,7 +67,6 @@
 		CD36624729281614009FAC8B /* Flogger in Frameworks */ = {isa = PBXBuildFile; productRef = CD36624629281614009FAC8B /* Flogger */; };
 		CD4022E82A34AA2B00027798 /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD4022E72A34AA2B00027798 /* SugarKit */; };
 		CD4022EC2A34ADA600027798 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4022EB2A34ADA600027798 /* LoadingView.swift */; };
-		CD43B67F293B783300D623E8 /* PriceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD43B67E293B783300D623E8 /* PriceFormatter.swift */; };
 		CD5E309228B2583600DBA019 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309028B2583600DBA019 /* assets */; };
 		CD5E309328B2583600DBA019 /* packages in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309128B2583600DBA019 /* packages */; };
 		CD5E309528B25B1800DBA019 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5E309428B25B1800DBA019 /* LicenseViewController.swift */; };
@@ -78,8 +77,21 @@
 		CD8A4BC028B2755A00EC68E3 /* PricesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BBE28B2755A00EC68E3 /* PricesViewController.swift */; };
 		CD8A4BC128B2755A00EC68E3 /* PricesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BBF28B2755A00EC68E3 /* PricesInteractor.swift */; };
 		CD8A4BC528BA6DB000EC68E3 /* Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BC428BA6DB000EC68E3 /* Price.swift */; };
+		CDA0E40A2AC8C0DA00FF364D /* Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0E4092AC8C0DA00FF364D /* Evaluation.swift */; };
+		CDA0E4122AC982EC00FF364D /* EvaluationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0E4112AC982EC00FF364D /* EvaluationTests.swift */; };
+		CDA0E4192AC988A000FF364D /* EnergyPrices.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0E4182AC988A000FF364D /* EnergyPrices.swift */; };
 		CDE77AC428C369370021EEDD /* Migratable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE77AC328C369370021EEDD /* Migratable.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CDA0E4132AC982EC00FF364D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 387FF5EE286B909B0051E3DC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 387FF5F5286B909B0051E3DC;
+			remoteInfo = Powercast;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		380CE8E52888901A0003FF36 /* EnergyPriceDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyPriceDatabase.swift; sourceTree = "<group>"; };
@@ -144,7 +156,6 @@
 		38FD15DE28835528001C38F9 /* LicensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		CD4022EB2A34ADA600027798 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		CD43B67E293B783300D623E8 /* PriceFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceFormatter.swift; sourceTree = "<group>"; };
 		CD5E309028B2583600DBA019 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		CD5E309128B2583600DBA019 /* packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = packages; sourceTree = "<group>"; };
 		CD5E309428B25B1800DBA019 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +166,10 @@
 		CD8A4BBF28B2755A00EC68E3 /* PricesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PricesInteractor.swift; sourceTree = "<group>"; };
 		CD8A4BC428BA6DB000EC68E3 /* Price.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
 		CD8A4BC928BC1B9100EC68E3 /* Local.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
+		CDA0E4092AC8C0DA00FF364D /* Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evaluation.swift; sourceTree = "<group>"; };
+		CDA0E40F2AC982EC00FF364D /* PowercastTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PowercastTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDA0E4112AC982EC00FF364D /* EvaluationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationTests.swift; sourceTree = "<group>"; };
+		CDA0E4182AC988A000FF364D /* EnergyPrices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyPrices.swift; sourceTree = "<group>"; };
 		CDE77AC328C369370021EEDD /* Migratable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migratable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -168,6 +183,13 @@
 				38E0FA61288441BE0096B98A /* GRDB in Frameworks */,
 				CD4022E82A34AA2B00027798 /* SugarKit in Frameworks */,
 				380CE8E9288892490003FF36 /* Lottie in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CDA0E40C2AC982EC00FF364D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +267,7 @@
 			children = (
 				384E646A288EDAAF004ADCB1 /* Appearence.swift */,
 				38ECF94A289B0ACF00ED8372 /* Date.swift */,
+				CDA0E4092AC8C0DA00FF364D /* Evaluation.swift */,
 				38ECF94C289C467B00ED8372 /* TimeInterval.swift */,
 			);
 			path = Tools;
@@ -263,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				387FF5F8286B909B0051E3DC /* Powercast */,
+				CDA0E4102AC982EC00FF364D /* PowercastTests */,
 				387FF5F7286B909B0051E3DC /* Products */,
 				CD4022E62A34AA2B00027798 /* Frameworks */,
 			);
@@ -272,6 +296,7 @@
 			isa = PBXGroup;
 			children = (
 				387FF5F6286B909B0051E3DC /* Powercast.app */,
+				CDA0E40F2AC982EC00FF364D /* PowercastTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -327,7 +352,6 @@
 		38E0FA622884759B0096B98A /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				CD43B67D293B783300D623E8 /* Formatters */,
 				380CE8E42888901A0003FF36 /* Migrations */,
 				38E0FA6C2884803F0096B98A /* Models */,
 				38E0FA632884759B0096B98A /* Repositories */,
@@ -399,14 +423,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		CD43B67D293B783300D623E8 /* Formatters */ = {
-			isa = PBXGroup;
-			children = (
-				CD43B67E293B783300D623E8 /* PriceFormatter.swift */,
-			);
-			path = Formatters;
-			sourceTree = "<group>";
-		};
 		CD5E307F28B2540200DBA019 /* Assets.Licenses */ = {
 			isa = PBXGroup;
 			children = (
@@ -432,6 +448,15 @@
 				CD8A4BBE28B2755A00EC68E3 /* PricesViewController.swift */,
 			);
 			path = Prices;
+			sourceTree = "<group>";
+		};
+		CDA0E4102AC982EC00FF364D /* PowercastTests */ = {
+			isa = PBXGroup;
+			children = (
+				CDA0E4182AC988A000FF364D /* EnergyPrices.swift */,
+				CDA0E4112AC982EC00FF364D /* EvaluationTests.swift */,
+			);
+			path = PowercastTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -463,6 +488,24 @@
 			productReference = 387FF5F6286B909B0051E3DC /* Powercast.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CDA0E40E2AC982EC00FF364D /* PowercastTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CDA0E4152AC982EC00FF364D /* Build configuration list for PBXNativeTarget "PowercastTests" */;
+			buildPhases = (
+				CDA0E40B2AC982EC00FF364D /* Sources */,
+				CDA0E40C2AC982EC00FF364D /* Frameworks */,
+				CDA0E40D2AC982EC00FF364D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CDA0E4142AC982EC00FF364D /* PBXTargetDependency */,
+			);
+			name = PowercastTests;
+			productName = PowercastTests;
+			productReference = CDA0E40F2AC982EC00FF364D /* PowercastTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -470,11 +513,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1340;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					387FF5F5286B909B0051E3DC = {
 						CreatedOnToolsVersion = 13.4.1;
+					};
+					CDA0E40E2AC982EC00FF364D = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 387FF5F5286B909B0051E3DC;
 					};
 				};
 			};
@@ -500,6 +547,7 @@
 			projectRoot = "";
 			targets = (
 				387FF5F5286B909B0051E3DC /* Powercast */,
+				CDA0E40E2AC982EC00FF364D /* PowercastTests */,
 			);
 		};
 /* End PBXProject section */
@@ -531,6 +579,13 @@
 				384E645E288DC80E004ADCB1 /* CooperHewitt-Semibold.otf in Resources */,
 				384E645B288DC80E004ADCB1 /* CooperHewitt-Medium.otf in Resources */,
 				CD5E309228B2583600DBA019 /* assets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CDA0E40D2AC982EC00FF364D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,6 +652,7 @@
 				CD5E309528B25B1800DBA019 /* LicenseViewController.swift in Sources */,
 				384E6437288D9FD9004ADCB1 /* State.swift in Sources */,
 				38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */,
+				CDA0E40A2AC8C0DA00FF364D /* Evaluation.swift in Sources */,
 				380CE8EE288893F90003FF36 /* Animations.swift in Sources */,
 				384E64792891650E004ADCB1 /* DataLoadingInteractor.swift in Sources */,
 				38ECF953289DAC6500ED8372 /* Colors.swift in Sources */,
@@ -623,14 +679,30 @@
 				CD4022EC2A34ADA600027798 /* LoadingView.swift in Sources */,
 				384E6446288DC430004ADCB1 /* Fonts.swift in Sources */,
 				CD8A4BC528BA6DB000EC68E3 /* Price.swift in Sources */,
-				CD43B67F293B783300D623E8 /* PriceFormatter.swift in Sources */,
 				38E0FA722884822C0096B98A /* _Database.swift in Sources */,
 				384E6467288ED61D004ADCB1 /* IntroViewController.swift in Sources */,
 				389F717D28997B2C0007C2E0 /* MenuViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CDA0E40B2AC982EC00FF364D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CDA0E4122AC982EC00FF364D /* EvaluationTests.swift in Sources */,
+				CDA0E4192AC988A000FF364D /* EnergyPrices.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CDA0E4142AC982EC00FF364D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 387FF5F5286B909B0051E3DC /* Powercast */;
+			targetProxy = CDA0E4132AC982EC00FF364D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		387FF604286B90A40051E3DC /* LaunchScreen.storyboard */ = {
@@ -796,6 +868,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -824,6 +897,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -834,6 +908,54 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CDA0E4162AC982EC00FF364D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD8A4BC928BC1B9100EC68E3 /* Local.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).PowercastTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Powercast.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Powercast";
+			};
+			name = Debug;
+		};
+		CDA0E4172AC982EC00FF364D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).PowercastTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Powercast.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Powercast";
 			};
 			name = Release;
 		};
@@ -854,6 +976,15 @@
 			buildConfigurations = (
 				387FF60B286B90A40051E3DC /* Debug */,
 				387FF60C286B90A40051E3DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CDA0E4152AC982EC00FF364D /* Build configuration list for PBXNativeTarget "PowercastTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CDA0E4162AC982EC00FF364D /* Debug */,
+				CDA0E4172AC982EC00FF364D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -8,10 +8,23 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Setup local configuration
+        run: cp Powercast/Local.xcconfig.sample Powercast/Local.xcconfig
+
+      - name: Test
+        run: |
+          set -o pipefail && \
+          xcodebuild -project Powercast.xcodeproj \
+          -scheme Powercast \
+          -sdk iphonesimulator \
+          -destination 'platform=iOS Simulator,name=iPhone 15,OS=15.0' \
+          test \
+          CODE_SIGNING_ALLOWED=NO \
+          | xcpretty
+
       - name: Build
         run: |
-          cp Powercast/Local.xcconfig.sample Powercast/Local.xcconfig
-
           set -o pipefail && \
           xcodebuild -project Powercast.xcodeproj \
           -scheme Powercast \

@@ -47,7 +47,7 @@ class EnergyPriceRepository {
     }
 
     func source(for zone: Zone) throws -> PriceTableDatasource {
-        return try TableDatasource(database: database, zone: zone, formatter: PriceFormatter(charges: charges))
+        return try TableDatasource(database: database, zone: zone, charges: charges)
     }
 
     func refresh(in zone: Zone) async throws {
@@ -98,11 +98,11 @@ class EnergyPriceRepository {
     private class TableDatasource: PriceTableDatasource {
         private let database: DatabaseQueue
         private let zone: Zone
-        private let formatter: PriceFormatter
+        private let charges: Charges
         private let items: [[Date]]
         private let sections: [Date]
 
-        init(database: DatabaseQueue, zone: Zone, formatter: PriceFormatter) throws {
+        init(database: DatabaseQueue, zone: Zone, charges: Charges) throws {
             let max = try database.read { db in
                 return try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.max(Database.EnergyPrice.Columns.timestamp)))
             }
@@ -135,7 +135,7 @@ class EnergyPriceRepository {
             self.sections = sections.reversed()
             self.database = database
             self.zone = zone
-            self.formatter = formatter
+            self.charges = charges
         }
 
         var sectionCount: Int { sections.count }
@@ -163,17 +163,17 @@ class EnergyPriceRepository {
             guard let models = models, let model = models.first(where: { $0.timestamp == target }) else { return nil }
 
             let rawHigh = models.reduce(-Double.infinity, { $0 < $1.price ? $1.price : $0 })
-            let rawLow = models.reduce(-Double.infinity, { $0 > $1.price ? $1.price : $0 })
-            let prices = models.map({ formatter.format($0.price, at: $0.timestamp) })
+            let rawLow = models.reduce(Double.infinity, { $0 > $1.price ? $1.price : $0 })
+            let prices = models.map({ charges.format($0.price, at: $0.timestamp) })
             let high = prices.reduce(-Double.infinity, { $0 < $1 ? $1 : $0 })
             let low = prices.reduce(Double.infinity, { $0 > $1 ? $1 : $0 })
 
             return Price(
-                price: formatter.format(model.price, at: model.timestamp),
+                price: charges.format(model.price, at: model.timestamp),
                 priceSpan: low...high,
                 rawPrice: model.price,
                 rawPriceSpan: rawLow...rawHigh,
-                charges: formatter.charges,
+                isHighLoad: charges.isHighLoad(at: model.timestamp),
                 zone: model.zone,
                 duration: model.timestamp...model.timestamp.addingTimeInterval(.oneHour)
             )
