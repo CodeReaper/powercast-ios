@@ -8,20 +8,30 @@ extension State {
 	func copy() -> State {
 		return State(
 			setupCompleted: setupCompleted,
-			selectedZone: selectedZone
+			selectedZone: selectedZone,
+			lastDeliveredNotification: lastDeliveredNotification
 		)
 	}
 
 	func copy(setupCompleted: Bool) -> State {
 		return State(
 			setupCompleted: setupCompleted,
-			selectedZone: selectedZone
+			selectedZone: selectedZone,
+			lastDeliveredNotification: lastDeliveredNotification
 		)
 	}
 	func copy(selectedZone: Zone) -> State {
 		return State(
 			setupCompleted: setupCompleted,
-			selectedZone: selectedZone
+			selectedZone: selectedZone,
+			lastDeliveredNotification: lastDeliveredNotification
+		)
+	}
+	func copy(lastDeliveredNotification: TimeInterval) -> State {
+		return State(
+			setupCompleted: setupCompleted,
+			selectedZone: selectedZone,
+			lastDeliveredNotification: lastDeliveredNotification
 		)
 	}
 }

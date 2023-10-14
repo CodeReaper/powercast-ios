@@ -3,6 +3,7 @@ import Foundation
 import GRDB
 
 struct EnergyPrice {
+    /// Price in Euro per MWh
     let price: Double
     let zone: Zone
     let timestamp: Date
@@ -16,6 +17,7 @@ extension EnergyPrice {
 
 extension Database {
     struct EnergyPrice: Codable, FetchableRecord, MutablePersistableRecord {
+        /// Price in Euro per MWh
         let price: Double
         let zone: Zone
         let timestamp: Date

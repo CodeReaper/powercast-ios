@@ -6,13 +6,15 @@ struct NotificationRepository {
     private let delegate = Delegate()
 
     private let zone: Zone
-    private let charges: Charges
+    private let charges: ChargesService
     private let prices: EnergyPriceRepository
+    private let state: StateRepository
 
-    init(zone: Zone, charges: Charges, prices: EnergyPriceRepository) {
-        self.zone = zone
+    init(charges: ChargesService, prices: EnergyPriceRepository, state: StateRepository) {
+        self.zone = state.state.selectedZone
         self.charges = charges
         self.prices = prices
+        self.state = state
     }
 
     func register() {
@@ -29,7 +31,7 @@ struct NotificationRepository {
 
     func schedule() async {
         guard
-            let prices = try? await self.prices.data(for: zone, in: DateInterval(start: Date.now.startOfDay.date(byAdding: .day, value: -1), end: Date.now.startOfDay.date(byAdding: .day, value: 2)))
+            let prices = try? await self.prices.data(for: zone, in: DateInterval(start: Date.now.startOfDay.date(byAdding: .weekOfYear, value: -1), end: Date.now.startOfDay.date(byAdding: .day, value: 2)))
         else {
             Flog.error("Wanted to setup notification, but could not look up local prices")
             return
@@ -44,36 +46,31 @@ struct NotificationRepository {
             return
         }
 
-        show(message: Message(evaluations, using: charges))
-    }
+        let messages = Message.of(evaluations, using: charges)
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        if let deliveryDate = await UNUserNotificationCenter.current().deliveredNotifications().map({ Date(timeIntervalSince1970: TimeInterval($0.request.identifier)!) }).max() {
+            state.deliveredNotification(at: deliveryDate)
+        }
 
-    private func show(message: Message, at date: Date = .now) {
-        let content = UNMutableNotificationContent()
-        content.title = message.title
-        content.body = message.body
-        // FIXME: todays date in content.threadIdentifier?
-        let seconds = date.timeIntervalSince(Date.now)
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: max(1, seconds), repeats: false)
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                Flog.error(error.localizedDescription)
-            }
+        for message in messages where message.fireDate.timeIntervalSince1970 > state.state.lastDeliveredNotification {
+            Flog.info("Prepared this message: \(message.body) in \(message.fireDate.timeIntervalSince(Date.now) / 3600) hours.")
+            await show(message: message, at: message.fireDate)
         }
     }
 
-    private struct Message {
-        let title: String
-        let body: String
+    private func show(message: Message, at date: Date) async {
+        // TODO: update using https://developer.apple.com/documentation/usernotificationsui/customizing_the_appearance_of_notifications
+        let content = UNMutableNotificationContent()
+        content.title = "Price update"
+        content.body = message.body
+        let seconds = date.timeIntervalSince(Date.now)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: max(1, seconds), repeats: false)
+        let request = UNNotificationRequest(identifier: "\(date.timeIntervalSince1970)", content: content, trigger: trigger)
 
-        init(_ evaluations: [Evaluation.Result], using charges: Charges) {
-            let model = evaluations.first!.model
-
-            let time = DateFormatter.with(format: "HH").string(from: model.timestamp)
-            let value = NumberFormatter.with(style: .decimal, fractionDigits: 0).string(from: charges.format(model.price, at: model.timestamp) as NSNumber)!
-
-            title = "Cheap power at \(time)"
-            body = "The price is going to be \(value) øre/kWh"
+        do {
+            try await UNUserNotificationCenter.current().add(request)
+        } catch {
+            Flog.error(error.localizedDescription)
         }
     }
 

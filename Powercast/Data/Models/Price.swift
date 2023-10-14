@@ -5,7 +5,9 @@ struct Price {
     let priceSpan: ClosedRange<Double>
     let rawPrice: Double
     let rawPriceSpan: ClosedRange<Double>
-    let isHighLoad: Bool
+    let fees: Double
+    let fixedFees: Double
+    let variableFees: Double
     let zone: Zone
     let duration: ClosedRange<Date>
 

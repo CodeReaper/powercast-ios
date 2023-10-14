@@ -7,15 +7,6 @@ enum Zone: String, Codable, CaseIterable {
 }
 
 extension Zone {
-    var color: UIColor {
-        switch self {
-        case .dk1:
-            return Color.pastelGreen
-        case .dk2:
-            return Color.pastelRed
-        }
-    }
-
     var name: String {
         switch self {
         case .dk1:

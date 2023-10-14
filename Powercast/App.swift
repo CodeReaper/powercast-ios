@@ -23,12 +23,12 @@ class App: Dependenables {
     let stateRepository = StateRepository()
     let databases: [Migratable]
 
-    lazy var energyPriceRepository = EnergyPriceRepository(database: energyPriceDatabase.queue, service: PowercastDataServiceAPI(), charges: Charges())
+    lazy var energyPriceRepository = EnergyPriceRepository(database: energyPriceDatabase.queue, service: PowercastDataServiceAPI(), charges: ChargesServiceHardcoded())
     var notificationRepository: NotificationRepository {
         NotificationRepository(
-            zone: stateRepository.state.selectedZone,
-            charges: Charges(),
-            prices: energyPriceRepository
+            charges: ChargesServiceHardcoded(),
+            prices: energyPriceRepository,
+            state: stateRepository
         )
     }
     var scheduler: BackgroundScheduler {
@@ -66,7 +66,6 @@ class App: Dependenables {
             energyPriceRepository.pull(zone: stateRepository.state.selectedZone)
             notificationRepository.request() // TODO: move to an intro step
 
-            // FIXME: remove this
             Task {
                 await notificationRepository.schedule()
             }

@@ -1,7 +1,23 @@
 import Foundation
 
 struct Evaluation {
-    static func of(_ prices: [EnergyPrice], after date: Date = .now, using charges: Charges) -> [Result] {
+    let model: EnergyPrice
+    let precentile: Int
+    let precentileAvailable: Int
+    let cheapestAvailable: Bool
+    let priciestAvailable: Bool
+    let belowAvailableAverage: Bool
+    let belowAverage: Bool
+    let mostlyFees: Bool
+    let negativelyPriced: Bool
+    let free: Bool
+
+    var aboveAvailableAverage: Bool { !belowAvailableAverage }
+    var aboveAverage: Bool { !belowAverage }
+}
+
+extension Evaluation {
+    static func of(_ prices: [EnergyPrice], after date: Date = .now, using charges: ChargesService) -> [Evaluation] {
         let evaluables = prices.filter({ $0.timestamp >= date })
 
         guard evaluables.isEmpty == false else { return [] }
@@ -10,57 +26,48 @@ struct Evaluation {
         let evaluableLow = evaluables.reduce(Double.infinity, { $0 > $1.price ? $1.price : $0 })
         let priceHigh = prices.reduce(-Double.infinity, { $0 < $1.price ? $1.price : $0 })
         let priceLow = prices.reduce(Double.infinity, { $0 > $1.price ? $1.price : $0 })
-        let priceAverage = max(0, priceLow) + (max(0, priceHigh - priceLow) / 2)
-        let evaluableAverage = max(0, evaluableLow) + (max(0, evaluableHigh - evaluableLow) / 2)
+        let priceAverage = priceLow + (priceHigh - priceLow) / 2
+        let evaluableAverage = evaluableLow + (evaluableHigh - evaluableLow) / 2
 
-        return evaluables.map {
-            var properties: [Property] = []
+        let allPrices = prices.map { $0.price }
+        let bins = stride(from: 10, to: 100, by: 10).map { bin in
+            return (Int(bin), percentile(nth: bin, of: allPrices))
+        }
 
-            let fees = charges.fees(at: $0.timestamp)
-            if $0.price == evaluableHigh {
-                properties.append(.priciestAvailable)
-            }
-            if $0.price == evaluableLow {
-                properties.append(.cheapestAvailable)
-            }
-            if $0.price < fees / 2 {
-                properties.append(.mostlyFees)
-            }
-            if $0.price + fees < 0 {
-                properties.append(.free)
-            }
-            if $0.price < 0 {
-                properties.append(.negativelyPriced)
-            }
-            if $0.price > priceAverage {
-                properties.append(.aboveAverage)
-            } else {
-                properties.append(.belowAverage)
-            }
-            if $0.price > evaluableAverage {
-                properties.append(.aboveAvailableAverage)
-            } else {
-                properties.append(.belowAvailableAverage)
-            }
+        let availablePrices = evaluables.map { $0.price }
+        let availableBins = stride(from: 10, to: 100, by: 10).map { bin in
+            return (Int(bin), percentile(nth: bin, of: availablePrices))
+        }
 
-            return Result(model: $0, properties: properties)
+        return evaluables.map { model in
+            let fees = charges.for(model.timestamp).convertedFees(at: model.timestamp)
+            return Evaluation(
+                model: model,
+                precentile: bins.filter { $0.1 ?? Double.infinity < model.price }.sorted(by: { $0.0 > $1.0 }).first?.0 ?? 0,
+                precentileAvailable: availableBins.filter { $0.1 ?? Double.infinity < model.price }.sorted(by: { $0.0 > $1.0 }).first?.0 ?? 0,
+                cheapestAvailable: model.price == evaluableLow,
+                priciestAvailable: model.price == evaluableHigh,
+                belowAvailableAverage: model.price <= evaluableAverage,
+                belowAverage: model.price <= priceAverage,
+                mostlyFees: model.price < fees / 2,
+                negativelyPriced: model.price < 0,
+                free: model.price + fees < 0
+            )
         }
     }
 
-    struct Result {
-        let model: EnergyPrice
-        let properties: [Property]
-    }
+    private static func percentile(nth percentile: Double, of data: [Double]) -> Double? {
+        guard data.count > 0 else { return nil }
 
-    enum Property {
-        case cheapestAvailable
-        case priciestAvailable
-        case belowAvailableAverage
-        case aboveAvailableAverage
-        case belowAverage
-        case aboveAverage
-        case mostlyFees
-        case negativelyPriced
-        case free
+        let sorted = data.sorted()
+        let percentileIndex = percentile / 100.0 * Double(sorted.count - 1)
+        let index = Int(percentileIndex)
+
+        if index >= 0 && index < sorted.count - 1 {
+            let factor = percentileIndex - Double(index)
+            return (1.0 - factor) * sorted[index] + factor * sorted[index + 1]
+        } else {
+            return sorted[index]
+        }
     }
 }
