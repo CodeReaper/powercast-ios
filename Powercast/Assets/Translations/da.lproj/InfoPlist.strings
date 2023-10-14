@@ -21,6 +21,7 @@
 "LICENSES_TITLE" = "Licenser";
 "NOTIFICATION_TEMPLATE_BODY" = "%1 er priserne %2 %3";
 "NOTIFICATION_TEMPLATE_RANGE" = "- mellem %1 og %2 øre/kWh";
+"NOTIFICATION_TITLE" = "Pris opdatering";
 "NOTIFICATION_VALUE_STATUS_HIGH" = "høje";
 "NOTIFICATION_VALUE_STATUS_LOW" = "lave";
 "NOTIFICATION_VALUE_TOD_AFTERNOON" = "I eftermiddag";

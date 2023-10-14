@@ -61,7 +61,7 @@ struct NotificationRepository {
     private func show(message: Message, at date: Date) async {
         // TODO: update using https://developer.apple.com/documentation/usernotificationsui/customizing_the_appearance_of_notifications
         let content = UNMutableNotificationContent()
-        content.title = "Price update"
+        content.title = Translations.NOTIFICATION_TITLE
         content.body = message.body
         let seconds = date.timeIntervalSince(Date.now)
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: max(1, seconds), repeats: false)

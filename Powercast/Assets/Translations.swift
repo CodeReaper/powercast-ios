@@ -24,6 +24,7 @@ struct Translations {
 	static let LICENSES_TITLE = NSLocalizedString("LICENSES_TITLE", comment: "")
 	static func NOTIFICATION_TEMPLATE_BODY(_ p1: String, _ p2: String, _ p3: String) -> String { return NSLocalizedString("NOTIFICATION_TEMPLATE_BODY", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2).replacingOccurrences(of: "%3", with: p3) }
 	static func NOTIFICATION_TEMPLATE_RANGE(_ p1: String, _ p2: String) -> String { return NSLocalizedString("NOTIFICATION_TEMPLATE_RANGE", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
+	static let NOTIFICATION_TITLE = NSLocalizedString("NOTIFICATION_TITLE", comment: "")
 	static let NOTIFICATION_VALUE_STATUS_HIGH = NSLocalizedString("NOTIFICATION_VALUE_STATUS_HIGH", comment: "")
 	static let NOTIFICATION_VALUE_STATUS_LOW = NSLocalizedString("NOTIFICATION_VALUE_STATUS_LOW", comment: "")
 	static let NOTIFICATION_VALUE_TOD_AFTERNOON = NSLocalizedString("NOTIFICATION_VALUE_TOD_AFTERNOON", comment: "")

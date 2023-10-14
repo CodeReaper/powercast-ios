@@ -35,6 +35,7 @@
 "SETTINGS_TITLE","","Settings","Indstillinger",""
 "SETTINGS_ZONE_TITLE","","Zone","Zone",""
 "SETTINGS_ZONE_ZONE_TITLE","","Zone","Zone",""
+"NOTIFICATION_TITLE","","Price update","Pris opdatering",""
 "NOTIFICATION_TEMPLATE_BODY","","%1 prices are %2 %3","%1 er priserne %2 %3",""
 "NOTIFICATION_TEMPLATE_RANGE","","ranging between %1 and %2 øre/kWh","- mellem %1 og %2 øre/kWh",""
 "NOTIFICATION_VALUE_STATUS_LOW","","low","lave",""
