@@ -10,10 +10,10 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Setup local configuration
-        run: cp Powercast/Local.xcconfig.sample Powercast/Local.xcconfig
-
-      - name: Find latest simulator
-        run: printf 'os=%s\n' "$(xcrun simctl list -j | jq -r '[.runtimes[] | select(.isAvailable == true)] | .[0].version')" >> $GITHUB_ENV
+        run: |
+          cp Powercast/Local.xcconfig.sample Powercast/Local.xcconfig
+          printf 'os=%s\n' "$(xcrun simctl list -j | jq -r '[.runtimes[] | select(.isAvailable == true)] | .[0].version')" >> $GITHUB_ENV
+          printf 'name=%s\n' "$(xcrun simctl list -j | jq -r ".runtimes[] | select(.version == \"$version\") | .supportedDeviceTypes[] | .name" | grep -E '^iPhone [0-9][0-9]?$' | sort -nk2 -t' ' | tail -n1)" >> $GITHUB_ENV
 
       - name: Test
         run: |
@@ -21,7 +21,7 @@ jobs:
           xcodebuild -project Powercast.xcodeproj \
           -scheme Powercast \
           -sdk iphonesimulator \
-          -destination 'platform=iOS Simulator,name=latest,OS=${{ env.os }}' \
+          -destination 'platform=iOS Simulator,name=${{ env.name }},OS=${{ env.os }}' \
           test \
           CODE_SIGNING_ALLOWED=NO \
           | xcpretty
