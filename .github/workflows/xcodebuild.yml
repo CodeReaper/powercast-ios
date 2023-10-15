@@ -18,7 +18,7 @@ jobs:
           xcodebuild -project Powercast.xcodeproj \
           -scheme Powercast \
           -sdk iphonesimulator \
-          -destination 'platform=iOS Simulator,name=latest,OS=latest' \
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' \
           test \
           CODE_SIGNING_ALLOWED=NO \
           | xcpretty
