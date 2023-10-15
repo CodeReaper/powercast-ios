@@ -11,9 +11,10 @@ jobs:
 
       - name: Setup local configuration
         run: |
-          cp Powercast/Local.xcconfig.sample Powercast/Local.xcconfig
-          printf 'os=%s\n' "$(xcrun simctl list -j | jq -r '[.runtimes[] | select(.isAvailable == true)] | .[0].version')" >> $GITHUB_ENV
-          printf 'name=%s\n' "$(xcrun simctl list -j | jq -r ".runtimes[] | select(.version == \"$version\") | .supportedDeviceTypes[] | .name" | grep -E '^iPhone [0-9][0-9]?$' | sort -nk2 -t' ' | tail -n1)" >> $GITHUB_ENV
+          version=$(xcrun simctl list -j | jq -r '[.runtimes[] | select(.isAvailable == true)] | .[0].version')
+          printf 'os=%s\n' "$version" | tee -a $GITHUB_ENV
+          printf 'name=%s\n' "$(xcrun simctl list -j | jq -r ".runtimes[] | select(.version == \"$version\") | .supportedDeviceTypes[] | .name" | grep -E '^iPhone [0-9][0-9]?$' | sort -nk2 -t' ' | tail -n1)" | tee -a $GITHUB_ENV
+          cp -v Powercast/Local.xcconfig.sample Powercast/Local.xcconfig
 
       - name: Test
         run: |
