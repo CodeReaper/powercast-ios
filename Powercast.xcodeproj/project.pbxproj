@@ -67,6 +67,8 @@
 		CD36624729281614009FAC8B /* Flogger in Frameworks */ = {isa = PBXBuildFile; productRef = CD36624629281614009FAC8B /* Flogger */; };
 		CD4022E82A34AA2B00027798 /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD4022E72A34AA2B00027798 /* SugarKit */; };
 		CD4022EC2A34ADA600027798 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4022EB2A34ADA600027798 /* LoadingView.swift */; };
+		CD5C58CC2ADBFD4A00143060 /* CSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = CD5C58CB2ADBFD4A00143060 /* CSQLite */; };
+		CD5C58CE2ADBFD5E00143060 /* CSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = CD5C58CD2ADBFD5E00143060 /* CSQLite */; };
 		CD5E309228B2583600DBA019 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309028B2583600DBA019 /* assets */; };
 		CD5E309328B2583600DBA019 /* packages in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309128B2583600DBA019 /* packages */; };
 		CD5E309528B25B1800DBA019 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5E309428B25B1800DBA019 /* LicenseViewController.swift */; };
@@ -182,6 +184,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD5C58CE2ADBFD5E00143060 /* CSQLite in Frameworks */,
 				CD8801242A61E18300A30B1D /* SugarKit in Frameworks */,
 				CD36624729281614009FAC8B /* Flogger in Frameworks */,
 				38E0FA61288441BE0096B98A /* GRDB in Frameworks */,
@@ -194,6 +197,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD5C58CC2ADBFD4A00143060 /* CSQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +493,7 @@
 				CD36624629281614009FAC8B /* Flogger */,
 				CD4022E72A34AA2B00027798 /* SugarKit */,
 				CD8801232A61E18300A30B1D /* SugarKit */,
+				CD5C58CD2ADBFD5E00143060 /* CSQLite */,
 			);
 			productName = Powercast;
 			productReference = 387FF5F6286B909B0051E3DC /* Powercast.app */;
@@ -508,6 +513,9 @@
 				CDA0E4142AC982EC00FF364D /* PBXTargetDependency */,
 			);
 			name = PowercastTests;
+			packageProductDependencies = (
+				CD5C58CB2ADBFD4A00143060 /* CSQLite */,
+			);
 			productName = PowercastTests;
 			productReference = CDA0E40F2AC982EC00FF364D /* PowercastTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -1053,6 +1061,16 @@
 		CD4022E72A34AA2B00027798 /* SugarKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SugarKit;
+		};
+		CD5C58CB2ADBFD4A00143060 /* CSQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38E0FA5F288441BE0096B98A /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			productName = CSQLite;
+		};
+		CD5C58CD2ADBFD5E00143060 /* CSQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38E0FA5F288441BE0096B98A /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			productName = CSQLite;
 		};
 		CD8801232A61E18300A30B1D /* SugarKit */ = {
 			isa = XCSwiftPackageProductDependency;
