@@ -28,7 +28,8 @@ jobs:
           CODE_SIGNING_ALLOWED=NO \
           | xcpretty
 
-      - uses: kishikawakatsumi/xcresulttool@v1
+      - name: Generate test summary
+        uses: kishikawakatsumi/xcresulttool@v1
         with:
           path: TestResults.xcresult
           show-passed-tests: false
