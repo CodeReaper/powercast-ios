@@ -12,13 +12,18 @@ jobs:
       - name: Setup local configuration
         run: cp Powercast/Local.xcconfig.sample Powercast/Local.xcconfig
 
+      - name: Find latest simulator
+        run: |
+          xcrun simctl list -j
+          printf 'os=%s\n' "$(xcrun simctl list -j | jq -r '.runtimes[] | select(.isAvailable == true) | .version')"
+
       - name: Test
         run: |
           set -o pipefail && \
           xcodebuild -project Powercast.xcodeproj \
           -scheme Powercast \
           -sdk iphonesimulator \
-          -destination 'platform=iOS Simulator,name=latest,OS=latest' \
+          -destination 'platform=iOS Simulator,name=latest,OS=${{ env.os }}' \
           test \
           CODE_SIGNING_ALLOWED=NO \
           | xcpretty
