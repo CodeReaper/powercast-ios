@@ -8,10 +8,27 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Setup local configuration
+        run: |
+          version=$(xcrun simctl list -j | jq -r '[.runtimes[] | select(.isAvailable == true)] | .[0].version')
+          printf 'os=%s\n' "$version" | tee -a $GITHUB_ENV
+          printf 'name=%s\n' "$(xcrun simctl list -j | jq -r ".runtimes[] | select(.version == \"$version\") | .supportedDeviceTypes[] | .name" | grep -E '^iPhone [0-9][0-9]?$' | sort -nk2 -t' ' | tail -n1)" | tee -a $GITHUB_ENV
+          cp -v Powercast/Local.xcconfig.sample Powercast/Local.xcconfig
+
+      - name: Test
+        run: |
+          set -o pipefail && \
+          xcodebuild -project Powercast.xcodeproj \
+          -scheme Powercast \
+          -sdk iphonesimulator \
+          -destination 'platform=iOS Simulator,name=${{ env.name }},OS=${{ env.os }}' \
+          test \
+          CODE_SIGNING_ALLOWED=NO \
+          | xcpretty
+
       - name: Build
         run: |
-          cp Powercast/Local.xcconfig.sample Powercast/Local.xcconfig
-
           set -o pipefail && \
           xcodebuild -project Powercast.xcodeproj \
           -scheme Powercast \

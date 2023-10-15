@@ -6,9 +6,9 @@ import Flogger
 class EnergyPriceRepository {
     private let database: DatabaseQueue
     private let service: PowercastDataService
-    private let charges: Charges
+    private let charges: ChargesService
 
-    init(database: DatabaseQueue, service: PowercastDataService, charges: Charges) {
+    init(database: DatabaseQueue, service: PowercastDataService, charges: ChargesService) {
         self.database = database
         self.service = service
         self.charges = charges
@@ -47,7 +47,7 @@ class EnergyPriceRepository {
     }
 
     func source(for zone: Zone) throws -> PriceTableDatasource {
-        return try TableDatasource(database: database, zone: zone, formatter: PriceFormatter(charges: charges))
+        return try TableDatasource(database: database, zone: zone, charges: charges)
     }
 
     func refresh(in zone: Zone) async throws {
@@ -98,11 +98,11 @@ class EnergyPriceRepository {
     private class TableDatasource: PriceTableDatasource {
         private let database: DatabaseQueue
         private let zone: Zone
-        private let formatter: PriceFormatter
+        private let charges: ChargesService
         private let items: [[Date]]
         private let sections: [Date]
 
-        init(database: DatabaseQueue, zone: Zone, formatter: PriceFormatter) throws {
+        init(database: DatabaseQueue, zone: Zone, charges: ChargesService) throws {
             let max = try database.read { db in
                 return try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.max(Database.EnergyPrice.Columns.timestamp)))
             }
@@ -135,7 +135,7 @@ class EnergyPriceRepository {
             self.sections = sections.reversed()
             self.database = database
             self.zone = zone
-            self.formatter = formatter
+            self.charges = charges
         }
 
         var sectionCount: Int { sections.count }
@@ -162,18 +162,16 @@ class EnergyPriceRepository {
             let target = dates[indexPath.item]
             guard let models = models, let model = models.first(where: { $0.timestamp == target }) else { return nil }
 
-            let rawHigh = models.reduce(-Double.infinity, { $0 < $1.price ? $1.price : $0 })
-            let rawLow = models.reduce(-Double.infinity, { $0 > $1.price ? $1.price : $0 })
-            let prices = models.map({ formatter.format($0.price, at: $0.timestamp) })
-            let high = prices.reduce(-Double.infinity, { $0 < $1 ? $1 : $0 })
-            let low = prices.reduce(Double.infinity, { $0 > $1 ? $1 : $0 })
+            let charges = self.charges.for(model.timestamp)
 
             return Price(
-                price: formatter.format(model.price, at: model.timestamp),
-                priceSpan: low...high,
+                price: charges.format(model.price, at: model.timestamp),
+                priceSpan: span(of: models.map({ charges.format($0.price, at: $0.timestamp) })),
                 rawPrice: model.price,
-                rawPriceSpan: rawLow...rawHigh,
-                charges: formatter.charges,
+                rawPriceSpan: span(of: models.map({ $0.price })),
+                fees: charges.fees(at: model.timestamp),
+                fixedFees: charges.fixedFees(at: model.timestamp),
+                variableFees: charges.variableFees(at: model.timestamp),
                 zone: model.zone,
                 duration: model.timestamp...model.timestamp.addingTimeInterval(.oneHour)
             )
@@ -190,6 +188,12 @@ class EnergyPriceRepository {
 
         enum Failure: Error {
             case dataMissing
+        }
+
+        private func span(of values: [Double]) -> ClosedRange<Double> {
+            let high = values.reduce(-Double.infinity, { $0 < $1 ? $1 : $0 })
+            let low = values.reduce(Double.infinity, { $0 > $1 ? $1 : $0 })
+            return low...high
         }
     }
 }

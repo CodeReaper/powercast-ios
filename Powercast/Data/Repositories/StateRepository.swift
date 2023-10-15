@@ -34,17 +34,25 @@ class StateRepository {
         persist(stateSubject.value)
     }
 
+    func deliveredNotification(at date: Date) {
+        stateSubject.send(stateSubject.value.copy(lastDeliveredNotification: date.timeIntervalSince1970))
+        persist(stateSubject.value)
+    }
+
     private let keySetupCompleted = "keySetupCompleted"
     private let keySelectedZone = "keySelectedZone"
+    private let keyLastDeliveredNotification = "keyLastDeliveredNotification"
     private func persist(_ state: State) {
         store.set(state.setupCompleted, forKey: keySetupCompleted)
         store.set(state.selectedZone.rawValue, forKey: keySelectedZone)
+        store.set(state.lastDeliveredNotification, forKey: keyLastDeliveredNotification)
     }
 
     private func load() -> State {
         var state = State()
         state = state.copy(setupCompleted: store.bool(forKey: keySetupCompleted))
         state = state.copy(selectedZone: Zone(rawValue: store.string(forKey: keySelectedZone) ?? "") ?? .dk1)
+        state = state.copy(lastDeliveredNotification: store.double(forKey: keyLastDeliveredNotification))
         return state
     }
 }

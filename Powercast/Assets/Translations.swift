@@ -22,6 +22,15 @@ struct Translations {
 	static let LICENSES_ASSETS_TITLE = NSLocalizedString("LICENSES_ASSETS_TITLE", comment: "")
 	static let LICENSES_PACKAGES_TITLE = NSLocalizedString("LICENSES_PACKAGES_TITLE", comment: "")
 	static let LICENSES_TITLE = NSLocalizedString("LICENSES_TITLE", comment: "")
+	static func NOTIFICATION_TEMPLATE_BODY(_ p1: String, _ p2: String, _ p3: String) -> String { return NSLocalizedString("NOTIFICATION_TEMPLATE_BODY", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2).replacingOccurrences(of: "%3", with: p3) }
+	static func NOTIFICATION_TEMPLATE_RANGE(_ p1: String, _ p2: String) -> String { return NSLocalizedString("NOTIFICATION_TEMPLATE_RANGE", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
+	static let NOTIFICATION_TITLE = NSLocalizedString("NOTIFICATION_TITLE", comment: "")
+	static let NOTIFICATION_VALUE_STATUS_HIGH = NSLocalizedString("NOTIFICATION_VALUE_STATUS_HIGH", comment: "")
+	static let NOTIFICATION_VALUE_STATUS_LOW = NSLocalizedString("NOTIFICATION_VALUE_STATUS_LOW", comment: "")
+	static let NOTIFICATION_VALUE_TOD_AFTERNOON = NSLocalizedString("NOTIFICATION_VALUE_TOD_AFTERNOON", comment: "")
+	static let NOTIFICATION_VALUE_TOD_EVENING = NSLocalizedString("NOTIFICATION_VALUE_TOD_EVENING", comment: "")
+	static let NOTIFICATION_VALUE_TOD_MORNING = NSLocalizedString("NOTIFICATION_VALUE_TOD_MORNING", comment: "")
+	static let NOTIFICATION_VALUE_TOD_NIGHT = NSLocalizedString("NOTIFICATION_VALUE_TOD_NIGHT", comment: "")
 	static func PRICES_DAY_PRICE_SPAN(_ p1: String, _ p2: String) -> String { return NSLocalizedString("PRICES_DAY_PRICE_SPAN", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
 	static func PRICES_HOUR_COST(_ p1: String) -> String { return NSLocalizedString("PRICES_HOUR_COST", comment: "").replacingOccurrences(of: "%1", with: p1) }
 	static func PRICES_HOUR_TIME(_ p1: String, _ p2: String) -> String { return NSLocalizedString("PRICES_HOUR_TIME", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }

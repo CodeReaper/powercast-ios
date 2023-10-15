@@ -143,10 +143,9 @@ class PricesViewController: ViewController {
         private static let dateFormatter = DateFormatter.with(format: "HH")
 
         private let selectionIndicator = UIView()
-        private let highLoadIndicator = UIView()
         private let dateLabel = Label(color: .black)
         private let priceLabel = Label(color: .black)
-        private let gaugeView = UIProgressView()
+        private let gaugeView = MultiColorGaugeView()
 
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -163,16 +162,9 @@ class PricesViewController: ViewController {
                     make(its.widthAnchor.constraint(equalToConstant: 4))
                 }
 
-            highLoadIndicator
-                .set(hidden: true)
-                .set(backgroundColor: Color.pastelOrange)
-                .layout(in: contentView) { (make, its) in
-                    make(its.topAnchor.constraint(equalTo: contentView.topAnchor))
-                    make(its.bottomAnchor.constraint(equalTo: contentView.bottomAnchor))
-                    make(its.trailingAnchor.constraint(equalTo: contentView.trailingAnchor))
-                    make(its.widthAnchor.constraint(equalToConstant: 4))
-                }
-
+            gaugeView.set(height: 5)
+            gaugeView.layer.cornerRadius = 2.5
+            gaugeView.clipsToBounds = true
             Stack.views(
                 on: .vertical,
                 inset: NSDirectionalEdgeInsets(top: 7, leading: 15, bottom: 5, trailing: 15),
@@ -193,7 +185,7 @@ class PricesViewController: ViewController {
         override func prepareForReuse() {
             super.prepareForReuse()
             selectionIndicator.set(hidden: true)
-            gaugeView.setProgress(0, animated: false)
+            gaugeView.values = []
             dateLabel.text = nil
             priceLabel.text = nil
         }
@@ -201,17 +193,13 @@ class PricesViewController: ViewController {
         func update(using model: Price, and formatter: NumberFormatter, current: Bool) {
             contentView.backgroundColor = current ? .white : .black.withAlphaComponent(0.03)
             selectionIndicator.set(hidden: !current)
-            highLoadIndicator.set(hidden: !model.isHighLoad())
 
-            let ratio = Float(model.rawPrice / model.rawPriceSpan.upperBound)
-            gaugeView.setProgress(ratio, animated: false)
-
-            switch ratio {
-            case 0..<0.99:
-                gaugeView.tintColor = Color.primary
-            default:
-                gaugeView.tintColor = .red
-            }
+            let ratio = (model.price - model.fees) / model.priceSpan.upperBound
+            gaugeView.values = [
+                (model.fixedFees / model.priceSpan.upperBound, Color.fixedFeeColor),
+                (model.variableFees / model.priceSpan.upperBound, Color.variableFeeColor),
+                (ratio, Color.priceColor.withAlphaComponent(ratio > 0 ? 1 : 0))
+            ]
 
             dateLabel.text = Translations.PRICES_HOUR_TIME(Self.dateFormatter.string(from: model.duration.lowerBound), Self.dateFormatter.string(from: model.duration.upperBound))
             priceLabel.text = Translations.PRICES_HOUR_COST(formatter.string(with: model.price))
