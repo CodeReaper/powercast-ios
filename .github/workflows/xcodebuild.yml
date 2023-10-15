@@ -23,9 +23,16 @@ jobs:
           -scheme Powercast \
           -sdk iphonesimulator \
           -destination 'platform=iOS Simulator,name=${{ env.name }},OS=${{ env.os }}' \
+          -resultBundlePath TestResults \
           test \
           CODE_SIGNING_ALLOWED=NO \
           | xcpretty
+
+      - uses: kishikawakatsumi/xcresulttool@v1
+        with:
+          path: TestResults.xcresult
+          show-passed-tests: false
+        if: success() || failure()
 
       - name: Build
         run: |
