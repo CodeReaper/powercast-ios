@@ -13,9 +13,7 @@ jobs:
         run: cp Powercast/Local.xcconfig.sample Powercast/Local.xcconfig
 
       - name: Find latest simulator
-        run: |
-          xcrun simctl list -j
-          printf 'os=%s\n' "$(xcrun simctl list -j | jq -r '.runtimes[] | select(.isAvailable == true) | .version')"
+        run: printf 'os=%s\n' "$(xcrun simctl list -j | jq -r '[.runtimes[] | select(.isAvailable == true)] | .[0].version'" >> $GITHUB_ENV
 
       - name: Test
         run: |
