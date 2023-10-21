@@ -6,9 +6,9 @@ import Flogger
 class EnergyPriceRepository {
     private let database: DatabaseQueue
     private let service: PowercastDataService
-    private let charges: ChargesService
+    private let charges: EnergyChargesRepository
 
-    init(database: DatabaseQueue, service: PowercastDataService, charges: ChargesService) {
+    init(database: DatabaseQueue, service: PowercastDataService, charges: EnergyChargesRepository) {
         self.database = database
         self.service = service
         self.charges = charges
@@ -50,45 +50,49 @@ class EnergyPriceRepository {
         return try TableDatasource(database: database, zone: zone, charges: charges)
     }
 
-    func refresh(in zone: Zone) async throws {
-        let max = try await database.read { db in
-            return try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.max(Database.EnergyPrice.Columns.timestamp)).filter(Database.EnergyPrice.Columns.zone == zone.rawValue))
-        } ?? Date()
+    func refresh() async throws {
+        for zone in Zone.allCases {
+            let max = try await database.read { db in
+                return try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.max(Database.EnergyPrice.Columns.timestamp)).filter(Database.EnergyPrice.Columns.zone == zone.rawValue))
+            } ?? Date()
 
-        let start = Calendar.current.date(byAdding: .day, value: -2, to: max)!
-        let end = Calendar.current.date(byAdding: .day, value: 2, to: Calendar.current.startOfDay(for: Date()))!
+            let start = Calendar.current.date(byAdding: .day, value: -2, to: max)!
+            let end = Calendar.current.date(byAdding: .day, value: 2, to: Calendar.current.startOfDay(for: Date()))!
 
-        var items: [EnergyPrice] = []
-        for date in start.dates(until: end) {
-            guard let list = try? await service.data(for: zone, at: date) else { break }
+            var items: [EnergyPrice] = []
+            for date in start.dates(until: end) {
+                guard let list = try? await service.data(for: zone, at: date) else { break }
 
-            items.append(contentsOf: list)
-        }
+                items.append(contentsOf: list)
+            }
 
-        Flog.info("EnergyPriceRepository: Updating \(items.count) items")
+            Flog.info("EnergyPriceRepository: Updating \(items.count) items in \(zone)")
 
-        try await database.write { [items] db in
-            try items.map { Database.EnergyPrice.from(model: $0) }.forEach {
-                var item = $0
-                try item.insert(db)
+            try await database.write { [items] db in
+                try items.map { Database.EnergyPrice.from(model: $0) }.forEach {
+                    var item = $0
+                    try item.insert(db)
+                }
             }
         }
     }
 
-    func pull(zone: Zone) {
-        guard let min = try? database.read({ db in
-            try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.min(Database.EnergyPrice.Columns.timestamp)).filter(Database.EnergyPrice.Columns.zone == zone.rawValue))
-        }) else { return }
+    func pull() {
+        for zone in Zone.allCases {
+            guard let min = try? database.read({ db in
+                try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.min(Database.EnergyPrice.Columns.timestamp)).filter(Database.EnergyPrice.Columns.zone == zone.rawValue))
+            }) else { continue }
 
-        let dates = Date.year2000.dates(until: min).reversed().prefix(30)
+            let dates = Date.year2000.dates(until: min).reversed().prefix(30)
 
-        Task {
-            for date in dates {
-                let items = try await service.data(for: zone, at: date)
-                try await database.write { db in
-                    try items.map { Database.EnergyPrice.from(model: $0) }.forEach {
-                        var item = $0
-                        try item.insert(db)
+            Task {
+                for date in dates {
+                    let items = try await service.data(for: zone, at: date)
+                    try await database.write { db in
+                        try items.map { Database.EnergyPrice.from(model: $0) }.forEach {
+                            var item = $0
+                            try item.insert(db)
+                        }
                     }
                 }
             }
@@ -98,11 +102,11 @@ class EnergyPriceRepository {
     private class TableDatasource: PriceTableDatasource {
         private let database: DatabaseQueue
         private let zone: Zone
-        private let charges: ChargesService
+        private let charges: EnergyChargesRepository
         private let items: [[Date]]
         private let sections: [Date]
 
-        init(database: DatabaseQueue, zone: Zone, charges: ChargesService) throws {
+        init(database: DatabaseQueue, zone: Zone, charges: EnergyChargesRepository) throws {
             let max = try database.read { db in
                 return try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.max(Database.EnergyPrice.Columns.timestamp)))
             }
@@ -162,7 +166,7 @@ class EnergyPriceRepository {
             let target = dates[indexPath.item]
             guard let models = models, let model = models.first(where: { $0.timestamp == target }) else { return nil }
 
-            let charges = self.charges.for(model.timestamp)
+            let charges = self.charges.charges(for: model.zone, at: model.timestamp)
 
             return Price(
                 price: charges.format(model.price, at: model.timestamp),

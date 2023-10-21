@@ -6,12 +6,10 @@ class BackgroundScheduler {
     private static let formatter = DateFormatter.with(format: "yyyy-MM-dd HH:mm.ss Z")
     private static let identifier = "Powercast.energyprice.refresh"
 
-    private let zone: Zone
     private let prices: EnergyPriceRepository
     private let notifications: NotificationRepository
 
-    init(zone: Zone, prices: EnergyPriceRepository, notifications: NotificationRepository) {
-        self.zone = zone
+    init(prices: EnergyPriceRepository, notifications: NotificationRepository) {
         self.prices = prices
         self.notifications = notifications
     }
@@ -49,7 +47,7 @@ class BackgroundScheduler {
 
         Task {
             do {
-                try await prices.refresh(in: zone)
+                try await prices.refresh()
                 Flog.info("Scheduling: Task finished")
                 await notifications.schedule()
                 task.setTaskCompleted(success: true)

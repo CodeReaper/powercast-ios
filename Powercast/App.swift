@@ -7,8 +7,10 @@ protocol Dependenables: AnyObject {
 
     var databases: [Migratable] { get }
 
+    var energyChargesDatabase: EnergyChargesDatabase { get }
     var energyPriceDatabase: EnergyPriceDatabase { get }
 
+    var energyChargesRepository: EnergyChargesRepository { get }
     var energyPriceRepository: EnergyPriceRepository { get }
     var stateRepository: StateRepository { get }
 
@@ -19,21 +21,22 @@ class App: Dependenables {
     private lazy var navigation = AppNavigation(using: self as Dependenables, on: UIScreen.main.traitCollection.userInterfaceIdiom)
 
     let configuration: AppConfiguration
+    let energyChargesDatabase: EnergyChargesDatabase
     let energyPriceDatabase: EnergyPriceDatabase
     let stateRepository = StateRepository()
     let databases: [Migratable]
 
-    lazy var energyPriceRepository = EnergyPriceRepository(database: energyPriceDatabase.queue, service: PowercastDataServiceAPI(), charges: ChargesServiceHardcoded())
+    lazy var energyChargesRepository = EnergyChargesRepository(database: energyChargesDatabase.queue, service: EnergyChargesServiceAPI())
+    lazy var energyPriceRepository = EnergyPriceRepository(database: energyPriceDatabase.queue, service: PowercastDataServiceAPI(), charges: energyChargesRepository)
     var notificationRepository: NotificationRepository {
         NotificationRepository(
-            charges: ChargesServiceHardcoded(),
+            charges: energyChargesRepository,
             prices: energyPriceRepository,
             state: stateRepository
         )
     }
     var scheduler: BackgroundScheduler {
         BackgroundScheduler(
-            zone: stateRepository.state.selectedZone,
             prices: energyPriceRepository,
             notifications: notificationRepository
         )
@@ -42,7 +45,8 @@ class App: Dependenables {
     init(configuration: AppConfiguration) {
         self.configuration = configuration
         self.energyPriceDatabase = Self.setupEnergyPriceDatabase(configuration)
-        self.databases = [energyPriceDatabase]
+        self.energyChargesDatabase = Self.setupEnergyChargesDatabase(configuration)
+        self.databases = [energyPriceDatabase, energyChargesDatabase]
     }
 
     func didLaunch(with window: UIWindow) {
@@ -63,7 +67,7 @@ class App: Dependenables {
         navigation.setup(using: window)
 
         if stateRepository.state.setupCompleted {
-            energyPriceRepository.pull(zone: stateRepository.state.selectedZone)
+            energyPriceRepository.pull()
             notificationRepository.request() // TODO: move to an intro step
 
             Task {
@@ -79,6 +83,16 @@ class App: Dependenables {
     }
 
     // MARK: - setups
+
+    private class func setupEnergyChargesDatabase(_ configuration: AppConfiguration) -> EnergyChargesDatabase {
+        var config = Configuration()
+        config.label = "EnergyCharges"
+
+        let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("energyCharges.db")
+        let database = setupDatabase(at: url, using: config, and: configuration)
+
+        return EnergyChargesDatabase(queue: database, configuration: configuration)
+    }
 
     private class func setupEnergyPriceDatabase(_ configuration: AppConfiguration) -> EnergyPriceDatabase {
         var config = Configuration()

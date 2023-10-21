@@ -6,11 +6,11 @@ struct NotificationRepository {
     private let delegate = Delegate()
 
     private let zone: Zone
-    private let charges: ChargesService
+    private let charges: EnergyChargesRepository
     private let prices: EnergyPriceRepository
     private let state: StateRepository
 
-    init(charges: ChargesService, prices: EnergyPriceRepository, state: StateRepository) {
+    init(charges: EnergyChargesRepository, prices: EnergyPriceRepository, state: StateRepository) {
         self.zone = state.state.selectedZone
         self.charges = charges
         self.prices = prices

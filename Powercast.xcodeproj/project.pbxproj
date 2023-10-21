@@ -69,6 +69,8 @@
 		CD4022EC2A34ADA600027798 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4022EB2A34ADA600027798 /* LoadingView.swift */; };
 		CD5C58CC2ADBFD4A00143060 /* CSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = CD5C58CB2ADBFD4A00143060 /* CSQLite */; };
 		CD5C58CE2ADBFD5E00143060 /* CSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = CD5C58CD2ADBFD5E00143060 /* CSQLite */; };
+		CD5C58D02AE4824900143060 /* EnergyChargesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5C58CF2AE4824900143060 /* EnergyChargesRepository.swift */; };
+		CD5C58D22AE4844B00143060 /* EnergyChargeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5C58D12AE4844B00143060 /* EnergyChargeDatabase.swift */; };
 		CD5E309228B2583600DBA019 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309028B2583600DBA019 /* assets */; };
 		CD5E309328B2583600DBA019 /* packages in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309128B2583600DBA019 /* packages */; };
 		CD5E309528B25B1800DBA019 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5E309428B25B1800DBA019 /* LicenseViewController.swift */; };
@@ -82,7 +84,7 @@
 		CDA0E4122AC982EC00FF364D /* EvaluationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0E4112AC982EC00FF364D /* EvaluationTests.swift */; };
 		CDA0E4192AC988A000FF364D /* EnergyPrices.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0E4182AC988A000FF364D /* EnergyPrices.swift */; };
 		CDA37DED2AD0A739004B44B0 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA37DEC2AD0A739004B44B0 /* Message.swift */; };
-		CDA37DF12ADB24F0004B44B0 /* ChargesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA37DF02ADB24F0004B44B0 /* ChargesService.swift */; };
+		CDA37DF12ADB24F0004B44B0 /* EnergyChargesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA37DF02ADB24F0004B44B0 /* EnergyChargesService.swift */; };
 		CDA37DF32ADB3174004B44B0 /* MultiColorGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA37DF22ADB3174004B44B0 /* MultiColorGaugeView.swift */; };
 		CDE77AC428C369370021EEDD /* Migratable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE77AC328C369370021EEDD /* Migratable.swift */; };
 /* End PBXBuildFile section */
@@ -160,6 +162,8 @@
 		38FD15DE28835528001C38F9 /* LicensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		CD4022EB2A34ADA600027798 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		CD5C58CF2AE4824900143060 /* EnergyChargesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyChargesRepository.swift; sourceTree = "<group>"; };
+		CD5C58D12AE4844B00143060 /* EnergyChargeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyChargeDatabase.swift; sourceTree = "<group>"; };
 		CD5E309028B2583600DBA019 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		CD5E309128B2583600DBA019 /* packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = packages; sourceTree = "<group>"; };
 		CD5E309428B25B1800DBA019 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
@@ -174,7 +178,7 @@
 		CDA0E4112AC982EC00FF364D /* EvaluationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationTests.swift; sourceTree = "<group>"; };
 		CDA0E4182AC988A000FF364D /* EnergyPrices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyPrices.swift; sourceTree = "<group>"; };
 		CDA37DEC2AD0A739004B44B0 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		CDA37DF02ADB24F0004B44B0 /* ChargesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargesService.swift; sourceTree = "<group>"; };
+		CDA37DF02ADB24F0004B44B0 /* EnergyChargesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyChargesService.swift; sourceTree = "<group>"; };
 		CDA37DF22ADB3174004B44B0 /* MultiColorGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiColorGaugeView.swift; sourceTree = "<group>"; };
 		CDE77AC328C369370021EEDD /* Migratable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migratable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -207,6 +211,7 @@
 		380CE8E42888901A0003FF36 /* Migrations */ = {
 			isa = PBXGroup;
 			children = (
+				CD5C58D12AE4844B00143060 /* EnergyChargeDatabase.swift */,
 				380CE8E52888901A0003FF36 /* EnergyPriceDatabase.swift */,
 				CDE77AC328C369370021EEDD /* Migratable.swift */,
 			);
@@ -374,6 +379,7 @@
 		38E0FA632884759B0096B98A /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				CD5C58CF2AE4824900143060 /* EnergyChargesRepository.swift */,
 				38E0FA642884759B0096B98A /* EnergyPriceRepository.swift */,
 				CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */,
 				384E6434288D9E38004ADCB1 /* StateRepository.swift */,
@@ -384,7 +390,7 @@
 		38E0FA66288476C40096B98A /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				CDA37DF02ADB24F0004B44B0 /* ChargesService.swift */,
+				CDA37DF02ADB24F0004B44B0 /* EnergyChargesService.swift */,
 				38E0FA67288476C40096B98A /* PowercastDataService.swift */,
 			);
 			path = Services;
@@ -666,6 +672,7 @@
 				CD5E309528B25B1800DBA019 /* LicenseViewController.swift in Sources */,
 				384E6437288D9FD9004ADCB1 /* State.swift in Sources */,
 				38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */,
+				CD5C58D02AE4824900143060 /* EnergyChargesRepository.swift in Sources */,
 				CDA0E40A2AC8C0DA00FF364D /* Evaluation.swift in Sources */,
 				380CE8EE288893F90003FF36 /* Animations.swift in Sources */,
 				384E64792891650E004ADCB1 /* DataLoadingInteractor.swift in Sources */,
@@ -687,7 +694,7 @@
 				CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */,
 				38E0FA68288476C40096B98A /* PowercastDataService.swift in Sources */,
 				38ECF94D289C467B00ED8372 /* TimeInterval.swift in Sources */,
-				CDA37DF12ADB24F0004B44B0 /* ChargesService.swift in Sources */,
+				CDA37DF12ADB24F0004B44B0 /* EnergyChargesService.swift in Sources */,
 				387FF610286B95BB0051E3DC /* global.swift in Sources */,
 				CD81C5A42A6DEABD00E88418 /* AutoCopyState.generated.swift in Sources */,
 				384E643A288DAA56004ADCB1 /* Sourcery.swift in Sources */,
@@ -698,6 +705,7 @@
 				CDA37DED2AD0A739004B44B0 /* Message.swift in Sources */,
 				384E6467288ED61D004ADCB1 /* IntroViewController.swift in Sources */,
 				389F717D28997B2C0007C2E0 /* MenuViewController.swift in Sources */,
+				CD5C58D22AE4844B00143060 /* EnergyChargeDatabase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

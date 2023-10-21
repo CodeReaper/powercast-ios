@@ -33,10 +33,9 @@ class DataLoadingInteractor {
     private func update() {
         Task {
             let minimumTime = DispatchTime.now() + 2
-            let zone = stateRepository.state.selectedZone
             let success: Bool
             do {
-                try await energyPriceRepository.refresh(in: zone)
+                try await energyPriceRepository.refresh()
                 success = true
             } catch {
                 success = false
@@ -46,7 +45,7 @@ class DataLoadingInteractor {
                 if success {
                     stateRepository.setupCompleted()
                     navigation.navigate(to: .dashboard)
-                    energyPriceRepository.pull(zone: zone)
+                    energyPriceRepository.pull()
                 } else {
                     delegate?.displayFailed()
                 }

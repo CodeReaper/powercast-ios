@@ -2,7 +2,7 @@ import XCTest
 @testable import Powercast
 
 final class EvaluationTests: XCTestCase {
-    struct ChargesServiceMock: ChargesService {
+    struct ChargesServiceMock: EnergyChargesService {
         let charges: Charges
 
         func `for`(_ date: Date) -> Powercast.Charges {
@@ -10,7 +10,7 @@ final class EvaluationTests: XCTestCase {
         }
     }
 
-    private let service = ChargesServiceMock(charges: Charges(validityPeriod: DateInterval(), conversionRate: 750, valueAddedTax: 0, transmissionTarrif: 10, systemTarrif: 10, electricityCharge: 10, loadTarrifs: [:]))
+    private let service = ChargesServiceMock(charges: Charges(validityPeriod: DateInterval(), conversionRate: 750, valueAddedTax: 0, transmissionTariff: 10, systemTariff: 10, electricityCharge: 10, loadTariffs: [:]))
 
     func testOnlyRelevantEvaluationsAreReturned() {
         let cases = [
@@ -143,12 +143,12 @@ final class EvaluationTests: XCTestCase {
 
     func testMostlyFeesPropertyIsCalulatedCorrectly() {
         let cases = [
-            (true, -0.1, Charges(validityPeriod: DateInterval(), conversionRate: 750, valueAddedTax: 0, transmissionTarrif: 0, systemTarrif: 0, electricityCharge: 0, loadTarrifs: [:])),
-            (false, 0.0, Charges(validityPeriod: DateInterval(), conversionRate: 750, valueAddedTax: 0, transmissionTarrif: 0, systemTarrif: 0, electricityCharge: 0, loadTarrifs: [:])),
-            (false, 1.0, Charges(validityPeriod: DateInterval(), conversionRate: 750, valueAddedTax: 0, transmissionTarrif: 0, systemTarrif: 0, electricityCharge: 0, loadTarrifs: [:])),
-            (true, 249.9, Charges(validityPeriod: DateInterval(), conversionRate: 100, valueAddedTax: 1, transmissionTarrif: 10, systemTarrif: 10, electricityCharge: 5, loadTarrifs: [:])),
-            (false, 250.0, Charges(validityPeriod: DateInterval(), conversionRate: 100, valueAddedTax: 1, transmissionTarrif: 10, systemTarrif: 10, electricityCharge: 5, loadTarrifs: [:])),
-            (false, 250.1, Charges(validityPeriod: DateInterval(), conversionRate: 100, valueAddedTax: 1, transmissionTarrif: 10, systemTarrif: 10, electricityCharge: 5, loadTarrifs: [:]))
+            (true, -0.1, Charges(validityPeriod: DateInterval(), conversionRate: 750, valueAddedTax: 0, transmissionTariff: 0, systemTariff: 0, electricityCharge: 0, loadTariffs: [:])),
+            (false, 0.0, Charges(validityPeriod: DateInterval(), conversionRate: 750, valueAddedTax: 0, transmissionTariff: 0, systemTariff: 0, electricityCharge: 0, loadTariffs: [:])),
+            (false, 1.0, Charges(validityPeriod: DateInterval(), conversionRate: 750, valueAddedTax: 0, transmissionTariff: 0, systemTariff: 0, electricityCharge: 0, loadTariffs: [:])),
+            (true, 249.9, Charges(validityPeriod: DateInterval(), conversionRate: 100, valueAddedTax: 1, transmissionTariff: 10, systemTariff: 10, electricityCharge: 5, loadTariffs: [:])),
+            (false, 250.0, Charges(validityPeriod: DateInterval(), conversionRate: 100, valueAddedTax: 1, transmissionTariff: 10, systemTariff: 10, electricityCharge: 5, loadTariffs: [:])),
+            (false, 250.1, Charges(validityPeriod: DateInterval(), conversionRate: 100, valueAddedTax: 1, transmissionTariff: 10, systemTariff: 10, electricityCharge: 5, loadTariffs: [:]))
         ]
 
         let date = Date.now.date(bySetting: .second, value: 0).date(bySetting: .minute, value: 0).date(bySetting: .hour, value: 0)
@@ -178,7 +178,7 @@ final class EvaluationTests: XCTestCase {
             (true, -100.0)
         ]
 
-        let charges = ChargesServiceMock(charges: Charges(validityPeriod: DateInterval(), conversionRate: 750, valueAddedTax: 0, transmissionTarrif: 0, systemTarrif: 0, electricityCharge: 0, loadTarrifs: [:]))
+        let charges = ChargesServiceMock(charges: Charges(validityPeriod: DateInterval(), conversionRate: 750, valueAddedTax: 0, transmissionTariff: 0, systemTariff: 0, electricityCharge: 0, loadTariffs: [:]))
         let date = Date.now.date(bySetting: .second, value: 0).date(bySetting: .minute, value: 0).date(bySetting: .hour, value: 0)
 
         for (expected, cost) in cases {

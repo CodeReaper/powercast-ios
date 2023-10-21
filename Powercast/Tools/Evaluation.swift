@@ -17,7 +17,7 @@ struct Evaluation {
 }
 
 extension Evaluation {
-    static func of(_ prices: [EnergyPrice], after date: Date = .now, using charges: ChargesService) -> [Evaluation] {
+    static func of(_ prices: [EnergyPrice], after date: Date = .now, using charges: EnergyChargesRepository) -> [Evaluation] {
         let evaluables = prices.filter({ $0.timestamp >= date })
 
         guard evaluables.isEmpty == false else { return [] }
@@ -40,7 +40,7 @@ extension Evaluation {
         }
 
         return evaluables.map { model in
-            let fees = charges.for(model.timestamp).convertedFees(at: model.timestamp)
+            let fees = charges.charges(for: model.zone, at: model.timestamp).convertedFees(at: model.timestamp)
             return Evaluation(
                 model: model,
                 precentile: bins.filter { $0.1 ?? Double.infinity < model.price }.sorted(by: { $0.0 > $1.0 }).first?.0 ?? 0,

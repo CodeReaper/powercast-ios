@@ -1,7 +1,7 @@
 import Foundation
 import GRDB
 
-struct EnergyPriceDatabase: Migratable {
+struct EnergyChargesDatabase: Migratable {
     let queue: DatabaseQueue
     let configuration: AppConfiguration
 
@@ -13,7 +13,8 @@ struct EnergyPriceDatabase: Migratable {
         }
 
         migrator.registerMigration("v1") { db in
-            try db.create(table: "energyPrice") { table in
+            try db.create(table: "energyCharges") { table in
+                // FIXME: configure tables
                 table.primaryKey(["timestamp", "zone"], onConflict: .replace)
                 table.column("zone", .text).notNull().indexed()
                 table.column("timestamp", .integer).notNull().indexed()

@@ -11,6 +11,7 @@ enum PowercastDataServiceError: Error {
     case unresolvableDate(givenZone: String, type: String)
 }
 
+// FIXME: rename this
 class PowercastDataServiceAPI: PowercastDataService {
     private let endpoint = "https://codereaper.github.io/powercast-data/api/energy-price"
     private let decoder = JSONDecoder()
