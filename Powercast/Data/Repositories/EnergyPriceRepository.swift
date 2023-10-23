@@ -5,13 +5,13 @@ import Flogger
 
 class EnergyPriceRepository {
     private let database: DatabaseQueue
-    private let service: PowercastDataService
-    private let charges: EnergyChargesRepository
+    private let service: EnergyPriceService
+    private let repository: ChargesRepository
 
-    init(database: DatabaseQueue, service: PowercastDataService, charges: EnergyChargesRepository) {
+    init(database: DatabaseQueue, service: EnergyPriceService, repository: ChargesRepository) {
         self.database = database
         self.service = service
-        self.charges = charges
+        self.repository = repository
     }
 
     func data(in interval: DateInterval) async throws -> [EnergyPrice] {
@@ -47,7 +47,7 @@ class EnergyPriceRepository {
     }
 
     func source(for zone: Zone) throws -> PriceTableDatasource {
-        return try TableDatasource(database: database, zone: zone, charges: charges)
+        return try TableDatasource(database: database, zone: zone, repository: repository)
     }
 
     func refresh() async throws {
@@ -102,11 +102,11 @@ class EnergyPriceRepository {
     private class TableDatasource: PriceTableDatasource {
         private let database: DatabaseQueue
         private let zone: Zone
-        private let charges: EnergyChargesRepository
+        private let repository: ChargesRepository
         private let items: [[Date]]
         private let sections: [Date]
 
-        init(database: DatabaseQueue, zone: Zone, charges: EnergyChargesRepository) throws {
+        init(database: DatabaseQueue, zone: Zone, repository: ChargesRepository) throws {
             let max = try database.read { db in
                 return try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.max(Database.EnergyPrice.Columns.timestamp)))
             }
@@ -139,7 +139,7 @@ class EnergyPriceRepository {
             self.sections = sections.reversed()
             self.database = database
             self.zone = zone
-            self.charges = charges
+            self.repository = repository
         }
 
         var sectionCount: Int { sections.count }
@@ -164,9 +164,11 @@ class EnergyPriceRepository {
             }
 
             let target = dates[indexPath.item]
-            guard let models = models, let model = models.first(where: { $0.timestamp == target }) else { return nil }
-
-            let charges = self.charges.charges(for: model.zone, at: model.timestamp)
+            guard
+                let models = models,
+                let model = models.first(where: { $0.timestamp == target }),
+                let charges = try? repository.charges(for: model.zone, at: model.timestamp)
+            else { return nil }
 
             return Price(
                 price: charges.format(model.price, at: model.timestamp),

@@ -8,6 +8,7 @@ protocol DataLoadingDelegate: AnyObject {
 class DataLoadingInteractor {
     private let navigation: AppNavigation
     private let energyPriceRepository: EnergyPriceRepository
+    private let chargesRepository: ChargesRepository
     private let stateRepository: StateRepository
 
     private var statusSink: AnyCancellable?
@@ -15,10 +16,11 @@ class DataLoadingInteractor {
 
     private weak var delegate: DataLoadingDelegate?
 
-    init(navigation: AppNavigation, delegate: DataLoadingDelegate, energyPriceRepository: EnergyPriceRepository, stateRepository: StateRepository) {
+    init(navigation: AppNavigation, delegate: DataLoadingDelegate, energyPriceRepository: EnergyPriceRepository, chargesRepository: ChargesRepository, stateRepository: StateRepository) {
         self.navigation = navigation
         self.delegate = delegate
         self.energyPriceRepository = energyPriceRepository
+        self.chargesRepository = chargesRepository
         self.stateRepository = stateRepository
     }
 
@@ -35,7 +37,8 @@ class DataLoadingInteractor {
             let minimumTime = DispatchTime.now() + 2
             let success: Bool
             do {
-                try await energyPriceRepository.refresh()
+                try await chargesRepository.refresh()
+                try await energyPriceRepository.refresh() // FIXME: this
                 success = true
             } catch {
                 success = false

@@ -45,6 +45,7 @@ class BackgroundScheduler {
             task.setTaskCompleted(success: false)
         }
 
+        // FIXME: refresh charges too
         Task {
             do {
                 try await prices.refresh()

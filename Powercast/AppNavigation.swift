@@ -62,7 +62,7 @@ class AppNavigation {
         case let .regionSelection(configuration):
             navigationController.pushViewController(ZoneSelectionViewController(navigation: self, configuration: configuration, repository: dependencies.stateRepository), animated: true)
         case .loadData:
-            navigationController.pushViewController(DataLoadingViewController(navigation: self, energyPriceRepository: dependencies.energyPriceRepository, stateRepository: dependencies.stateRepository), animated: true)
+            navigationController.pushViewController(DataLoadingViewController(navigation: self, energyPriceRepository: dependencies.energyPriceRepository, chargesRepository: dependencies.chargesRepository, stateRepository: dependencies.stateRepository), animated: true)
         case .menu:
             drawer.set(drawer.state == .opened ? .closed : .opened, animated: true)
         case .dashboard:

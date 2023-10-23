@@ -2,7 +2,7 @@ import XCTest
 @testable import Powercast
 
 final class EvaluationTests: XCTestCase {
-    struct ChargesServiceMock: EnergyChargesService {
+    struct ChargesServiceMock: ChargesService {
         let charges: Charges
 
         func `for`(_ date: Date) -> Powercast.Charges {

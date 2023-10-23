@@ -62,7 +62,7 @@ class PricesInteractor {
 
     private func refreshAsync() async {
         do {
-            try await energyPriceRepository.refresh()
+            try await energyPriceRepository.refresh() // FIXME: charges too?
         } catch {
             delegate?.showRefreshFailed()
         }

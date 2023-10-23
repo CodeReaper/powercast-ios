@@ -7,10 +7,10 @@ protocol Dependenables: AnyObject {
 
     var databases: [Migratable] { get }
 
-    var energyChargesDatabase: EnergyChargesDatabase { get }
+    var energyChargesDatabase: ChargesDatabase { get }
     var energyPriceDatabase: EnergyPriceDatabase { get }
 
-    var energyChargesRepository: EnergyChargesRepository { get }
+    var chargesRepository: ChargesRepository { get }
     var energyPriceRepository: EnergyPriceRepository { get }
     var stateRepository: StateRepository { get }
 
@@ -21,16 +21,16 @@ class App: Dependenables {
     private lazy var navigation = AppNavigation(using: self as Dependenables, on: UIScreen.main.traitCollection.userInterfaceIdiom)
 
     let configuration: AppConfiguration
-    let energyChargesDatabase: EnergyChargesDatabase
+    let energyChargesDatabase: ChargesDatabase
     let energyPriceDatabase: EnergyPriceDatabase
     let stateRepository = StateRepository()
     let databases: [Migratable]
 
-    lazy var energyChargesRepository = EnergyChargesRepository(database: energyChargesDatabase.queue, service: EnergyChargesServiceAPI())
-    lazy var energyPriceRepository = EnergyPriceRepository(database: energyPriceDatabase.queue, service: PowercastDataServiceAPI(), charges: energyChargesRepository)
+    lazy var chargesRepository = ChargesRepository(database: energyChargesDatabase.queue, service: ChargesServiceAPI())
+    lazy var energyPriceRepository = EnergyPriceRepository(database: energyPriceDatabase.queue, service: EnergyPriceServiceAPI(), repository: chargesRepository)
     var notificationRepository: NotificationRepository {
         NotificationRepository(
-            charges: energyChargesRepository,
+            charges: chargesRepository,
             prices: energyPriceRepository,
             state: stateRepository
         )
@@ -84,14 +84,14 @@ class App: Dependenables {
 
     // MARK: - setups
 
-    private class func setupEnergyChargesDatabase(_ configuration: AppConfiguration) -> EnergyChargesDatabase {
+    private class func setupEnergyChargesDatabase(_ configuration: AppConfiguration) -> ChargesDatabase {
         var config = Configuration()
         config.label = "EnergyCharges"
 
         let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("energyCharges.db")
         let database = setupDatabase(at: url, using: config, and: configuration)
 
-        return EnergyChargesDatabase(queue: database, configuration: configuration)
+        return ChargesDatabase(queue: database, configuration: configuration)
     }
 
     private class func setupEnergyPriceDatabase(_ configuration: AppConfiguration) -> EnergyPriceDatabase {

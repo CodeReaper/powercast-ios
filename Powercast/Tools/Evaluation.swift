@@ -2,6 +2,7 @@ import Foundation
 
 struct Evaluation {
     let model: EnergyPrice
+    let charges: Charges
     let precentile: Int
     let precentileAvailable: Int
     let cheapestAvailable: Bool
@@ -17,7 +18,7 @@ struct Evaluation {
 }
 
 extension Evaluation {
-    static func of(_ prices: [EnergyPrice], after date: Date = .now, using charges: EnergyChargesRepository) -> [Evaluation] {
+    static func of(_ prices: [EnergyPrice], after date: Date = .now, using repository: ChargesRepository) -> [Evaluation] {
         let evaluables = prices.filter({ $0.timestamp >= date })
 
         guard evaluables.isEmpty == false else { return [] }
@@ -39,10 +40,13 @@ extension Evaluation {
             return (Int(bin), percentile(nth: bin, of: availablePrices))
         }
 
-        return evaluables.map { model in
-            let fees = charges.charges(for: model.zone, at: model.timestamp).convertedFees(at: model.timestamp)
+        return evaluables.compactMap { model in
+            guard let charges = try? repository.charges(for: model.zone, at: model.timestamp) else { return nil }
+
+            let fees = charges.convertedFees(at: model.timestamp)
             return Evaluation(
                 model: model,
+                charges: charges,
                 precentile: bins.filter { $0.1 ?? Double.infinity < model.price }.sorted(by: { $0.0 > $1.0 }).first?.0 ?? 0,
                 precentileAvailable: availableBins.filter { $0.1 ?? Double.infinity < model.price }.sorted(by: { $0.0 > $1.0 }).first?.0 ?? 0,
                 cheapestAvailable: model.price == evaluableLow,

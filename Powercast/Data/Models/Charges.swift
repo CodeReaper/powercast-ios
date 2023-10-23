@@ -1,10 +1,8 @@
 import Foundation
 
 struct Charges {
-    /// The timespan these specific values apply
-    let validityPeriod: DateInterval
     /// Conversion rate of 1 Euro to DK øre
-    let conversionRate: Double
+    let exchangeRate: Double
     /// Source: `moms` expressed as a fraction between 0 and 1
     let valueAddedTax: Double
     /// Source: `nettarif` in DK øre
@@ -58,7 +56,7 @@ struct Charges {
     /// - Parameters:
     ///     - date: The time of the price point the fees should apply to
     func convertedFees(at date: Date) -> Double {
-        return (fixedFees(at: date) + variableFees(at: date)) * 1000 / conversionRate
+        return (fixedFees(at: date) + variableFees(at: date)) * 1000 / exchangeRate
     }
 
     /// Returns a price in DK øre per kWh
@@ -67,12 +65,23 @@ struct Charges {
     ///     - value: The raw MWh price in Euros
     ///     - date: The time at which the price point is active
     func format(_ value: Double, at date: Date) -> Double {
-        var dkr = value / 1000 * conversionRate
+        var dkr = value / 1000 * exchangeRate
         dkr += transmissionTariff
         dkr += systemTariff
         dkr += electricityCharge
         dkr += loadTariff(at: date)
         dkr *= 1 + (dkr > 0 ? valueAddedTax : 0)
         return dkr
+    }
+
+    static func from(_ grid: GridPrice, and network: NetworkPrice) -> Charges {
+        return Charges(
+            exchangeRate: grid.exchangeRate,
+            valueAddedTax: grid.vat,
+            transmissionTariff: grid.transmissionTariff,
+            systemTariff: grid.systemTariff,
+            electricityCharge: grid.electricityCharge,
+            loadTariffs: Dictionary(uniqueKeysWithValues: network.loadTariff.enumerated().map { ($0.offset, $0.element) })
+        )
     }
 }

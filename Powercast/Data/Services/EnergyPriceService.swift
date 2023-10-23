@@ -1,18 +1,17 @@
 import Foundation
 import Flogger
 
-protocol PowercastDataService {
+protocol EnergyPriceService {
     func interval(for zone: Zone) async throws -> DateInterval
     func data(for zone: Zone, at date: Date) async throws -> [EnergyPrice]
 }
 
-enum PowercastDataServiceError: Error {
+enum EnergyPriceServiceError: Error {
     case unknownZone(givenZone: String)
     case unresolvableDate(givenZone: String, type: String)
 }
 
-// FIXME: rename this
-class PowercastDataServiceAPI: PowercastDataService {
+class EnergyPriceServiceAPI: EnergyPriceService {
     private let endpoint = "https://codereaper.github.io/powercast-data/api/energy-price"
     private let decoder = JSONDecoder()
     private let formatter: DateFormatter = {
@@ -42,13 +41,13 @@ class PowercastDataServiceAPI: PowercastDataService {
         let data = try await fetch(url: url)
         let list = try decoder.decode([Index].self, from: data)
         guard let item = list.first(where: { $0.zone.lowercased() == zone.rawValue.lowercased() }) else {
-            throw PowercastDataServiceError.unknownZone(givenZone: zone.rawValue)
+            throw EnergyPriceServiceError.unknownZone(givenZone: zone.rawValue)
         }
         guard let latest = date(from: item.latest) else {
-            throw PowercastDataServiceError.unresolvableDate(givenZone: zone.rawValue, type: "latest")
+            throw EnergyPriceServiceError.unresolvableDate(givenZone: zone.rawValue, type: "latest")
         }
         guard let oldest = date(from: item.oldest) else {
-            throw PowercastDataServiceError.unresolvableDate(givenZone: zone.rawValue, type: "oldest")
+            throw EnergyPriceServiceError.unresolvableDate(givenZone: zone.rawValue, type: "oldest")
         }
         return DateInterval(start: oldest, end: latest)
     }
