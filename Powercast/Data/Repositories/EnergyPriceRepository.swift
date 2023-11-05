@@ -46,8 +46,8 @@ class EnergyPriceRepository {
         }
     }
 
-    func source(for zone: Zone) throws -> PriceTableDatasource {
-        return try TableDatasource(database: database, zone: zone, repository: repository)
+    func source(for network: Network) throws -> PriceTableDatasource {
+        return try TableDatasource(database: database, network: network, repository: repository)
     }
 
     func refresh() async throws {
@@ -101,12 +101,12 @@ class EnergyPriceRepository {
 
     private class TableDatasource: PriceTableDatasource {
         private let database: DatabaseQueue
-        private let zone: Zone
+        private let network: Network
         private let repository: ChargesRepository
         private let items: [[Date]]
         private let sections: [Date]
 
-        init(database: DatabaseQueue, zone: Zone, repository: ChargesRepository) throws {
+        init(database: DatabaseQueue, network: Network, repository: ChargesRepository) throws {
             let max = try database.read { db in
                 return try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.max(Database.EnergyPrice.Columns.timestamp)))
             }
@@ -138,7 +138,7 @@ class EnergyPriceRepository {
             self.items = items.reversed()
             self.sections = sections.reversed()
             self.database = database
-            self.zone = zone
+            self.network = network
             self.repository = repository
         }
 
@@ -154,7 +154,7 @@ class EnergyPriceRepository {
 
             let models = try? database.read { db in
                 return try Database.EnergyPrice
-                    .filter(Database.EnergyPrice.Columns.zone == zone.rawValue)
+                    .filter(Database.EnergyPrice.Columns.zone == network.zone.rawValue)
                     .filter(Database.EnergyPrice.Columns.timestamp >= min)
                     .filter(Database.EnergyPrice.Columns.timestamp <= max)
                     .order(Database.EnergyPrice.Columns.timestamp.desc)
@@ -167,7 +167,7 @@ class EnergyPriceRepository {
             guard
                 let models = models,
                 let model = models.first(where: { $0.timestamp == target }),
-                let charges = try? repository.charges(for: model.zone, at: model.timestamp)
+                let charges = try? repository.charges(for: network, at: model.timestamp)
             else { return nil }
 
             return Price(

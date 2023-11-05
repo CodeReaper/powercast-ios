@@ -30,7 +30,7 @@ class PricesInteractor {
 
     func viewWillAppear() {
         Task {
-            let source = try? energyPriceRepository.source(for: stateRepository.state.selectedZone)
+            let source = try? energyPriceRepository.source(for: stateRepository.state.network)
 
             DispatchQueue.main.async { [delegate] in
                 defer { delegate?.show(loading: false) }
@@ -67,7 +67,7 @@ class PricesInteractor {
             delegate?.showRefreshFailed()
         }
 
-        let updatedSource = try? energyPriceRepository.source(for: stateRepository.state.selectedZone)
+        let updatedSource = try? energyPriceRepository.source(for: stateRepository.state.network)
 
         DispatchQueue.main.async { [delegate] in
             guard let source = updatedSource else {

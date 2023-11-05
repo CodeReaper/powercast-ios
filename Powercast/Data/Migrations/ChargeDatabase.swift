@@ -18,21 +18,24 @@ struct ChargesDatabase: Migratable {
                 table.column("zone", .text).notNull().indexed()
                 table.column("validFrom", .datetime).notNull().indexed()
                 table.column("validTo", .datetime)
-                table.column("exchangeRate", .double).notNull()
-                table.column("vat", .double).notNull()
                 table.column("transmissionTariff", .double).notNull()
                 table.column("systemTariff", .double).notNull()
                 table.column("electricityCharge", .double).notNull()
             }
 
-            try db.create(table: "networkPrice") { table in
-                table.primaryKey(["validFrom", "zone", "id"], onConflict: .replace)
-                table.column("zone", .text).notNull().indexed()
-                table.column("validFrom", .datetime).notNull().indexed()
-                table.column("validTo", .datetime)
+            try db.create(table: "network") { table in
+                table.primaryKey(["id"], onConflict: .replace)
                 table.column("id", .integer).notNull().indexed()
                 table.column("name", .text).notNull()
+                table.column("zone", .text).notNull()
+            }
+
+            try db.create(table: "networkPrice") { table in
+                table.primaryKey(["validFrom", "networkId"], onConflict: .replace)
+                table.column("validFrom", .datetime).notNull().indexed()
+                table.column("validTo", .datetime)
                 table.column("loadTariff", .jsonText).notNull()
+                table.column("networkId", .integer).indexed().references("network", onDelete: .restrict)
             }
         }
 

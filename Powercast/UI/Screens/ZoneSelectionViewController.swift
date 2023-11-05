@@ -71,6 +71,7 @@ class ZoneSelectionViewController: ViewController {
 
     @objc private func didTapChoose() {
         repository.select(zone: zones[segmentedControl.selectedSegmentIndex])
+        repository.select(network: 5790001089030) // FIXME: add network selection
         switch configuration.behavior {
         case .navigate(let endpoint):
             navigation.navigate(to: endpoint)

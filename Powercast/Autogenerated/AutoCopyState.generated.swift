@@ -9,6 +9,7 @@ extension State {
 		return State(
 			setupCompleted: setupCompleted,
 			selectedZone: selectedZone,
+			selectedNetwork: selectedNetwork,
 			lastDeliveredNotification: lastDeliveredNotification
 		)
 	}
@@ -17,6 +18,7 @@ extension State {
 		return State(
 			setupCompleted: setupCompleted,
 			selectedZone: selectedZone,
+			selectedNetwork: selectedNetwork,
 			lastDeliveredNotification: lastDeliveredNotification
 		)
 	}
@@ -24,6 +26,15 @@ extension State {
 		return State(
 			setupCompleted: setupCompleted,
 			selectedZone: selectedZone,
+			selectedNetwork: selectedNetwork,
+			lastDeliveredNotification: lastDeliveredNotification
+		)
+	}
+	func copy(selectedNetwork: Int) -> State {
+		return State(
+			setupCompleted: setupCompleted,
+			selectedZone: selectedZone,
+			selectedNetwork: selectedNetwork,
 			lastDeliveredNotification: lastDeliveredNotification
 		)
 	}
@@ -31,6 +42,7 @@ extension State {
 		return State(
 			setupCompleted: setupCompleted,
 			selectedZone: selectedZone,
+			selectedNetwork: selectedNetwork,
 			lastDeliveredNotification: lastDeliveredNotification
 		)
 	}

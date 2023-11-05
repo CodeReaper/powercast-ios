@@ -69,7 +69,7 @@ class EnergyPriceServiceAPI: EnergyPriceService {
         let (data, base) = try await session.data(from: url)
         let response = base as! HTTPURLResponse // swiftlint:disable:this force_cast
 
-        Flog.info("Powercast Service: GET \(url) \(response.statusCode) \(data.count)")
+        Flog.info("GET \(url) \(response.statusCode) \(data.count)")
 
         return data
     }

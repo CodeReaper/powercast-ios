@@ -5,13 +5,13 @@ import Flogger
 struct NotificationRepository {
     private let delegate = Delegate()
 
-    private let zone: Zone
+    private let network: Network
     private let charges: ChargesRepository
     private let prices: EnergyPriceRepository
     private let state: StateRepository
 
     init(charges: ChargesRepository, prices: EnergyPriceRepository, state: StateRepository) {
-        self.zone = state.state.selectedZone
+        self.network = state.state.network
         self.charges = charges
         self.prices = prices
         self.state = state
@@ -31,13 +31,13 @@ struct NotificationRepository {
 
     func schedule() async {
         guard
-            let prices = try? await self.prices.data(for: zone, in: DateInterval(start: Date.now.startOfDay.date(byAdding: .weekOfYear, value: -1), end: Date.now.startOfDay.date(byAdding: .day, value: 2)))
+            let prices = try? await self.prices.data(for: network.zone, in: DateInterval(start: Date.now.startOfDay.date(byAdding: .weekOfYear, value: -1), end: Date.now.startOfDay.date(byAdding: .day, value: 2)))
         else {
             Flog.error("Wanted to setup notification, but could not look up local prices")
             return
         }
 
-        let evaluations = Evaluation.of(prices, using: charges)
+        let evaluations = Evaluation.of(prices, using: charges, and: network)
 
         guard
             evaluations.count > 0

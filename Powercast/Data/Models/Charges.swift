@@ -2,9 +2,9 @@ import Foundation
 
 struct Charges {
     /// Conversion rate of 1 Euro to DK øre
-    let exchangeRate: Double
+    let exchangeRate: Double = 746
     /// Source: `moms` expressed as a fraction between 0 and 1
-    let valueAddedTax: Double
+    let valueAddedTax: Double = 0.25
     /// Source: `nettarif` in DK øre
     let transmissionTariff: Double
     /// Source: `systemtarif` in DK øre
@@ -76,8 +76,6 @@ struct Charges {
 
     static func from(_ grid: GridPrice, and network: NetworkPrice) -> Charges {
         return Charges(
-            exchangeRate: grid.exchangeRate,
-            valueAddedTax: grid.vat,
             transmissionTariff: grid.transmissionTariff,
             systemTariff: grid.systemTariff,
             electricityCharge: grid.electricityCharge,

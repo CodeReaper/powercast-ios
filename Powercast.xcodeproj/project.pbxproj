@@ -73,6 +73,7 @@
 		CD5C58D22AE4844B00143060 /* ChargeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5C58D12AE4844B00143060 /* ChargeDatabase.swift */; };
 		CD5C58D42AE59E0200143060 /* NetworkPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5C58D32AE59E0200143060 /* NetworkPrice.swift */; };
 		CD5C58D82AE7018E00143060 /* GridPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5C58D72AE7018E00143060 /* GridPrice.swift */; };
+		CD5C58DA2AE8612100143060 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5C58D92AE8612100143060 /* Network.swift */; };
 		CD5E309228B2583600DBA019 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309028B2583600DBA019 /* assets */; };
 		CD5E309328B2583600DBA019 /* packages in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309128B2583600DBA019 /* packages */; };
 		CD5E309528B25B1800DBA019 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5E309428B25B1800DBA019 /* LicenseViewController.swift */; };
@@ -168,6 +169,7 @@
 		CD5C58D12AE4844B00143060 /* ChargeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeDatabase.swift; sourceTree = "<group>"; };
 		CD5C58D32AE59E0200143060 /* NetworkPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPrice.swift; sourceTree = "<group>"; };
 		CD5C58D72AE7018E00143060 /* GridPrice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridPrice.swift; sourceTree = "<group>"; };
+		CD5C58D92AE8612100143060 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		CD5E309028B2583600DBA019 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		CD5E309128B2583600DBA019 /* packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = packages; sourceTree = "<group>"; };
 		CD5E309428B25B1800DBA019 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
@@ -405,9 +407,10 @@
 			children = (
 				38E0FA712884822C0096B98A /* _Database.swift */,
 				CD81C59A2A6DBDD300E88418 /* Charges.swift */,
-				CD5C58D32AE59E0200143060 /* NetworkPrice.swift */,
 				38E0FA6D2884803F0096B98A /* EnergyPrice.swift */,
 				CD5C58D72AE7018E00143060 /* GridPrice.swift */,
+				CD5C58D92AE8612100143060 /* Network.swift */,
+				CD5C58D32AE59E0200143060 /* NetworkPrice.swift */,
 				CD8A4BC428BA6DB000EC68E3 /* Price.swift */,
 				384E6436288D9FD9004ADCB1 /* State.swift */,
 				38E0FA6F2884808D0096B98A /* Zone.swift */,
@@ -689,6 +692,7 @@
 				CDE77AC428C369370021EEDD /* Migratable.swift in Sources */,
 				38DF5ABE28707A7E008630FB /* Translations.swift in Sources */,
 				CD81C59B2A6DBDD300E88418 /* Charges.swift in Sources */,
+				CD5C58DA2AE8612100143060 /* Network.swift in Sources */,
 				384E6469288ED62D004ADCB1 /* IntroInteractor.swift in Sources */,
 				384E642E288D90EF004ADCB1 /* BackgroundScheduler.swift in Sources */,
 				384E6470288EDE96004ADCB1 /* ZoneSelectionViewController.swift in Sources */,

@@ -2,26 +2,32 @@ import Foundation
 import Flogger
 
 protocol ChargesService {
-    func data(for zone: Zone) async throws -> ([GridPrice], [NetworkPrice])
+    func grid() async throws -> [GridPrice]
+    func networks() async throws -> [Network]
+    func network(id: Int) async throws -> [NetworkPrice]
 }
 
 class ChargesServiceAPI: ChargesService {
-    func data(for zone: Zone) async throws -> ([GridPrice], [NetworkPrice]) {
-        let url = URL(string: "\(endpoint)/\(zone.rawValue).json")!
+    func networks() async throws -> [Network] {
+        let url = URL(string: "\(endpoint)/network/")!
         let data = try await fetch(url: url)
-        let source = try decoder.decode(Item.self, from: data)
+        return try decoder.decode([Network].self, from: data)
+    }
 
-        let gridPrices = source.grid.map { item in
-            GridPrice(zone: zone, validFrom: Date(timeIntervalSince1970: item.from), validTo: item.to == nil ? nil : Date(timeIntervalSince1970: item.to!), exchangeRate: source.exchangeRate, vat: source.vat, transmissionTariff: item.transmissionTariff, systemTariff: item.systemTariff, electricityCharge: item.electricityCharge)
-        }
+    func network(id: Int) async throws -> [NetworkPrice] {
+        let url = URL(string: "\(endpoint)/network/\(id)/")!
+        let data = try await fetch(url: url)
+        let items = try decoder.decode([NetworkItem].self, from: data)
+        return items.map { NetworkPrice(validFrom: Date(timeIntervalSince1970: $0.from), validTo: $0.to == nil ? nil : Date(timeIntervalSince1970: $0.to!), loadTariff: $0.tariffs, networkId: id) }
+    }
 
-        let networkPrices = source.network.flatMap { company in
-            company.tariffs.map { item in
-                NetworkPrice(zone: zone, id: company.id, name: company.name, validFrom: Date(timeIntervalSince1970: item.from), validTo: item.to == nil ? nil : Date(timeIntervalSince1970: item.to!), loadTariff: item.tariffs)
-            }
-        }
-
-        return (gridPrices, networkPrices)
+    func grid() async throws -> [GridPrice] {
+        let url = URL(string: "\(endpoint)/grid/")!
+        let data = try await fetch(url: url)
+        let items = try decoder.decode([GridItem].self, from: data)
+        return items.compactMap { item in
+            guard let zone = Zone(rawValue: item.zone) else { return nil }
+            return GridPrice(zone: zone, validFrom: Date(timeIntervalSince1970: item.from), validTo: item.to == nil ? nil : Date(timeIntervalSince1970: item.to!), transmissionTariff: item.transmissionTariff, systemTariff: item.systemTariff, electricityCharge: item.electricityCharge) }
     }
 
     private let endpoint = "https://codereaper.github.io/powercast-data/api/energy-charges"
@@ -36,35 +42,23 @@ class ChargesServiceAPI: ChargesService {
         let (data, base) = try await session.data(from: url)
         let response = base as! HTTPURLResponse // swiftlint:disable:this force_cast
 
-        Flog.info("Powercast Service: GET \(url) \(response.statusCode) \(data.count)")
+        Flog.info("GET \(url) \(response.statusCode) \(data.count)")
 
         return data
     }
 }
 
-private struct Item: Codable {
-    let vat: Double
-    let exchangeRate: Double
-    let grid: [Grid]
-    let network: [Network]
+private struct GridItem: Codable {
+    let zone: String
+    let from: TimeInterval
+    let to: TimeInterval? // swiftlint:disable:this identifier_name
+    let transmissionTariff: Double
+    let systemTariff: Double
+    let electricityCharge: Double
+}
 
-    struct Grid: Codable {
-        let from: TimeInterval
-        let to: TimeInterval? // swiftlint:disable:this identifier_name
-        let transmissionTariff: Double
-        let systemTariff: Double
-        let electricityCharge: Double
-    }
-
-    struct Network: Codable {
-        let id: Int
-        let name: String
-        let tariffs: [Tariffs]
-    }
-
-    struct Tariffs: Codable {
-        let from: TimeInterval
-        let to: TimeInterval? // swiftlint:disable:this identifier_name
-        let tariffs: [Double]
-    }
+private struct NetworkItem: Codable {
+    let from: TimeInterval
+    let to: TimeInterval? // swiftlint:disable:this identifier_name
+    let tariffs: [Double]
 }
