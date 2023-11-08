@@ -2,19 +2,17 @@ import Foundation
 import SugarKit
 
 protocol LaunchDelegate: AnyObject {
-    func showNetworkSelection(animated: Bool)
+    func showNetworkSelection()
 }
 
 struct LaunchInteractor {
     private let databases: [Migratable]
     private let repository: ChargesRepository
-    private let networkId: Int
 
     private weak var delegate: LaunchDelegate?
 
-    init(delegate: LaunchDelegate, databases: [Migratable], repository: ChargesRepository, networkId: Int) {
+    init(delegate: LaunchDelegate, databases: [Migratable], repository: ChargesRepository) {
         self.delegate = delegate
-        self.networkId = networkId
         self.databases = databases
         self.repository = repository
     }
@@ -45,7 +43,7 @@ struct LaunchInteractor {
         }
 
         dispatch.notify(queue: .main) {
-            delegate?.showNetworkSelection(animated: networkId == 0)
+            delegate?.showNetworkSelection()
         }
     }
 }

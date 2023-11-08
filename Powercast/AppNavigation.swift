@@ -56,7 +56,7 @@ class AppNavigation {
         window.makeKeyAndVisible()
     }
 
-    func navigate(to endpoint: Navigation) { // swiftlint:disable:this function_body_length
+    func navigate(to endpoint: Navigation) {
         switch endpoint {
         case .launch:
             if network != nil {
@@ -66,8 +66,7 @@ class AppNavigation {
             let viewController = LaunchViewController(
                 navigation: self,
                 databases: dependencies.databases,
-                repository: dependencies.chargesRepository,
-                networkId: dependencies.stateRepository.network.id
+                repository: dependencies.chargesRepository
             )
             navigationController.setViewControllers([viewController], animated: true)
         case .networkSelection:

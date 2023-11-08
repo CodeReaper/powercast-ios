@@ -8,9 +8,9 @@ class LaunchViewController: ViewController {
 
     private var interactor: LaunchInteractor!
 
-    init(navigation: AppNavigation, databases: [Migratable], repository: ChargesRepository, networkId: Int) {
+    init(navigation: AppNavigation, databases: [Migratable], repository: ChargesRepository) {
         super.init(navigation: navigation)
-        self.interactor = LaunchInteractor(delegate: self, databases: databases, repository: repository, networkId: networkId)
+        self.interactor = LaunchInteractor(delegate: self, databases: databases, repository: repository)
     }
 
     required init?(coder: NSCoder) {
@@ -50,7 +50,7 @@ class LaunchViewController: ViewController {
 }
 
 extension LaunchViewController: LaunchDelegate {
-    func showNetworkSelection(animated: Bool) {
+    func showNetworkSelection() {
         titleView.layout(in: view) { (make, its) in
             make(its.leftAnchor.constraint(equalTo: self.view.leftAnchor))
             make(its.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 15))
@@ -62,7 +62,7 @@ extension LaunchViewController: LaunchDelegate {
             self.overlayBackground.alpha = 0
         } completion: { _ in
             self.overlayBackground.removeFromSuperview()
-            self.navigate(to: .networkSelection)
+            self.navigation.navigate(to: .networkSelection)
         }
     }
 }

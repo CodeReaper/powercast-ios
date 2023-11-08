@@ -32,8 +32,6 @@
 		384E6460288DC80E004ADCB1 /* CooperHewitt-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6452288DC80E004ADCB1 /* CooperHewitt-Light.otf */; };
 		384E6461288DC80E004ADCB1 /* CooperHewitt-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6453288DC80E004ADCB1 /* CooperHewitt-BoldItalic.otf */; };
 		384E6462288DC80E004ADCB1 /* CooperHewitt-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6454288DC80E004ADCB1 /* CooperHewitt-HeavyItalic.otf */; };
-		384E6467288ED61D004ADCB1 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6466288ED61D004ADCB1 /* LaunchViewController.swift */; };
-		384E6469288ED62D004ADCB1 /* LaunchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6468288ED62D004ADCB1 /* LaunchInteractor.swift */; };
 		384E646B288EDAAF004ADCB1 /* Appearence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E646A288EDAAF004ADCB1 /* Appearence.swift */; };
 		384E64792891650E004ADCB1 /* DataLoadingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E64772891650E004ADCB1 /* DataLoadingInteractor.swift */; };
 		384E647A2891650E004ADCB1 /* DataLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E64782891650E004ADCB1 /* DataLoadingViewController.swift */; };
@@ -62,6 +60,8 @@
 		38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DA28835353001C38F9 /* SettingsViewController.swift */; };
 		38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DE28835528001C38F9 /* LicensesViewController.swift */; };
 		CD1068872AF95A7300FD5B0E /* NetworkSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068852AF95A7300FD5B0E /* NetworkSelectionViewController.swift */; };
+		CD10688C2AFC333500FD5B0E /* LaunchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10688A2AFC333500FD5B0E /* LaunchInteractor.swift */; };
+		CD10688D2AFC333500FD5B0E /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10688B2AFC333500FD5B0E /* LaunchViewController.swift */; };
 		CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */; };
 		CD36624729281614009FAC8B /* Flogger in Frameworks */ = {isa = PBXBuildFile; productRef = CD36624629281614009FAC8B /* Flogger */; };
 		CD4022E82A34AA2B00027798 /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD4022E72A34AA2B00027798 /* SugarKit */; };
@@ -125,8 +125,6 @@
 		384E6452288DC80E004ADCB1 /* CooperHewitt-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Light.otf"; sourceTree = "<group>"; };
 		384E6453288DC80E004ADCB1 /* CooperHewitt-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-BoldItalic.otf"; sourceTree = "<group>"; };
 		384E6454288DC80E004ADCB1 /* CooperHewitt-HeavyItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-HeavyItalic.otf"; sourceTree = "<group>"; };
-		384E6466288ED61D004ADCB1 /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
-		384E6468288ED62D004ADCB1 /* LaunchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchInteractor.swift; sourceTree = "<group>"; };
 		384E646A288EDAAF004ADCB1 /* Appearence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearence.swift; sourceTree = "<group>"; };
 		384E64772891650E004ADCB1 /* DataLoadingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLoadingInteractor.swift; sourceTree = "<group>"; };
 		384E64782891650E004ADCB1 /* DataLoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLoadingViewController.swift; sourceTree = "<group>"; };
@@ -160,6 +158,8 @@
 		38FD15DA28835353001C38F9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		38FD15DE28835528001C38F9 /* LicensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
 		CD1068852AF95A7300FD5B0E /* NetworkSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSelectionViewController.swift; sourceTree = "<group>"; };
+		CD10688A2AFC333500FD5B0E /* LaunchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchInteractor.swift; sourceTree = "<group>"; };
+		CD10688B2AFC333500FD5B0E /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		CD4022EB2A34ADA600027798 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CD5C58CF2AE4824900143060 /* ChargesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargesRepository.swift; sourceTree = "<group>"; };
@@ -267,15 +267,6 @@
 				384E6443288DBD53004ADCB1 /* AlexBrush-Regular.ttf */,
 			);
 			path = Assets.Fonts;
-			sourceTree = "<group>";
-		};
-		384E6465288ED61D004ADCB1 /* Launch */ = {
-			isa = PBXGroup;
-			children = (
-				384E6468288ED62D004ADCB1 /* LaunchInteractor.swift */,
-				384E6466288ED61D004ADCB1 /* LaunchViewController.swift */,
-			);
-			path = Launch;
 			sourceTree = "<group>";
 		};
 		384E647328915F52004ADCB1 /* Tools */ = {
@@ -429,7 +420,7 @@
 				389F717C28997B2B0007C2E0 /* MenuViewController.swift */,
 				38FD15DA28835353001C38F9 /* SettingsViewController.swift */,
 				384E64762891650E004ADCB1 /* DataLoading */,
-				384E6465288ED61D004ADCB1 /* Launch */,
+				CD1068892AFC333500FD5B0E /* Launch */,
 				CD1068842AF95A7300FD5B0E /* NetworkSelection */,
 				CD8A4BBD28B2755A00EC68E3 /* Prices */,
 			);
@@ -442,6 +433,15 @@
 				CD1068852AF95A7300FD5B0E /* NetworkSelectionViewController.swift */,
 			);
 			path = NetworkSelection;
+			sourceTree = "<group>";
+		};
+		CD1068892AFC333500FD5B0E /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				CD10688A2AFC333500FD5B0E /* LaunchInteractor.swift */,
+				CD10688B2AFC333500FD5B0E /* LaunchViewController.swift */,
+			);
+			path = Launch;
 			sourceTree = "<group>";
 		};
 		CD4022E62A34AA2B00027798 /* Frameworks */ = {
@@ -687,9 +687,9 @@
 				38DF5ABE28707A7E008630FB /* Translations.swift in Sources */,
 				CD81C59B2A6DBDD300E88418 /* Charges.swift in Sources */,
 				CD5C58DA2AE8612100143060 /* Network.swift in Sources */,
-				384E6469288ED62D004ADCB1 /* LaunchInteractor.swift in Sources */,
 				384E642E288D90EF004ADCB1 /* BackgroundScheduler.swift in Sources */,
 				380CE905288AF2040003FF36 /* AppConfiguration.swift in Sources */,
+				CD10688C2AFC333500FD5B0E /* LaunchInteractor.swift in Sources */,
 				384E646B288EDAAF004ADCB1 /* Appearence.swift in Sources */,
 				38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */,
 				38E0FA6E2884803F0096B98A /* EnergyPrice.swift in Sources */,
@@ -701,12 +701,12 @@
 				CDA37DF12ADB24F0004B44B0 /* ChargesService.swift in Sources */,
 				387FF610286B95BB0051E3DC /* global.swift in Sources */,
 				384E643A288DAA56004ADCB1 /* Sourcery.swift in Sources */,
+				CD10688D2AFC333500FD5B0E /* LaunchViewController.swift in Sources */,
 				CD4022EC2A34ADA600027798 /* LoadingView.swift in Sources */,
 				384E6446288DC430004ADCB1 /* Fonts.swift in Sources */,
 				CD8A4BC528BA6DB000EC68E3 /* Price.swift in Sources */,
 				38E0FA722884822C0096B98A /* _Database.swift in Sources */,
 				CDA37DED2AD0A739004B44B0 /* Message.swift in Sources */,
-				384E6467288ED61D004ADCB1 /* LaunchViewController.swift in Sources */,
 				389F717D28997B2C0007C2E0 /* MenuViewController.swift in Sources */,
 				CD5C58D22AE4844B00143060 /* ChargeDatabase.swift in Sources */,
 				CD5C58D42AE59E0200143060 /* NetworkPrice.swift in Sources */,
