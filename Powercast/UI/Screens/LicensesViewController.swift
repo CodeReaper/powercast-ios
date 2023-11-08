@@ -85,7 +85,7 @@ extension LicensesViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
 
         let row = sections[indexPath.section].rows[indexPath.row]
-        navigation.navigate(to: .license(title: row.name, content: row.content))
+        navigate(to: .license(title: row.name, content: row.content))
     }
 
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {

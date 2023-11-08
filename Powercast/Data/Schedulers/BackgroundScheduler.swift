@@ -7,10 +7,14 @@ class BackgroundScheduler {
     private static let identifier = "Powercast.energyprice.refresh"
 
     private let prices: EnergyPriceRepository
+    private let charges: ChargesRepository
+    private let state: StateRepository
     private let notifications: NotificationRepository
 
-    init(prices: EnergyPriceRepository, notifications: NotificationRepository) {
+    init(charges: ChargesRepository, prices: EnergyPriceRepository, state: StateRepository, notifications: NotificationRepository) {
         self.prices = prices
+        self.charges = charges
+        self.state = state
         self.notifications = notifications
     }
 
@@ -45,10 +49,24 @@ class BackgroundScheduler {
             task.setTaskCompleted(success: false)
         }
 
-        // FIXME: refresh charges too
+        guard let network = charges.network(by: state.network.id) else {
+            task.setTaskCompleted(success: true)
+            return
+        }
+
+        let latest = Calendar.current.startOfDay(for: (try? prices.latest(for: network.zone)) ?? Date())
+        let today = Calendar.current.startOfDay(for: Date())
+        let start = Calendar.current.date(byAdding: .day, value: -2, to: latest)!
+        let end = Calendar.current.date(byAdding: .day, value: 2, to: today)!
+
         Task {
             do {
-                try await prices.refresh()
+                try await charges.pullGrid()
+                try await charges.pullNetwork(id: network.id)
+                for date in start.dates(until: end) {
+                    try await prices.pull(zone: network.zone, at: date)
+                }
+
                 Flog.info("Scheduling: Task finished")
                 await notifications.schedule()
                 task.setTaskCompleted(success: true)

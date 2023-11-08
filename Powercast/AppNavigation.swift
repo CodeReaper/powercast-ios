@@ -2,9 +2,9 @@ import UIKit
 import SugarKit
 
 indirect enum Navigation {
-    case intro
-    case regionSelection(configuration: ZoneSelectionViewController.Configuration)
-    case loadData
+    case launch
+    case networkSelection
+    case loadData(network: Network)
     case dashboard
     case settings
     case specificSettings(configuration: [SettingsViewController.Section])
@@ -15,11 +15,12 @@ indirect enum Navigation {
 }
 
 class AppNavigation {
+    private let navigationController = UINavigationController()
+
     private let dependencies: Dependenables
-    private let device: UIUserInterfaceIdiom
 
     private lazy var drawer = Drawer(
-        covering: device == .phone ? 0.65 : 0.25,
+        covering: 0.65,
         drawer: MenuViewController(
             navigation: self,
             configuration: dependencies.configuration
@@ -31,53 +32,66 @@ class AppNavigation {
         )
     )
 
-    private var navigationController = UINavigationController()
-
-    private var hasCompletedIntroduction: Bool { drawer.parent != nil }
+    private var network: Network? {
+        dependencies.chargesRepository.network(by: dependencies.stateRepository.network.id)
+    }
+    private var networks: [Network]? {
+        try? dependencies.energyChargesDatabase.queue.read {
+            try Database.Network.fetchAll($0).compactMap { try? Network.from(model: $0) }
+        }
+    }
 
     private var window: UIWindow?
 
-    init(using dependencies: Dependenables, on device: UIUserInterfaceIdiom) {
+    init(using dependencies: Dependenables) {
         self.dependencies = dependencies
-        self.device = device
     }
 
     func setup(using window: UIWindow) {
         self.window = window
 
-        navigate(to: .intro)
+        navigate(to: .launch)
 
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
     }
 
-    func navigate(to endpoint: Navigation) {
-        guard let window = window else {
-            return
-        }
-
+    func navigate(to endpoint: Navigation) { // swiftlint:disable:this function_body_length
         switch endpoint {
-        case .intro:
-            navigationController.setViewControllers([IntroViewController(navigation: self, state: dependencies.stateRepository.state, databases: dependencies.databases)], animated: false)
-        case let .regionSelection(configuration):
-            navigationController.pushViewController(ZoneSelectionViewController(navigation: self, configuration: configuration, repository: dependencies.stateRepository), animated: true)
-        case .loadData:
-            navigationController.pushViewController(DataLoadingViewController(navigation: self, energyPriceRepository: dependencies.energyPriceRepository, chargesRepository: dependencies.chargesRepository, stateRepository: dependencies.stateRepository), animated: true)
+        case .launch:
+            if network != nil {
+                navigate(to: .dashboard)
+                return
+            }
+            let viewController = LaunchViewController(
+                navigation: self,
+                databases: dependencies.databases,
+                repository: dependencies.chargesRepository,
+                networkId: dependencies.stateRepository.network.id
+            )
+            navigationController.setViewControllers([viewController], animated: true)
+        case .networkSelection:
+            let viewController = NetworkSelectionViewController(
+                navigation: self,
+                repository: dependencies.chargesRepository,
+                networks: networks ?? [],
+                networkId: dependencies.stateRepository.network.id
+            )
+            navigationController.setViewControllers([viewController], animated: true)
+        case let .loadData(network):
+            let viewController = DataLoadingViewController(
+                navigation: self,
+                energyPriceRepository: dependencies.energyPriceRepository,
+                chargesRepository: dependencies.chargesRepository,
+                stateRepository: dependencies.stateRepository,
+                network: network
+            )
+            navigationController.setViewControllers([viewController], animated: true)
         case .menu:
             drawer.set(drawer.state == .opened ? .closed : .opened, animated: true)
         case .dashboard:
-            if hasCompletedIntroduction {
-                drawer.set(.closed, animated: true) {
-                    self.navigationController.setViewControllers([self.drawer], animated: true)
-                }
-            } else {
-                navigationController = UINavigationController(rootViewController: drawer)
-                UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
-                    let oldState = UIView.areAnimationsEnabled
-                    UIView.setAnimationsEnabled(false)
-                    window.rootViewController = self.navigationController
-                    UIView.setAnimationsEnabled(oldState)
-                }, completion: nil)
+            drawer.set(.closed, animated: true) {
+                self.navigationController.setViewControllers([self.drawer], animated: true)
             }
         case .settings:
             navigationController.pushViewController(SettingsViewController(navigation: self, repository: dependencies.stateRepository, sections: nil), animated: true)

@@ -18,7 +18,7 @@ protocol Dependenables: AnyObject {
 }
 
 class App: Dependenables {
-    private lazy var navigation = AppNavigation(using: self as Dependenables, on: UIScreen.main.traitCollection.userInterfaceIdiom)
+    private lazy var navigation = AppNavigation(using: self as Dependenables)
 
     let configuration: AppConfiguration
     let energyChargesDatabase: ChargesDatabase
@@ -37,7 +37,9 @@ class App: Dependenables {
     }
     var scheduler: BackgroundScheduler {
         BackgroundScheduler(
+            charges: chargesRepository,
             prices: energyPriceRepository,
+            state: stateRepository,
             notifications: notificationRepository
         )
     }
@@ -66,13 +68,13 @@ class App: Dependenables {
         notificationRepository.register()
         navigation.setup(using: window)
 
-        if stateRepository.state.setupCompleted {
-            energyPriceRepository.pull()
-            notificationRepository.request() // TODO: move to an intro step
+        // TODO: move somewhere more appropriate like dashboard
+        if stateRepository.network.id != 0 {
+            notificationRepository.request()
+        }
 
-            Task {
-                await notificationRepository.schedule()
-            }
+        Task {
+            await notificationRepository.schedule()
         }
     }
 

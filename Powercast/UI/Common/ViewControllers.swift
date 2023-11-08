@@ -16,4 +16,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = Color.primary
     }
+
+    func navigate(to endpoint: Navigation) {
+        navigation.navigate(to: endpoint)
+    }
 }

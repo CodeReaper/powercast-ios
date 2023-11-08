@@ -5,13 +5,11 @@ import Flogger
 struct NotificationRepository {
     private let delegate = Delegate()
 
-    private let network: Network
     private let charges: ChargesRepository
     private let prices: EnergyPriceRepository
     private let state: StateRepository
 
     init(charges: ChargesRepository, prices: EnergyPriceRepository, state: StateRepository) {
-        self.network = state.state.network
         self.charges = charges
         self.prices = prices
         self.state = state
@@ -30,6 +28,12 @@ struct NotificationRepository {
     }
 
     func schedule() async {
+        let network = state.network
+        guard network.id != 0 else {
+            Flog.info("Network could be resolved")
+            return
+        }
+
         guard
             let prices = try? await self.prices.data(for: network.zone, in: DateInterval(start: Date.now.startOfDay.date(byAdding: .weekOfYear, value: -1), end: Date.now.startOfDay.date(byAdding: .day, value: 2)))
         else {
@@ -52,7 +56,7 @@ struct NotificationRepository {
             state.deliveredNotification(at: deliveryDate)
         }
 
-        for message in messages where message.fireDate.timeIntervalSince1970 > state.state.lastDeliveredNotification {
+        for message in messages where message.fireDate > state.deliveredNotification {
             Flog.info("Prepared this message: \(message.body) in \(message.fireDate.timeIntervalSince(Date.now) / 3600) hours.")
             await show(message: message, at: message.fireDate)
         }

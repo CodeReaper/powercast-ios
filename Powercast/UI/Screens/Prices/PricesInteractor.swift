@@ -10,27 +10,26 @@ protocol PricesDelegate: AnyObject {
 }
 
 class PricesInteractor {
-    private let energyPriceRepository: EnergyPriceRepository
-    private let stateRepository: StateRepository
+    private let prices: EnergyPriceRepository
+    private let state: StateRepository
 
-    private var refresh = false
+    private var nextRefresh = 0.0
 
     private weak var delegate: PricesDelegate?
 
     init(delegate: PricesDelegate, energyPriceRepository: EnergyPriceRepository, stateRepository: StateRepository) {
         self.delegate = delegate
-        self.energyPriceRepository = energyPriceRepository
-        self.stateRepository = stateRepository
+        self.prices = energyPriceRepository
+        self.state = stateRepository
     }
 
     func viewDidLoad() {
         delegate?.show(loading: true)
-        refresh = true
     }
 
     func viewWillAppear() {
         Task {
-            let source = try? energyPriceRepository.source(for: stateRepository.state.network)
+            let source = try? prices.source(for: state.network.id)
 
             DispatchQueue.main.async { [delegate] in
                 defer { delegate?.show(loading: false) }
@@ -41,10 +40,11 @@ class PricesInteractor {
                 delegate?.show(data: source)
             }
 
-            guard refresh else { return }
-            refresh = false
-
-            await refreshAsync()
+            let now = Date().timeIntervalSince1970
+            if now > nextRefresh {
+                nextRefresh = now + 900
+                await refreshAsync()
+            }
         }
     }
 
@@ -62,12 +62,18 @@ class PricesInteractor {
 
     private func refreshAsync() async {
         do {
-            try await energyPriceRepository.refresh() // FIXME: charges too?
+            let latest = Calendar.current.startOfDay(for: (try? prices.latest(for: state.network.zone)) ?? Date())
+            let today = Calendar.current.startOfDay(for: Date())
+            let start = Calendar.current.date(byAdding: .day, value: -2, to: latest)!
+            let end = Calendar.current.date(byAdding: .day, value: 2, to: today)!
+            for date in start.dates(until: end) {
+                try await prices.pull(zone: state.network.zone, at: date)
+            }
         } catch {
             delegate?.showRefreshFailed()
         }
 
-        let updatedSource = try? energyPriceRepository.source(for: stateRepository.state.network)
+        let updatedSource = try? prices.source(for: state.network.id)
 
         DispatchQueue.main.async { [delegate] in
             guard let source = updatedSource else {

@@ -36,32 +36,43 @@ class ChargesRepository {
         return try Charges.from(GridPrice.from(model: grid), and: NetworkPrice.from(model: network))
     }
 
-    func refresh() async throws {
-        let networks = try await service.networks()
-        Flog.info("ChargesRepository: Updating \(networks.count) network rows")
-        try await database.write { db in
-            try networks.map { try Database.Network.from(model: $0) }.forEach { var item = $0; try item.insert(db) }
+    func network(by id: Int) -> Network? {
+        guard let item = try? database.read({ db in
+            try Database.Network.filter(Database.Network.Columns.id == id).fetchOne(db)
+        }) else {
+            return nil
         }
+        return try? Network.from(model: item)
+    }
 
-        let grid = try await service.grid()
-        Flog.info("ChargesRepository: Updating \(grid.count) grid price rows")
+    func pullGrid() async throws {
+        let items = try await service.grid()
+        Flog.info("ChargesRepository: Updating \(items.count) grid price rows")
         try await database.write { db in
-            try grid.map { try Database.GridPrice.from(model: $0) }.forEach { var item = $0; try item.insert(db) }
+            try items.map { try Database.GridPrice.from(model: $0) }.forEach { var item = $0; try item.insert(db) }
         }
+    }
 
-        for item in networks {
-            let network = try await service.network(id: item.id)
-            Flog.info("ChargesRepository: Updating \(network.count) network price rows")
+    func pullNetworks() async throws {
+        let items = try await service.networks()
+        Flog.info("ChargesRepository: Updating \(items.count) network rows")
+        try await database.write { db in
+            try items.map { try Database.Network.from(model: $0) }.forEach { var item = $0; try item.upsert(db) }
+        }
+    }
+
+    func pullNetworks(_ ids: [Int]) async throws {
+        for id in ids {
+            let items = try await service.network(id: id)
+            Flog.info("ChargesRepository: Updating \(items.count) network price rows")
             try await database.write { db in
-                try network.map { try Database.NetworkPrice.from(model: $0) }.forEach { var item = $0; try item.insert(db) }
+                try items.map { try Database.NetworkPrice.from(model: $0) }.forEach { var item = $0; try item.insert(db) }
             }
         }
     }
 
-    func pull() {
-        Task {
-            try await refresh()
-        }
+    func pullNetwork(id: Int) async throws {
+        try await pullNetworks([id])
     }
 }
 

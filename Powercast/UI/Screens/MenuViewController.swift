@@ -44,14 +44,14 @@ class MenuViewController: ViewController {
     }
 
     @objc private func didTapDashboard() {
-        navigation.navigate(to: .dashboard)
+        navigate(to: .dashboard)
     }
 
     @objc private func didTapSettings() {
-        navigation.navigate(to: .settings)
+        navigate(to: .settings)
     }
 
     @objc private func didTapLicense() {
-        navigation.navigate(to: .licenses)
+        navigate(to: .licenses)
     }
 }

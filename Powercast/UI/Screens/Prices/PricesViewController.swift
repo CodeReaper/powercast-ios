@@ -103,7 +103,7 @@ class PricesViewController: ViewController {
     }
 
     @objc private func didTapMenu() {
-        navigation.navigate(to: .menu)
+        navigate(to: .menu)
     }
 
     @objc func didPullToRefresh() {

@@ -15,7 +15,6 @@
 		380CE905288AF2040003FF36 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE904288AF2040003FF36 /* AppConfiguration.swift */; };
 		384E642E288D90EF004ADCB1 /* BackgroundScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E642D288D90EF004ADCB1 /* BackgroundScheduler.swift */; };
 		384E6435288D9E38004ADCB1 /* StateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6434288D9E38004ADCB1 /* StateRepository.swift */; };
-		384E6437288D9FD9004ADCB1 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6436288D9FD9004ADCB1 /* State.swift */; };
 		384E643A288DAA56004ADCB1 /* Sourcery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6439288DAA56004ADCB1 /* Sourcery.swift */; };
 		384E6444288DBD53004ADCB1 /* AlexBrush-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6443288DBD53004ADCB1 /* AlexBrush-Regular.ttf */; };
 		384E6446288DC430004ADCB1 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6445288DC430004ADCB1 /* Fonts.swift */; };
@@ -33,10 +32,9 @@
 		384E6460288DC80E004ADCB1 /* CooperHewitt-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6452288DC80E004ADCB1 /* CooperHewitt-Light.otf */; };
 		384E6461288DC80E004ADCB1 /* CooperHewitt-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6453288DC80E004ADCB1 /* CooperHewitt-BoldItalic.otf */; };
 		384E6462288DC80E004ADCB1 /* CooperHewitt-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6454288DC80E004ADCB1 /* CooperHewitt-HeavyItalic.otf */; };
-		384E6467288ED61D004ADCB1 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6466288ED61D004ADCB1 /* IntroViewController.swift */; };
-		384E6469288ED62D004ADCB1 /* IntroInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6468288ED62D004ADCB1 /* IntroInteractor.swift */; };
+		384E6467288ED61D004ADCB1 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6466288ED61D004ADCB1 /* LaunchViewController.swift */; };
+		384E6469288ED62D004ADCB1 /* LaunchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6468288ED62D004ADCB1 /* LaunchInteractor.swift */; };
 		384E646B288EDAAF004ADCB1 /* Appearence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E646A288EDAAF004ADCB1 /* Appearence.swift */; };
-		384E6470288EDE96004ADCB1 /* ZoneSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E646E288EDE96004ADCB1 /* ZoneSelectionViewController.swift */; };
 		384E64792891650E004ADCB1 /* DataLoadingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E64772891650E004ADCB1 /* DataLoadingInteractor.swift */; };
 		384E647A2891650E004ADCB1 /* DataLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E64782891650E004ADCB1 /* DataLoadingViewController.swift */; };
 		387FF5FA286B909B0051E3DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF5F9286B909B0051E3DC /* AppDelegate.swift */; };
@@ -63,6 +61,7 @@
 		38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15C828833A5B001C38F9 /* AppNavigation.swift */; };
 		38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DA28835353001C38F9 /* SettingsViewController.swift */; };
 		38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DE28835528001C38F9 /* LicensesViewController.swift */; };
+		CD1068872AF95A7300FD5B0E /* NetworkSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068852AF95A7300FD5B0E /* NetworkSelectionViewController.swift */; };
 		CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */; };
 		CD36624729281614009FAC8B /* Flogger in Frameworks */ = {isa = PBXBuildFile; productRef = CD36624629281614009FAC8B /* Flogger */; };
 		CD4022E82A34AA2B00027798 /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD4022E72A34AA2B00027798 /* SugarKit */; };
@@ -78,7 +77,6 @@
 		CD5E309328B2583600DBA019 /* packages in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309128B2583600DBA019 /* packages */; };
 		CD5E309528B25B1800DBA019 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5E309428B25B1800DBA019 /* LicenseViewController.swift */; };
 		CD81C59B2A6DBDD300E88418 /* Charges.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD81C59A2A6DBDD300E88418 /* Charges.swift */; };
-		CD81C5A42A6DEABD00E88418 /* AutoCopyState.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD81C5A12A6DEABD00E88418 /* AutoCopyState.generated.swift */; };
 		CD8801242A61E18300A30B1D /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD8801232A61E18300A30B1D /* SugarKit */; };
 		CD8A4BC028B2755A00EC68E3 /* PricesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BBE28B2755A00EC68E3 /* PricesViewController.swift */; };
 		CD8A4BC128B2755A00EC68E3 /* PricesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BBF28B2755A00EC68E3 /* PricesInteractor.swift */; };
@@ -110,7 +108,6 @@
 		380CE904288AF2040003FF36 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		384E642D288D90EF004ADCB1 /* BackgroundScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundScheduler.swift; sourceTree = "<group>"; };
 		384E6434288D9E38004ADCB1 /* StateRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateRepository.swift; sourceTree = "<group>"; };
-		384E6436288D9FD9004ADCB1 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		384E6439288DAA56004ADCB1 /* Sourcery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sourcery.swift; sourceTree = "<group>"; };
 		384E6443288DBD53004ADCB1 /* AlexBrush-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlexBrush-Regular.ttf"; sourceTree = "<group>"; };
 		384E6445288DC430004ADCB1 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -128,10 +125,9 @@
 		384E6452288DC80E004ADCB1 /* CooperHewitt-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Light.otf"; sourceTree = "<group>"; };
 		384E6453288DC80E004ADCB1 /* CooperHewitt-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-BoldItalic.otf"; sourceTree = "<group>"; };
 		384E6454288DC80E004ADCB1 /* CooperHewitt-HeavyItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-HeavyItalic.otf"; sourceTree = "<group>"; };
-		384E6466288ED61D004ADCB1 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
-		384E6468288ED62D004ADCB1 /* IntroInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroInteractor.swift; sourceTree = "<group>"; };
+		384E6466288ED61D004ADCB1 /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		384E6468288ED62D004ADCB1 /* LaunchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchInteractor.swift; sourceTree = "<group>"; };
 		384E646A288EDAAF004ADCB1 /* Appearence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearence.swift; sourceTree = "<group>"; };
-		384E646E288EDE96004ADCB1 /* ZoneSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoneSelectionViewController.swift; sourceTree = "<group>"; };
 		384E64772891650E004ADCB1 /* DataLoadingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLoadingInteractor.swift; sourceTree = "<group>"; };
 		384E64782891650E004ADCB1 /* DataLoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLoadingViewController.swift; sourceTree = "<group>"; };
 		387FF5F6286B909B0051E3DC /* Powercast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Powercast.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,6 +159,7 @@
 		38FD15C828833A5B001C38F9 /* AppNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigation.swift; sourceTree = "<group>"; };
 		38FD15DA28835353001C38F9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		38FD15DE28835528001C38F9 /* LicensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
+		CD1068852AF95A7300FD5B0E /* NetworkSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSelectionViewController.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		CD4022EB2A34ADA600027798 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CD5C58CF2AE4824900143060 /* ChargesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargesRepository.swift; sourceTree = "<group>"; };
@@ -174,7 +171,6 @@
 		CD5E309128B2583600DBA019 /* packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = packages; sourceTree = "<group>"; };
 		CD5E309428B25B1800DBA019 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
 		CD81C59A2A6DBDD300E88418 /* Charges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charges.swift; sourceTree = "<group>"; };
-		CD81C5A12A6DEABD00E88418 /* AutoCopyState.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCopyState.generated.swift; sourceTree = "<group>"; };
 		CD8A4BBE28B2755A00EC68E3 /* PricesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PricesViewController.swift; sourceTree = "<group>"; };
 		CD8A4BBF28B2755A00EC68E3 /* PricesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PricesInteractor.swift; sourceTree = "<group>"; };
 		CD8A4BC428BA6DB000EC68E3 /* Price.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
@@ -273,13 +269,13 @@
 			path = Assets.Fonts;
 			sourceTree = "<group>";
 		};
-		384E6465288ED61D004ADCB1 /* Intro */ = {
+		384E6465288ED61D004ADCB1 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
-				384E6468288ED62D004ADCB1 /* IntroInteractor.swift */,
-				384E6466288ED61D004ADCB1 /* IntroViewController.swift */,
+				384E6468288ED62D004ADCB1 /* LaunchInteractor.swift */,
+				384E6466288ED61D004ADCB1 /* LaunchViewController.swift */,
 			);
-			path = Intro;
+			path = Launch;
 			sourceTree = "<group>";
 		};
 		384E647328915F52004ADCB1 /* Tools */ = {
@@ -339,7 +335,6 @@
 				380CE8EA288893E30003FF36 /* Assets.Animations */,
 				384E6442288DBD53004ADCB1 /* Assets.Fonts */,
 				CD5E307F28B2540200DBA019 /* Assets.Licenses */,
-				CD81C5A02A6DEABD00E88418 /* Autogenerated */,
 				38E0FA622884759B0096B98A /* Data */,
 				387FF604286B90A40051E3DC /* LaunchScreen.storyboard */,
 				384E647328915F52004ADCB1 /* Tools */,
@@ -412,7 +407,6 @@
 				CD5C58D92AE8612100143060 /* Network.swift */,
 				CD5C58D32AE59E0200143060 /* NetworkPrice.swift */,
 				CD8A4BC428BA6DB000EC68E3 /* Price.swift */,
-				384E6436288D9FD9004ADCB1 /* State.swift */,
 				38E0FA6F2884808D0096B98A /* Zone.swift */,
 			);
 			path = Models;
@@ -434,12 +428,20 @@
 				CD5E309428B25B1800DBA019 /* LicenseViewController.swift */,
 				389F717C28997B2B0007C2E0 /* MenuViewController.swift */,
 				38FD15DA28835353001C38F9 /* SettingsViewController.swift */,
-				384E646E288EDE96004ADCB1 /* ZoneSelectionViewController.swift */,
 				384E64762891650E004ADCB1 /* DataLoading */,
-				384E6465288ED61D004ADCB1 /* Intro */,
+				384E6465288ED61D004ADCB1 /* Launch */,
+				CD1068842AF95A7300FD5B0E /* NetworkSelection */,
 				CD8A4BBD28B2755A00EC68E3 /* Prices */,
 			);
 			path = Screens;
+			sourceTree = "<group>";
+		};
+		CD1068842AF95A7300FD5B0E /* NetworkSelection */ = {
+			isa = PBXGroup;
+			children = (
+				CD1068852AF95A7300FD5B0E /* NetworkSelectionViewController.swift */,
+			);
+			path = NetworkSelection;
 			sourceTree = "<group>";
 		};
 		CD4022E62A34AA2B00027798 /* Frameworks */ = {
@@ -456,14 +458,6 @@
 				CD5E309128B2583600DBA019 /* packages */,
 			);
 			path = Assets.Licenses;
-			sourceTree = "<group>";
-		};
-		CD81C5A02A6DEABD00E88418 /* Autogenerated */ = {
-			isa = PBXGroup;
-			children = (
-				CD81C5A12A6DEABD00E88418 /* AutoCopyState.generated.swift */,
-			);
-			path = Autogenerated;
 			sourceTree = "<group>";
 		};
 		CD8A4BBD28B2755A00EC68E3 /* Prices */ = {
@@ -678,8 +672,8 @@
 				384E6435288D9E38004ADCB1 /* StateRepository.swift in Sources */,
 				38E0FA652884759B0096B98A /* EnergyPriceRepository.swift in Sources */,
 				CD8A4BC128B2755A00EC68E3 /* PricesInteractor.swift in Sources */,
+				CD1068872AF95A7300FD5B0E /* NetworkSelectionViewController.swift in Sources */,
 				CD5E309528B25B1800DBA019 /* LicenseViewController.swift in Sources */,
-				384E6437288D9FD9004ADCB1 /* State.swift in Sources */,
 				38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */,
 				CD5C58D02AE4824900143060 /* ChargesRepository.swift in Sources */,
 				CDA0E40A2AC8C0DA00FF364D /* Evaluation.swift in Sources */,
@@ -693,9 +687,8 @@
 				38DF5ABE28707A7E008630FB /* Translations.swift in Sources */,
 				CD81C59B2A6DBDD300E88418 /* Charges.swift in Sources */,
 				CD5C58DA2AE8612100143060 /* Network.swift in Sources */,
-				384E6469288ED62D004ADCB1 /* IntroInteractor.swift in Sources */,
+				384E6469288ED62D004ADCB1 /* LaunchInteractor.swift in Sources */,
 				384E642E288D90EF004ADCB1 /* BackgroundScheduler.swift in Sources */,
-				384E6470288EDE96004ADCB1 /* ZoneSelectionViewController.swift in Sources */,
 				380CE905288AF2040003FF36 /* AppConfiguration.swift in Sources */,
 				384E646B288EDAAF004ADCB1 /* Appearence.swift in Sources */,
 				38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */,
@@ -707,14 +700,13 @@
 				38ECF94D289C467B00ED8372 /* TimeInterval.swift in Sources */,
 				CDA37DF12ADB24F0004B44B0 /* ChargesService.swift in Sources */,
 				387FF610286B95BB0051E3DC /* global.swift in Sources */,
-				CD81C5A42A6DEABD00E88418 /* AutoCopyState.generated.swift in Sources */,
 				384E643A288DAA56004ADCB1 /* Sourcery.swift in Sources */,
 				CD4022EC2A34ADA600027798 /* LoadingView.swift in Sources */,
 				384E6446288DC430004ADCB1 /* Fonts.swift in Sources */,
 				CD8A4BC528BA6DB000EC68E3 /* Price.swift in Sources */,
 				38E0FA722884822C0096B98A /* _Database.swift in Sources */,
 				CDA37DED2AD0A739004B44B0 /* Message.swift in Sources */,
-				384E6467288ED61D004ADCB1 /* IntroViewController.swift in Sources */,
+				384E6467288ED61D004ADCB1 /* LaunchViewController.swift in Sources */,
 				389F717D28997B2C0007C2E0 /* MenuViewController.swift in Sources */,
 				CD5C58D22AE4844B00143060 /* ChargeDatabase.swift in Sources */,
 				CD5C58D42AE59E0200143060 /* NetworkPrice.swift in Sources */,

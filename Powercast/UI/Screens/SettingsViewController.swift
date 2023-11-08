@@ -9,12 +9,10 @@ class SettingsViewController: ViewController {
 
     private var sections: [Section]!
 
-    private var stateSink: AnyCancellable?
-
     init(navigation: AppNavigation, repository: StateRepository, sections: [Section]? = nil) {
         self.repository = repository
         super.init(navigation: navigation)
-        self.sections = sections ?? buildSettings(state: repository.state)
+        self.sections = sections ?? buildSettings(state: repository)
     }
 
     required init?(coder: NSCoder) {
@@ -40,15 +38,12 @@ class SettingsViewController: ViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        stateSink = repository.publishedState.receive(on: DispatchQueue.main).sink { [weak self, buildSettings] in
-            self?.sections = buildSettings($0)
-            self?.tableView.reloadData()
-        }
+        repository.add(observer: self)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
+        repository.remove(observer: self)
         super.viewWillDisappear(animated)
-        stateSink = nil
     }
 
     struct Section {
@@ -113,14 +108,28 @@ extension SettingsViewController: UITableViewDelegate {
     }
 }
 
+extension SettingsViewController: Observer {
+    func updated() {
+        DispatchQueue.main.async {
+            self.sections = self.buildSettings(state: self.repository)
+            self.tableView.reloadData()
+        }
+    }
+}
+
 extension SettingsViewController {
-    func buildSettings(state: State) -> [Section] {
-        return [
-            SettingsViewController.Section(title: Translations.SETTINGS_ZONE_TITLE, rows: [
-                .item(label: Translations.SETTINGS_ZONE_ZONE_TITLE, detailLabel: state.selectedZone.name, onSelection: { [navigation] in
-                    navigation.navigate(to: .regionSelection(configuration: ZoneSelectionViewController.Configuration(behavior: .pop)))
-                })
-            ])
+    func buildSettings(state repository: StateRepository) -> [Section] {
+        // TODO: settings for notifications
+        // FIXME: translations
+        [
+            SettingsViewController.Section(
+                title: Translations.SETTINGS_ZONE_TITLE,
+                rows: [
+                    .item(label: Translations.SETTINGS_ZONE_ZONE_TITLE, detailLabel: "\(repository.network.name)", onSelection: { [navigation] in
+                        navigation.navigate(to: .networkSelection)
+                    })
+                ]
+            )
         ]
     }
 }

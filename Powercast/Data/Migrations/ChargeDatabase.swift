@@ -35,7 +35,7 @@ struct ChargesDatabase: Migratable {
                 table.column("validFrom", .datetime).notNull().indexed()
                 table.column("validTo", .datetime)
                 table.column("loadTariff", .jsonText).notNull()
-                table.column("networkId", .integer).indexed().references("network", onDelete: .restrict)
+                table.column("networkId", .integer).indexed().references("network", onDelete: .cascade)
             }
         }
 
