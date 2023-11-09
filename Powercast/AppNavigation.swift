@@ -73,8 +73,7 @@ class AppNavigation {
             let viewController = NetworkSelectionViewController(
                 navigation: self,
                 repository: dependencies.chargesRepository,
-                networks: networks ?? [],
-                networkId: dependencies.stateRepository.network.id
+                networks: networks ?? []
             )
             navigationController.setViewControllers([viewController], animated: true)
         case let .loadData(network):

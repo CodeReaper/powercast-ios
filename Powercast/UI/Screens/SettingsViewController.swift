@@ -52,7 +52,7 @@ class SettingsViewController: ViewController {
     }
 
     enum Row {
-        case item(label: String, detailLabel: String, onSelection: (() -> Void)?)
+        case item(label: String, detailLabel: String?, onSelection: (() -> Void)?)
     }
 
     private class Cell: UITableViewCell {
@@ -119,13 +119,11 @@ extension SettingsViewController: Observer {
 
 extension SettingsViewController {
     func buildSettings(state repository: StateRepository) -> [Section] {
-        // TODO: settings for notifications
-        // FIXME: translations
         [
             SettingsViewController.Section(
-                title: Translations.SETTINGS_ZONE_TITLE,
+                title: Translations.SETTINGS_NETWORK_TITLE,
                 rows: [
-                    .item(label: Translations.SETTINGS_ZONE_ZONE_TITLE, detailLabel: "\(repository.network.name)", onSelection: { [navigation] in
+                    .item(label: repository.network.name, detailLabel: nil, onSelection: { [navigation] in
                         navigation.navigate(to: .networkSelection)
                     })
                 ]

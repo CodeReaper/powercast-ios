@@ -109,6 +109,7 @@ class App: Dependenables {
     private class func setupDatabase(at url: URL, using config: Configuration, and configuration: AppConfiguration) -> DatabaseQueue {
         var config = config
         if configuration.traceDatabaseStatments {
+            NSLog("enabled tracing for: \(url.path)")
             config.prepareDatabase { db in
                 db.trace { print($0) }
             }

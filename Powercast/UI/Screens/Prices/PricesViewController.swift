@@ -26,9 +26,9 @@ class PricesViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = Translations.DASHBOARD_TITLE
+        title = Translations.PRICES_TITLE
 
-        let item = UINavigationItem(title: Translations.DASHBOARD_TITLE)
+        let item = UINavigationItem(title: Translations.PRICES_TITLE)
         item.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "sidebar.trailing"), style: .plain, target: self, action: #selector(didTapMenu))
 
         let bar = UINavigationBar()
