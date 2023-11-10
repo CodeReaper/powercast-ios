@@ -62,6 +62,7 @@
 		CD1068872AF95A7300FD5B0E /* NetworkSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068852AF95A7300FD5B0E /* NetworkSelectionViewController.swift */; };
 		CD10688C2AFC333500FD5B0E /* LaunchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10688A2AFC333500FD5B0E /* LaunchInteractor.swift */; };
 		CD10688D2AFC333500FD5B0E /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10688B2AFC333500FD5B0E /* LaunchViewController.swift */; };
+		CD10688F2AFEF62D00FD5B0E /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10688E2AFEF62D00FD5B0E /* Observer.swift */; };
 		CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */; };
 		CD36624729281614009FAC8B /* Flogger in Frameworks */ = {isa = PBXBuildFile; productRef = CD36624629281614009FAC8B /* Flogger */; };
 		CD4022E82A34AA2B00027798 /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD4022E72A34AA2B00027798 /* SugarKit */; };
@@ -160,6 +161,7 @@
 		CD1068852AF95A7300FD5B0E /* NetworkSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSelectionViewController.swift; sourceTree = "<group>"; };
 		CD10688A2AFC333500FD5B0E /* LaunchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchInteractor.swift; sourceTree = "<group>"; };
 		CD10688B2AFC333500FD5B0E /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		CD10688E2AFEF62D00FD5B0E /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		CD4022EB2A34ADA600027798 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CD5C58CF2AE4824900143060 /* ChargesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargesRepository.swift; sourceTree = "<group>"; };
@@ -275,8 +277,9 @@
 				384E646A288EDAAF004ADCB1 /* Appearence.swift */,
 				38ECF94A289B0ACF00ED8372 /* Date.swift */,
 				CDA0E4092AC8C0DA00FF364D /* Evaluation.swift */,
-				38ECF94C289C467B00ED8372 /* TimeInterval.swift */,
 				CDA37DEC2AD0A739004B44B0 /* Message.swift */,
+				CD10688E2AFEF62D00FD5B0E /* Observer.swift */,
+				38ECF94C289C467B00ED8372 /* TimeInterval.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -700,6 +703,7 @@
 				38ECF94D289C467B00ED8372 /* TimeInterval.swift in Sources */,
 				CDA37DF12ADB24F0004B44B0 /* ChargesService.swift in Sources */,
 				387FF610286B95BB0051E3DC /* global.swift in Sources */,
+				CD10688F2AFEF62D00FD5B0E /* Observer.swift in Sources */,
 				384E643A288DAA56004ADCB1 /* Sourcery.swift in Sources */,
 				CD10688D2AFC333500FD5B0E /* LaunchViewController.swift in Sources */,
 				CD4022EC2A34ADA600027798 /* LoadingView.swift in Sources */,

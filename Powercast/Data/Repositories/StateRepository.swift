@@ -73,7 +73,3 @@ extension Network {
         Network(id: 0, name: "", zone: .dk1)
     }
 }
-
-protocol Observer: AnyObject {
-    func updated()
-}

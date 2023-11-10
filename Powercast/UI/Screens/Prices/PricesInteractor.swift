@@ -10,6 +10,8 @@ protocol PricesDelegate: AnyObject {
 }
 
 class PricesInteractor {
+    let timeBetweenRefreshes: TimeInterval = 900
+
     private let prices: EnergyPriceRepository
     private let state: StateRepository
 
@@ -42,7 +44,7 @@ class PricesInteractor {
 
             let now = Date().timeIntervalSince1970
             if now > nextRefresh {
-                nextRefresh = now + 900
+                nextRefresh = now + timeBetweenRefreshes
                 await refreshAsync()
             }
         }
