@@ -1,24 +1,23 @@
 import Foundation
 import SugarKit
 
-protocol IntroDelegate: AnyObject {
-    func showIntroduction()
-    func showDashboard()
+protocol LaunchDelegate: AnyObject {
+    func showNetworkSelection()
 }
 
-struct IntroInteractor {
+struct LaunchInteractor {
     private let databases: [Migratable]
-    private let state: State
+    private let repository: ChargesRepository
 
-    private weak var delegate: IntroDelegate?
+    private weak var delegate: LaunchDelegate?
 
-    init(delegate: IntroDelegate, state: State, databases: [Migratable]) {
+    init(delegate: LaunchDelegate, databases: [Migratable], repository: ChargesRepository) {
         self.delegate = delegate
-        self.state = state
         self.databases = databases
+        self.repository = repository
     }
 
-    func viewDidLoad() {
+    func viewWillAppear() {
         let dispatch = DispatchGroup()
 
         dispatch.enter()
@@ -37,12 +36,14 @@ struct IntroInteractor {
         }
         // swiftlint:enable force_try
 
+        dispatch.enter()
+        Task {
+            try? await repository.pullNetworks()
+            dispatch.leave()
+        }
+
         dispatch.notify(queue: .main) {
-            if state.setupCompleted {
-                delegate?.showDashboard()
-            } else {
-                delegate?.showIntroduction()
-            }
+            delegate?.showNetworkSelection()
         }
     }
 }

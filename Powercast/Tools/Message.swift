@@ -4,7 +4,7 @@ struct Message {
     let body: String
     let fireDate: Date
 
-    static func of(_ evaluations: [Evaluation], using charges: ChargesService, at date: Date = .now) -> [Message] {
+    static func of(_ evaluations: [Evaluation], using charges: ChargesRepository, at date: Date = .now) -> [Message] {
         let startOfDay = date.startOfDay
         let tomorrow = date.endOfDay
         let boundaries = [
@@ -26,7 +26,7 @@ struct Message {
         return messages
     }
 
-    private init?(for boundary: Boundary, with evaluations: [Evaluation], using charges: ChargesService) {
+    private init?(for boundary: Boundary, with evaluations: [Evaluation], using charges: ChargesRepository) {
         let evaluations = evaluations.filter { boundary.period.contains($0.model.timestamp) }
         guard evaluations.count > 0 else {
             return nil
@@ -51,10 +51,19 @@ struct Message {
             status = Translations.NOTIFICATION_VALUE_STATUS_HIGH
         }
 
-        let high = evaluations.reduce(EnergyPrice(price: -Double.infinity, zone: .dk1, timestamp: Date.now), { $0.price < $1.model.price ? $1.model : $0 })
-        let low = evaluations.reduce(EnergyPrice(price: Double.infinity, zone: .dk1, timestamp: Date.now), { $0.price > $1.model.price ? $1.model : $0 })
-        let lowPrice = NumberFormatter.with(style: .decimal, fractionDigits: 0).string(from: charges.for(low.timestamp).format(low.price, at: low.timestamp) as NSNumber)!
-        let highPrice = NumberFormatter.with(style: .decimal, fractionDigits: 0).string(from: charges.for(high.timestamp).format(high.price, at: high.timestamp) as NSNumber)!
+        var high = evaluations.first!
+        var low = evaluations.first!
+        for item in evaluations {
+            if low.model.price > item.model.price {
+                low = item
+            }
+            if high.model.price < item.model.price {
+                high = item
+            }
+        }
+
+        let lowPrice = NumberFormatter.with(style: .decimal, fractionDigits: 0).string(from: low.charges.format(low.model.price, at: low.model.timestamp) as NSNumber)!
+        let highPrice = NumberFormatter.with(style: .decimal, fractionDigits: 0).string(from: high.charges.format(high.model.price, at: high.model.timestamp) as NSNumber)!
         let range = Translations.NOTIFICATION_TEMPLATE_RANGE("\(lowPrice)", "\(highPrice)")
 
         self.body = Translations.NOTIFICATION_TEMPLATE_BODY("\(time)", "\(status)", "\(range)")

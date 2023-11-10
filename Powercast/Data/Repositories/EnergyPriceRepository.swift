@@ -5,23 +5,13 @@ import Flogger
 
 class EnergyPriceRepository {
     private let database: DatabaseQueue
-    private let service: PowercastDataService
-    private let charges: ChargesService
+    private let service: EnergyPriceService
+    private let repository: ChargesRepository
 
-    init(database: DatabaseQueue, service: PowercastDataService, charges: ChargesService) {
+    init(database: DatabaseQueue, service: EnergyPriceService, repository: ChargesRepository) {
         self.database = database
         self.service = service
-        self.charges = charges
-    }
-
-    func data(in interval: DateInterval) async throws -> [EnergyPrice] {
-        let items = try await database.read { db in
-            return try Database.EnergyPrice
-                .filter(Database.EnergyPrice.Columns.timestamp >= interval.start)
-                .filter(Database.EnergyPrice.Columns.timestamp <= interval.end)
-                .fetchAll(db)
-        }
-        return items.map { EnergyPrice.from(model: $0) }
+        self.repository = repository
     }
 
     func data(for zone: Zone, in interval: DateInterval) async throws -> [EnergyPrice] {
@@ -46,26 +36,15 @@ class EnergyPriceRepository {
         }
     }
 
-    func source(for zone: Zone) throws -> PriceTableDatasource {
-        return try TableDatasource(database: database, zone: zone, charges: charges)
+    // TODO: move into separate table source class
+    func source(for networkId: Int) throws -> PriceTableDatasource {
+        return try TableDatasource(database: database, networkId: networkId, repository: repository)
     }
 
-    func refresh(in zone: Zone) async throws {
-        let max = try await database.read { db in
-            return try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.max(Database.EnergyPrice.Columns.timestamp)).filter(Database.EnergyPrice.Columns.zone == zone.rawValue))
-        } ?? Date()
+    func pull(zone: Zone, at date: Date) async throws {
+        guard let items: [EnergyPrice] = try? await service.data(for: zone, at: date) else { return }
 
-        let start = Calendar.current.date(byAdding: .day, value: -2, to: max)!
-        let end = Calendar.current.date(byAdding: .day, value: 2, to: Calendar.current.startOfDay(for: Date()))!
-
-        var items: [EnergyPrice] = []
-        for date in start.dates(until: end) {
-            guard let list = try? await service.data(for: zone, at: date) else { break }
-
-            items.append(contentsOf: list)
-        }
-
-        Flog.info("EnergyPriceRepository: Updating \(items.count) items")
+        Flog.info("EnergyPriceRepository: Updating \(items.count) items in \(zone)")
 
         try await database.write { [items] db in
             try items.map { Database.EnergyPrice.from(model: $0) }.forEach {
@@ -75,34 +54,14 @@ class EnergyPriceRepository {
         }
     }
 
-    func pull(zone: Zone) {
-        guard let min = try? database.read({ db in
-            try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.min(Database.EnergyPrice.Columns.timestamp)).filter(Database.EnergyPrice.Columns.zone == zone.rawValue))
-        }) else { return }
-
-        let dates = Date.year2000.dates(until: min).reversed().prefix(30)
-
-        Task {
-            for date in dates {
-                let items = try await service.data(for: zone, at: date)
-                try await database.write { db in
-                    try items.map { Database.EnergyPrice.from(model: $0) }.forEach {
-                        var item = $0
-                        try item.insert(db)
-                    }
-                }
-            }
-        }
-    }
-
     private class TableDatasource: PriceTableDatasource {
         private let database: DatabaseQueue
-        private let zone: Zone
-        private let charges: ChargesService
+        private let network: Network
+        private let repository: ChargesRepository
         private let items: [[Date]]
         private let sections: [Date]
 
-        init(database: DatabaseQueue, zone: Zone, charges: ChargesService) throws {
+        init(database: DatabaseQueue, networkId: Int, repository: ChargesRepository) throws {
             let max = try database.read { db in
                 return try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.max(Database.EnergyPrice.Columns.timestamp)))
             }
@@ -111,7 +70,7 @@ class EnergyPriceRepository {
             }
 
             let calendar = Calendar.current
-            guard let max = max, let min = min, var tomorrow = calendar.nextDate(after: min, matching: DateComponents(hour: 0), matchingPolicy: .strict), max > min else {
+            guard let network = repository.network(by: networkId), let max = max, let min = min, var tomorrow = calendar.nextDate(after: min, matching: DateComponents(hour: 0), matchingPolicy: .strict), max > min else {
                 throw Failure.dataMissing
             }
 
@@ -134,8 +93,8 @@ class EnergyPriceRepository {
             self.items = items.reversed()
             self.sections = sections.reversed()
             self.database = database
-            self.zone = zone
-            self.charges = charges
+            self.network = network
+            self.repository = repository
         }
 
         var sectionCount: Int { sections.count }
@@ -150,7 +109,7 @@ class EnergyPriceRepository {
 
             let models = try? database.read { db in
                 return try Database.EnergyPrice
-                    .filter(Database.EnergyPrice.Columns.zone == zone.rawValue)
+                    .filter(Database.EnergyPrice.Columns.zone == network.zone.rawValue)
                     .filter(Database.EnergyPrice.Columns.timestamp >= min)
                     .filter(Database.EnergyPrice.Columns.timestamp <= max)
                     .order(Database.EnergyPrice.Columns.timestamp.desc)
@@ -160,9 +119,11 @@ class EnergyPriceRepository {
             }
 
             let target = dates[indexPath.item]
-            guard let models = models, let model = models.first(where: { $0.timestamp == target }) else { return nil }
-
-            let charges = self.charges.for(model.timestamp)
+            guard
+                let models = models,
+                let model = models.first(where: { $0.timestamp == target }),
+                let charges = try? repository.charges(for: network, at: model.timestamp)
+            else { return nil }
 
             return Price(
                 price: charges.format(model.price, at: model.timestamp),

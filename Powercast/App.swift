@@ -7,8 +7,10 @@ protocol Dependenables: AnyObject {
 
     var databases: [Migratable] { get }
 
+    var energyChargesDatabase: ChargesDatabase { get }
     var energyPriceDatabase: EnergyPriceDatabase { get }
 
+    var chargesRepository: ChargesRepository { get }
     var energyPriceRepository: EnergyPriceRepository { get }
     var stateRepository: StateRepository { get }
 
@@ -16,25 +18,28 @@ protocol Dependenables: AnyObject {
 }
 
 class App: Dependenables {
-    private lazy var navigation = AppNavigation(using: self as Dependenables, on: UIScreen.main.traitCollection.userInterfaceIdiom)
+    private lazy var navigation = AppNavigation(using: self as Dependenables)
 
     let configuration: AppConfiguration
+    let energyChargesDatabase: ChargesDatabase
     let energyPriceDatabase: EnergyPriceDatabase
     let stateRepository = StateRepository()
     let databases: [Migratable]
 
-    lazy var energyPriceRepository = EnergyPriceRepository(database: energyPriceDatabase.queue, service: PowercastDataServiceAPI(), charges: ChargesServiceHardcoded())
+    lazy var chargesRepository = ChargesRepository(database: energyChargesDatabase.queue, service: ChargesServiceAPI())
+    lazy var energyPriceRepository = EnergyPriceRepository(database: energyPriceDatabase.queue, service: EnergyPriceServiceAPI(), repository: chargesRepository)
     var notificationRepository: NotificationRepository {
         NotificationRepository(
-            charges: ChargesServiceHardcoded(),
+            charges: chargesRepository,
             prices: energyPriceRepository,
             state: stateRepository
         )
     }
     var scheduler: BackgroundScheduler {
         BackgroundScheduler(
-            zone: stateRepository.state.selectedZone,
+            charges: chargesRepository,
             prices: energyPriceRepository,
+            state: stateRepository,
             notifications: notificationRepository
         )
     }
@@ -42,7 +47,8 @@ class App: Dependenables {
     init(configuration: AppConfiguration) {
         self.configuration = configuration
         self.energyPriceDatabase = Self.setupEnergyPriceDatabase(configuration)
-        self.databases = [energyPriceDatabase]
+        self.energyChargesDatabase = Self.setupEnergyChargesDatabase(configuration)
+        self.databases = [energyPriceDatabase, energyChargesDatabase]
     }
 
     func didLaunch(with window: UIWindow) {
@@ -62,13 +68,13 @@ class App: Dependenables {
         notificationRepository.register()
         navigation.setup(using: window)
 
-        if stateRepository.state.setupCompleted {
-            energyPriceRepository.pull(zone: stateRepository.state.selectedZone)
-            notificationRepository.request() // TODO: move to an intro step
+        // TODO: move somewhere more appropriate like dashboard
+        if stateRepository.network.id != 0 {
+            notificationRepository.request()
+        }
 
-            Task {
-                await notificationRepository.schedule()
-            }
+        Task {
+            await notificationRepository.schedule()
         }
     }
 
@@ -79,6 +85,16 @@ class App: Dependenables {
     }
 
     // MARK: - setups
+
+    private class func setupEnergyChargesDatabase(_ configuration: AppConfiguration) -> ChargesDatabase {
+        var config = Configuration()
+        config.label = "EnergyCharges"
+
+        let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("energyCharges.db")
+        let database = setupDatabase(at: url, using: config, and: configuration)
+
+        return ChargesDatabase(queue: database, configuration: configuration)
+    }
 
     private class func setupEnergyPriceDatabase(_ configuration: AppConfiguration) -> EnergyPriceDatabase {
         var config = Configuration()
@@ -93,6 +109,7 @@ class App: Dependenables {
     private class func setupDatabase(at url: URL, using config: Configuration, and configuration: AppConfiguration) -> DatabaseQueue {
         var config = config
         if configuration.traceDatabaseStatments {
+            NSLog("enabled tracing for: \(url.path)")
             config.prepareDatabase { db in
                 db.trace { print($0) }
             }

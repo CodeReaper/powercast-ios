@@ -19,12 +19,6 @@ struct EnergyPriceDatabase: Migratable {
                 table.column("timestamp", .integer).notNull().indexed()
                 table.column("price", .double).notNull()
             }
-            try db.create(table: "energyPriceSource") { table in
-                table.primaryKey(["timestamp", "zone"], onConflict: .replace)
-                table.column("zone", .text).notNull().indexed()
-                table.column("timestamp", .integer).notNull().indexed()
-                table.column("fetched", .boolean).notNull().indexed()
-            }
         }
 
         try migrator.migrate(queue)

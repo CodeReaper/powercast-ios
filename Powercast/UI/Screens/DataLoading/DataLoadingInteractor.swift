@@ -8,18 +8,22 @@ protocol DataLoadingDelegate: AnyObject {
 class DataLoadingInteractor {
     private let navigation: AppNavigation
     private let energyPriceRepository: EnergyPriceRepository
+    private let chargesRepository: ChargesRepository
     private let stateRepository: StateRepository
+    private let network: Network
 
     private var statusSink: AnyCancellable?
     private var refreshTask: Task<Void, Never>?
 
     private weak var delegate: DataLoadingDelegate?
 
-    init(navigation: AppNavigation, delegate: DataLoadingDelegate, energyPriceRepository: EnergyPriceRepository, stateRepository: StateRepository) {
+    init(navigation: AppNavigation, delegate: DataLoadingDelegate, energyPriceRepository: EnergyPriceRepository, chargesRepository: ChargesRepository, stateRepository: StateRepository, network: Network) {
         self.navigation = navigation
         self.delegate = delegate
         self.energyPriceRepository = energyPriceRepository
+        self.chargesRepository = chargesRepository
         self.stateRepository = stateRepository
+        self.network = network
     }
 
     func viewDidLoad() {
@@ -33,10 +37,18 @@ class DataLoadingInteractor {
     private func update() {
         Task {
             let minimumTime = DispatchTime.now() + 2
-            let zone = stateRepository.state.selectedZone
             let success: Bool
             do {
-                try await energyPriceRepository.refresh(in: zone)
+                try await chargesRepository.pullNetworks()
+                try await chargesRepository.pullGrid()
+                try await chargesRepository.pullNetwork(id: network.id)
+
+                let today = Calendar.current.startOfDay(for: Date())
+                let start = Calendar.current.date(byAdding: .day, value: -14, to: today)!
+                let end = Calendar.current.date(byAdding: .day, value: 2, to: today)!
+                for date in start.dates(until: end) {
+                    try await energyPriceRepository.pull(zone: network.zone, at: date)
+                }
                 success = true
             } catch {
                 success = false
@@ -44,9 +56,8 @@ class DataLoadingInteractor {
 
             DispatchQueue.main.asyncAfter(deadline: success ? minimumTime : DispatchTime.now()) { [self] in
                 if success {
-                    stateRepository.setupCompleted()
+                    stateRepository.select(network: network)
                     navigation.navigate(to: .dashboard)
-                    energyPriceRepository.pull(zone: zone)
                 } else {
                     delegate?.displayFailed()
                 }

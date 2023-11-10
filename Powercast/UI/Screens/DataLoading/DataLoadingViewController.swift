@@ -6,9 +6,16 @@ class DataLoadingViewController: ViewController {
 
     private var interactor: DataLoadingInteractor!
 
-    init(navigation: AppNavigation, energyPriceRepository: EnergyPriceRepository, stateRepository: StateRepository) {
+    init(navigation: AppNavigation, energyPriceRepository: EnergyPriceRepository, chargesRepository: ChargesRepository, stateRepository: StateRepository, network: Network) {
         super.init(navigation: navigation)
-        interactor = DataLoadingInteractor(navigation: navigation, delegate: self, energyPriceRepository: energyPriceRepository, stateRepository: stateRepository)
+        interactor = DataLoadingInteractor(
+            navigation: navigation,
+            delegate: self,
+            energyPriceRepository: energyPriceRepository,
+            chargesRepository: chargesRepository,
+            stateRepository: stateRepository,
+            network: network
+        )
     }
 
     required init?(coder: NSCoder) {
@@ -47,7 +54,7 @@ class DataLoadingViewController: ViewController {
 
 extension DataLoadingViewController: DataLoadingDelegate {
     func displayFailed() {
-        navigation.navigate(to: .actionSheet(options: [
+        navigate(to: .actionSheet(options: [
             ActionSheetOption.title(text: Translations.DATA_LOADING_REFRESH_FAILED_TITLE),
             .message(text: Translations.DATA_LOADING_REFRESH_FAILED_MESSAGE),
             .style(preference: .alert),
