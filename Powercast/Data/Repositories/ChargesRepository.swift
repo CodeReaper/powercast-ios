@@ -3,7 +3,7 @@ import Combine
 import GRDB
 import Flogger
 
-class ChargesRepository {
+class ChargesRepository: ChargesLookup {
     private let database: DatabaseQueue
     private let service: ChargesService
 
@@ -79,4 +79,8 @@ class ChargesRepository {
 enum ChargesRepositoryError: Error {
     case noNetworkPrice(id: Int, zone: Zone, date: Date)
     case noGridPrice(zone: Zone, date: Date)
+}
+
+protocol ChargesLookup {
+    func charges(for network: Network, at date: Date) throws -> Charges
 }

@@ -2,15 +2,16 @@ import XCTest
 @testable import Powercast
 
 final class EvaluationTests: XCTestCase {
-    struct ChargesServiceMock: ChargesService {
+    struct ChargesLookupMock: ChargesLookup {
         let charges: Charges
 
-        func `for`(_ date: Date) -> Powercast.Charges {
+        func charges(for network: Network, at date: Date) throws -> Charges {
             return charges
         }
     }
 
-    private let service = ChargesServiceMock(charges: Charges(validityPeriod: DateInterval(), conversionRate: 750, valueAddedTax: 0, transmissionTariff: 10, systemTariff: 10, electricityCharge: 10, loadTariffs: [:]))
+    private let network = Network.empty
+    private let lookup = ChargesLookupMock(charges: Charges(transmissionTariff: 10, systemTariff: 10, electricityCharge: 10, loadTariffs: [:]))
 
     func testOnlyRelevantEvaluationsAreReturned() {
         let cases = [
@@ -28,7 +29,7 @@ final class EvaluationTests: XCTestCase {
         for (count, offset, expected) in cases {
             let items = EnergyPrices.make(count, startingAt: date.date(byAdding: .hour, value: offset))
 
-            let results = Evaluation.of(items, after: date, using: service)
+            let results = Evaluation.of(items, after: date, using: lookup, and: network)
 
             XCTContext.runActivity(named: "Test making \(count) items staring \(offset) hours ago and expecting to get \(expected) relevant evaluations") { _ in
                 XCTAssertEqual(results.count, expected)
@@ -40,7 +41,7 @@ final class EvaluationTests: XCTestCase {
         let date = Date.now.date(bySetting: .second, value: 0).date(bySetting: .minute, value: 0).date(bySetting: .hour, value: 0)
         let items = EnergyPrices.make(10, startingAt: date)
 
-        let results = Evaluation.of(items, after: date, using: service)
+        let results = Evaluation.of(items, after: date, using: lookup, and: network)
 
         XCTAssertEqual(results.count, 10)
         for result in results {
@@ -55,7 +56,7 @@ final class EvaluationTests: XCTestCase {
         let date = Date.now.date(bySetting: .second, value: 0).date(bySetting: .minute, value: 0).date(bySetting: .hour, value: 0)
         let items = EnergyPrices.make(1, startingAt: date, costing: 1) + EnergyPrices.make(1, startingAt: date.date(byAdding: .hour, value: 1), costing: 0) + EnergyPrices.make(1, startingAt: date.date(byAdding: .hour, value: 1), costing: -1)
 
-        let results = Evaluation.of(items, after: date, using: service)
+        let results = Evaluation.of(items, after: date, using: lookup, and: network)
 
         XCTAssertEqual(results.count, 3)
 
@@ -77,7 +78,7 @@ final class EvaluationTests: XCTestCase {
         let date = Date.now.date(bySetting: .second, value: 0).date(bySetting: .minute, value: 0).date(bySetting: .hour, value: 0)
         let items = EnergyPrices.make(9, startingAt: date, costing: 100) + EnergyPrices.make(1, startingAt: date.date(byAdding: .hour, value: 9), costing: 50)
 
-        var results = Evaluation.of(items, after: date, using: service)
+        var results = Evaluation.of(items, after: date, using: lookup, and: network)
         let last = results.popLast()!
 
         XCTAssertEqual(results.count, 9)
@@ -97,7 +98,7 @@ final class EvaluationTests: XCTestCase {
         let date = Date.now.date(bySetting: .second, value: 0).date(bySetting: .minute, value: 0).date(bySetting: .hour, value: 0)
         let items = EnergyPrices.make(8, startingAt: date, costing: 100) + EnergyPrices.make(1, startingAt: date.date(byAdding: .hour, value: 8), costing: -10) + EnergyPrices.make(1, startingAt: date.date(byAdding: .hour, value: 9), costing: -15)
 
-        var results = Evaluation.of(items, after: date, using: service)
+        var results = Evaluation.of(items, after: date, using: lookup, and: network)
         let last = results.popLast()!
         let penultimate = results.popLast()!
 
@@ -125,7 +126,7 @@ final class EvaluationTests: XCTestCase {
         let date = Date.now.date(bySetting: .second, value: 0).date(bySetting: .minute, value: 0).date(bySetting: .hour, value: 0)
         let items = EnergyPrices.make(9, startingAt: date, costing: 100) + EnergyPrices.make(1, startingAt: date.date(byAdding: .hour, value: 9), costing: 150)
 
-        var results = Evaluation.of(items, after: date, using: service)
+        var results = Evaluation.of(items, after: date, using: lookup, and: network)
         let last = results.popLast()!
 
         XCTAssertEqual(results.count, 9)
@@ -143,12 +144,12 @@ final class EvaluationTests: XCTestCase {
 
     func testMostlyFeesPropertyIsCalulatedCorrectly() {
         let cases = [
-            (true, -0.1, Charges(validityPeriod: DateInterval(), conversionRate: 750, valueAddedTax: 0, transmissionTariff: 0, systemTariff: 0, electricityCharge: 0, loadTariffs: [:])),
-            (false, 0.0, Charges(validityPeriod: DateInterval(), conversionRate: 750, valueAddedTax: 0, transmissionTariff: 0, systemTariff: 0, electricityCharge: 0, loadTariffs: [:])),
-            (false, 1.0, Charges(validityPeriod: DateInterval(), conversionRate: 750, valueAddedTax: 0, transmissionTariff: 0, systemTariff: 0, electricityCharge: 0, loadTariffs: [:])),
-            (true, 249.9, Charges(validityPeriod: DateInterval(), conversionRate: 100, valueAddedTax: 1, transmissionTariff: 10, systemTariff: 10, electricityCharge: 5, loadTariffs: [:])),
-            (false, 250.0, Charges(validityPeriod: DateInterval(), conversionRate: 100, valueAddedTax: 1, transmissionTariff: 10, systemTariff: 10, electricityCharge: 5, loadTariffs: [:])),
-            (false, 250.1, Charges(validityPeriod: DateInterval(), conversionRate: 100, valueAddedTax: 1, transmissionTariff: 10, systemTariff: 10, electricityCharge: 5, loadTariffs: [:]))
+            (true, -0.1, Charges(transmissionTariff: 0, systemTariff: 0, electricityCharge: 0, loadTariffs: [:])),
+            (false, 0.0, Charges(transmissionTariff: 0, systemTariff: 0, electricityCharge: 0, loadTariffs: [:])),
+            (false, 1.0, Charges(transmissionTariff: 0, systemTariff: 0, electricityCharge: 0, loadTariffs: [:])),
+            (true, 7499.9, Charges(transmissionTariff: 8000, systemTariff: 900, electricityCharge: 52, loadTariffs: [:])),
+            (false, 7500.0, Charges(transmissionTariff: 8000, systemTariff: 900, electricityCharge: 52, loadTariffs: [:])),
+            (false, 7500.1, Charges(transmissionTariff: 8000, systemTariff: 900, electricityCharge: 52, loadTariffs: [:]))
         ]
 
         let date = Date.now.date(bySetting: .second, value: 0).date(bySetting: .minute, value: 0).date(bySetting: .hour, value: 0)
@@ -156,8 +157,8 @@ final class EvaluationTests: XCTestCase {
         for (expected, cost, charges) in cases {
             let items = EnergyPrices.make(1, startingAt: date, costing: cost)
 
-            let service = ChargesServiceMock(charges: charges)
-            let results = Evaluation.of(items, after: date, using: service)
+            let lookup = ChargesLookupMock(charges: charges)
+            let results = Evaluation.of(items, after: date, using: lookup, and: network)
 
             XCTContext.runActivity(named: "Test calculating fees property against \(cost) as price to get expected result") { _ in
                 XCTAssertEqual(results.count, 1)
@@ -178,13 +179,13 @@ final class EvaluationTests: XCTestCase {
             (true, -100.0)
         ]
 
-        let charges = ChargesServiceMock(charges: Charges(validityPeriod: DateInterval(), conversionRate: 750, valueAddedTax: 0, transmissionTariff: 0, systemTariff: 0, electricityCharge: 0, loadTariffs: [:]))
+        let charges = ChargesLookupMock(charges: Charges(transmissionTariff: 0, systemTariff: 0, electricityCharge: 0, loadTariffs: [:]))
         let date = Date.now.date(bySetting: .second, value: 0).date(bySetting: .minute, value: 0).date(bySetting: .hour, value: 0)
 
         for (expected, cost) in cases {
             let items = EnergyPrices.make(1, startingAt: date, costing: cost)
 
-            let results = Evaluation.of(items, after: date, using: charges)
+            let results = Evaluation.of(items, after: date, using: charges, and: network)
 
             XCTContext.runActivity(named: "Test calculating if negative price exceeds fees for \(cost) as price") { _ in
                 XCTAssertEqual(results.count, 1)

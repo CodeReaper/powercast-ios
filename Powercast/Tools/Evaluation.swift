@@ -18,7 +18,7 @@ struct Evaluation {
 }
 
 extension Evaluation {
-    static func of(_ prices: [EnergyPrice], after date: Date = .now, using repository: ChargesRepository, and network: Network) -> [Evaluation] {
+    static func of(_ prices: [EnergyPrice], after date: Date = .now, using lookup: ChargesLookup, and network: Network) -> [Evaluation] {
         let evaluables = prices.filter({ $0.timestamp >= date })
 
         guard evaluables.isEmpty == false else { return [] }
@@ -41,7 +41,7 @@ extension Evaluation {
         }
 
         return evaluables.compactMap { model in
-            guard let charges = try? repository.charges(for: network, at: model.timestamp) else { return nil }
+            guard let charges = try? lookup.charges(for: network, at: model.timestamp) else { return nil }
 
             let fees = charges.convertedFees(at: model.timestamp)
             return Evaluation(
