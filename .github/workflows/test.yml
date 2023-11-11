@@ -26,6 +26,11 @@ jobs:
         id: lint
         with:
           paths: Powercast/ Powercast.xcodeproj/ .github/workflows/swiftlint.yml .swiftlint*
+      - uses: CodeReaper/find-diff-action@v3
+        name: Changes requiring validation of dependabot
+        id: dependabot
+        with:
+          paths: .github/dependabot.yml .github/workflows/dependabot-validate.yml
 
   build-test:
     needs: changes
@@ -48,6 +53,9 @@ jobs:
   lane-check:
     uses: ./.github/workflows/lane.yml
 
+  dependabot-validate:
+    uses: ./.github/workflows/dependabot-validate.yml
+
   tests-succeeded:
     name: Tests Succeeded
     needs:
@@ -55,6 +63,7 @@ jobs:
       - swiftlint
       - editorconfig-check
       - lane-check
+      - dependabot-validate
 
     runs-on: ubuntu-latest
     steps:
