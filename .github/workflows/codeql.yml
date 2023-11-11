@@ -1,7 +1,11 @@
 name: "CodeQL"
 
 on:
-  push: {} # FIXME: remove
+  # FIXME: remove
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
   workflow_dispatch: {}
   schedule:
     - cron: "23 5 * * 0"
