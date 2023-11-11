@@ -1,0 +1,45 @@
+name: "CodeQL"
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "23 5 * * 0"
+
+jobs:
+  analyze-swift:
+    name: Analyze swift
+    runs-on: macos-latest
+    timeout-minutes: 120
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Custom setup
+        run: |
+          cp -v Powercast/Local.xcconfig.sample Powercast/Local.xcconfig
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: swift
+
+      - name: Custom Build
+        run: |
+          set -o pipefail && \
+          xcodebuild -project Powercast.xcodeproj \
+          -scheme Powercast \
+          -sdk iphonesimulator \
+          -derivedDataPath './output' \
+          build \
+          CODE_SIGNING_ALLOWED=NO \
+          | xcpretty
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:swift"
