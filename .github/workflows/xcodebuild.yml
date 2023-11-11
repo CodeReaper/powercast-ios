@@ -19,8 +19,11 @@ jobs:
       - name: Cache DerivedData
         uses: actions/cache@v3
         with:
-          path: ~/Library/Developer/Xcode/DerivedData
-          key: ${{ runner.os }}-xcode-${{ hashFiles('**/*.pbxproj', '**/*.xcscheme', '**/swiftpm/Package.resolved') }}
+          path: |
+            ~/Library/Developer/Xcode/DerivedData/**/Build
+            ~/Library/Developer/Xcode/DerivedData/**/SourcePackages/checkouts
+            ~/Library/Developer/Xcode/DerivedData/**/SourcePackages/workspace-state.json
+          key: ${{ runner.os }}-xcode-${{ hashFiles('**/*.pbxproj', '**/swiftpm/Package.resolved') }}
           restore-keys: |
             ${{ runner.os }}-xcode-
 
@@ -42,7 +45,6 @@ jobs:
           xcodebuild -project Powercast.xcodeproj \
           -scheme Powercast \
           -sdk iphonesimulator \
-          -derivedDataPath './output' \
           build \
           CODE_SIGNING_ALLOWED=NO \
           | xcpretty
