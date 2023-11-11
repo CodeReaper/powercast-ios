@@ -16,6 +16,14 @@ jobs:
           printf 'name=%s\n' "$(xcrun simctl list -j | jq -r ".runtimes[] | select(.version == \"$version\") | .supportedDeviceTypes[] | .name" | grep -E '^iPhone [0-9][0-9]?$' | sort -nk2 -t' ' | tail -n1)" | tee -a $GITHUB_ENV
           cp -v Powercast/Local.xcconfig.sample Powercast/Local.xcconfig
 
+      - name: Cache DerivedData
+        uses: actions/cache@v3
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData
+          key: ${{ runner.os }}-xcode-${{ hashFiles('**/*.pbxproj', '**/*.xcscheme', '**/swiftpm/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-xcode-
+
       - name: Test
         run: |
           set -o pipefail && \
@@ -27,13 +35,6 @@ jobs:
           test \
           CODE_SIGNING_ALLOWED=NO \
           | xcpretty
-
-      - name: Generate test summary
-        uses: kishikawakatsumi/xcresulttool@v1
-        with:
-          path: TestResults.xcresult
-          show-passed-tests: false
-        if: success() || failure()
 
       - name: Build
         run: |
