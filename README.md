@@ -6,13 +6,11 @@ Powercast is meant to be an easy-to-use tool to keep up-to-date with the price o
 
 Below follows a roadmap arranged by current best guess for completion:
 
- - [ ] Intro
  - [x] Intro - migration
  - [x] Intro - Region selection
- - [ ] Intro - Notification setup
- - [ ] Intro - Charges
  - [x] Settings
- - [ ] Settings - Customization of charges
+ - [x] Settings - Network
+ - [ ] Settings - Notifications in general
  - [ ] Settings - Customizable notification for forecast at preset times
  - [ ] Settings - Pricedrop notifcations
  - [x] Navigation routes
@@ -23,3 +21,4 @@ Below follows a roadmap arranged by current best guess for completion:
  - [ ] Historic drilldown of prices
  - [ ] IAP
  - [ ] Dark mode
+ - [ ] Licenses up to date
