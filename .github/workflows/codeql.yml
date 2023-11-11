@@ -1,11 +1,6 @@
 name: "CodeQL"
 
 on:
-  # FIXME: remove
-  push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
   workflow_dispatch: {}
   schedule:
     - cron: "23 5 * * 0"
@@ -38,19 +33,16 @@ jobs:
         with:
           languages: ${{ matrix.language }}
 
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v2
-
-      # - name: Custom Build
-      #   run: |
-      #     set -o pipefail && \
-      #     xcodebuild -project Powercast.xcodeproj \
-      #     -scheme Powercast \
-      #     -sdk iphonesimulator \
-      #     -derivedDataPath './output' \
-      #     build \
-      #     CODE_SIGNING_ALLOWED=NO \
-      #     | xcpretty
+      - name: Custom Build
+        run: |
+          set -o pipefail && \
+          xcodebuild -project Powercast.xcodeproj \
+          -scheme Powercast \
+          -sdk iphonesimulator \
+          -derivedDataPath './output' \
+          build \
+          CODE_SIGNING_ALLOWED=NO \
+          | xcpretty
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
