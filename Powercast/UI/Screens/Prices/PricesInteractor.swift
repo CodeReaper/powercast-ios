@@ -31,7 +31,7 @@ class PricesInteractor {
 
     func viewWillAppear() {
         Task {
-            let source = try? prices.source(for: state.network.id)
+            let source = try? prices.source(for: state.network)
 
             DispatchQueue.main.async { [delegate] in
                 defer { delegate?.show(loading: false) }
@@ -64,18 +64,14 @@ class PricesInteractor {
 
     private func refreshAsync() async {
         do {
-            let latest = Calendar.current.startOfDay(for: (try? prices.latest(for: state.network.zone)) ?? Date())
-            let today = Calendar.current.startOfDay(for: Date())
-            let start = Calendar.current.date(byAdding: .day, value: -2, to: latest)!
-            let end = Calendar.current.date(byAdding: .day, value: 2, to: today)!
-            for date in start.dates(until: end) {
+            for date in prices.dates(for: state.network.zone) {
                 try await prices.pull(zone: state.network.zone, at: date)
             }
         } catch {
             delegate?.showRefreshFailed()
         }
 
-        let updatedSource = try? prices.source(for: state.network.id)
+        let updatedSource = try? prices.source(for: state.network)
 
         DispatchQueue.main.async { [delegate] in
             guard let source = updatedSource else {

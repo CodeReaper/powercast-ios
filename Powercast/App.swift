@@ -27,7 +27,7 @@ class App: Dependenables {
     let databases: [Migratable]
 
     lazy var chargesRepository = ChargesRepository(database: energyChargesDatabase.queue, service: ChargesServiceAPI())
-    lazy var energyPriceRepository = EnergyPriceRepository(database: energyPriceDatabase.queue, service: EnergyPriceServiceAPI(), repository: chargesRepository)
+    lazy var energyPriceRepository = EnergyPriceRepository(database: energyPriceDatabase.queue, service: EnergyPriceServiceAPI(), lookup: chargesRepository)
     var notificationRepository: NotificationRepository {
         NotificationRepository(
             charges: chargesRepository,

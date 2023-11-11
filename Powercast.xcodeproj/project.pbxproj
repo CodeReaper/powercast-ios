@@ -63,6 +63,7 @@
 		CD10688C2AFC333500FD5B0E /* LaunchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10688A2AFC333500FD5B0E /* LaunchInteractor.swift */; };
 		CD10688D2AFC333500FD5B0E /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10688B2AFC333500FD5B0E /* LaunchViewController.swift */; };
 		CD10688F2AFEF62D00FD5B0E /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10688E2AFEF62D00FD5B0E /* Observer.swift */; };
+		CD1068912B000B9C00FD5B0E /* TableDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068902B000B9C00FD5B0E /* TableDatasource.swift */; };
 		CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */; };
 		CD36624729281614009FAC8B /* Flogger in Frameworks */ = {isa = PBXBuildFile; productRef = CD36624629281614009FAC8B /* Flogger */; };
 		CD4022E82A34AA2B00027798 /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD4022E72A34AA2B00027798 /* SugarKit */; };
@@ -162,6 +163,7 @@
 		CD10688A2AFC333500FD5B0E /* LaunchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchInteractor.swift; sourceTree = "<group>"; };
 		CD10688B2AFC333500FD5B0E /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		CD10688E2AFEF62D00FD5B0E /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
+		CD1068902B000B9C00FD5B0E /* TableDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableDatasource.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		CD4022EB2A34ADA600027798 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CD5C58CF2AE4824900143060 /* ChargesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargesRepository.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				CDA0E4092AC8C0DA00FF364D /* Evaluation.swift */,
 				CDA37DEC2AD0A739004B44B0 /* Message.swift */,
 				CD10688E2AFEF62D00FD5B0E /* Observer.swift */,
+				CD1068902B000B9C00FD5B0E /* TableDatasource.swift */,
 				38ECF94C289C467B00ED8372 /* TimeInterval.swift */,
 			);
 			path = Tools;
@@ -540,7 +543,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					387FF5F5286B909B0051E3DC = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -686,6 +689,7 @@
 				387FF5FA286B909B0051E3DC /* AppDelegate.swift in Sources */,
 				389F717F289982630007C2E0 /* Drawer.swift in Sources */,
 				CD5C58D82AE7018E00143060 /* GridPrice.swift in Sources */,
+				CD1068912B000B9C00FD5B0E /* TableDatasource.swift in Sources */,
 				CDE77AC428C369370021EEDD /* Migratable.swift in Sources */,
 				38DF5ABE28707A7E008630FB /* Translations.swift in Sources */,
 				CD81C59B2A6DBDD300E88418 /* Charges.swift in Sources */,
@@ -772,6 +776,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -833,6 +838,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;

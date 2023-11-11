@@ -54,16 +54,11 @@ class BackgroundScheduler {
             return
         }
 
-        let latest = Calendar.current.startOfDay(for: (try? prices.latest(for: network.zone)) ?? Date())
-        let today = Calendar.current.startOfDay(for: Date())
-        let start = Calendar.current.date(byAdding: .day, value: -2, to: latest)!
-        let end = Calendar.current.date(byAdding: .day, value: 2, to: today)!
-
         Task {
             do {
                 try await charges.pullGrid()
                 try await charges.pullNetwork(id: network.id)
-                for date in start.dates(until: end) {
+                for date in prices.dates(for: network.zone) {
                     try await prices.pull(zone: network.zone, at: date)
                 }
 
