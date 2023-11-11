@@ -4,7 +4,7 @@ on:
   push: {} # FIXME: remove
   workflow_dispatch: {}
   schedule:
-    - cron: '23 5 * * 0'
+    - cron: "23 5 * * 0"
 
 jobs:
   analyze:
@@ -19,37 +19,36 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'swift' ]
+        language: ["swift"]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Custom setup
-      run: |
-        cp -v Powercast/Local.xcconfig.sample Powercast/Local.xcconfig
+      - name: Custom setup
+        run: |
+          cp -v Powercast/Local.xcconfig.sample Powercast/Local.xcconfig
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: ${{ matrix.language }}
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
 
-     # FIXME: remove
-    # - name: Autobuild
-    #   uses: github/codeql-action/autobuild@v2
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
 
-    - name: Custom Build
-      run: |
-        set -o pipefail && \
-        xcodebuild -project Powercast.xcodeproj \
-        -scheme Powercast \
-        -sdk iphonesimulator \
-        -derivedDataPath './output' \
-        build \
-        CODE_SIGNING_ALLOWED=NO \
-        | xcpretty
+      # - name: Custom Build
+      #   run: |
+      #     set -o pipefail && \
+      #     xcodebuild -project Powercast.xcodeproj \
+      #     -scheme Powercast \
+      #     -sdk iphonesimulator \
+      #     -derivedDataPath './output' \
+      #     build \
+      #     CODE_SIGNING_ALLOWED=NO \
+      #     | xcpretty
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
-      with:
-        category: "/language:${{matrix.language}}"
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:${{matrix.language}}"
