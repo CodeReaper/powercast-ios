@@ -27,10 +27,10 @@ class StateRepository: Observerable {
             self.notificationStatus = settings.authorizationStatus
         }
         NotificationCenter.default.addObserver(
-          self,
-          selector: #selector(backgroundRefreshStatusDidChange),
-          name: UIApplication.backgroundRefreshStatusDidChangeNotification,
-          object: nil
+            self,
+            selector: #selector(backgroundRefreshStatusDidChange),
+            name: UIApplication.backgroundRefreshStatusDidChangeNotification,
+            object: nil
         )
     }
 

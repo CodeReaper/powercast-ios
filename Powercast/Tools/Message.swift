@@ -24,7 +24,16 @@ struct Message {
                 messages.append(message)
             }
         }
+        if let message = freeMessage(with: evaluations, at: date) {
+            messages.append(message)
+        }
         return messages
+    }
+
+    init(kind: Kind, body: String, fireDate: Date) {
+        self.kind = kind
+        self.body = body
+        self.fireDate = fireDate
     }
 
     private init?(for boundary: Boundary, with evaluations: [Evaluation], using charges: ChargesRepository) {
@@ -44,9 +53,7 @@ struct Message {
         case .evening:
             time = Translations.NOTIFICATION_VALUE_TOD_EVENING
         case .free:
-            return nil // FIXME: this
-        case .lessThanFees:
-            return nil // FIXME: this
+            return nil
         }
 
         let status: String
@@ -76,13 +83,38 @@ struct Message {
         self.kind = boundary.type
     }
 
+    private static func freeMessage(with evaluations: [Evaluation], at date: Date) -> Message? {
+        let dateOffset = date.date(byAdding: .day, value: 1)
+        let evaluations = evaluations.filter { $0.model.timestamp > date && $0.model.timestamp < dateOffset && $0.negativelyPriced }.sorted(by: { $0.model.timestamp < $1.model.timestamp })
+        guard evaluations.count > 0 else {
+            return nil
+        }
+
+        var high = evaluations.first!
+        var low = evaluations.first!
+        for item in evaluations {
+            if low.fees > item.fees {
+                low = item
+            }
+            if high.fees < item.fees {
+                high = item
+            }
+        }
+
+        let lowFees = NumberFormatter.with(style: .decimal, fractionDigits: 0).string(from: low.charges.convert(low.fees, at: low.model.timestamp) as NSNumber)!
+        let highFees = NumberFormatter.with(style: .decimal, fractionDigits: 0).string(from: high.charges.convert(high.fees, at: high.model.timestamp) as NSNumber)!
+        let formatter = DateFormatter.with(format: "HH")
+        let hours = evaluations.map { formatter.string(from: $0.model.timestamp) }.joined(separator: ", ")
+
+        return Message(kind: .free, body: Translations.NOTIFICATION_TEMPLATE_FREE_BODY(hours, lowFees, highFees), fireDate: evaluations.first?.model.timestamp ?? date)
+    }
+
     enum Kind: Int, CaseIterable {
         case night = 0
         case morning = 1
         case afternoon = 2
         case evening = 3
         case free = 4
-        case lessThanFees = 5
     }
 
     private struct Boundary {

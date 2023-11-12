@@ -13,7 +13,9 @@ struct Translations {
 	static let NETWORK_SELECTION_DK2_ZIP_LIST = NSLocalizedString("NETWORK_SELECTION_DK2_ZIP_LIST", comment: "")
 	static let NETWORK_SELECTION_TITLE = NSLocalizedString("NETWORK_SELECTION_TITLE", comment: "")
 	static func NOTIFICATION_TEMPLATE_BODY(_ p1: String, _ p2: String, _ p3: String) -> String { return NSLocalizedString("NOTIFICATION_TEMPLATE_BODY", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2).replacingOccurrences(of: "%3", with: p3) }
+	static func NOTIFICATION_TEMPLATE_FREE_BODY(_ p1: String, _ p2: String, _ p3: String) -> String { return NSLocalizedString("NOTIFICATION_TEMPLATE_FREE_BODY", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2).replacingOccurrences(of: "%3", with: p3) }
 	static func NOTIFICATION_TEMPLATE_RANGE(_ p1: String, _ p2: String) -> String { return NSLocalizedString("NOTIFICATION_TEMPLATE_RANGE", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
+	static let NOTIFICATION_TEMPLATE_SEPARATOR = NSLocalizedString("NOTIFICATION_TEMPLATE_SEPARATOR", comment: "")
 	static let NOTIFICATION_TITLE = NSLocalizedString("NOTIFICATION_TITLE", comment: "")
 	static let NOTIFICATION_VALUE_STATUS_HIGH = NSLocalizedString("NOTIFICATION_VALUE_STATUS_HIGH", comment: "")
 	static let NOTIFICATION_VALUE_STATUS_LOW = NSLocalizedString("NOTIFICATION_VALUE_STATUS_LOW", comment: "")
@@ -28,6 +30,18 @@ struct Translations {
 	static let PRICES_REFRESH_FAILED_MESSAGE = NSLocalizedString("PRICES_REFRESH_FAILED_MESSAGE", comment: "")
 	static let PRICES_TITLE = NSLocalizedString("PRICES_TITLE", comment: "")
 	static let SETTINGS_NETWORK_TITLE = NSLocalizedString("SETTINGS_NETWORK_TITLE", comment: "")
+	static let SETTINGS_NOTIFICATIONS_ITEM_AFTERNOON = NSLocalizedString("SETTINGS_NOTIFICATIONS_ITEM_AFTERNOON", comment: "")
+	static let SETTINGS_NOTIFICATIONS_ITEM_EVENING = NSLocalizedString("SETTINGS_NOTIFICATIONS_ITEM_EVENING", comment: "")
+	static let SETTINGS_NOTIFICATIONS_ITEM_FREE = NSLocalizedString("SETTINGS_NOTIFICATIONS_ITEM_FREE", comment: "")
+	static let SETTINGS_NOTIFICATIONS_ITEM_MORNING = NSLocalizedString("SETTINGS_NOTIFICATIONS_ITEM_MORNING", comment: "")
+	static let SETTINGS_NOTIFICATIONS_ITEM_NIGHT = NSLocalizedString("SETTINGS_NOTIFICATIONS_ITEM_NIGHT", comment: "")
+	static let SETTINGS_NOTIFICATIONS_TITLE = NSLocalizedString("SETTINGS_NOTIFICATIONS_TITLE", comment: "")
+	static let SETTINGS_STATE_DISABLED = NSLocalizedString("SETTINGS_STATE_DISABLED", comment: "")
+	static let SETTINGS_STATE_ENABLED = NSLocalizedString("SETTINGS_STATE_ENABLED", comment: "")
+	static let SETTINGS_STATE_UNKNOWN = NSLocalizedString("SETTINGS_STATE_UNKNOWN", comment: "")
+	static let SETTINGS_SYSTEM_BACKGROUND_REFRESH = NSLocalizedString("SETTINGS_SYSTEM_BACKGROUND_REFRESH", comment: "")
+	static let SETTINGS_SYSTEM_NOTIFICATIONS = NSLocalizedString("SETTINGS_SYSTEM_NOTIFICATIONS", comment: "")
+	static let SETTINGS_SYSTEM_TITLE = NSLocalizedString("SETTINGS_SYSTEM_TITLE", comment: "")
 	static let SETTINGS_TITLE = NSLocalizedString("SETTINGS_TITLE", comment: "")
 	static let ZONE_DK1 = NSLocalizedString("ZONE_DK1", comment: "")
 	static let ZONE_DK2 = NSLocalizedString("ZONE_DK2", comment: "")

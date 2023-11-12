@@ -134,25 +134,25 @@ extension SettingsViewController {
         )
     }
 
-    private func buildSystemSettings() -> Section { // FIXME: translations
+    private func buildSystemSettings() -> Section {
         SettingsViewController.Section(
-            title: "System Settings",
+            title: Translations.SETTINGS_SYSTEM_TITLE,
             rows: [
-                .item(label: "Background Refresh", detailLabel: state.backgroundRefreshStatus.string, onSelection: {
+                .item(label: Translations.SETTINGS_SYSTEM_BACKGROUND_REFRESH, detailLabel: state.backgroundRefreshStatus.string, onSelection: {
                     UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
                 }),
-                .item(label: "Notifications", detailLabel: state.notificationStatus.string, onSelection: {
+                .item(label: Translations.SETTINGS_SYSTEM_NOTIFICATIONS, detailLabel: state.notificationStatus.string, onSelection: {
                     UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
                 })
             ]
         )
     }
 
-    private func buildNotificationSettings() -> Section { // FIXME: translations
+    private func buildNotificationSettings() -> Section {
         SettingsViewController.Section(
-            title: "Notifications",
+            title: Translations.SETTINGS_NOTIFICATIONS_TITLE,
             rows: Message.Kind.allCases.map { kind in
-                return Row.item(label: kind.string, detailLabel: state.notifications(for: kind) ? "Enabled" : "Disabled", onSelection: { [state] in
+                return Row.item(label: kind.string, detailLabel: state.notifications(for: kind) ? Translations.SETTINGS_STATE_ENABLED : Translations.SETTINGS_STATE_DISABLED, onSelection: { [state] in
                     state.notifications(enabled: !state.notifications(for: kind), for: kind)
                 })
             }
@@ -164,13 +164,13 @@ private extension UNAuthorizationStatus {
     var string: String {
         switch self {
         case .notDetermined:
-            return "Unknown"
+            return Translations.SETTINGS_STATE_UNKNOWN
         case .authorized, .provisional, .ephemeral:
-            return "Enabled"
+            return Translations.SETTINGS_STATE_ENABLED
         case .denied:
             fallthrough
         @unknown default:
-            return "Disabled"
+            return Translations.SETTINGS_STATE_DISABLED
         }
     }
 }
@@ -179,9 +179,9 @@ private extension UIBackgroundRefreshStatus {
     var string: String {
         switch self {
         case .available:
-            return "Enabled"
+            return Translations.SETTINGS_STATE_ENABLED
         default:
-            return "Disabled"
+            return Translations.SETTINGS_STATE_DISABLED
         }
     }
 }
@@ -190,17 +190,15 @@ private extension Message.Kind {
     var string: String {
         switch self {
         case .night:
-            return "0 - 6"
+            return Translations.SETTINGS_NOTIFICATIONS_ITEM_NIGHT
         case .morning:
-            return "6 - 12"
+            return Translations.SETTINGS_NOTIFICATIONS_ITEM_MORNING
         case .afternoon:
-            return "12 - 18"
+            return Translations.SETTINGS_NOTIFICATIONS_ITEM_AFTERNOON
         case .evening:
-            return "18 - 24"
+            return Translations.SETTINGS_NOTIFICATIONS_ITEM_EVENING
         case .free:
-            return "Free"
-        case .lessThanFees:
-            return "Less than fees"
+            return Translations.SETTINGS_NOTIFICATIONS_ITEM_FREE
         }
     }
 }

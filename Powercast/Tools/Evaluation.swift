@@ -2,6 +2,7 @@ import Foundation
 
 struct Evaluation {
     let model: EnergyPrice
+    let fees: Double
     let charges: Charges
     let precentile: Int
     let precentileAvailable: Int
@@ -9,12 +10,12 @@ struct Evaluation {
     let priciestAvailable: Bool
     let belowAvailableAverage: Bool
     let belowAverage: Bool
-    let mostlyFees: Bool
-    let negativelyPriced: Bool
-    let free: Bool
 
     var aboveAvailableAverage: Bool { !belowAvailableAverage }
     var aboveAverage: Bool { !belowAverage }
+    var mostlyFees: Bool { model.price < fees / 2 }
+    var negativelyPriced: Bool { model.price < 0 }
+    var free: Bool { model.price + fees < 0 }
 }
 
 extension Evaluation {
@@ -43,19 +44,16 @@ extension Evaluation {
         return evaluables.compactMap { model in
             guard let charges = try? lookup.charges(for: network, at: model.timestamp) else { return nil }
 
-            let fees = charges.convertedFees(at: model.timestamp)
             return Evaluation(
                 model: model,
+                fees: charges.convertedFees(at: model.timestamp),
                 charges: charges,
                 precentile: bins.filter { $0.1 ?? Double.infinity < model.price }.sorted(by: { $0.0 > $1.0 }).first?.0 ?? 0,
                 precentileAvailable: availableBins.filter { $0.1 ?? Double.infinity < model.price }.sorted(by: { $0.0 > $1.0 }).first?.0 ?? 0,
                 cheapestAvailable: model.price == evaluableLow,
                 priciestAvailable: model.price == evaluableHigh,
                 belowAvailableAverage: model.price <= evaluableAverage,
-                belowAverage: model.price <= priceAverage,
-                mostlyFees: model.price < fees / 2,
-                negativelyPriced: model.price < 0,
-                free: model.price + fees < 0
+                belowAverage: model.price <= priceAverage
             )
         }
     }
