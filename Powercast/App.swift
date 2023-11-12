@@ -13,6 +13,7 @@ protocol Dependenables: AnyObject {
     var chargesRepository: ChargesRepository { get }
     var energyPriceRepository: EnergyPriceRepository { get }
     var stateRepository: StateRepository { get }
+    var notificationRepository: NotificationRepository { get }
 
     var scheduler: BackgroundScheduler { get }
 }
@@ -28,13 +29,12 @@ class App: Dependenables {
 
     lazy var chargesRepository = ChargesRepository(database: energyChargesDatabase.queue, service: ChargesServiceAPI())
     lazy var energyPriceRepository = EnergyPriceRepository(database: energyPriceDatabase.queue, service: EnergyPriceServiceAPI(), lookup: chargesRepository)
-    var notificationRepository: NotificationRepository {
-        NotificationRepository(
-            charges: chargesRepository,
-            prices: energyPriceRepository,
-            state: stateRepository
-        )
-    }
+    lazy var notificationRepository = NotificationRepository(
+        charges: chargesRepository,
+        prices: energyPriceRepository,
+        state: stateRepository
+    )
+
     var scheduler: BackgroundScheduler {
         BackgroundScheduler(
             charges: chargesRepository,
@@ -67,11 +67,6 @@ class App: Dependenables {
         scheduler.schedule()
         notificationRepository.register()
         navigation.setup(using: window)
-
-        // TODO: move somewhere more appropriate like dashboard
-        if stateRepository.network.id != 0 {
-            notificationRepository.request()
-        }
 
         Task {
             await notificationRepository.schedule()

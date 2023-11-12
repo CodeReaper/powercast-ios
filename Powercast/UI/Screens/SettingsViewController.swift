@@ -5,14 +5,14 @@ import Combine
 class SettingsViewController: ViewController {
     private let tableView = UITableView(frame: .zero, style: .grouped)
 
-    private let repository: StateRepository
+    private let state: StateRepository
 
     private var sections: [Section]!
 
     init(navigation: AppNavigation, repository: StateRepository, sections: [Section]? = nil) {
-        self.repository = repository
+        self.state = repository
         super.init(navigation: navigation)
-        self.sections = sections ?? buildSettings(state: repository)
+        self.sections = sections ?? buildSettings()
     }
 
     required init?(coder: NSCoder) {
@@ -23,6 +23,7 @@ class SettingsViewController: ViewController {
         super.viewDidLoad()
 
         title = Translations.SETTINGS_TITLE
+        navigationController?.navigationBar.shadowImage = UIImage()
 
         tableView
             .set(datasource: self, delegate: self)
@@ -38,11 +39,11 @@ class SettingsViewController: ViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        repository.add(observer: self)
+        state.add(observer: self)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        repository.remove(observer: self)
+        state.remove(observer: self)
         super.viewWillDisappear(animated)
     }
 
@@ -111,23 +112,95 @@ extension SettingsViewController: UITableViewDelegate {
 extension SettingsViewController: Observer {
     func updated() {
         DispatchQueue.main.async {
-            self.sections = self.buildSettings(state: self.repository)
+            self.sections = self.buildSettings()
             self.tableView.reloadData()
         }
     }
 }
 
 extension SettingsViewController {
-    func buildSettings(state repository: StateRepository) -> [Section] {
-        [
-            SettingsViewController.Section(
-                title: Translations.SETTINGS_NETWORK_TITLE,
-                rows: [
-                    .item(label: repository.network.name, detailLabel: nil, onSelection: { [navigation] in
-                        navigation.navigate(to: .networkSelection)
-                    })
-                ]
-            )
-        ]
+    func buildSettings() -> [Section] {
+        return [buildNetworkSettings(), buildSystemSettings(), buildNotificationSettings()]
+    }
+
+    private func buildNetworkSettings() -> Section {
+        SettingsViewController.Section(
+            title: Translations.SETTINGS_NETWORK_TITLE,
+            rows: [
+                .item(label: state.network.name, detailLabel: nil, onSelection: { [navigation] in
+                    navigation.navigate(to: .networkSelection)
+                })
+            ]
+        )
+    }
+
+    private func buildSystemSettings() -> Section { // FIXME: translations
+        SettingsViewController.Section(
+            title: "System Settings",
+            rows: [
+                .item(label: "Background Refresh", detailLabel: state.backgroundRefreshStatus.string, onSelection: {
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                }),
+                .item(label: "Notifications", detailLabel: state.notificationStatus.string, onSelection: {
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                })
+            ]
+        )
+    }
+
+    private func buildNotificationSettings() -> Section { // FIXME: translations
+        SettingsViewController.Section(
+            title: "Notifications",
+            rows: Message.Kind.allCases.map { kind in
+                return Row.item(label: kind.string, detailLabel: state.notifications(for: kind) ? "Enabled" : "Disabled", onSelection: { [state] in
+                    state.notifications(enabled: !state.notifications(for: kind), for: kind)
+                })
+            }
+        )
+    }
+}
+
+private extension UNAuthorizationStatus {
+    var string: String {
+        switch self {
+        case .notDetermined:
+            return "Unknown"
+        case .authorized, .provisional, .ephemeral:
+            return "Enabled"
+        case .denied:
+            fallthrough
+        @unknown default:
+            return "Disabled"
+        }
+    }
+}
+
+private extension UIBackgroundRefreshStatus {
+    var string: String {
+        switch self {
+        case .available:
+            return "Enabled"
+        default:
+            return "Disabled"
+        }
+    }
+}
+
+private extension Message.Kind {
+    var string: String {
+        switch self {
+        case .night:
+            return "0 - 6"
+        case .morning:
+            return "6 - 12"
+        case .afternoon:
+            return "12 - 18"
+        case .evening:
+            return "18 - 24"
+        case .free:
+            return "Free"
+        case .lessThanFees:
+            return "Less than fees"
+        }
     }
 }

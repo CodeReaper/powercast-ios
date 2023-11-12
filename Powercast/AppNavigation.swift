@@ -28,6 +28,7 @@ class AppNavigation {
         main: PricesViewController(
             navigation: self,
             energyPriceRepository: dependencies.energyPriceRepository,
+            notifications: dependencies.notificationRepository,
             stateRepository: dependencies.stateRepository
         )
     )
