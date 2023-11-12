@@ -1,6 +1,7 @@
 import Foundation
 
 struct Message {
+    let kind: Kind
     let body: String
     let fireDate: Date
 
@@ -8,14 +9,14 @@ struct Message {
         let startOfDay = date.startOfDay
         let tomorrow = date.endOfDay
         let boundaries = [
-            Boundary(timeOfDay: .night, date: startOfDay, start: 0, end: 6, fire: -3),
-            Boundary(timeOfDay: .morning, date: startOfDay, start: 6, end: 12, fire: -3),
-            Boundary(timeOfDay: .afternoon, date: startOfDay, start: 12, end: 18, fire: 9),
-            Boundary(timeOfDay: .evening, date: startOfDay, start: 18, end: 24, fire: 13),
-            Boundary(timeOfDay: .night, date: tomorrow, start: 0, end: 6, fire: -3),
-            Boundary(timeOfDay: .morning, date: tomorrow, start: 6, end: 12, fire: -3),
-            Boundary(timeOfDay: .afternoon, date: tomorrow, start: 12, end: 18, fire: 9),
-            Boundary(timeOfDay: .evening, date: tomorrow, start: 18, end: 24, fire: 13)
+            Boundary(type: .night, date: startOfDay, start: 0, end: 6, fire: -3),
+            Boundary(type: .morning, date: startOfDay, start: 6, end: 12, fire: -3),
+            Boundary(type: .afternoon, date: startOfDay, start: 12, end: 18, fire: 9),
+            Boundary(type: .evening, date: startOfDay, start: 18, end: 24, fire: 13),
+            Boundary(type: .night, date: tomorrow, start: 0, end: 6, fire: -3),
+            Boundary(type: .morning, date: tomorrow, start: 6, end: 12, fire: -3),
+            Boundary(type: .afternoon, date: tomorrow, start: 12, end: 18, fire: 9),
+            Boundary(type: .evening, date: tomorrow, start: 18, end: 24, fire: 13)
         ]
         var messages: [Message] = []
         for boundary in boundaries where boundary.period.end > date {
@@ -23,7 +24,16 @@ struct Message {
                 messages.append(message)
             }
         }
+        if let message = freeMessage(with: evaluations, at: date) {
+            messages.append(message)
+        }
         return messages
+    }
+
+    init(kind: Kind, body: String, fireDate: Date) {
+        self.kind = kind
+        self.body = body
+        self.fireDate = fireDate
     }
 
     private init?(for boundary: Boundary, with evaluations: [Evaluation], using charges: ChargesRepository) {
@@ -33,7 +43,7 @@ struct Message {
         }
 
         let time: String
-        switch boundary.timeOfDay {
+        switch boundary.type {
         case .night:
             time = Translations.NOTIFICATION_VALUE_TOD_NIGHT
         case .morning:
@@ -42,6 +52,8 @@ struct Message {
             time = Translations.NOTIFICATION_VALUE_TOD_AFTERNOON
         case .evening:
             time = Translations.NOTIFICATION_VALUE_TOD_EVENING
+        case .free:
+            return nil
         }
 
         let status: String
@@ -68,19 +80,50 @@ struct Message {
 
         self.body = Translations.NOTIFICATION_TEMPLATE_BODY("\(time)", "\(status)", "\(range)")
         self.fireDate = boundary.firingDate
+        self.kind = boundary.type
     }
 
-    private enum TimeOfDay {
-        case night, morning, afternoon, evening
+    private static func freeMessage(with evaluations: [Evaluation], at date: Date) -> Message? {
+        let dateOffset = date.date(byAdding: .day, value: 1)
+        let evaluations = evaluations.filter { $0.model.timestamp > date && $0.model.timestamp < dateOffset && $0.negativelyPriced }.sorted(by: { $0.model.timestamp < $1.model.timestamp })
+        guard evaluations.count > 0 else {
+            return nil
+        }
+
+        var high = evaluations.first!
+        var low = evaluations.first!
+        for item in evaluations {
+            if low.fees > item.fees {
+                low = item
+            }
+            if high.fees < item.fees {
+                high = item
+            }
+        }
+
+        let lowFees = NumberFormatter.with(style: .decimal, fractionDigits: 0).string(from: low.charges.convert(low.fees, at: low.model.timestamp) as NSNumber)!
+        let highFees = NumberFormatter.with(style: .decimal, fractionDigits: 0).string(from: high.charges.convert(high.fees, at: high.model.timestamp) as NSNumber)!
+        let formatter = DateFormatter.with(format: "HH")
+        let hours = evaluations.map { formatter.string(from: $0.model.timestamp) }.joined(separator: ", ")
+
+        return Message(kind: .free, body: Translations.NOTIFICATION_TEMPLATE_FREE_BODY(hours, lowFees, highFees), fireDate: evaluations.first?.model.timestamp ?? date)
+    }
+
+    enum Kind: Int, CaseIterable {
+        case night = 0
+        case morning = 1
+        case afternoon = 2
+        case evening = 3
+        case free = 4
     }
 
     private struct Boundary {
-        let timeOfDay: TimeOfDay
+        let type: Kind
         let firingDate: Date
         let period: DateInterval
 
-        init(timeOfDay: TimeOfDay, date: Date, start: Int, end: Int, fire: Int) {
-            self.timeOfDay = timeOfDay
+        init(type: Kind, date: Date, start: Int, end: Int, fire: Int) {
+            self.type = type
             self.firingDate = date.startOfDay.date(byAdding: .hour, value: fire)
             self.period = DateInterval(start: date.startOfDay.date(byAdding: .hour, value: start), end: date.startOfDay.date(byAdding: .hour, value: end))
         }

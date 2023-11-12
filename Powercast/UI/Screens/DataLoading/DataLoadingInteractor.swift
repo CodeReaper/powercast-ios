@@ -7,9 +7,9 @@ protocol DataLoadingDelegate: AnyObject {
 
 class DataLoadingInteractor {
     private let navigation: AppNavigation
-    private let energyPriceRepository: EnergyPriceRepository
-    private let chargesRepository: ChargesRepository
-    private let stateRepository: StateRepository
+    private let prices: EnergyPriceRepository
+    private let charges: ChargesRepository
+    private let state: StateRepository
     private let network: Network
 
     private var statusSink: AnyCancellable?
@@ -17,12 +17,12 @@ class DataLoadingInteractor {
 
     private weak var delegate: DataLoadingDelegate?
 
-    init(navigation: AppNavigation, delegate: DataLoadingDelegate, energyPriceRepository: EnergyPriceRepository, chargesRepository: ChargesRepository, stateRepository: StateRepository, network: Network) {
+    init(navigation: AppNavigation, delegate: DataLoadingDelegate, prices: EnergyPriceRepository, charges: ChargesRepository, state: StateRepository, network: Network) {
         self.navigation = navigation
         self.delegate = delegate
-        self.energyPriceRepository = energyPriceRepository
-        self.chargesRepository = chargesRepository
-        self.stateRepository = stateRepository
+        self.prices = prices
+        self.charges = charges
+        self.state = state
         self.network = network
     }
 
@@ -39,15 +39,15 @@ class DataLoadingInteractor {
             let minimumTime = DispatchTime.now() + 2
             let success: Bool
             do {
-                try await chargesRepository.pullNetworks()
-                try await chargesRepository.pullGrid()
-                try await chargesRepository.pullNetwork(id: network.id)
+                try await charges.pullNetworks()
+                try await charges.pullGrid()
+                try await charges.pullNetwork(id: network.id)
 
                 let today = Calendar.current.startOfDay(for: Date())
                 let start = Calendar.current.date(byAdding: .day, value: -14, to: today)!
                 let end = Calendar.current.date(byAdding: .day, value: 2, to: today)!
                 for date in start.dates(until: end) {
-                    try await energyPriceRepository.pull(zone: network.zone, at: date)
+                    try await prices.pull(zone: network.zone, at: date)
                 }
                 success = true
             } catch {
@@ -56,7 +56,7 @@ class DataLoadingInteractor {
 
             DispatchQueue.main.asyncAfter(deadline: success ? minimumTime : DispatchTime.now()) { [self] in
                 if success {
-                    stateRepository.select(network: network)
+                    state.select(network: network)
                     navigation.navigate(to: .dashboard)
                 } else {
                     delegate?.displayFailed()

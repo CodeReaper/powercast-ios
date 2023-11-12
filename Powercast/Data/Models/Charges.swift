@@ -59,7 +59,7 @@ struct Charges {
         return (fixedFees(at: date) + variableFees(at: date)) * 1000 / exchangeRate
     }
 
-    /// Returns a price in DK øre per kWh
+    /// Returns a price in DK øre per kWh including taxes, fees, charges and tariffs
     ///
     /// - Parameters:
     ///     - value: The raw MWh price in Euros
@@ -72,6 +72,15 @@ struct Charges {
         dkr += loadTariff(at: date)
         dkr *= 1 + (dkr > 0 ? valueAddedTax : 0)
         return dkr
+    }
+
+    /// Converts a MWh price in Euros to a price in DK øre per kWh
+    ///
+    /// - Parameters:
+    ///     - value: The raw MWh price in Euros
+    ///     - date: The time at which the price point is active
+    func convert(_ value: Double, at date: Date) -> Double {
+        return value / 1000 * exchangeRate
     }
 
     static func from(_ grid: GridPrice, and network: NetworkPrice) -> Charges {

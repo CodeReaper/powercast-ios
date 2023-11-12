@@ -13,10 +13,9 @@ class PricesViewController: ViewController {
 
     private var interactor: PricesInteractor!
 
-    init(navigation: AppNavigation, energyPriceRepository: EnergyPriceRepository, stateRepository: StateRepository) {
+    init(navigation: AppNavigation, prices: EnergyPriceRepository, notifications: NotificationRepository, state: StateRepository) {
         super.init(navigation: navigation)
-
-        interactor = PricesInteractor(delegate: self, energyPriceRepository: energyPriceRepository, stateRepository: stateRepository)
+        interactor = PricesInteractor(delegate: self, prices: prices, notifications: notifications, state: state)
     }
 
     required init?(coder: NSCoder) {

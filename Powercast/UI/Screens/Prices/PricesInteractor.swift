@@ -12,6 +12,7 @@ protocol PricesDelegate: AnyObject {
 class PricesInteractor {
     let timeBetweenRefreshes: TimeInterval = 900
 
+    private let notifications: NotificationRepository
     private let prices: EnergyPriceRepository
     private let state: StateRepository
 
@@ -19,10 +20,11 @@ class PricesInteractor {
 
     private weak var delegate: PricesDelegate?
 
-    init(delegate: PricesDelegate, energyPriceRepository: EnergyPriceRepository, stateRepository: StateRepository) {
+    init(delegate: PricesDelegate, prices: EnergyPriceRepository, notifications: NotificationRepository, state: StateRepository) {
         self.delegate = delegate
-        self.prices = energyPriceRepository
-        self.state = stateRepository
+        self.notifications = notifications
+        self.prices = prices
+        self.state = state
     }
 
     func viewDidLoad() {
@@ -48,9 +50,13 @@ class PricesInteractor {
                 await refreshAsync()
             }
         }
+        state.add(observer: self)
+        updated()
     }
 
-    func viewWillDisappear() { }
+    func viewWillDisappear() {
+        state.remove(observer: self)
+    }
 
     func refreshData() {
         Task {
@@ -79,6 +85,18 @@ class PricesInteractor {
                 return
             }
             delegate?.show(data: source)
+        }
+    }
+}
+
+extension PricesInteractor: Observer {
+    func updated() {
+        DispatchQueue.main.async {
+            switch self.state.notificationStatus {
+            case .notDetermined:
+                self.notifications.request()
+            default: break
+            }
         }
     }
 }

@@ -1,14 +1,15 @@
-import Foundation
-import Combine
-import GRDB
+import UIKit
+import UserNotifications
 
-class StateRepository {
+class StateRepository: Observerable {
     private let store: UserDefaults
 
-    private var observers: [Observer] = []
+    var network = Network.empty { didSet { notifyObservers() } }
+    var notificationStatus = UNAuthorizationStatus.denied { didSet { notifyObservers() } }
+    var backgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus { didSet { notifyObservers() } }
 
-    var network = Network.empty { didSet { updated() } }
-    var deliveredNotification: Date = Date(timeIntervalSince1970: 0) { didSet { updated() } }
+    private var deliveredNotifications = [Message.Kind: Date]() { didSet { notifyObservers() } }
+    private var disabledNotifications = [Message.Kind: Bool]() { didSet { notifyObservers() } }
 
     init(store: UserDefaults = .standard) {
         self.store = store
@@ -17,15 +18,24 @@ class StateRepository {
             name: store.string(forKey: keySelectedNetworkName) ?? "",
             zone: Zone(rawValue: store.string(forKey: keySelectedNetworkName) ?? "") ?? .dk1
         )
-        deliveredNotification = Date(timeIntervalSince1970: store.double(forKey: keyLastDeliveredNotification))
+        for type in Message.Kind.allCases {
+            deliveredNotifications[type] = Date(timeIntervalSince1970: store.double(forKey: "\(keyLastDeliveredNotification)\(type.rawValue)"))
+            disabledNotifications[type] = store.bool(forKey: "\(keyEnabledNotification)\(type.rawValue)")
+        }
+        super.init()
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            self.notificationStatus = settings.authorizationStatus
+        }
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(backgroundRefreshStatusDidChange),
+            name: UIApplication.backgroundRefreshStatusDidChangeNotification,
+            object: nil
+        )
     }
 
-    func add(observer: Observer) {
-        observers.append(observer)
-    }
-
-    func remove(observer: Observer) {
-        observers.removeAll(where: { $0 === observer })
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
     }
 
     func erase() {
@@ -49,22 +59,32 @@ class StateRepository {
         self.network = network
     }
 
-    func deliveredNotification(at date: Date) {
-        store.set(date.timeIntervalSince1970, forKey: keyLastDeliveredNotification)
-        deliveredNotification = date
+    func deliveredNotification(for type: Message.Kind) -> Date {
+        deliveredNotifications[type] ?? Date(timeIntervalSince1970: 0)
+    }
+
+    func deliveredNotification(at date: Date, for type: Message.Kind) {
+        store.set(date.timeIntervalSince1970, forKey: "\(keyLastDeliveredNotification)\(type.rawValue)")
+        deliveredNotifications[type] = date
+    }
+
+    func notifications(for type: Message.Kind) -> Bool {
+        !(disabledNotifications[type] ?? true)
+    }
+
+    func notifications(enabled: Bool, for type: Message.Kind) {
+        store.set(!enabled, forKey: "\(keyEnabledNotification)\(type.rawValue)")
+        disabledNotifications[type] = !enabled
     }
 
     private let keySelectedNetworkId = "keySelectedNetworkId"
     private let keySelectedNetworkName = "keySelectedNetworkName"
     private let keySelectedNetworkZone = "keySelectedNetworkZone"
-    private let keyLastDeliveredNotification = "keyLastDeliveredNotification"
+    private let keyEnabledNotification = "keyEnabledNotification-"
+    private let keyLastDeliveredNotification = "keyLastDeliveredNotification-"
 
-    private func updated() {
-        for observer in observers {
-            Task {
-                observer.updated()
-            }
-        }
+    @objc private func backgroundRefreshStatusDidChange(notification: NSNotification) {
+        backgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
     }
 }
 

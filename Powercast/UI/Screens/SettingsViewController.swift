@@ -5,14 +5,14 @@ import Combine
 class SettingsViewController: ViewController {
     private let tableView = UITableView(frame: .zero, style: .grouped)
 
-    private let repository: StateRepository
+    private let state: StateRepository
 
     private var sections: [Section]!
 
-    init(navigation: AppNavigation, repository: StateRepository, sections: [Section]? = nil) {
-        self.repository = repository
+    init(navigation: AppNavigation, state: StateRepository, sections: [Section]? = nil) {
+        self.state = state
         super.init(navigation: navigation)
-        self.sections = sections ?? buildSettings(state: repository)
+        self.sections = sections ?? buildSettings()
     }
 
     required init?(coder: NSCoder) {
@@ -23,6 +23,7 @@ class SettingsViewController: ViewController {
         super.viewDidLoad()
 
         title = Translations.SETTINGS_TITLE
+        navigationController?.navigationBar.shadowImage = UIImage()
 
         tableView
             .set(datasource: self, delegate: self)
@@ -38,11 +39,11 @@ class SettingsViewController: ViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        repository.add(observer: self)
+        state.add(observer: self)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        repository.remove(observer: self)
+        state.remove(observer: self)
         super.viewWillDisappear(animated)
     }
 
@@ -111,23 +112,93 @@ extension SettingsViewController: UITableViewDelegate {
 extension SettingsViewController: Observer {
     func updated() {
         DispatchQueue.main.async {
-            self.sections = self.buildSettings(state: self.repository)
+            self.sections = self.buildSettings()
             self.tableView.reloadData()
         }
     }
 }
 
 extension SettingsViewController {
-    func buildSettings(state repository: StateRepository) -> [Section] {
-        [
-            SettingsViewController.Section(
-                title: Translations.SETTINGS_NETWORK_TITLE,
-                rows: [
-                    .item(label: repository.network.name, detailLabel: nil, onSelection: { [navigation] in
-                        navigation.navigate(to: .networkSelection)
-                    })
-                ]
-            )
-        ]
+    func buildSettings() -> [Section] {
+        return [buildNetworkSettings(), buildSystemSettings(), buildNotificationSettings()]
+    }
+
+    private func buildNetworkSettings() -> Section {
+        SettingsViewController.Section(
+            title: Translations.SETTINGS_NETWORK_TITLE,
+            rows: [
+                .item(label: state.network.name, detailLabel: nil, onSelection: { [navigation] in
+                    navigation.navigate(to: .networkSelection)
+                })
+            ]
+        )
+    }
+
+    private func buildSystemSettings() -> Section {
+        SettingsViewController.Section(
+            title: Translations.SETTINGS_SYSTEM_TITLE,
+            rows: [
+                .item(label: Translations.SETTINGS_SYSTEM_BACKGROUND_REFRESH, detailLabel: state.backgroundRefreshStatus.string, onSelection: {
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                }),
+                .item(label: Translations.SETTINGS_SYSTEM_NOTIFICATIONS, detailLabel: state.notificationStatus.string, onSelection: {
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                })
+            ]
+        )
+    }
+
+    private func buildNotificationSettings() -> Section {
+        SettingsViewController.Section(
+            title: Translations.SETTINGS_NOTIFICATIONS_TITLE,
+            rows: Message.Kind.allCases.map { kind in
+                return Row.item(label: kind.string, detailLabel: state.notifications(for: kind) ? Translations.SETTINGS_STATE_ENABLED : Translations.SETTINGS_STATE_DISABLED, onSelection: { [state] in
+                    state.notifications(enabled: !state.notifications(for: kind), for: kind)
+                })
+            }
+        )
+    }
+}
+
+private extension UNAuthorizationStatus {
+    var string: String {
+        switch self {
+        case .notDetermined:
+            return Translations.SETTINGS_STATE_UNKNOWN
+        case .authorized, .provisional, .ephemeral:
+            return Translations.SETTINGS_STATE_ENABLED
+        case .denied:
+            fallthrough
+        @unknown default:
+            return Translations.SETTINGS_STATE_DISABLED
+        }
+    }
+}
+
+private extension UIBackgroundRefreshStatus {
+    var string: String {
+        switch self {
+        case .available:
+            return Translations.SETTINGS_STATE_ENABLED
+        default:
+            return Translations.SETTINGS_STATE_DISABLED
+        }
+    }
+}
+
+private extension Message.Kind {
+    var string: String {
+        switch self {
+        case .night:
+            return Translations.SETTINGS_NOTIFICATIONS_ITEM_NIGHT
+        case .morning:
+            return Translations.SETTINGS_NOTIFICATIONS_ITEM_MORNING
+        case .afternoon:
+            return Translations.SETTINGS_NOTIFICATIONS_ITEM_AFTERNOON
+        case .evening:
+            return Translations.SETTINGS_NOTIFICATIONS_ITEM_EVENING
+        case .free:
+            return Translations.SETTINGS_NOTIFICATIONS_ITEM_FREE
+        }
     }
 }

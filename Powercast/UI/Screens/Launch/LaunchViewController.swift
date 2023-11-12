@@ -4,9 +4,9 @@ import SugarKit
 class LaunchViewController: ViewController {
     private var interactor: LaunchInteractor!
 
-    init(navigation: AppNavigation, databases: [Migratable], repository: ChargesRepository) {
+    init(navigation: AppNavigation, databases: [Migratable], charges: ChargesRepository) {
         super.init(navigation: navigation)
-        self.interactor = LaunchInteractor(delegate: self, databases: databases, repository: repository)
+        self.interactor = LaunchInteractor(delegate: self, databases: databases, charges: charges)
     }
 
     required init?(coder: NSCoder) {

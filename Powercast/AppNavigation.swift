@@ -27,8 +27,9 @@ class AppNavigation {
         ),
         main: PricesViewController(
             navigation: self,
-            energyPriceRepository: dependencies.energyPriceRepository,
-            stateRepository: dependencies.stateRepository
+            prices: dependencies.energyPriceRepository,
+            notifications: dependencies.notificationRepository,
+            state: dependencies.stateRepository
         )
     )
 
@@ -66,22 +67,21 @@ class AppNavigation {
             let viewController = LaunchViewController(
                 navigation: self,
                 databases: dependencies.databases,
-                repository: dependencies.chargesRepository
+                charges: dependencies.chargesRepository
             )
             navigationController.setViewControllers([viewController], animated: true)
         case .networkSelection:
             let viewController = NetworkSelectionViewController(
                 navigation: self,
-                repository: dependencies.chargesRepository,
                 networks: networks ?? []
             )
             navigationController.setViewControllers([viewController], animated: true)
         case let .loadData(network):
             let viewController = DataLoadingViewController(
                 navigation: self,
-                energyPriceRepository: dependencies.energyPriceRepository,
-                chargesRepository: dependencies.chargesRepository,
-                stateRepository: dependencies.stateRepository,
+                prices: dependencies.energyPriceRepository,
+                charges: dependencies.chargesRepository,
+                state: dependencies.stateRepository,
                 network: network
             )
             navigationController.setViewControllers([viewController], animated: true)
@@ -92,9 +92,9 @@ class AppNavigation {
                 self.navigationController.setViewControllers([self.drawer], animated: true)
             }
         case .settings:
-            navigationController.pushViewController(SettingsViewController(navigation: self, repository: dependencies.stateRepository, sections: nil), animated: true)
+            navigationController.pushViewController(SettingsViewController(navigation: self, state: dependencies.stateRepository, sections: nil), animated: true)
         case let .specificSettings(configuration):
-            navigationController.pushViewController(SettingsViewController(navigation: self, repository: dependencies.stateRepository, sections: configuration), animated: true)
+            navigationController.pushViewController(SettingsViewController(navigation: self, state: dependencies.stateRepository, sections: configuration), animated: true)
         case .licenses:
             navigationController.pushViewController(LicensesViewController(navigation: self), animated: true)
         case let .license(title, content):
