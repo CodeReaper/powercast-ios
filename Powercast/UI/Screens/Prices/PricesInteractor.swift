@@ -20,11 +20,11 @@ class PricesInteractor {
 
     private weak var delegate: PricesDelegate?
 
-    init(delegate: PricesDelegate, energyPriceRepository: EnergyPriceRepository, notifications: NotificationRepository, stateRepository: StateRepository) {
+    init(delegate: PricesDelegate, prices: EnergyPriceRepository, notifications: NotificationRepository, state: StateRepository) {
         self.delegate = delegate
         self.notifications = notifications
-        self.prices = energyPriceRepository
-        self.state = stateRepository
+        self.prices = prices
+        self.state = state
     }
 
     func viewDidLoad() {

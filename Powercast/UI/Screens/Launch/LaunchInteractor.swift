@@ -7,14 +7,14 @@ protocol LaunchDelegate: AnyObject {
 
 struct LaunchInteractor {
     private let databases: [Migratable]
-    private let repository: ChargesRepository
+    private let charges: ChargesRepository
 
     private weak var delegate: LaunchDelegate?
 
-    init(delegate: LaunchDelegate, databases: [Migratable], repository: ChargesRepository) {
+    init(delegate: LaunchDelegate, databases: [Migratable], charges: ChargesRepository) {
         self.delegate = delegate
         self.databases = databases
-        self.repository = repository
+        self.charges = charges
     }
 
     func viewWillAppear() {
@@ -38,7 +38,7 @@ struct LaunchInteractor {
 
         dispatch.enter()
         Task {
-            try? await repository.pullNetworks()
+            try? await charges.pullNetworks()
             dispatch.leave()
         }
 

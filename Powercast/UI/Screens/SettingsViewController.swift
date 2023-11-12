@@ -9,8 +9,8 @@ class SettingsViewController: ViewController {
 
     private var sections: [Section]!
 
-    init(navigation: AppNavigation, repository: StateRepository, sections: [Section]? = nil) {
-        self.state = repository
+    init(navigation: AppNavigation, state: StateRepository, sections: [Section]? = nil) {
+        self.state = state
         super.init(navigation: navigation)
         self.sections = sections ?? buildSettings()
     }

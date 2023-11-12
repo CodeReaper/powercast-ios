@@ -7,7 +7,7 @@ class NetworkSelectionViewController: ViewController {
     private let zones = [Zone.dk2, .dk1]
     private let items: [[Network]]
 
-    init(navigation: AppNavigation, repository: ChargesRepository, networks: [Network]) {
+    init(navigation: AppNavigation, networks: [Network]) {
         self.items = zones.map { zone in
             networks.filter({ $0.zone == zone }).sorted(by: { $0.name < $1.name })
         }
