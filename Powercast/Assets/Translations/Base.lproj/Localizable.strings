@@ -8,6 +8,10 @@
 "LICENSES_TITLE" = "Licenses";
 "NETWORK_SELECTION_DK1_ZIP_LIST" = "Zip codes 5000 - 9999";
 "NETWORK_SELECTION_DK2_ZIP_LIST" = "Zip codes 1000 - 4999";
+"NETWORK_SELECTION_HELP_BUTTON_NEGATIVE" = "Cancel";
+"NETWORK_SELECTION_HELP_BUTTON_POSITIVE" = "Vist their home page";
+"NETWORK_SELECTION_HELP_MESSAGE" = "You can look up your network company on Green Power Denmark, if you provide them with your address";
+"NETWORK_SELECTION_HELP_TITLE" = "Look up your network company";
 "NETWORK_SELECTION_TITLE" = "Choose network";
 "NOTIFICATION_TEMPLATE_BODY" = "%1 prices are %2 %3";
 "NOTIFICATION_TEMPLATE_FREE_BODY" = "During the hours %1 only fees apply, ranging between %2 and %3 øre/kWh";
