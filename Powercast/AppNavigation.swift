@@ -100,7 +100,7 @@ class AppNavigation {
         case let .license(title, content):
             navigationController.pushViewController(LicenseViewController(navigation: self, title: title, content: content), animated: true)
         case .actionSheet(let options):
-            navigationController.present(UIAlertController.build(with: options), animated: true)
+            (navigationController.topViewController ?? navigationController).present(UIAlertController.build(with: options), animated: true)
         }
     }
 }

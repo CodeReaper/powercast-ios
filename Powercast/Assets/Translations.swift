@@ -11,6 +11,10 @@ struct Translations {
 	static let LICENSES_TITLE = NSLocalizedString("LICENSES_TITLE", comment: "")
 	static let NETWORK_SELECTION_DK1_ZIP_LIST = NSLocalizedString("NETWORK_SELECTION_DK1_ZIP_LIST", comment: "")
 	static let NETWORK_SELECTION_DK2_ZIP_LIST = NSLocalizedString("NETWORK_SELECTION_DK2_ZIP_LIST", comment: "")
+	static let NETWORK_SELECTION_HELP_BUTTON_NEGATIVE = NSLocalizedString("NETWORK_SELECTION_HELP_BUTTON_NEGATIVE", comment: "")
+	static let NETWORK_SELECTION_HELP_BUTTON_POSITIVE = NSLocalizedString("NETWORK_SELECTION_HELP_BUTTON_POSITIVE", comment: "")
+	static let NETWORK_SELECTION_HELP_MESSAGE = NSLocalizedString("NETWORK_SELECTION_HELP_MESSAGE", comment: "")
+	static let NETWORK_SELECTION_HELP_TITLE = NSLocalizedString("NETWORK_SELECTION_HELP_TITLE", comment: "")
 	static let NETWORK_SELECTION_TITLE = NSLocalizedString("NETWORK_SELECTION_TITLE", comment: "")
 	static func NOTIFICATION_TEMPLATE_BODY(_ p1: String, _ p2: String, _ p3: String) -> String { return NSLocalizedString("NOTIFICATION_TEMPLATE_BODY", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2).replacingOccurrences(of: "%3", with: p3) }
 	static func NOTIFICATION_TEMPLATE_FREE_BODY(_ p1: String, _ p2: String, _ p3: String) -> String { return NSLocalizedString("NOTIFICATION_TEMPLATE_FREE_BODY", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2).replacingOccurrences(of: "%3", with: p3) }

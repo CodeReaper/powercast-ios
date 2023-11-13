@@ -8,6 +8,10 @@
 "LICENSES_TITLE" = "Licenser";
 "NETWORK_SELECTION_DK1_ZIP_LIST" = "Post numre 5000 - 9999";
 "NETWORK_SELECTION_DK2_ZIP_LIST" = "Post numre 1000 - 4999";
+"NETWORK_SELECTION_HELP_BUTTON_NEGATIVE" = "Cancel";
+"NETWORK_SELECTION_HELP_BUTTON_POSITIVE" = "Åbn deres hjemmeside";
+"NETWORK_SELECTION_HELP_MESSAGE" = "Du kan slå dit netselskab op hos Green Power Denmark, hvis du indtaster din adresse der";
+"NETWORK_SELECTION_HELP_TITLE" = "Slå dit netselskab op";
 "NETWORK_SELECTION_TITLE" = "Vælg netværk";
 "NOTIFICATION_TEMPLATE_BODY" = "%1 er priserne %2 %3";
 "NOTIFICATION_TEMPLATE_FREE_BODY" = "Det koster kun afgifterne i timerne %1 som koster mellem %2 og %3 øre/kWh";

@@ -3,7 +3,7 @@ import SugarKit
 
 class NetworkSelectionViewController: ViewController {
     private let tableView = UITableView(frame: .zero, style: .plain)
-
+    private let helpURL = URL(string: "https://greenpowerdenmark.dk/vejledning-teknik/nettilslutning/find-netselskab")!
     private let zones = [Zone.dk2, .dk1]
     private let items: [[Network]]
 
@@ -22,11 +22,12 @@ class NetworkSelectionViewController: ViewController {
         super.viewDidLoad()
 
         // TODO: handle error case with zero networks
-        // TODO: add help link: https://greenpowerdenmark.dk/vejledning-teknik/nettilslutning/find-netselskab
 
         title = Translations.NETWORK_SELECTION_TITLE
 
         navigationController?.navigationBar.shadowImage = UIImage()
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark.circle"), style: .plain, target: self, action: #selector(didTapHelp))
 
         tableView
             .set(datasource: self, delegate: self)
@@ -39,6 +40,18 @@ class NetworkSelectionViewController: ViewController {
                 make(its.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor))
                 make(its.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor))
             }
+    }
+
+    @objc private func didTapHelp() {
+        let options = [
+            ActionSheetOption.title(text: Translations.NETWORK_SELECTION_HELP_TITLE),
+            .message(text: Translations.NETWORK_SELECTION_HELP_MESSAGE),
+            .button(text: Translations.NETWORK_SELECTION_HELP_BUTTON_POSITIVE, action: { [helpURL] _ in
+                UIApplication.shared.open(helpURL)
+            }),
+            .cancel(text: Translations.NETWORK_SELECTION_HELP_BUTTON_NEGATIVE, action: nil)
+        ]
+        navigate(to: .actionSheet(options: options))
     }
 
     private class Header: UITableViewHeaderFooterView {
