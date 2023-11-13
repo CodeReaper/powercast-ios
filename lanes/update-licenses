@@ -119,3 +119,23 @@ THE FONT SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS
 EOF
 
 local_license assets "fontsquirrel.com - alex-brush" /tmp/license
+
+## -----
+
+cat << EOF > /tmp/license
+Conditions for use of Danish public-sector data - License for use of data in EDS
+
+CONDITIONS FOR USE OF DANISH PUBLICSECTOR DATA
+
+1. General information Energinet, (the 'Licensor'), which owns the intellectual property rights to data published on the Energy Data Service portal (www.energidataservice.dk) marked as being published under this license (the 'Data'), hereby grants you a license to use the Data subject to the conditions below. You accept these conditions as soon as you use the Data in any way. These conditions are subject to regulation under Danish law.
+
+2. Right of use The Licensor grants you a worldwide, free, non-exclusive and otherwise unrestricted licence to use the Data, which you are free to e.g. copy, distribute and publish; adapt and combine with other material; exploit commercially and non-commercially.
+
+3. Conditions The Data may not be used in a way which suggests that the Licensor endorses supports, recommends or markets the user of the Data, or the services or products of the user of the Data. You must ensure the use of the Data is in accordance with Danish law.
+
+4. Acknowledgement of source When using the Data the following may be stated: Contains data used pursuant to 'Conditions for use of Danish public-sector data' from the Energi Data Service portal (www.energidataservice.dk).
+
+5. Rights and responsibilities of the Licensor The Data is provided 'as is' and the Licensor shall not be liable for content, origin, errors or omissions in the Data and shall not be liable for any loss or damage caused by its use. The Licensor provides no guarantee for the continued availability of the Data, and may at all times change the right of use of the Data and the conditions for its use.
+EOF
+
+local_license assets energidataservice.dk /tmp/license
