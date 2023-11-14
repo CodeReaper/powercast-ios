@@ -37,9 +37,7 @@ class AppNavigation {
         dependencies.chargesRepository.network(by: dependencies.stateRepository.network.id)
     }
     private var networks: [Network]? {
-        try? dependencies.energyChargesDatabase.queue.read {
-            try Database.Network.fetchAll($0).compactMap { try? Network.from(model: $0) }
-        }
+        try? dependencies.chargesRepository.networks()
     }
 
     private var window: UIWindow?
@@ -73,7 +71,8 @@ class AppNavigation {
         case .networkSelection:
             let viewController = NetworkSelectionViewController(
                 navigation: self,
-                networks: networks ?? []
+                networks: networks ?? [],
+                charges: dependencies.chargesRepository
             )
             navigationController.setViewControllers([viewController], animated: true)
         case let .loadData(network):
