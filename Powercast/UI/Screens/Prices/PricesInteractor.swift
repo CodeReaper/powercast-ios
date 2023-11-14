@@ -3,7 +3,7 @@ import Combine
 
 protocol PricesDelegate: AnyObject {
     func show(loading: Bool)
-    func show(data: PriceTableDatasource)
+    func show(data: TableDatasource)
     func showNoData()
     func showRefreshFailed()
     func endRefreshing()
@@ -14,16 +14,18 @@ class PricesInteractor {
 
     private let notifications: NotificationRepository
     private let prices: EnergyPriceRepository
+    private let emission: EmissionRepository
     private let state: StateRepository
 
     private var nextRefresh = 0.0
 
     private weak var delegate: PricesDelegate?
 
-    init(delegate: PricesDelegate, prices: EnergyPriceRepository, notifications: NotificationRepository, state: StateRepository) {
+    init(delegate: PricesDelegate, prices: EnergyPriceRepository, emission: EmissionRepository, notifications: NotificationRepository, state: StateRepository) {
         self.delegate = delegate
         self.notifications = notifications
         self.prices = prices
+        self.emission = emission
         self.state = state
     }
 
@@ -73,8 +75,13 @@ class PricesInteractor {
             for date in prices.dates(for: state.network.zone) {
                 try await prices.pull(zone: state.network.zone, at: date)
             }
+            for date in emission.co2.dates(for: state.network.zone) {
+                try await emission.co2.pull(zone: state.network.zone, at: date)
+            }
         } catch {
-            delegate?.showRefreshFailed()
+            DispatchQueue.main.async { [delegate] in
+                delegate?.showRefreshFailed()
+            }
         }
 
         let updatedSource = try? prices.source(for: state.network)

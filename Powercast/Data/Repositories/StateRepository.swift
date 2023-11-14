@@ -32,10 +32,17 @@ class StateRepository: Observerable {
             name: UIApplication.backgroundRefreshStatusDidChangeNotification,
             object: nil
         )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didEnterBackground),
+            name: UIApplication.didEnterBackgroundNotification,
+            object: nil
+        )
     }
 
     deinit {
         NotificationCenter.default.removeObserver(self, name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
 
     func erase() {
@@ -85,6 +92,10 @@ class StateRepository: Observerable {
 
     @objc private func backgroundRefreshStatusDidChange(notification: NSNotification) {
         backgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
+    }
+
+    @objc private func didEnterBackground(notification: NSNotification) {
+        store.synchronize()
     }
 }
 

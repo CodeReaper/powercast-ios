@@ -1,7 +1,21 @@
 import Foundation
 import GRDB
 
-class TableDatasource: PriceTableDatasource {
+protocol TableDatasource {
+    var sectionCount: Int { get }
+    func numberOfRows(in section: Int) -> Int
+    func item(at indexPath: IndexPath) -> Price?
+    func activeIndexPath(at date: Date) -> IndexPath?
+}
+
+struct EmptyTableDatasource: TableDatasource {
+    let sectionCount: Int = 0
+    func numberOfRows(in section: Int) -> Int { 0 }
+    func item(at indexPath: IndexPath) -> Price? { nil }
+    func activeIndexPath(at date: Date) -> IndexPath? { nil }
+}
+
+class PriceTableDatasource: TableDatasource {
     private let network: Network
     private let lookup: ChargesLookup
     private let prices: EnergyPriceRepository
@@ -88,18 +102,4 @@ class TableDatasource: PriceTableDatasource {
         let low = values.reduce(Double.infinity, { $0 > $1 ? $1 : $0 })
         return low...high
     }
-}
-
-protocol PriceTableDatasource {
-    var sectionCount: Int { get }
-    func numberOfRows(in section: Int) -> Int
-    func item(at indexPath: IndexPath) -> Price?
-    func activeIndexPath(at date: Date) -> IndexPath?
-}
-
-struct EmptyPriceTableDatasource: PriceTableDatasource {
-    let sectionCount: Int = 0
-    func numberOfRows(in section: Int) -> Int { 0 }
-    func item(at indexPath: IndexPath) -> Price? { nil }
-    func activeIndexPath(at date: Date) -> IndexPath? { nil }
 }

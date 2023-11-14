@@ -28,6 +28,7 @@ class AppNavigation {
         main: PricesViewController(
             navigation: self,
             prices: dependencies.energyPriceRepository,
+            emission: dependencies.emissionRepository,
             notifications: dependencies.notificationRepository,
             state: dependencies.stateRepository
         )
@@ -58,7 +59,7 @@ class AppNavigation {
     func navigate(to endpoint: Navigation) {
         switch endpoint {
         case .launch:
-            if network != nil {
+            if network != nil { // TODO: this bypasses migrations
                 navigate(to: .dashboard)
                 return
             }
@@ -80,6 +81,7 @@ class AppNavigation {
                 navigation: self,
                 prices: dependencies.energyPriceRepository,
                 charges: dependencies.chargesRepository,
+                emission: dependencies.emissionRepository,
                 state: dependencies.stateRepository,
                 network: network
             )

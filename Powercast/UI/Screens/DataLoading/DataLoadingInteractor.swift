@@ -9,6 +9,7 @@ class DataLoadingInteractor {
     private let navigation: AppNavigation
     private let prices: EnergyPriceRepository
     private let charges: ChargesRepository
+    private let emission: EmissionRepository
     private let state: StateRepository
     private let network: Network
 
@@ -17,11 +18,12 @@ class DataLoadingInteractor {
 
     private weak var delegate: DataLoadingDelegate?
 
-    init(navigation: AppNavigation, delegate: DataLoadingDelegate, prices: EnergyPriceRepository, charges: ChargesRepository, state: StateRepository, network: Network) {
+    init(navigation: AppNavigation, delegate: DataLoadingDelegate, prices: EnergyPriceRepository, charges: ChargesRepository, emission: EmissionRepository, state: StateRepository, network: Network) {
         self.navigation = navigation
         self.delegate = delegate
         self.prices = prices
         self.charges = charges
+        self.emission = emission
         self.state = state
         self.network = network
     }
@@ -48,6 +50,7 @@ class DataLoadingInteractor {
                 let end = Calendar.current.date(byAdding: .day, value: 2, to: today)!
                 for date in start.dates(until: end) {
                     try await prices.pull(zone: network.zone, at: date)
+                    try await emission.co2.pull(zone: network.zone, at: date)
                 }
                 success = true
             } catch {

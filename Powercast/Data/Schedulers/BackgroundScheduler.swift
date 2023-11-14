@@ -7,12 +7,14 @@ class BackgroundScheduler {
     private static let identifier = "Powercast.energyprice.refresh"
 
     private let prices: EnergyPriceRepository
+    private let emission: EmissionRepository
     private let charges: ChargesRepository
     private let state: StateRepository
     private let notifications: NotificationRepository
 
-    init(charges: ChargesRepository, prices: EnergyPriceRepository, state: StateRepository, notifications: NotificationRepository) {
+    init(charges: ChargesRepository, prices: EnergyPriceRepository, emission: EmissionRepository, state: StateRepository, notifications: NotificationRepository) {
         self.prices = prices
+        self.emission = emission
         self.charges = charges
         self.state = state
         self.notifications = notifications
@@ -60,6 +62,9 @@ class BackgroundScheduler {
                 try await charges.pullNetwork(id: network.id)
                 for date in prices.dates(for: network.zone) {
                     try await prices.pull(zone: network.zone, at: date)
+                }
+                for date in emission.co2.dates(for: network.zone) {
+                    try await emission.co2.pull(zone: network.zone, at: date)
                 }
 
                 Flog.info("Scheduling: Task finished")

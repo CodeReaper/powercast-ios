@@ -58,7 +58,10 @@ class NotificationRepository {
                 let kind = Message.Kind(rawValue: notification.request.content.userInfo[keyKind] as? Int ?? -1)
             else { return }
 
-            state.deliveredNotification(at: Date(timeIntervalSince1970: epoch), for: kind)
+            let date = Date(timeIntervalSince1970: epoch)
+            if state.deliveredNotification(for: kind) > date {
+                state.deliveredNotification(at: date, for: kind)
+            }
         }
 
         for message in messages {
@@ -76,7 +79,6 @@ class NotificationRepository {
     private let keyKind = "keyKind"
 
     private func show(message: Message, at date: Date) async {
-        // TODO: update using https://developer.apple.com/documentation/usernotificationsui/customizing_the_appearance_of_notifications
         let content = UNMutableNotificationContent()
         content.title = Translations.NOTIFICATION_TITLE
         content.body = message.body

@@ -8,14 +8,14 @@ class PricesViewController: ViewController {
     private let refreshControl = UIRefreshControl()
     private let formatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
 
-    private var source = EmptyPriceTableDatasource() as PriceTableDatasource
+    private var source = EmptyTableDatasource() as TableDatasource
     private var now = Date()
 
     private var interactor: PricesInteractor!
 
-    init(navigation: AppNavigation, prices: EnergyPriceRepository, notifications: NotificationRepository, state: StateRepository) {
+    init(navigation: AppNavigation, prices: EnergyPriceRepository, emission: EmissionRepository, notifications: NotificationRepository, state: StateRepository) {
         super.init(navigation: navigation)
-        interactor = PricesInteractor(delegate: self, prices: prices, notifications: notifications, state: state)
+        interactor = PricesInteractor(delegate: self, prices: prices, emission: emission, notifications: notifications, state: state)
     }
 
     required init?(coder: NSCoder) {
@@ -240,7 +240,7 @@ extension PricesViewController: UITableViewDelegate {
 }
 
 extension PricesViewController: PricesDelegate {
-    func show(data: PriceTableDatasource) {
+    func show(data: TableDatasource) {
         updateFailedLabel.set(hidden: true)
         let applyOffset = data.isUpdated(comparedTo: source)
         now = Date()
@@ -253,7 +253,7 @@ extension PricesViewController: PricesDelegate {
 
     func showNoData() {
         updateFailedLabel.set(hidden: true)
-        source = EmptyPriceTableDatasource()
+        source = EmptyTableDatasource()
         tableView.reloadData()
     }
 
@@ -282,8 +282,8 @@ extension PricesViewController: UINavigationBarDelegate {
     }
 }
 
-private extension PriceTableDatasource {
-    func isUpdated(comparedTo source: PriceTableDatasource) -> Bool {
+private extension TableDatasource {
+    func isUpdated(comparedTo source: TableDatasource) -> Bool {
         guard sectionCount == source.sectionCount else { return true }
 
         let section = sectionCount - 1
