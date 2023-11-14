@@ -16,6 +16,8 @@
 "NETWORK_SELECTION_TITLE","","Choose network","Vælg netværk",""
 "NETWORK_SELECTION_DK1_ZIP_LIST","","Zip codes 5000 - 9999","Post numre 5000 - 9999",""
 "NETWORK_SELECTION_DK2_ZIP_LIST","","Zip codes 1000 - 4999","Post numre 1000 - 4999",""
+"NETWORK_SELECTION_EMPTY_TITLE","","No network companies found","Ingen netselskaber fundet",""
+"NETWORK_SELECTION_EMPTY_BUTTON","","Retry","Prøv igen",""
 "NETWORK_SELECTION_HELP_TITLE","","Look up your network company","Slå dit netselskab op",""
 "NETWORK_SELECTION_HELP_MESSAGE","","You can look up your network company on Green Power Denmark, if you provide them with your address","Du kan slå dit netselskab op hos Green Power Denmark, hvis du indtaster din adresse der",""
 "NETWORK_SELECTION_HELP_BUTTON_POSITIVE","","Vist their home page","Åbn deres hjemmeside",""

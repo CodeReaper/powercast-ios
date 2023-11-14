@@ -36,6 +36,12 @@ class ChargesRepository: ChargesLookup {
         return try Charges.from(GridPrice.from(model: grid), and: NetworkPrice.from(model: network))
     }
 
+    func networks() throws -> [Network] {
+        try database.read {
+            try Database.Network.fetchAll($0).map { try Network.from(model: $0) }
+        }
+    }
+
     func network(by id: Int) -> Network? {
         guard let item = try? database.read({ db in
             try Database.Network.filter(Database.Network.Columns.id == id).fetchOne(db)

@@ -8,6 +8,8 @@
 "LICENSES_TITLE" = "Licenser";
 "NETWORK_SELECTION_DK1_ZIP_LIST" = "Post numre 5000 - 9999";
 "NETWORK_SELECTION_DK2_ZIP_LIST" = "Post numre 1000 - 4999";
+"NETWORK_SELECTION_EMPTY_BUTTON" = "Prøv igen";
+"NETWORK_SELECTION_EMPTY_TITLE" = "Ingen netselskaber fundet";
 "NETWORK_SELECTION_HELP_BUTTON_NEGATIVE" = "Cancel";
 "NETWORK_SELECTION_HELP_BUTTON_POSITIVE" = "Åbn deres hjemmeside";
 "NETWORK_SELECTION_HELP_MESSAGE" = "Du kan slå dit netselskab op hos Green Power Denmark, hvis du indtaster din adresse der";

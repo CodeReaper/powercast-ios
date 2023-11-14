@@ -3,15 +3,22 @@ import SugarKit
 
 class NetworkSelectionViewController: ViewController {
     private let tableView = UITableView(frame: .zero, style: .plain)
+    private let emptyView = UIView()
+    private let indicator = UIActivityIndicatorView()
     private let helpURL = URL(string: "https://greenpowerdenmark.dk/vejledning-teknik/nettilslutning/find-netselskab")!
-    private let zones = [Zone.dk2, .dk1]
-    private let items: [[Network]]
 
-    init(navigation: AppNavigation, networks: [Network]) {
-        self.items = zones.map { zone in
-            networks.filter({ $0.zone == zone }).sorted(by: { $0.name < $1.name })
-        }
+    private let charges: ChargesRepository
+
+    private var zones: [Zone] = []
+    private var items: [[Network]] = []
+
+    private var retryButton: UIButton!
+
+    init(navigation: AppNavigation, networks: [Network], charges: ChargesRepository) {
+        self.charges = charges
         super.init(navigation: navigation)
+        retryButton = Button(text: Translations.NETWORK_SELECTION_EMPTY_BUTTON, textColor: .white, target: self, action: #selector(didTapRetry))
+        show(networks)
     }
 
     required init?(coder: NSCoder) {
@@ -20,8 +27,6 @@ class NetworkSelectionViewController: ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // TODO: handle error case with zero networks
 
         title = Translations.NETWORK_SELECTION_TITLE
 
@@ -40,6 +45,30 @@ class NetworkSelectionViewController: ViewController {
                 make(its.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor))
                 make(its.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor))
             }
+
+        emptyView.set(backgroundColor: Color.primary).setup(matching: view, in: view)
+
+        Stack.views(
+            aligned: .center,
+            on: .vertical,
+            spacing: 5,
+            Label(style: .body, text: Translations.NETWORK_SELECTION_EMPTY_TITLE, color: .white),
+            retryButton.set(height: 44),
+            indicator.set(height: 44)
+        ).layout(in: emptyView) { (make, its) in
+            make(its.centerXAnchor.constraint(equalTo: emptyView.safeAreaLayoutGuide.centerXAnchor))
+            make(its.centerYAnchor.constraint(equalTo: emptyView.safeAreaLayoutGuide.centerYAnchor))
+            make(its.widthAnchor.constraint(equalTo: emptyView.safeAreaLayoutGuide.widthAnchor))
+        }
+    }
+
+    private func show(_ networks: [Network]) {
+        let zones = Set(networks.map { $0.zone })
+        self.zones = [Zone.dk2, .dk1].filter { zones.contains($0) }
+        self.items = zones.map { zone in
+            networks.filter({ $0.zone == zone }).sorted(by: { $0.name < $1.name })
+        }
+        emptyView.set(hidden: zones.count != 0)
     }
 
     @objc private func didTapHelp() {
@@ -52,6 +81,23 @@ class NetworkSelectionViewController: ViewController {
             .cancel(text: Translations.NETWORK_SELECTION_HELP_BUTTON_NEGATIVE, action: nil)
         ]
         navigate(to: .actionSheet(options: options))
+    }
+
+    @objc func didTapRetry() {
+        retryButton.set(hidden: true)
+        indicator.set(hidden: false)
+        indicator.startAnimating()
+
+        Task {
+            try? await charges.pullNetworks()
+            let networks = try? charges.networks()
+            DispatchQueue.main.async {
+                self.indicator.stopAnimating()
+                self.indicator.set(hidden: true)
+                self.retryButton!.set(hidden: false)
+                self.show(networks ?? [])
+            }
+        }
     }
 
     private class Header: UITableViewHeaderFooterView {
