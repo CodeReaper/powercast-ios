@@ -17,7 +17,7 @@ class EmissionCo2Repository {
             return try Database.Co2
                 .filter(Database.Co2.Columns.zone == zone.rawValue)
                 .filter(Database.Co2.Columns.timestamp >= interval.start)
-                .filter(Database.Co2.Columns.timestamp <= interval.end)
+                .filter(Database.Co2.Columns.timestamp < interval.end)
                 .order(Database.Co2.Columns.timestamp.desc)
                 .fetchAll(db)
         }
@@ -40,7 +40,7 @@ class EmissionCo2Repository {
         return start.dates(until: end)
     }
 
-    func source(for zone: Zone) throws -> TableDatasource {
+    func source(for zone: Zone) throws -> EmissionTableDataSource {
         let max = try database.read { db in
             return try Date.fetchOne(db, Database.Co2.select(GRDB.max(Database.Co2.Columns.timestamp)))
         }
@@ -48,9 +48,9 @@ class EmissionCo2Repository {
             return try Date.fetchOne(db, Database.Co2.select(GRDB.min(Database.Co2.Columns.timestamp)))
         }
         guard let min = min, let max = max else {
-            return EmptyTableDatasource()
+            return EmptyEmissionTableDataSource()
         }
-        return EmptyTableDatasource() // FIXME: new source
+        return try CurrentEmissionTableDataSource(interval: DateInterval(start: min, end: max), zone: zone, emission: self)
     }
 
     func pull(zone: Zone, at date: Date) async throws {

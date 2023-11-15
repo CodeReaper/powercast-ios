@@ -1,21 +1,21 @@
 import Foundation
 import GRDB
 
-protocol TableDatasource {
+protocol PriceTableDatasource {
     var sectionCount: Int { get }
     func numberOfRows(in section: Int) -> Int
     func item(at indexPath: IndexPath) -> Price?
     func activeIndexPath(at date: Date) -> IndexPath?
 }
 
-struct EmptyTableDatasource: TableDatasource {
+struct EmptyPriceTableDatasource: PriceTableDatasource {
     let sectionCount: Int = 0
     func numberOfRows(in section: Int) -> Int { 0 }
     func item(at indexPath: IndexPath) -> Price? { nil }
     func activeIndexPath(at date: Date) -> IndexPath? { nil }
 }
 
-class PriceTableDatasource: TableDatasource {
+class CurrentPriceTableDatasource: PriceTableDatasource {
     private let network: Network
     private let lookup: ChargesLookup
     private let prices: EnergyPriceRepository

@@ -42,7 +42,7 @@ class EnergyPriceRepository {
         return start.dates(until: end)
     }
 
-    func source(for network: Network) throws -> TableDatasource {
+    func source(for network: Network) throws -> PriceTableDatasource {
         let max = try database.read { db in
             return try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.max(Database.EnergyPrice.Columns.timestamp)))
         }
@@ -50,9 +50,9 @@ class EnergyPriceRepository {
             return try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.min(Database.EnergyPrice.Columns.timestamp)))
         }
         guard let min = min, let max = max else {
-            return EmptyTableDatasource()
+            return EmptyPriceTableDatasource()
         }
-        return try PriceTableDatasource(interval: DateInterval(start: min, end: max), network: network, prices: self, lookup: lookup)
+        return try CurrentPriceTableDatasource(interval: DateInterval(start: min, end: max), network: network, prices: self, lookup: lookup)
     }
 
     func pull(zone: Zone, at date: Date) async throws {

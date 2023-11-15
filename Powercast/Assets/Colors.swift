@@ -8,4 +8,6 @@ struct Color {
     static let fixedFeeColor = UIColor.from(hex: "#B0D9B1")
     static let variableFeeColor = UIColor.from(hex: "#79AC78")
     static let priceColor = UIColor.from(hex: "#618264")
+
+    static let emissionColor = UIColor.from(hex: "#BFB29E")
 }

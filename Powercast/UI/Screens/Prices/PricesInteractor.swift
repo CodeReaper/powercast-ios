@@ -3,7 +3,7 @@ import Combine
 
 protocol PricesDelegate: AnyObject {
     func show(loading: Bool)
-    func show(data: TableDatasource)
+    func show(priceData: PriceTableDatasource, emissionData: EmissionTableDataSource)
     func showNoData()
     func showRefreshFailed()
     func endRefreshing()
@@ -35,15 +35,16 @@ class PricesInteractor {
 
     func viewWillAppear() {
         Task {
-            let source = try? prices.source(for: state.network)
+            let priceSource = try? prices.source(for: state.network)
+            let emissionSource = try? emission.co2.source(for: state.network.zone)
 
             DispatchQueue.main.async { [delegate] in
                 defer { delegate?.show(loading: false) }
-                guard let source = source else {
+                guard let priceSource = priceSource else {
                     delegate?.showNoData()
                     return
                 }
-                delegate?.show(data: source)
+                delegate?.show(priceData: priceSource, emissionData: emissionSource ?? EmptyEmissionTableDataSource())
             }
 
             let now = Date().timeIntervalSince1970
@@ -84,14 +85,15 @@ class PricesInteractor {
             }
         }
 
-        let updatedSource = try? prices.source(for: state.network)
+        let updatedPriceSource = try? prices.source(for: state.network)
+        let updatedEmissionSource = try? emission.co2.source(for: state.network.zone)
 
         DispatchQueue.main.async { [delegate] in
-            guard let source = updatedSource else {
+            guard let priceSource = updatedPriceSource else {
                 delegate?.showNoData()
                 return
             }
-            delegate?.show(data: source)
+            delegate?.show(priceData: priceSource, emissionData: updatedEmissionSource ?? EmptyEmissionTableDataSource())
         }
     }
 }
