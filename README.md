@@ -17,7 +17,7 @@ Below follows a roadmap arranged by current best guess for completion:
  - [x] Navigation routes
  - [x] Data updates
  - [x] Current prices
- - [ ] Current co2 estimations
+ - [x] Current co2 estimations
  - [x] Logo
  - [ ] Historic drilldown of prices
  - [ ] Dark mode
