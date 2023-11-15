@@ -29,8 +29,11 @@ struct Translations {
 	static let NOTIFICATION_VALUE_TOD_EVENING = NSLocalizedString("NOTIFICATION_VALUE_TOD_EVENING", comment: "")
 	static let NOTIFICATION_VALUE_TOD_MORNING = NSLocalizedString("NOTIFICATION_VALUE_TOD_MORNING", comment: "")
 	static let NOTIFICATION_VALUE_TOD_NIGHT = NSLocalizedString("NOTIFICATION_VALUE_TOD_NIGHT", comment: "")
+	static let PRICES_CO2_LABEL = NSLocalizedString("PRICES_CO2_LABEL", comment: "")
+	static func PRICES_CO2_SPAN(_ p1: String, _ p2: String) -> String { return NSLocalizedString("PRICES_CO2_SPAN", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
+	static let PRICES_CO2_UNIT = NSLocalizedString("PRICES_CO2_UNIT", comment: "")
+	static let PRICES_COST_UNIT = NSLocalizedString("PRICES_COST_UNIT", comment: "")
 	static func PRICES_DAY_PRICE_SPAN(_ p1: String, _ p2: String) -> String { return NSLocalizedString("PRICES_DAY_PRICE_SPAN", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
-	static func PRICES_HOUR_COST(_ p1: String) -> String { return NSLocalizedString("PRICES_HOUR_COST", comment: "").replacingOccurrences(of: "%1", with: p1) }
 	static func PRICES_HOUR_TIME(_ p1: String, _ p2: String) -> String { return NSLocalizedString("PRICES_HOUR_TIME", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
 	static let PRICES_REFRESH_CONTROL_MESSAGE = NSLocalizedString("PRICES_REFRESH_CONTROL_MESSAGE", comment: "")
 	static let PRICES_REFRESH_FAILED_MESSAGE = NSLocalizedString("PRICES_REFRESH_FAILED_MESSAGE", comment: "")

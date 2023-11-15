@@ -26,8 +26,11 @@
 "NOTIFICATION_VALUE_TOD_EVENING" = "This evening";
 "NOTIFICATION_VALUE_TOD_MORNING" = "Tomorrow morning";
 "NOTIFICATION_VALUE_TOD_NIGHT" = "Tonight";
+"PRICES_CO2_LABEL" = "CO₂";
+"PRICES_CO2_SPAN" = "%1 - %2";
+"PRICES_CO2_UNIT" = "g/kWh";
+"PRICES_COST_UNIT" = "øre/kWh";
 "PRICES_DAY_PRICE_SPAN" = "%1 - %2 øre/kWh";
-"PRICES_HOUR_COST" = "%1 øre/kWh";
 "PRICES_HOUR_TIME" = "%1 - %2";
 "PRICES_REFRESH_CONTROL_MESSAGE" = "Pull to refresh";
 "PRICES_REFRESH_FAILED_MESSAGE" = "Unable to fetch latest data";

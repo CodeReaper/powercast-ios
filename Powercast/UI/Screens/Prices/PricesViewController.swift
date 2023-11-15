@@ -145,10 +145,10 @@ class PricesViewController: ViewController {
         private let selectionIndicator = UIView()
         private let dateLabel = Label(style: .body, color: .black)
         private let priceLabel = Label(style: .headline, color: .black).aligned(to: .right)
-        private let co2Label = Label(style: .subheadline, text: "Co2", color: .darkGray)
+        private let co2Label = Label(style: .subheadline, text: Translations.PRICES_CO2_LABEL, color: .darkGray)
         private let emissionLabel = Label(style: .subheadline, color: .darkGray).aligned(to: .right)
-        private let priceUnitLabel = Label(style: .subheadline, text: "øre/kWh", color: .darkGray)
-        private let emissionUnitLabel = Label(style: .subheadline, text: "g/kWh", color: .darkGray)
+        private let priceUnitLabel = Label(style: .subheadline, text: Translations.PRICES_COST_UNIT, color: .darkGray)
+        private let emissionUnitLabel = Label(style: .subheadline, text: Translations.PRICES_CO2_UNIT, color: .darkGray)
         private let priceGaugeView = MultiColorGaugeView()
         private let emissionGaugeView = MultiColorGaugeView()
 
@@ -220,8 +220,8 @@ class PricesViewController: ViewController {
             ]
 
             dateLabel.text = Translations.PRICES_HOUR_TIME(Self.dateFormatter.string(from: price.duration.lowerBound), Self.dateFormatter.string(from: price.duration.upperBound))
-            priceLabel.text = formatter.string(with: price.price) // Translations.PRICES_HOUR_COST(formatter.string(with: price.price))
-            emissionLabel.text = "\(formatter.string(with: emission.amount.lowerBound)) - \(formatter.string(with: emission.amount.upperBound))" // FIXME: t
+            priceLabel.text = formatter.string(with: price.price)
+            emissionLabel.text = Translations.PRICES_CO2_SPAN(formatter.string(with: emission.amount.lowerBound), formatter.string(with: emission.amount.upperBound))
         }
     }
 }
