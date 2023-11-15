@@ -41,6 +41,6 @@ class LaunchViewController: ViewController {
 
 extension LaunchViewController: LaunchDelegate {
     func showNetworkSelection() {
-        navigate(to: .networkSelection)
+        navigate(to: .networkSelection(forceSelection: false))
     }
 }

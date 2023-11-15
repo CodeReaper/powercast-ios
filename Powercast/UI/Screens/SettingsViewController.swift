@@ -128,7 +128,7 @@ extension SettingsViewController {
             title: Translations.SETTINGS_NETWORK_TITLE,
             rows: [
                 .item(label: state.network.name, detailLabel: nil, onSelection: { [navigation] in
-                    navigation.navigate(to: .networkSelection)
+                    navigation.navigate(to: .networkSelection(forceSelection: true))
                 })
             ]
         )

@@ -3,7 +3,7 @@ import SugarKit
 
 indirect enum Navigation {
     case launch
-    case networkSelection
+    case networkSelection(forceSelection: Bool)
     case loadData(network: Network)
     case dashboard
     case settings
@@ -59,17 +59,17 @@ class AppNavigation {
     func navigate(to endpoint: Navigation) {
         switch endpoint {
         case .launch:
-            if network != nil { // TODO: this bypasses migrations
-                navigate(to: .dashboard)
-                return
-            }
             let viewController = LaunchViewController(
                 navigation: self,
                 databases: dependencies.databases,
                 charges: dependencies.chargesRepository
             )
             navigationController.setViewControllers([viewController], animated: true)
-        case .networkSelection:
+        case let .networkSelection(force):
+            if !force && network != nil {
+                navigate(to: .dashboard)
+                return
+            }
             let viewController = NetworkSelectionViewController(
                 navigation: self,
                 networks: networks ?? [],

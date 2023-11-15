@@ -155,7 +155,6 @@ class PricesViewController: ViewController {
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-            accessoryType = .disclosureIndicator
             backgroundColor = .white
 
             selectionIndicator
@@ -202,7 +201,7 @@ class PricesViewController: ViewController {
             emissionLabel.text = nil
         }
 
-        func update(using price: Price, and emission: Emission.Co2, with formatter: NumberFormatter, current: Bool) {
+        func update(using price: Price, and emission: Emission.Co2?, with formatter: NumberFormatter, current: Bool) {
             backgroundColor = current ? .white : Color.offWhite
             selectionIndicator.set(hidden: !current)
 
@@ -213,15 +212,19 @@ class PricesViewController: ViewController {
                 (ratio, Color.priceColor.withAlphaComponent(ratio > 0 ? 1 : 0))
             ]
 
-            let space = emission.amount.lowerBound / emission.amountSpan.upperBound
-            emissionGaugeView.values = [
-                (space, emissionGaugeView.tintColor),
-                ((emission.amount.upperBound / emission.amountSpan.upperBound) - space, Color.emissionColor)
-            ]
+            if let emission = emission {
+                let space = emission.amount.lowerBound / emission.amountSpan.upperBound
+                emissionGaugeView.values = [
+                    (space, emissionGaugeView.tintColor),
+                    ((emission.amount.upperBound / emission.amountSpan.upperBound) - space, Color.emissionColor)
+                ]
+                emissionLabel.text = Translations.PRICES_CO2_SPAN(formatter.string(with: emission.amount.lowerBound), formatter.string(with: emission.amount.upperBound))
+            } else {
+                emissionLabel.text = "-"
+            }
 
             dateLabel.text = Translations.PRICES_HOUR_TIME(Self.dateFormatter.string(from: price.duration.lowerBound), Self.dateFormatter.string(from: price.duration.upperBound))
             priceLabel.text = formatter.string(with: price.price)
-            emissionLabel.text = Translations.PRICES_CO2_SPAN(formatter.string(with: emission.amount.lowerBound), formatter.string(with: emission.amount.upperBound))
         }
     }
 }
@@ -249,9 +252,8 @@ extension PricesViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(Cell.self, forIndexPath: indexPath)
 
         guard let price = priceSource.item(at: indexPath) else { return cell }
-        guard let emission = emissionSource.item(at: indexPath) else { return cell }
 
-        cell.update(using: price, and: emission, with: formatter, current: price.isActive(at: now))
+        cell.update(using: price, and: emissionSource.item(at: indexPath), with: formatter, current: price.isActive(at: now))
         return cell
     }
 }
@@ -271,7 +273,9 @@ extension PricesViewController: PricesDelegate {
         emissionSource = emissionData
         tableView.reloadData()
         if let indexPath = priceSource.activeIndexPath(at: now), applyOffset {
-            tableView.scrollToRow(at: indexPath, at: .middle, animated: false)
+            DispatchQueue.main.async { [tableView] in
+                tableView.scrollToRow(at: indexPath, at: .middle, animated: false)
+            }
         }
     }
 
