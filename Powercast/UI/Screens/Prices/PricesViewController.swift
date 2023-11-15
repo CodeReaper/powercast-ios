@@ -143,18 +143,20 @@ class PricesViewController: ViewController {
         private static let dateFormatter = DateFormatter.with(format: "HH")
 
         private let selectionIndicator = UIView()
-        private let dateLabel = Label(color: .black)
-        private let priceLabel = Label(color: .black)
-        private let emissionLabel = Label(color: .black)
-        private let priceTitleLabel = Label(text: "Price", color: .darkGray)
-        private let emissionTitleLabel = Label(text: "Co2", color: .darkGray)
+        private let dateLabel = Label(style: .body, color: .black)
+        private let priceLabel = Label(style: .headline, color: .black).aligned(to: .right)
+        private let co2Label = Label(style: .subheadline, text: "Co2", color: .darkGray)
+        private let emissionLabel = Label(style: .subheadline, color: .darkGray).aligned(to: .right)
+        private let priceUnitLabel = Label(style: .subheadline, text: "øre/kWh", color: .darkGray)
+        private let emissionUnitLabel = Label(style: .subheadline, text: "g/kWh", color: .darkGray)
         private let priceGaugeView = MultiColorGaugeView()
         private let emissionGaugeView = MultiColorGaugeView()
 
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-            contentView.backgroundColor = .white
+            accessoryType = .disclosureIndicator
+            backgroundColor = .white
 
             selectionIndicator
                 .set(hidden: true)
@@ -173,22 +175,11 @@ class PricesViewController: ViewController {
             }
             Stack.views(
                 on: .vertical,
-                inset: NSDirectionalEdgeInsets(top: 7, leading: 15, bottom: 5, trailing: 15),
-                dateLabel,
-                Stack.views(
-                    on: .vertical,
-                    spacing: 5,
-                    inset: NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0),
-                    Stack.views(on: .horizontal, priceTitleLabel, priceLabel),
-                    priceGaugeView
-                ),
-                Stack.views(
-                    on: .vertical,
-                    spacing: 5,
-                    inset: NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0),
-                    Stack.views(on: .horizontal, emissionTitleLabel, emissionLabel),
-                    emissionGaugeView
-                )
+                inset: NSDirectionalEdgeInsets(top: 7, leading: 15, bottom: 7, trailing: 15),
+                Stack.views(on: .horizontal, spacing: 3, inset: NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0), dateLabel, priceLabel, priceUnitLabel),
+                priceGaugeView,
+                Stack.views(on: .horizontal, spacing: 3, inset: NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0), co2Label, emissionLabel, emissionUnitLabel),
+                emissionGaugeView
             ).layout(in: contentView) { (make, its) in
                 make(its.topAnchor.constraint(equalTo: contentView.topAnchor))
                 make(its.bottomAnchor.constraint(equalTo: contentView.bottomAnchor))
@@ -212,7 +203,7 @@ class PricesViewController: ViewController {
         }
 
         func update(using price: Price, and emission: Emission.Co2, with formatter: NumberFormatter, current: Bool) {
-            contentView.backgroundColor = current ? .white : .black.withAlphaComponent(0.03)
+            backgroundColor = current ? .white : Color.offWhite
             selectionIndicator.set(hidden: !current)
 
             let ratio = (price.price - price.fees) / price.priceSpan.upperBound
@@ -229,8 +220,8 @@ class PricesViewController: ViewController {
             ]
 
             dateLabel.text = Translations.PRICES_HOUR_TIME(Self.dateFormatter.string(from: price.duration.lowerBound), Self.dateFormatter.string(from: price.duration.upperBound))
-            priceLabel.text = Translations.PRICES_HOUR_COST(formatter.string(with: price.price))
-            emissionLabel.text = "\(formatter.string(with: emission.amount.lowerBound)) - \(formatter.string(with: emission.amount.upperBound)) g/kWh" // FIXME: t
+            priceLabel.text = formatter.string(with: price.price) // Translations.PRICES_HOUR_COST(formatter.string(with: price.price))
+            emissionLabel.text = "\(formatter.string(with: emission.amount.lowerBound)) - \(formatter.string(with: emission.amount.upperBound))" // FIXME: t
         }
     }
 }
