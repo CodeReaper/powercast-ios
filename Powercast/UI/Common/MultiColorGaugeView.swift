@@ -7,6 +7,15 @@ class MultiColorGaugeView: UIView {
         }
     }
 
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        tintColor = UIColor.systemGray5
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func draw(_ rect: CGRect) {
         super.draw(rect)
 
@@ -17,7 +26,7 @@ class MultiColorGaugeView: UIView {
         let height = rect.height
 
         let path = UIBezierPath(rect: CGRect(x: 0, y: 0, width: rect.width, height: height))
-        context.setFillColor(UIColor.systemGray5.cgColor)
+        context.setFillColor(tintColor.cgColor)
         context.addPath(path.cgPath)
         context.fillPath()
 

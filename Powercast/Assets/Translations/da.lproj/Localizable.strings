@@ -26,8 +26,11 @@
 "NOTIFICATION_VALUE_TOD_EVENING" = "I aften";
 "NOTIFICATION_VALUE_TOD_MORNING" = "I morgen tidlig";
 "NOTIFICATION_VALUE_TOD_NIGHT" = "I nat";
+"PRICES_CO2_LABEL" = "CO₂";
+"PRICES_CO2_SPAN" = "%1 - %2";
+"PRICES_CO2_UNIT" = "g/kWh";
+"PRICES_COST_UNIT" = "øre/kWh";
 "PRICES_DAY_PRICE_SPAN" = "%1 - %2 øre/kWh";
-"PRICES_HOUR_COST" = "%1 øre/kWh";
 "PRICES_HOUR_TIME" = "%1 - %2";
 "PRICES_REFRESH_CONTROL_MESSAGE" = "Træk for at hente data";
 "PRICES_REFRESH_FAILED_MESSAGE" = "Kunne ikke hente nyeste data";

@@ -1,12 +1,12 @@
 import Foundation
 import Flogger
 
-protocol EnergyPriceService {
-    func data(for zone: Zone, at date: Date) async throws -> [EnergyPrice]
+protocol EmissionService {
+    func co2Data(for zone: Zone, at date: Date) async throws -> [Co2]
 }
 
-class EnergyPriceServiceAPI: EnergyPriceService {
-    private let endpoint = "https://codereaper.github.io/powercast-data/api/energy-price"
+class EmissionServiceAPI: EmissionService {
+    private let endpoint = "https://codereaper.github.io/powercast-data/api/emission"
     private let decoder = JSONDecoder()
     private let formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -21,12 +21,12 @@ class EnergyPriceServiceAPI: EnergyPriceService {
         return URLSession(configuration: configuration)
     }()
 
-    func data(for zone: Zone, at date: Date) async throws -> [EnergyPrice] {
-        let url = URL(string: "\(endpoint)/\(formatter.string(from: date))/\(zone.rawValue).json")!
+    func co2Data(for zone: Zone, at date: Date) async throws -> [Co2] {
+        let url = URL(string: "\(endpoint)/co2/\(formatter.string(from: date))/\(zone.rawValue).json")!
         let data = try await fetch(url: url)
-        let list = try decoder.decode([Item].self, from: data)
+        let list = try decoder.decode([Co2Item].self, from: data)
         return list.map {
-            EnergyPrice(price: $0.euro, zone: zone, timestamp: Date(timeIntervalSince1970: $0.timestamp))
+            Co2(amount: $0.co2, zone: zone, timestamp: Date(timeIntervalSince1970: $0.timestamp))
         }
     }
 
@@ -40,7 +40,7 @@ class EnergyPriceServiceAPI: EnergyPriceService {
     }
 }
 
-private struct Item: Codable {
-    let euro: Double
+private struct Co2Item: Codable {
+    let co2: Double
     let timestamp: TimeInterval
 }

@@ -7,10 +7,12 @@ protocol Dependenables: AnyObject {
 
     var databases: [Migratable] { get }
 
-    var energyChargesDatabase: ChargesDatabase { get }
+    var chargesDatabase: ChargesDatabase { get }
+    var emissionDatabase: EmissionDatabase { get }
     var energyPriceDatabase: EnergyPriceDatabase { get }
 
     var chargesRepository: ChargesRepository { get }
+    var emissionRepository: EmissionRepository { get }
     var energyPriceRepository: EnergyPriceRepository { get }
     var stateRepository: StateRepository { get }
     var notificationRepository: NotificationRepository { get }
@@ -22,12 +24,14 @@ class App: Dependenables {
     private lazy var navigation = AppNavigation(using: self as Dependenables)
 
     let configuration: AppConfiguration
-    let energyChargesDatabase: ChargesDatabase
+    let chargesDatabase: ChargesDatabase
+    let emissionDatabase: EmissionDatabase
     let energyPriceDatabase: EnergyPriceDatabase
     let stateRepository = StateRepository()
     let databases: [Migratable]
 
-    lazy var chargesRepository = ChargesRepository(database: energyChargesDatabase.queue, service: ChargesServiceAPI())
+    lazy var chargesRepository = ChargesRepository(database: chargesDatabase.queue, service: ChargesServiceAPI())
+    lazy var emissionRepository = EmissionRepository(database: emissionDatabase, service: EmissionServiceAPI())
     lazy var energyPriceRepository = EnergyPriceRepository(database: energyPriceDatabase.queue, service: EnergyPriceServiceAPI(), lookup: chargesRepository)
     lazy var notificationRepository = NotificationRepository(
         charges: chargesRepository,
@@ -39,6 +43,7 @@ class App: Dependenables {
         BackgroundScheduler(
             charges: chargesRepository,
             prices: energyPriceRepository,
+            emission: emissionRepository,
             state: stateRepository,
             notifications: notificationRepository
         )
@@ -47,8 +52,9 @@ class App: Dependenables {
     init(configuration: AppConfiguration) {
         self.configuration = configuration
         self.energyPriceDatabase = Self.setupEnergyPriceDatabase(configuration)
-        self.energyChargesDatabase = Self.setupEnergyChargesDatabase(configuration)
-        self.databases = [energyPriceDatabase, energyChargesDatabase]
+        self.emissionDatabase = Self.setupEmissionDatabase(configuration)
+        self.chargesDatabase = Self.setupChargesDatabase(configuration)
+        self.databases = [energyPriceDatabase, emissionDatabase, chargesDatabase]
     }
 
     func didLaunch(with window: UIWindow) {
@@ -81,7 +87,7 @@ class App: Dependenables {
 
     // MARK: - setups
 
-    private class func setupEnergyChargesDatabase(_ configuration: AppConfiguration) -> ChargesDatabase {
+    private class func setupChargesDatabase(_ configuration: AppConfiguration) -> ChargesDatabase {
         var config = Configuration()
         config.label = "EnergyCharges"
 
@@ -89,6 +95,16 @@ class App: Dependenables {
         let database = setupDatabase(at: url, using: config, and: configuration)
 
         return ChargesDatabase(queue: database, configuration: configuration)
+    }
+
+    private class func setupEmissionDatabase(_ configuration: AppConfiguration) -> EmissionDatabase {
+        var config = Configuration()
+        config.label = "Emission"
+
+        let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("emission.db")
+        let database = setupDatabase(at: url, using: config, and: configuration)
+
+        return EmissionDatabase(queue: database, configuration: configuration)
     }
 
     private class func setupEnergyPriceDatabase(_ configuration: AppConfiguration) -> EnergyPriceDatabase {

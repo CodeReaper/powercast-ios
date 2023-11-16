@@ -8,14 +8,15 @@ class PricesViewController: ViewController {
     private let refreshControl = UIRefreshControl()
     private let formatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
 
-    private var source = EmptyPriceTableDatasource() as PriceTableDatasource
+    private var priceSource = EmptyPriceTableDatasource() as PriceTableDatasource
+    private var emissionSource = EmptyEmissionTableDataSource() as EmissionTableDataSource
     private var now = Date()
 
     private var interactor: PricesInteractor!
 
-    init(navigation: AppNavigation, prices: EnergyPriceRepository, notifications: NotificationRepository, state: StateRepository) {
+    init(navigation: AppNavigation, prices: EnergyPriceRepository, emission: EmissionRepository, notifications: NotificationRepository, state: StateRepository) {
         super.init(navigation: navigation)
-        interactor = PricesInteractor(delegate: self, prices: prices, notifications: notifications, state: state)
+        interactor = PricesInteractor(delegate: self, prices: prices, emission: emission, notifications: notifications, state: state)
     }
 
     required init?(coder: NSCoder) {
@@ -132,9 +133,9 @@ class PricesViewController: ViewController {
             fatalError("init(coder:) has not been implemented")
         }
 
-        func update(using model: Price, and formatter: NumberFormatter) {
-            dateLabel.text = Self.dateFormatter.string(from: model.duration.lowerBound)
-            pricesLabel.text = Translations.PRICES_DAY_PRICE_SPAN(formatter.string(with: model.priceSpan.lowerBound), formatter.string(with: model.priceSpan.upperBound))
+        func update(using price: Price, with formatter: NumberFormatter) {
+            dateLabel.text = Self.dateFormatter.string(from: price.duration.lowerBound)
+            pricesLabel.text = Translations.PRICES_DAY_PRICE_SPAN(formatter.string(with: price.priceSpan.lowerBound), formatter.string(with: price.priceSpan.upperBound))
         }
     }
 
@@ -142,14 +143,19 @@ class PricesViewController: ViewController {
         private static let dateFormatter = DateFormatter.with(format: "HH")
 
         private let selectionIndicator = UIView()
-        private let dateLabel = Label(color: .black)
-        private let priceLabel = Label(color: .black)
-        private let gaugeView = MultiColorGaugeView()
+        private let dateLabel = Label(style: .body, color: .black)
+        private let priceLabel = Label(style: .headline, color: .black).aligned(to: .right)
+        private let co2Label = Label(style: .subheadline, text: Translations.PRICES_CO2_LABEL, color: .darkGray)
+        private let emissionLabel = Label(style: .subheadline, color: .darkGray).aligned(to: .right)
+        private let priceUnitLabel = Label(style: .subheadline, text: Translations.PRICES_COST_UNIT, color: .darkGray)
+        private let emissionUnitLabel = Label(style: .subheadline, text: Translations.PRICES_CO2_UNIT, color: .darkGray)
+        private let priceGaugeView = MultiColorGaugeView()
+        private let emissionGaugeView = MultiColorGaugeView()
 
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-            contentView.backgroundColor = .white
+            backgroundColor = .white
 
             selectionIndicator
                 .set(hidden: true)
@@ -161,14 +167,18 @@ class PricesViewController: ViewController {
                     make(its.widthAnchor.constraint(equalToConstant: 4))
                 }
 
-            gaugeView.set(height: 5)
-            gaugeView.layer.cornerRadius = 2.5
-            gaugeView.clipsToBounds = true
+            for view in [priceGaugeView, emissionGaugeView] {
+                view.set(height: 5)
+                view.layer.cornerRadius = 2.5
+                view.clipsToBounds = true
+            }
             Stack.views(
                 on: .vertical,
-                inset: NSDirectionalEdgeInsets(top: 7, leading: 15, bottom: 5, trailing: 15),
-                Stack.views(on: .horizontal, dateLabel, priceLabel),
-                Stack.views(inset: NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0), gaugeView)
+                inset: NSDirectionalEdgeInsets(top: 7, leading: 15, bottom: 7, trailing: 15),
+                Stack.views(on: .horizontal, spacing: 3, inset: NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0), dateLabel, priceLabel, priceUnitLabel),
+                priceGaugeView,
+                Stack.views(on: .horizontal, spacing: 3, inset: NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0), co2Label, emissionLabel, emissionUnitLabel),
+                emissionGaugeView
             ).layout(in: contentView) { (make, its) in
                 make(its.topAnchor.constraint(equalTo: contentView.topAnchor))
                 make(its.bottomAnchor.constraint(equalTo: contentView.bottomAnchor))
@@ -184,51 +194,66 @@ class PricesViewController: ViewController {
         override func prepareForReuse() {
             super.prepareForReuse()
             selectionIndicator.set(hidden: true)
-            gaugeView.values = []
+            priceGaugeView.values = []
+            emissionGaugeView.values = []
             dateLabel.text = nil
             priceLabel.text = nil
+            emissionLabel.text = nil
         }
 
-        func update(using model: Price, and formatter: NumberFormatter, current: Bool) {
-            contentView.backgroundColor = current ? .white : .black.withAlphaComponent(0.03)
+        func update(using price: Price, and emission: Emission.Co2?, with formatter: NumberFormatter, current: Bool) {
+            backgroundColor = current ? .white : Color.offWhite
             selectionIndicator.set(hidden: !current)
 
-            let ratio = (model.price - model.fees) / model.priceSpan.upperBound
-            gaugeView.values = [
-                (model.fixedFees / model.priceSpan.upperBound, Color.fixedFeeColor),
-                (model.variableFees / model.priceSpan.upperBound, Color.variableFeeColor),
+            let ratio = (price.price - price.fees) / price.priceSpan.upperBound
+            priceGaugeView.values = [
+                (price.fixedFees / price.priceSpan.upperBound, Color.fixedFeeColor),
+                (price.variableFees / price.priceSpan.upperBound, Color.variableFeeColor),
                 (ratio, Color.priceColor.withAlphaComponent(ratio > 0 ? 1 : 0))
             ]
 
-            dateLabel.text = Translations.PRICES_HOUR_TIME(Self.dateFormatter.string(from: model.duration.lowerBound), Self.dateFormatter.string(from: model.duration.upperBound))
-            priceLabel.text = Translations.PRICES_HOUR_COST(formatter.string(with: model.price))
+            if let emission = emission {
+                let space = emission.amount.lowerBound / emission.amountSpan.upperBound
+                emissionGaugeView.values = [
+                    (space, emissionGaugeView.tintColor),
+                    ((emission.amount.upperBound / emission.amountSpan.upperBound) - space, Color.emissionColor)
+                ]
+                emissionLabel.text = Translations.PRICES_CO2_SPAN(formatter.string(with: emission.amount.lowerBound), formatter.string(with: emission.amount.upperBound))
+            } else {
+                emissionLabel.text = "-"
+            }
+
+            dateLabel.text = Translations.PRICES_HOUR_TIME(Self.dateFormatter.string(from: price.duration.lowerBound), Self.dateFormatter.string(from: price.duration.upperBound))
+            priceLabel.text = formatter.string(with: price.price)
         }
     }
 }
 
 extension PricesViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return source.sectionCount
+        return priceSource.sectionCount
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return source.numberOfRows(in: section)
+        return priceSource.numberOfRows(in: section)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let item = source.item(at: IndexPath(item: 0, section: section)) else { return nil }
+        guard
+            let price = priceSource.item(at: IndexPath(item: 0, section: section))
+        else { return nil }
 
         let view = tableView.dequeueReusableHeaderFooter(Header.self)
-        view.update(using: item, and: formatter)
+        view.update(using: price, with: formatter)
         return view
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(Cell.self, forIndexPath: indexPath)
 
-        guard let item = source.item(at: indexPath) else { return cell }
+        guard let price = priceSource.item(at: indexPath) else { return cell }
 
-        cell.update(using: item, and: formatter, current: item.isActive(at: now))
+        cell.update(using: price, and: emissionSource.item(at: indexPath), with: formatter, current: price.isActive(at: now))
         return cell
     }
 }
@@ -240,20 +265,24 @@ extension PricesViewController: UITableViewDelegate {
 }
 
 extension PricesViewController: PricesDelegate {
-    func show(data: PriceTableDatasource) {
+    func show(priceData: PriceTableDatasource, emissionData: EmissionTableDataSource) {
         updateFailedLabel.set(hidden: true)
-        let applyOffset = data.isUpdated(comparedTo: source)
+        let applyOffset = priceData.isUpdated(comparedTo: priceSource)
         now = Date()
-        source = data
+        priceSource = priceData
+        emissionSource = emissionData
         tableView.reloadData()
-        if let indexPath = source.activeIndexPath(at: now), applyOffset {
-            tableView.scrollToRow(at: indexPath, at: .middle, animated: false)
+        if let indexPath = priceSource.activeIndexPath(at: now), applyOffset {
+            DispatchQueue.main.async { [tableView] in
+                tableView.scrollToRow(at: indexPath, at: .middle, animated: false)
+            }
         }
     }
 
     func showNoData() {
         updateFailedLabel.set(hidden: true)
-        source = EmptyPriceTableDatasource()
+        priceSource = EmptyPriceTableDatasource()
+        emissionSource = EmptyEmissionTableDataSource()
         tableView.reloadData()
     }
 

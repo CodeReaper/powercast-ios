@@ -3,13 +3,13 @@ import UserNotifications
 import Flogger
 
 class NotificationRepository {
-    private let delegate = Delegate()
-
+    private let delegate: Delegate
     private let charges: ChargesRepository
     private let prices: EnergyPriceRepository
     private let state: StateRepository
 
     init(charges: ChargesRepository, prices: EnergyPriceRepository, state: StateRepository) {
+        self.delegate = Delegate(state: state)
         self.charges = charges
         self.prices = prices
         self.state = state
@@ -50,18 +50,12 @@ class NotificationRepository {
             return
         }
 
-        let messages = Message.of(evaluations, using: charges)
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         await UNUserNotificationCenter.current().deliveredNotifications().forEach { notification in
-            guard
-                let epoch = notification.request.content.userInfo[keyEpoch] as? TimeInterval,
-                let kind = Message.Kind(rawValue: notification.request.content.userInfo[keyKind] as? Int ?? -1)
-            else { return }
-
-            state.deliveredNotification(at: Date(timeIntervalSince1970: epoch), for: kind)
+            delegate.mark(shown: notification)
         }
 
-        for message in messages {
+        for message in Message.of(evaluations, using: charges) {
             guard
                 state.notifications(for: message.kind),
                 message.fireDate > state.deliveredNotification(for: message.kind)
@@ -72,17 +66,16 @@ class NotificationRepository {
         }
     }
 
-    private let keyEpoch = "keyEpoch"
-    private let keyKind = "keyKind"
+    private static let keyEpoch = "keyEpoch"
+    private static let keyKind = "keyKind"
 
     private func show(message: Message, at date: Date) async {
-        // TODO: update using https://developer.apple.com/documentation/usernotificationsui/customizing_the_appearance_of_notifications
         let content = UNMutableNotificationContent()
         content.title = Translations.NOTIFICATION_TITLE
         content.body = message.body
         content.userInfo = [
-            keyEpoch: date.timeIntervalSince1970,
-            keyKind: message.kind.rawValue
+            NotificationRepository.keyEpoch: date.timeIntervalSince1970,
+            NotificationRepository.keyKind: message.kind.rawValue
         ]
         let seconds = date.timeIntervalSince(Date.now)
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: max(1, seconds), repeats: false)
@@ -95,11 +88,30 @@ class NotificationRepository {
         }
     }
 
-    class Delegate: NSObject { }
+    class Delegate: NSObject {
+        private let state: StateRepository
+
+        init(state: StateRepository) {
+            self.state = state
+        }
+
+        fileprivate func mark(shown notification: UNNotification) {
+            guard
+                let epoch = notification.request.content.userInfo[NotificationRepository.keyEpoch] as? TimeInterval,
+                let kind = Message.Kind(rawValue: notification.request.content.userInfo[NotificationRepository.keyKind] as? Int ?? -1)
+            else { return }
+
+            let date = Date(timeIntervalSince1970: epoch)
+            if state.deliveredNotification(for: kind) > date {
+                state.deliveredNotification(at: date, for: kind)
+            }
+        }
+    }
 }
 
 extension NotificationRepository.Delegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        mark(shown: notification)
         completionHandler([.banner, .badge, .sound])
     }
 }

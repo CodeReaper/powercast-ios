@@ -63,7 +63,14 @@
 		CD10688C2AFC333500FD5B0E /* LaunchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10688A2AFC333500FD5B0E /* LaunchInteractor.swift */; };
 		CD10688D2AFC333500FD5B0E /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10688B2AFC333500FD5B0E /* LaunchViewController.swift */; };
 		CD10688F2AFEF62D00FD5B0E /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10688E2AFEF62D00FD5B0E /* Observer.swift */; };
-		CD1068912B000B9C00FD5B0E /* TableDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068902B000B9C00FD5B0E /* TableDatasource.swift */; };
+		CD1068912B000B9C00FD5B0E /* PriceTableDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068902B000B9C00FD5B0E /* PriceTableDatasource.swift */; };
+		CD1068952B040F5A00FD5B0E /* EmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068942B040F5A00FD5B0E /* EmissionService.swift */; };
+		CD1068972B0410F100FD5B0E /* Co2.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068962B0410F100FD5B0E /* Co2.swift */; };
+		CD1068992B0411D700FD5B0E /* EmissionDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068982B0411D700FD5B0E /* EmissionDatabase.swift */; };
+		CD10689B2B0412F300FD5B0E /* EmissionCo2Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10689A2B0412F300FD5B0E /* EmissionCo2Repository.swift */; };
+		CD10689D2B04165600FD5B0E /* EmissionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10689C2B04165600FD5B0E /* EmissionRepository.swift */; };
+		CD10689F2B05425B00FD5B0E /* Emission.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10689E2B05425B00FD5B0E /* Emission.swift */; };
+		CD1068A12B05476600FD5B0E /* EmissionTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068A02B05476600FD5B0E /* EmissionTableDataSource.swift */; };
 		CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */; };
 		CD36624729281614009FAC8B /* Flogger in Frameworks */ = {isa = PBXBuildFile; productRef = CD36624629281614009FAC8B /* Flogger */; };
 		CD4022E82A34AA2B00027798 /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD4022E72A34AA2B00027798 /* SugarKit */; };
@@ -163,7 +170,14 @@
 		CD10688A2AFC333500FD5B0E /* LaunchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchInteractor.swift; sourceTree = "<group>"; };
 		CD10688B2AFC333500FD5B0E /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		CD10688E2AFEF62D00FD5B0E /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
-		CD1068902B000B9C00FD5B0E /* TableDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableDatasource.swift; sourceTree = "<group>"; };
+		CD1068902B000B9C00FD5B0E /* PriceTableDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTableDatasource.swift; sourceTree = "<group>"; };
+		CD1068942B040F5A00FD5B0E /* EmissionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmissionService.swift; sourceTree = "<group>"; };
+		CD1068962B0410F100FD5B0E /* Co2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Co2.swift; sourceTree = "<group>"; };
+		CD1068982B0411D700FD5B0E /* EmissionDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmissionDatabase.swift; sourceTree = "<group>"; };
+		CD10689A2B0412F300FD5B0E /* EmissionCo2Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmissionCo2Repository.swift; sourceTree = "<group>"; };
+		CD10689C2B04165600FD5B0E /* EmissionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmissionRepository.swift; sourceTree = "<group>"; };
+		CD10689E2B05425B00FD5B0E /* Emission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emission.swift; sourceTree = "<group>"; };
+		CD1068A02B05476600FD5B0E /* EmissionTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmissionTableDataSource.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		CD4022EB2A34ADA600027798 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CD5C58CF2AE4824900143060 /* ChargesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargesRepository.swift; sourceTree = "<group>"; };
@@ -218,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				CD5C58D12AE4844B00143060 /* ChargeDatabase.swift */,
+				CD1068982B0411D700FD5B0E /* EmissionDatabase.swift */,
 				380CE8E52888901A0003FF36 /* EnergyPriceDatabase.swift */,
 				CDE77AC328C369370021EEDD /* Migratable.swift */,
 			);
@@ -278,10 +293,11 @@
 			children = (
 				384E646A288EDAAF004ADCB1 /* Appearence.swift */,
 				38ECF94A289B0ACF00ED8372 /* Date.swift */,
+				CD1068A02B05476600FD5B0E /* EmissionTableDataSource.swift */,
 				CDA0E4092AC8C0DA00FF364D /* Evaluation.swift */,
 				CDA37DEC2AD0A739004B44B0 /* Message.swift */,
 				CD10688E2AFEF62D00FD5B0E /* Observer.swift */,
-				CD1068902B000B9C00FD5B0E /* TableDatasource.swift */,
+				CD1068902B000B9C00FD5B0E /* PriceTableDatasource.swift */,
 				38ECF94C289C467B00ED8372 /* TimeInterval.swift */,
 			);
 			path = Tools;
@@ -378,6 +394,8 @@
 			isa = PBXGroup;
 			children = (
 				CD5C58CF2AE4824900143060 /* ChargesRepository.swift */,
+				CD10689A2B0412F300FD5B0E /* EmissionCo2Repository.swift */,
+				CD10689C2B04165600FD5B0E /* EmissionRepository.swift */,
 				38E0FA642884759B0096B98A /* EnergyPriceRepository.swift */,
 				CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */,
 				384E6434288D9E38004ADCB1 /* StateRepository.swift */,
@@ -389,6 +407,7 @@
 			isa = PBXGroup;
 			children = (
 				CDA37DF02ADB24F0004B44B0 /* ChargesService.swift */,
+				CD1068942B040F5A00FD5B0E /* EmissionService.swift */,
 				38E0FA67288476C40096B98A /* EnergyPriceService.swift */,
 			);
 			path = Services;
@@ -399,6 +418,8 @@
 			children = (
 				38E0FA712884822C0096B98A /* _Database.swift */,
 				CD81C59A2A6DBDD300E88418 /* Charges.swift */,
+				CD1068962B0410F100FD5B0E /* Co2.swift */,
+				CD10689E2B05425B00FD5B0E /* Emission.swift */,
 				38E0FA6D2884803F0096B98A /* EnergyPrice.swift */,
 				CD5C58D72AE7018E00143060 /* GridPrice.swift */,
 				CD5C58D92AE8612100143060 /* Network.swift */,
@@ -676,12 +697,15 @@
 				387FF60E286B95B00051E3DC /* App.swift in Sources */,
 				384E647A2891650E004ADCB1 /* DataLoadingViewController.swift in Sources */,
 				384E6435288D9E38004ADCB1 /* StateRepository.swift in Sources */,
+				CD10689B2B0412F300FD5B0E /* EmissionCo2Repository.swift in Sources */,
 				38E0FA652884759B0096B98A /* EnergyPriceRepository.swift in Sources */,
 				CD8A4BC128B2755A00EC68E3 /* PricesInteractor.swift in Sources */,
 				CD1068872AF95A7300FD5B0E /* NetworkSelectionViewController.swift in Sources */,
 				CD5E309528B25B1800DBA019 /* LicenseViewController.swift in Sources */,
 				38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */,
 				CD5C58D02AE4824900143060 /* ChargesRepository.swift in Sources */,
+				CD1068972B0410F100FD5B0E /* Co2.swift in Sources */,
+				CD10689F2B05425B00FD5B0E /* Emission.swift in Sources */,
 				CDA0E40A2AC8C0DA00FF364D /* Evaluation.swift in Sources */,
 				380CE8EE288893F90003FF36 /* Animations.swift in Sources */,
 				384E64792891650E004ADCB1 /* DataLoadingInteractor.swift in Sources */,
@@ -689,16 +713,18 @@
 				387FF5FA286B909B0051E3DC /* AppDelegate.swift in Sources */,
 				389F717F289982630007C2E0 /* Drawer.swift in Sources */,
 				CD5C58D82AE7018E00143060 /* GridPrice.swift in Sources */,
-				CD1068912B000B9C00FD5B0E /* TableDatasource.swift in Sources */,
+				CD1068912B000B9C00FD5B0E /* PriceTableDatasource.swift in Sources */,
 				CDE77AC428C369370021EEDD /* Migratable.swift in Sources */,
 				38DF5ABE28707A7E008630FB /* Translations.swift in Sources */,
 				CD81C59B2A6DBDD300E88418 /* Charges.swift in Sources */,
 				CD5C58DA2AE8612100143060 /* Network.swift in Sources */,
+				CD10689D2B04165600FD5B0E /* EmissionRepository.swift in Sources */,
 				384E642E288D90EF004ADCB1 /* BackgroundScheduler.swift in Sources */,
 				380CE905288AF2040003FF36 /* AppConfiguration.swift in Sources */,
 				CD10688C2AFC333500FD5B0E /* LaunchInteractor.swift in Sources */,
 				384E646B288EDAAF004ADCB1 /* Appearence.swift in Sources */,
 				38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */,
+				CD1068952B040F5A00FD5B0E /* EmissionService.swift in Sources */,
 				38E0FA6E2884803F0096B98A /* EnergyPrice.swift in Sources */,
 				387FF5FC286B909B0051E3DC /* SceneDelegate.swift in Sources */,
 				38ECF94B289B0ACF00ED8372 /* Date.swift in Sources */,
@@ -712,10 +738,12 @@
 				CD10688D2AFC333500FD5B0E /* LaunchViewController.swift in Sources */,
 				CD4022EC2A34ADA600027798 /* LoadingView.swift in Sources */,
 				384E6446288DC430004ADCB1 /* Fonts.swift in Sources */,
+				CD1068A12B05476600FD5B0E /* EmissionTableDataSource.swift in Sources */,
 				CD8A4BC528BA6DB000EC68E3 /* Price.swift in Sources */,
 				38E0FA722884822C0096B98A /* _Database.swift in Sources */,
 				CDA37DED2AD0A739004B44B0 /* Message.swift in Sources */,
 				389F717D28997B2C0007C2E0 /* MenuViewController.swift in Sources */,
+				CD1068992B0411D700FD5B0E /* EmissionDatabase.swift in Sources */,
 				CD5C58D22AE4844B00143060 /* ChargeDatabase.swift in Sources */,
 				CD5C58D42AE59E0200143060 /* NetworkPrice.swift in Sources */,
 			);

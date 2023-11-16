@@ -3,7 +3,7 @@ import Combine
 
 protocol PricesDelegate: AnyObject {
     func show(loading: Bool)
-    func show(data: PriceTableDatasource)
+    func show(priceData: PriceTableDatasource, emissionData: EmissionTableDataSource)
     func showNoData()
     func showRefreshFailed()
     func endRefreshing()
@@ -14,16 +14,18 @@ class PricesInteractor {
 
     private let notifications: NotificationRepository
     private let prices: EnergyPriceRepository
+    private let emission: EmissionRepository
     private let state: StateRepository
 
     private var nextRefresh = 0.0
 
     private weak var delegate: PricesDelegate?
 
-    init(delegate: PricesDelegate, prices: EnergyPriceRepository, notifications: NotificationRepository, state: StateRepository) {
+    init(delegate: PricesDelegate, prices: EnergyPriceRepository, emission: EmissionRepository, notifications: NotificationRepository, state: StateRepository) {
         self.delegate = delegate
         self.notifications = notifications
         self.prices = prices
+        self.emission = emission
         self.state = state
     }
 
@@ -33,15 +35,16 @@ class PricesInteractor {
 
     func viewWillAppear() {
         Task {
-            let source = try? prices.source(for: state.network)
+            let priceSource = try? prices.source(for: state.network)
+            let emissionSource = try? emission.co2.source(for: state.network.zone)
 
             DispatchQueue.main.async { [delegate] in
                 defer { delegate?.show(loading: false) }
-                guard let source = source else {
+                guard let priceSource = priceSource else {
                     delegate?.showNoData()
                     return
                 }
-                delegate?.show(data: source)
+                delegate?.show(priceData: priceSource, emissionData: emissionSource ?? EmptyEmissionTableDataSource())
             }
 
             let now = Date().timeIntervalSince1970
@@ -73,18 +76,24 @@ class PricesInteractor {
             for date in prices.dates(for: state.network.zone) {
                 try await prices.pull(zone: state.network.zone, at: date)
             }
+            for date in emission.co2.dates(for: state.network.zone) {
+                try await emission.co2.pull(zone: state.network.zone, at: date)
+            }
         } catch {
-            delegate?.showRefreshFailed()
+            DispatchQueue.main.async { [delegate] in
+                delegate?.showRefreshFailed()
+            }
         }
 
-        let updatedSource = try? prices.source(for: state.network)
+        let updatedPriceSource = try? prices.source(for: state.network)
+        let updatedEmissionSource = try? emission.co2.source(for: state.network.zone)
 
         DispatchQueue.main.async { [delegate] in
-            guard let source = updatedSource else {
+            guard let priceSource = updatedPriceSource else {
                 delegate?.showNoData()
                 return
             }
-            delegate?.show(data: source)
+            delegate?.show(priceData: priceSource, emissionData: updatedEmissionSource ?? EmptyEmissionTableDataSource())
         }
     }
 }

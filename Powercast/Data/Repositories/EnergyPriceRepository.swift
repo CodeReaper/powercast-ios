@@ -30,8 +30,8 @@ class EnergyPriceRepository {
         let max: Date? = try? database.read { db in
             let item = try Database.EnergyPrice
                 .filter(Database.EnergyPrice.Columns.zone == zone.rawValue)
-                .limit(1)
                 .order(Database.EnergyPrice.Columns.timestamp.desc)
+                .limit(1)
                 .fetchOne(db)
             return item?.timestamp
         }
@@ -52,7 +52,7 @@ class EnergyPriceRepository {
         guard let min = min, let max = max else {
             return EmptyPriceTableDatasource()
         }
-        return try TableDatasource(interval: DateInterval(start: min, end: max), network: network, prices: self, lookup: lookup)
+        return try CurrentPriceTableDatasource(interval: DateInterval(start: min, end: max), network: network, prices: self, lookup: lookup)
     }
 
     func pull(zone: Zone, at date: Date) async throws {
