@@ -1,6 +1,15 @@
 // swiftlint:disable all
 import Foundation
 struct Translations {
+	static let DASHBOARD_CO2_LABEL = NSLocalizedString("DASHBOARD_CO2_LABEL", comment: "")
+	static func DASHBOARD_CO2_SPAN(_ p1: String, _ p2: String) -> String { return NSLocalizedString("DASHBOARD_CO2_SPAN", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
+	static let DASHBOARD_CO2_UNIT = NSLocalizedString("DASHBOARD_CO2_UNIT", comment: "")
+	static let DASHBOARD_COST_UNIT = NSLocalizedString("DASHBOARD_COST_UNIT", comment: "")
+	static func DASHBOARD_DAY_PRICE_SPAN(_ p1: String, _ p2: String) -> String { return NSLocalizedString("DASHBOARD_DAY_PRICE_SPAN", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
+	static func DASHBOARD_HOUR_TIME(_ p1: String, _ p2: String) -> String { return NSLocalizedString("DASHBOARD_HOUR_TIME", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
+	static let DASHBOARD_REFRESH_CONTROL_MESSAGE = NSLocalizedString("DASHBOARD_REFRESH_CONTROL_MESSAGE", comment: "")
+	static let DASHBOARD_REFRESH_FAILED_MESSAGE = NSLocalizedString("DASHBOARD_REFRESH_FAILED_MESSAGE", comment: "")
+	static let DASHBOARD_TITLE = NSLocalizedString("DASHBOARD_TITLE", comment: "")
 	static let DATA_LOADING_REFRESH_FAILED_MESSAGE = NSLocalizedString("DATA_LOADING_REFRESH_FAILED_MESSAGE", comment: "")
 	static let DATA_LOADING_REFRESH_FAILED_NEGATIVE_BUTTON = NSLocalizedString("DATA_LOADING_REFRESH_FAILED_NEGATIVE_BUTTON", comment: "")
 	static let DATA_LOADING_REFRESH_FAILED_POSITIVE_BUTTON = NSLocalizedString("DATA_LOADING_REFRESH_FAILED_POSITIVE_BUTTON", comment: "")
@@ -29,15 +38,6 @@ struct Translations {
 	static let NOTIFICATION_VALUE_TOD_EVENING = NSLocalizedString("NOTIFICATION_VALUE_TOD_EVENING", comment: "")
 	static let NOTIFICATION_VALUE_TOD_MORNING = NSLocalizedString("NOTIFICATION_VALUE_TOD_MORNING", comment: "")
 	static let NOTIFICATION_VALUE_TOD_NIGHT = NSLocalizedString("NOTIFICATION_VALUE_TOD_NIGHT", comment: "")
-	static let PRICES_CO2_LABEL = NSLocalizedString("PRICES_CO2_LABEL", comment: "")
-	static func PRICES_CO2_SPAN(_ p1: String, _ p2: String) -> String { return NSLocalizedString("PRICES_CO2_SPAN", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
-	static let PRICES_CO2_UNIT = NSLocalizedString("PRICES_CO2_UNIT", comment: "")
-	static let PRICES_COST_UNIT = NSLocalizedString("PRICES_COST_UNIT", comment: "")
-	static func PRICES_DAY_PRICE_SPAN(_ p1: String, _ p2: String) -> String { return NSLocalizedString("PRICES_DAY_PRICE_SPAN", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
-	static func PRICES_HOUR_TIME(_ p1: String, _ p2: String) -> String { return NSLocalizedString("PRICES_HOUR_TIME", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
-	static let PRICES_REFRESH_CONTROL_MESSAGE = NSLocalizedString("PRICES_REFRESH_CONTROL_MESSAGE", comment: "")
-	static let PRICES_REFRESH_FAILED_MESSAGE = NSLocalizedString("PRICES_REFRESH_FAILED_MESSAGE", comment: "")
-	static let PRICES_TITLE = NSLocalizedString("PRICES_TITLE", comment: "")
 	static let SETTINGS_NETWORK_TITLE = NSLocalizedString("SETTINGS_NETWORK_TITLE", comment: "")
 	static let SETTINGS_NOTIFICATIONS_ITEM_AFTERNOON = NSLocalizedString("SETTINGS_NOTIFICATIONS_ITEM_AFTERNOON", comment: "")
 	static let SETTINGS_NOTIFICATIONS_ITEM_EVENING = NSLocalizedString("SETTINGS_NOTIFICATIONS_ITEM_EVENING", comment: "")
