@@ -87,8 +87,8 @@
 		CD5E309528B25B1800DBA019 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5E309428B25B1800DBA019 /* LicenseViewController.swift */; };
 		CD81C59B2A6DBDD300E88418 /* Charges.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD81C59A2A6DBDD300E88418 /* Charges.swift */; };
 		CD8801242A61E18300A30B1D /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD8801232A61E18300A30B1D /* SugarKit */; };
-		CD8A4BC028B2755A00EC68E3 /* PricesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BBE28B2755A00EC68E3 /* PricesViewController.swift */; };
-		CD8A4BC128B2755A00EC68E3 /* PricesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BBF28B2755A00EC68E3 /* PricesInteractor.swift */; };
+		CD8A4BC028B2755A00EC68E3 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BBE28B2755A00EC68E3 /* DashboardViewController.swift */; };
+		CD8A4BC128B2755A00EC68E3 /* DashboardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BBF28B2755A00EC68E3 /* DashboardInteractor.swift */; };
 		CD8A4BC528BA6DB000EC68E3 /* Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BC428BA6DB000EC68E3 /* Price.swift */; };
 		CDA0E40A2AC8C0DA00FF364D /* Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0E4092AC8C0DA00FF364D /* Evaluation.swift */; };
 		CDA0E4122AC982EC00FF364D /* EvaluationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0E4112AC982EC00FF364D /* EvaluationTests.swift */; };
@@ -189,8 +189,8 @@
 		CD5E309128B2583600DBA019 /* packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = packages; sourceTree = "<group>"; };
 		CD5E309428B25B1800DBA019 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
 		CD81C59A2A6DBDD300E88418 /* Charges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charges.swift; sourceTree = "<group>"; };
-		CD8A4BBE28B2755A00EC68E3 /* PricesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PricesViewController.swift; sourceTree = "<group>"; };
-		CD8A4BBF28B2755A00EC68E3 /* PricesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PricesInteractor.swift; sourceTree = "<group>"; };
+		CD8A4BBE28B2755A00EC68E3 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		CD8A4BBF28B2755A00EC68E3 /* DashboardInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardInteractor.swift; sourceTree = "<group>"; };
 		CD8A4BC428BA6DB000EC68E3 /* Price.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
 		CD8A4BC928BC1B9100EC68E3 /* Local.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
 		CDA0E4092AC8C0DA00FF364D /* Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evaluation.swift; sourceTree = "<group>"; };
@@ -490,8 +490,8 @@
 		CD8A4BBD28B2755A00EC68E3 /* Prices */ = {
 			isa = PBXGroup;
 			children = (
-				CD8A4BBF28B2755A00EC68E3 /* PricesInteractor.swift */,
-				CD8A4BBE28B2755A00EC68E3 /* PricesViewController.swift */,
+				CD8A4BBF28B2755A00EC68E3 /* DashboardInteractor.swift */,
+				CD8A4BBE28B2755A00EC68E3 /* DashboardViewController.swift */,
 			);
 			path = Prices;
 			sourceTree = "<group>";
@@ -687,7 +687,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD8A4BC028B2755A00EC68E3 /* PricesViewController.swift in Sources */,
+				CD8A4BC028B2755A00EC68E3 /* DashboardViewController.swift in Sources */,
 				CDA37DF32ADB3174004B44B0 /* MultiColorGaugeView.swift in Sources */,
 				380CE8E62888901A0003FF36 /* EnergyPriceDatabase.swift in Sources */,
 				38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */,
@@ -699,7 +699,7 @@
 				384E6435288D9E38004ADCB1 /* StateRepository.swift in Sources */,
 				CD10689B2B0412F300FD5B0E /* EmissionCo2Repository.swift in Sources */,
 				38E0FA652884759B0096B98A /* EnergyPriceRepository.swift in Sources */,
-				CD8A4BC128B2755A00EC68E3 /* PricesInteractor.swift in Sources */,
+				CD8A4BC128B2755A00EC68E3 /* DashboardInteractor.swift in Sources */,
 				CD1068872AF95A7300FD5B0E /* NetworkSelectionViewController.swift in Sources */,
 				CD5E309528B25B1800DBA019 /* LicenseViewController.swift in Sources */,
 				38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */,

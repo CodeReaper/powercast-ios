@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-protocol PricesDelegate: AnyObject {
+protocol DashboardDelegate: AnyObject {
     func show(loading: Bool)
     func show(priceData: PriceTableDatasource, emissionData: EmissionTableDataSource)
     func showNoData()
@@ -9,7 +9,7 @@ protocol PricesDelegate: AnyObject {
     func endRefreshing()
 }
 
-class PricesInteractor {
+class DashboardInteractor {
     let timeBetweenRefreshes: TimeInterval = 900
 
     private let notifications: NotificationRepository
@@ -19,9 +19,9 @@ class PricesInteractor {
 
     private var nextRefresh = 0.0
 
-    private weak var delegate: PricesDelegate?
+    private weak var delegate: DashboardDelegate?
 
-    init(delegate: PricesDelegate, prices: EnergyPriceRepository, emission: EmissionRepository, notifications: NotificationRepository, state: StateRepository) {
+    init(delegate: DashboardDelegate, prices: EnergyPriceRepository, emission: EmissionRepository, notifications: NotificationRepository, state: StateRepository) {
         self.delegate = delegate
         self.notifications = notifications
         self.prices = prices
@@ -98,7 +98,7 @@ class PricesInteractor {
     }
 }
 
-extension PricesInteractor: Observer {
+extension DashboardInteractor: Observer {
     func updated() {
         DispatchQueue.main.async {
             switch self.state.notificationStatus {

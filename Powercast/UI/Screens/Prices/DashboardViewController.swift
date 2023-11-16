@@ -1,9 +1,9 @@
 import UIKit
 import SugarKit
 
-class PricesViewController: ViewController {
+class DashboardViewController: ViewController {
     private let spinnerView = SpinnerView(color: Color.primary)
-    private let updateFailedLabel = Label(style: .subheadline, text: Translations.PRICES_REFRESH_FAILED_MESSAGE, color: .white)
+    private let updateFailedLabel = Label(style: .subheadline, text: Translations.DASHBOARD_REFRESH_FAILED_MESSAGE, color: .white)
     private let tableView = UITableView(frame: .zero, style: .plain)
     private let refreshControl = UIRefreshControl()
     private let formatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
@@ -12,11 +12,11 @@ class PricesViewController: ViewController {
     private var emissionSource = EmptyEmissionTableDataSource() as EmissionTableDataSource
     private var now = Date()
 
-    private var interactor: PricesInteractor!
+    private var interactor: DashboardInteractor!
 
     init(navigation: AppNavigation, prices: EnergyPriceRepository, emission: EmissionRepository, notifications: NotificationRepository, state: StateRepository) {
         super.init(navigation: navigation)
-        interactor = PricesInteractor(delegate: self, prices: prices, emission: emission, notifications: notifications, state: state)
+        interactor = DashboardInteractor(delegate: self, prices: prices, emission: emission, notifications: notifications, state: state)
     }
 
     required init?(coder: NSCoder) {
@@ -26,9 +26,9 @@ class PricesViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = Translations.PRICES_TITLE
+        title = Translations.DASHBOARD_TITLE
 
-        let item = UINavigationItem(title: Translations.PRICES_TITLE)
+        let item = UINavigationItem(title: Translations.DASHBOARD_TITLE)
         item.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "sidebar.trailing"), style: .plain, target: self, action: #selector(didTapMenu))
 
         let bar = UINavigationBar()
@@ -57,7 +57,7 @@ class PricesViewController: ViewController {
         }
 
         refreshControl.tintColor = .white
-        refreshControl.attributedTitle = NSAttributedString(string: Translations.PRICES_REFRESH_CONTROL_MESSAGE, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        refreshControl.attributedTitle = NSAttributedString(string: Translations.DASHBOARD_REFRESH_CONTROL_MESSAGE, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
 
         layout(with: bar)
@@ -135,7 +135,7 @@ class PricesViewController: ViewController {
 
         func update(using price: Price, with formatter: NumberFormatter) {
             dateLabel.text = Self.dateFormatter.string(from: price.duration.lowerBound)
-            pricesLabel.text = Translations.PRICES_DAY_PRICE_SPAN(formatter.string(with: price.priceSpan.lowerBound), formatter.string(with: price.priceSpan.upperBound))
+            pricesLabel.text = Translations.DASHBOARD_DAY_PRICE_SPAN(formatter.string(with: price.priceSpan.lowerBound), formatter.string(with: price.priceSpan.upperBound))
         }
     }
 
@@ -145,10 +145,10 @@ class PricesViewController: ViewController {
         private let selectionIndicator = UIView()
         private let dateLabel = Label(style: .body, color: .black)
         private let priceLabel = Label(style: .headline, color: .black).aligned(to: .right)
-        private let co2Label = Label(style: .subheadline, text: Translations.PRICES_CO2_LABEL, color: .darkGray)
+        private let co2Label = Label(style: .subheadline, text: Translations.DASHBOARD_CO2_LABEL, color: .darkGray)
         private let emissionLabel = Label(style: .subheadline, color: .darkGray).aligned(to: .right)
-        private let priceUnitLabel = Label(style: .subheadline, text: Translations.PRICES_COST_UNIT, color: .darkGray)
-        private let emissionUnitLabel = Label(style: .subheadline, text: Translations.PRICES_CO2_UNIT, color: .darkGray)
+        private let priceUnitLabel = Label(style: .subheadline, text: Translations.DASHBOARD_COST_UNIT, color: .darkGray)
+        private let emissionUnitLabel = Label(style: .subheadline, text: Translations.DASHBOARD_CO2_UNIT, color: .darkGray)
         private let priceGaugeView = MultiColorGaugeView()
         private let emissionGaugeView = MultiColorGaugeView()
 
@@ -218,18 +218,18 @@ class PricesViewController: ViewController {
                     (space, emissionGaugeView.tintColor),
                     ((emission.amount.upperBound / emission.amountSpan.upperBound) - space, Color.emissionColor)
                 ]
-                emissionLabel.text = Translations.PRICES_CO2_SPAN(formatter.string(with: emission.amount.lowerBound), formatter.string(with: emission.amount.upperBound))
+                emissionLabel.text = Translations.DASHBOARD_CO2_SPAN(formatter.string(with: emission.amount.lowerBound), formatter.string(with: emission.amount.upperBound))
             } else {
                 emissionLabel.text = "-"
             }
 
-            dateLabel.text = Translations.PRICES_HOUR_TIME(Self.dateFormatter.string(from: price.duration.lowerBound), Self.dateFormatter.string(from: price.duration.upperBound))
+            dateLabel.text = Translations.DASHBOARD_HOUR_TIME(Self.dateFormatter.string(from: price.duration.lowerBound), Self.dateFormatter.string(from: price.duration.upperBound))
             priceLabel.text = formatter.string(with: price.price)
         }
     }
 }
 
-extension PricesViewController: UITableViewDataSource {
+extension DashboardViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return priceSource.sectionCount
     }
@@ -258,13 +258,13 @@ extension PricesViewController: UITableViewDataSource {
     }
 }
 
-extension PricesViewController: UITableViewDelegate {
+extension DashboardViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
-extension PricesViewController: PricesDelegate {
+extension DashboardViewController: DashboardDelegate {
     func show(priceData: PriceTableDatasource, emissionData: EmissionTableDataSource) {
         updateFailedLabel.set(hidden: true)
         let applyOffset = priceData.isUpdated(comparedTo: priceSource)
@@ -305,7 +305,7 @@ extension PricesViewController: PricesDelegate {
     }
 }
 
-extension PricesViewController: UINavigationBarDelegate {
+extension DashboardViewController: UINavigationBarDelegate {
     func position(for bar: UIBarPositioning) -> UIBarPosition {
         return .topAttached
     }

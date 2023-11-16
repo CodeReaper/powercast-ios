@@ -25,7 +25,7 @@ class AppNavigation {
             navigation: self,
             configuration: dependencies.configuration
         ),
-        main: PricesViewController(
+        main: DashboardViewController(
             navigation: self,
             prices: dependencies.energyPriceRepository,
             emission: dependencies.emissionRepository,
