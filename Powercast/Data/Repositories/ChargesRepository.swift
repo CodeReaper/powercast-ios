@@ -36,6 +36,15 @@ class ChargesRepository: ChargesLookup {
         return try Charges.from(GridPrice.from(model: grid), and: NetworkPrice.from(model: network))
     }
 
+    func networkPrices(by id: Int) throws -> [NetworkPrice] {
+        try database.read {
+            try Database.NetworkPrice
+                .filter(Database.NetworkPrice.Columns.networkId == id)
+                .order(Database.NetworkPrice.Columns.validFrom.desc)
+                .fetchAll($0).map { try NetworkPrice.from(model: $0) }
+        }
+    }
+
     func networks() throws -> [Network] {
         try database.read {
             try Database.Network.fetchAll($0).map { try Network.from(model: $0) }

@@ -58,6 +58,11 @@ class CurrentPriceTableDatasource: PriceTableDatasource {
     }
 
     func item(at indexPath: IndexPath) -> Price? {
+        guard
+            items.count > indexPath.section,
+            items[indexPath.section].count > indexPath.row
+        else { return nil }
+
         let dates = items[indexPath.section]
         guard
             let max = dates.max(),

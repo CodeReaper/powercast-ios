@@ -8,6 +8,7 @@ indirect enum Navigation {
     case dashboard
     case settings
     case specificSettings(configuration: [SettingsViewController.Section])
+    case networkDetails(network: Network)
     case licenses
     case license(title: String, content: String)
     case actionSheet(options: [ActionSheetOption])
@@ -23,7 +24,7 @@ class AppNavigation {
         covering: 0.65,
         drawer: MenuViewController(
             navigation: self,
-            configuration: dependencies.configuration
+            state: dependencies.stateRepository
         ),
         main: DashboardViewController(
             navigation: self,
@@ -56,7 +57,7 @@ class AppNavigation {
         window.makeKeyAndVisible()
     }
 
-    func navigate(to endpoint: Navigation) {
+    func navigate(to endpoint: Navigation) { // swiftlint:disable:this function_body_length
         switch endpoint {
         case .launch:
             let viewController = LaunchViewController(
@@ -96,6 +97,13 @@ class AppNavigation {
             navigationController.pushViewController(SettingsViewController(navigation: self, state: dependencies.stateRepository, sections: nil), animated: true)
         case let .specificSettings(configuration):
             navigationController.pushViewController(SettingsViewController(navigation: self, state: dependencies.stateRepository, sections: configuration), animated: true)
+        case let .networkDetails(network):
+            let viewController = NetworkDetailsViewController(
+                navigation: self,
+                network: network,
+                charges: dependencies.chargesRepository
+            )
+            navigationController.pushViewController(viewController, animated: true)
         case .licenses:
             navigationController.pushViewController(LicensesViewController(navigation: self), animated: true)
         case let .license(title, content):
