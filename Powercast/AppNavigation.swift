@@ -24,7 +24,7 @@ class AppNavigation {
         covering: 0.65,
         drawer: MenuViewController(
             navigation: self,
-            configuration: dependencies.configuration
+            state: dependencies.stateRepository
         ),
         main: DashboardViewController(
             navigation: self,
@@ -51,7 +51,7 @@ class AppNavigation {
     func setup(using window: UIWindow) {
         self.window = window
 
-        navigate(to: .networkDetails(network: network!)) // FIXME: nope
+        navigate(to: .launch)
 
         window.rootViewController = navigationController
         window.makeKeyAndVisible()

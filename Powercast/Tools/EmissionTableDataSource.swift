@@ -56,6 +56,11 @@ class CurrentEmissionTableDataSource: EmissionTableDataSource {
     }
 
     func item(at indexPath: IndexPath) -> Emission.Co2? {
+        guard
+            items.count > indexPath.section,
+            items[indexPath.section].count > indexPath.row
+        else { return nil }
+
         let dates = items[indexPath.section]
         let date = dates[indexPath.item]
         let duration = date...date.addingTimeInterval(.oneHour)

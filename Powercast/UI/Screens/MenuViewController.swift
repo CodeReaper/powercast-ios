@@ -2,10 +2,10 @@ import UIKit
 import SugarKit
 
 class MenuViewController: ViewController {
-    private let configuration: AppConfiguration
+    private let state: StateRepository
 
-    init(navigation: AppNavigation, configuration: AppConfiguration) {
-        self.configuration = configuration
+    init(navigation: AppNavigation, state: StateRepository) {
+        self.state = state
         super.init(navigation: navigation)
     }
 
@@ -28,6 +28,7 @@ class MenuViewController: ViewController {
             FlexibleSpace(),
             ImageView(image: Images.powercast_splash, mode: .center),
             MenuButton(symbolName: "square.3.stack.3d.middle.filled", text: Translations.DASHBOARD_TITLE, target: self, action: #selector(didTapDashboard)).set(height: 44),
+            MenuButton(symbolName: "poweroutlet.type.k.fill", text: Translations.NETWORK_DETAILS_TITLE, target: self, action: #selector(didTapNetworkDetails)).set(height: 44),
             MenuButton(symbolName: "gearshape", text: Translations.SETTINGS_TITLE, target: self, action: #selector(didTapSettings)).set(height: 44),
             MenuButton(symbolName: "paragraphsign", text: Translations.LICENSES_TITLE, target: self, action: #selector(didTapLicense)).set(height: 44),
             FlexibleSpace()
@@ -45,6 +46,10 @@ class MenuViewController: ViewController {
 
     @objc private func didTapDashboard() {
         navigate(to: .dashboard)
+    }
+
+    @objc private func didTapNetworkDetails() {
+        navigate(to: .networkDetails(network: state.network))
     }
 
     @objc private func didTapSettings() {
