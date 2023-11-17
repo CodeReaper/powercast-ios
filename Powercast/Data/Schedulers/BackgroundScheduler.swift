@@ -60,10 +60,9 @@ class BackgroundScheduler {
             do {
                 try await charges.pullGrid()
                 try await charges.pullNetwork(id: network.id)
-                for date in prices.dates(for: network.zone) {
+                let interval = prices.dates(for: network.zone).combine(with: emission.co2.dates(for: network.zone))
+                for date in interval.dates() {
                     try await prices.pull(zone: network.zone, at: date)
-                }
-                for date in emission.co2.dates(for: network.zone) {
                     try await emission.co2.pull(zone: network.zone, at: date)
                 }
 
