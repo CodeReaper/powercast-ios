@@ -26,7 +26,7 @@ class EnergyPriceRepository {
         return items.map { EnergyPrice.from(model: $0) }
     }
 
-    func dates(for zone: Zone, inset: Int = -2, offset: Int = 2, now: Date = .now) -> [Date] {
+    func dates(for zone: Zone, inset: Int = -2, offset: Int = 2, now: Date = .now) -> DateInterval {
         let max: Date? = try? database.read { db in
             let item = try Database.EnergyPrice
                 .filter(Database.EnergyPrice.Columns.zone == zone.rawValue)
@@ -39,7 +39,7 @@ class EnergyPriceRepository {
         let today = Calendar.current.startOfDay(for: now)
         let start = Calendar.current.date(byAdding: .day, value: inset, to: latest)!
         let end = Calendar.current.date(byAdding: .day, value: offset, to: today)!
-        return start.dates(until: end)
+        return DateInterval(start: start, end: end)
     }
 
     func source(for network: Network) throws -> PriceTableDatasource {

@@ -73,10 +73,9 @@ class DashboardInteractor {
 
     private func refreshAsync() async {
         do {
-            for date in prices.dates(for: state.network.zone) {
+            let interval = prices.dates(for: state.network.zone).combine(with: emission.co2.dates(for: state.network.zone))
+            for date in interval.dates() {
                 try await prices.pull(zone: state.network.zone, at: date)
-            }
-            for date in emission.co2.dates(for: state.network.zone) {
                 try await emission.co2.pull(zone: state.network.zone, at: date)
             }
         } catch {

@@ -48,7 +48,7 @@ class DataLoadingInteractor {
                 let today = Calendar.current.startOfDay(for: Date())
                 let start = Calendar.current.date(byAdding: .day, value: -14, to: today)!
                 let end = Calendar.current.date(byAdding: .day, value: 2, to: today)!
-                for date in start.dates(until: end) {
+                for date in DateInterval(start: start, end: end).dates() {
                     try await prices.pull(zone: network.zone, at: date)
                     try await emission.co2.pull(zone: network.zone, at: date)
                 }

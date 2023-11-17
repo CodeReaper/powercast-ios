@@ -24,7 +24,7 @@ class EmissionCo2Repository {
         return items.map { Co2.from(model: $0) }
     }
 
-    func dates(for zone: Zone, inset: Int = -2, offset: Int = 2, now: Date = .now) -> [Date] {
+    func dates(for zone: Zone, inset: Int = -2, offset: Int = 2, now: Date = .now) -> DateInterval {
         let max: Date? = try? database.read { db in
             let item = try Database.Co2
                 .filter(Database.Co2.Columns.zone == zone.rawValue)
@@ -37,7 +37,7 @@ class EmissionCo2Repository {
         let today = Calendar.current.startOfDay(for: now)
         let start = Calendar.current.date(byAdding: .day, value: inset, to: latest)!
         let end = Calendar.current.date(byAdding: .day, value: offset, to: today)!
-        return start.dates(until: end)
+        return DateInterval(start: start, end: end)
     }
 
     func source(for zone: Zone) throws -> EmissionTableDataSource {
