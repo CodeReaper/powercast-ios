@@ -20,7 +20,6 @@
 "LICENSES_ASSETS_TITLE" = "Assets";
 "LICENSES_PACKAGES_TITLE" = "Packages";
 "LICENSES_TITLE" = "Licenses";
-"NETWORK_DETAILS_HOURS_LABEL" = "Time of day";
 "NETWORK_DETAILS_PRICE_LABEL" = "øre/kWh";
 "NETWORK_DETAILS_TITLE" = "Network details";
 "NETWORK_DETAILS_TITLE_TEMPLATE" = "%1 - Transmission tariff C";

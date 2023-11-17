@@ -27,7 +27,6 @@
 "NETWORK_SELECTION_HELP_BUTTON_NEGATIVE","","Cancel","Cancel",""
 "NETWORK_DETAILS_TITLE","","Network details","Netselskab detaljer",""
 "NETWORK_DETAILS_TITLE_TEMPLATE","","%1 - Transmission tariff C","%1 - Nettarif C",""
-"NETWORK_DETAILS_HOURS_LABEL","","Time of day","Tid på dagen",""
 "NETWORK_DETAILS_PRICE_LABEL","","øre/kWh","øre/kWh",""
 "NETWORK_DETAILS_UNSPECIFICED_END","","No end date","Ingen slut dato",""
 "GRID_DETAILS_TITLE","","Grid details","Elnet detaljer",""

@@ -23,7 +23,6 @@ struct Translations {
 	static let LICENSES_ASSETS_TITLE = NSLocalizedString("LICENSES_ASSETS_TITLE", comment: "")
 	static let LICENSES_PACKAGES_TITLE = NSLocalizedString("LICENSES_PACKAGES_TITLE", comment: "")
 	static let LICENSES_TITLE = NSLocalizedString("LICENSES_TITLE", comment: "")
-	static let NETWORK_DETAILS_HOURS_LABEL = NSLocalizedString("NETWORK_DETAILS_HOURS_LABEL", comment: "")
 	static let NETWORK_DETAILS_PRICE_LABEL = NSLocalizedString("NETWORK_DETAILS_PRICE_LABEL", comment: "")
 	static let NETWORK_DETAILS_TITLE = NSLocalizedString("NETWORK_DETAILS_TITLE", comment: "")
 	static func NETWORK_DETAILS_TITLE_TEMPLATE(_ p1: String) -> String { return NSLocalizedString("NETWORK_DETAILS_TITLE_TEMPLATE", comment: "").replacingOccurrences(of: "%1", with: p1) }

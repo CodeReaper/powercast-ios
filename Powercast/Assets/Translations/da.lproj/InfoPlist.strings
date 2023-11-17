@@ -20,7 +20,6 @@
 "LICENSES_ASSETS_TITLE" = "Assets";
 "LICENSES_PACKAGES_TITLE" = "Packages";
 "LICENSES_TITLE" = "Licenser";
-"NETWORK_DETAILS_HOURS_LABEL" = "Tid på dagen";
 "NETWORK_DETAILS_PRICE_LABEL" = "øre/kWh";
 "NETWORK_DETAILS_TITLE" = "Netselskab detaljer";
 "NETWORK_DETAILS_TITLE_TEMPLATE" = "%1 - Nettarif C";
