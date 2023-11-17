@@ -9,6 +9,7 @@ indirect enum Navigation {
     case settings
     case specificSettings(configuration: [SettingsViewController.Section])
     case networkDetails(network: Network)
+    case gridDetails(zone: Zone)
     case licenses
     case license(title: String, content: String)
     case actionSheet(options: [ActionSheetOption])
@@ -101,6 +102,13 @@ class AppNavigation {
             let viewController = NetworkDetailsViewController(
                 navigation: self,
                 network: network,
+                charges: dependencies.chargesRepository
+            )
+            navigationController.pushViewController(viewController, animated: true)
+        case let .gridDetails(zone):
+            let viewController = GridDetailsViewController(
+                navigation: self,
+                zone: zone,
                 charges: dependencies.chargesRepository
             )
             navigationController.pushViewController(viewController, animated: true)

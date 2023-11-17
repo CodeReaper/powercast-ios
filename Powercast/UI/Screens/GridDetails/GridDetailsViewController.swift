@@ -1,17 +1,17 @@
 import UIKit
 import SugarKit
 
-class NetworkDetailsViewController: ViewController {
+class GridDetailsViewController: ViewController {
     private let tableView = UITableView(frame: .zero, style: .plain)
     private let now = Date()
-    private let formatter = NumberFormatter.with(style: .decimal, fractionDigits: 2)
+    private let currencyFormatter = NumberFormatter.with(style: .decimal, fractionDigits: 2)
 
-    private let network: Network
-    private let items: [NetworkPrice]
+    private let zone: Zone
+    private let items: [GridPrice]
 
-    init(navigation: AppNavigation, network: Network, charges: ChargesRepository) {
-        let items = try? charges.networkPrices(by: network.id)
-        self.network = network
+    init(navigation: AppNavigation, zone: Zone, charges: ChargesRepository) {
+        let items = try? charges.gridPrices(by: zone)
+        self.zone = zone
         self.items = items ?? []
         super.init(navigation: navigation)
     }
@@ -23,7 +23,7 @@ class NetworkDetailsViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = Translations.NETWORK_DETAILS_TITLE_TEMPLATE(network.name)
+        title = zone.name
 
         navigationController?.navigationBar.shadowImage = UIImage()
 
@@ -69,7 +69,7 @@ class NetworkDetailsViewController: ViewController {
             fatalError("init(coder:) has not been implemented")
         }
 
-        func update(using price: NetworkPrice) -> Self {
+        func update(using price: GridPrice) -> Self {
             validFromLabel.text = Self.dateFormatter.string(from: price.validFrom)
             if let validTo = price.validTo {
                 validToLabel.text = Self.dateFormatter.string(from: validTo)
@@ -82,10 +82,11 @@ class NetworkDetailsViewController: ViewController {
 
     private class Cell: UITableViewCell {
         private let selectionIndicator = UIView()
-        private let labels: [UILabel]
-        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            labels = (0...23).map { _ in Label(color: .black).updateContentCompressionResistancePriority(.required, for: .horizontal) }
+        private let systemLabel = Label(color: .black).aligned(to: .right)
+        private let chargeLabel = Label(color: .black).aligned(to: .right)
+        private let transmissionLabel = Label(color: .black).aligned(to: .right)
 
+        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
 
             selectionIndicator
@@ -98,32 +99,18 @@ class NetworkDetailsViewController: ViewController {
                     make(its.widthAnchor.constraint(equalToConstant: 4))
                 }
 
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .decimal
-            formatter.maximumFractionDigits = 0
-            formatter.minimumIntegerDigits = 2
-
-            let stackView = Stack.views(on: .vertical, spacing: 6, inset: NSDirectionalEdgeInsets(top: 7, leading: 15, bottom: 7, trailing: 15)).layout(in: contentView) { (make, its) in
+            Stack.views(
+                on: .vertical,
+                spacing: 6,
+                inset: NSDirectionalEdgeInsets(top: 7, leading: 15, bottom: 7, trailing: 15),
+                Stack.views(on: .horizontal, Label(text: Translations.GRID_DETAILS_SYSTEM_LABEL, color: .black), Stack.views(on: .horizontal, spacing: 5, systemLabel, Label(text: Translations.GRID_DETAILS_UNIT, color: .black))),
+                Stack.views(on: .horizontal, Label(text: Translations.GRID_DETAILS_TRANSMISSION_LABEL, color: .black), Stack.views(on: .horizontal, spacing: 5, transmissionLabel, Label(text: Translations.GRID_DETAILS_UNIT, color: .black))),
+                Stack.views(on: .horizontal, Label(text: Translations.GRID_DETAILS_CHARGE_LABEL, color: .black), Stack.views(on: .horizontal, spacing: 5, chargeLabel, Label(text: Translations.GRID_DETAILS_UNIT, color: .black)))
+            ).layout(in: contentView) { (make, its) in
                 make(its.topAnchor.constraint(equalTo: contentView.topAnchor))
                 make(its.bottomAnchor.constraint(equalTo: contentView.bottomAnchor))
                 make(its.leadingAnchor.constraint(equalTo: contentView.leadingAnchor))
                 make(its.trailingAnchor.constraint(equalTo: contentView.trailingAnchor))
-            }
-
-            for index in 0...11 {
-                stackView.addArrangedSubview(
-                    Stack.views(
-                        spacing: 15,
-                        Stack.views(
-                            Label(text: "\(formatter.string(from: index as NSNumber)!) - \(formatter.string(from: (index + 1) as NSNumber)!)", color: .black),
-                            Stack.views(spacing: 5, labels[index], Label(text: Translations.NETWORK_DETAILS_PRICE_LABEL, color: .black).updateContentCompressionResistancePriority(.required, for: .horizontal))
-                        ),
-                        Stack.views(
-                            Label(text: "\(formatter.string(from: (index + 12) as NSNumber)!) - \(formatter.string(from: (index + 13) as NSNumber)!)", color: .black),
-                            Stack.views(spacing: 5, labels[index + 12], Label(text: Translations.NETWORK_DETAILS_PRICE_LABEL, color: .black).updateContentCompressionResistancePriority(.required, for: .horizontal))
-                        )
-                    )
-                )
             }
         }
 
@@ -134,23 +121,23 @@ class NetworkDetailsViewController: ViewController {
         override func prepareForReuse() {
             super.prepareForReuse()
             selectionIndicator.set(hidden: true)
-            for item in labels {
+            for item in [systemLabel, transmissionLabel, chargeLabel] {
                 item.text = nil
             }
         }
 
-        func update(with price: NetworkPrice, and formatter: NumberFormatter, current: Bool) -> Self {
-            backgroundColor = current ? .white : Color.offWhite
+        func update(with price: GridPrice, and formatter: NumberFormatter, current: Bool) -> Self {
+            contentView.backgroundColor = current ? .white : Color.offWhite
             selectionIndicator.set(hidden: !current)
-            for (index, price) in price.loadTariff.enumerated() {
-                labels[index].text = formatter.string(from: price as NSNumber)
-            }
+            systemLabel.text = formatter.string(from: price.systemTariff as NSNumber)
+            transmissionLabel.text = formatter.string(from: price.transmissionTariff as NSNumber)
+            chargeLabel.text = formatter.string(from: price.electricityCharge as NSNumber)
             return self
         }
     }
 }
 
-extension NetworkDetailsViewController: UITableViewDataSource {
+extension GridDetailsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         items.count
     }
@@ -162,7 +149,7 @@ extension NetworkDetailsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = items[indexPath.section]
         let interval = DateInterval(start: item.validFrom, end: item.validTo ?? Date.distantFuture)
-        return tableView.dequeueReusableCell(Cell.self, forIndexPath: indexPath).update(with: item, and: formatter, current: interval.contains(now))
+        return tableView.dequeueReusableCell(Cell.self, forIndexPath: indexPath).update(with: item, and: currencyFormatter, current: interval.contains(now))
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -171,4 +158,4 @@ extension NetworkDetailsViewController: UITableViewDataSource {
     }
 }
 
-extension NetworkDetailsViewController: UITableViewDelegate { }
+extension GridDetailsViewController: UITableViewDelegate { }

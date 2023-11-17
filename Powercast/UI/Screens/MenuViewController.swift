@@ -29,6 +29,7 @@ class MenuViewController: ViewController {
             ImageView(image: Images.powercast_splash, mode: .center),
             MenuButton(symbolName: "square.3.stack.3d.middle.filled", text: Translations.DASHBOARD_TITLE, target: self, action: #selector(didTapDashboard)).set(height: 44),
             MenuButton(symbolName: "poweroutlet.type.k.fill", text: Translations.NETWORK_DETAILS_TITLE, target: self, action: #selector(didTapNetworkDetails)).set(height: 44),
+            MenuButton(symbolName: "bolt.fill", text: Translations.GRID_DETAILS_TITLE, target: self, action: #selector(didTapGridDetails)).set(height: 44),
             MenuButton(symbolName: "gearshape", text: Translations.SETTINGS_TITLE, target: self, action: #selector(didTapSettings)).set(height: 44),
             MenuButton(symbolName: "paragraphsign", text: Translations.LICENSES_TITLE, target: self, action: #selector(didTapLicense)).set(height: 44),
             FlexibleSpace()
@@ -50,6 +51,10 @@ class MenuViewController: ViewController {
 
     @objc private func didTapNetworkDetails() {
         navigate(to: .networkDetails(network: state.network))
+    }
+
+    @objc private func didTapGridDetails() {
+        navigate(to: .gridDetails(zone: state.network.zone))
     }
 
     @objc private func didTapSettings() {

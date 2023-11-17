@@ -201,7 +201,7 @@ class DashboardViewController: ViewController {
             emissionLabel.text = nil
         }
 
-        func update(using price: Price, and emission: Emission.Co2?, with formatter: NumberFormatter, current: Bool) {
+        func update(using price: Price, and emission: Emission.Co2?, with formatter: NumberFormatter, current: Bool) -> Self {
             backgroundColor = current ? .white : Color.offWhite
             selectionIndicator.set(hidden: !current)
 
@@ -225,6 +225,8 @@ class DashboardViewController: ViewController {
 
             dateLabel.text = Translations.DASHBOARD_HOUR_TIME(Self.dateFormatter.string(from: price.duration.lowerBound), Self.dateFormatter.string(from: price.duration.upperBound))
             priceLabel.text = formatter.string(with: price.price)
+
+            return self
         }
     }
 }
@@ -253,8 +255,7 @@ extension DashboardViewController: UITableViewDataSource {
 
         guard let price = priceSource.item(at: indexPath) else { return cell }
 
-        cell.update(using: price, and: emissionSource.item(at: indexPath), with: formatter, current: price.isActive(at: now))
-        return cell
+        return cell.update(using: price, and: emissionSource.item(at: indexPath), with: formatter, current: price.duration.contains(now))
     }
 }
 

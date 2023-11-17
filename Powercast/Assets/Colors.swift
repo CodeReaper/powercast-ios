@@ -2,7 +2,7 @@ import UIKit
 
 struct Color {
     static let primary = UIColor.from(hex: "#2c90d3")
-    static let offWhite = UIColor.from(hex: "#F9FBFE")
+    static let offWhite = UIColor.from(hex: "#EEF5FF")
     static let pastelRed = UIColor.from(hex: "#EA665C")
 
     static let fixedFeeColor = UIColor.from(hex: "#B0D9B1")
