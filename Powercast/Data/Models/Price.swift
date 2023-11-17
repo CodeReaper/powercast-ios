@@ -10,8 +10,4 @@ struct Price {
     let variableFees: Double
     let zone: Zone
     let duration: ClosedRange<Date>
-
-    func isActive(at date: Date) -> Bool {
-        duration.contains(date)
-    }
 }
