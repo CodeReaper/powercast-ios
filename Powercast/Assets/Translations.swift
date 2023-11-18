@@ -10,6 +10,16 @@ struct Translations {
 	static let DASHBOARD_REFRESH_CONTROL_MESSAGE = NSLocalizedString("DASHBOARD_REFRESH_CONTROL_MESSAGE", comment: "")
 	static let DASHBOARD_REFRESH_FAILED_MESSAGE = NSLocalizedString("DASHBOARD_REFRESH_FAILED_MESSAGE", comment: "")
 	static let DASHBOARD_TITLE = NSLocalizedString("DASHBOARD_TITLE", comment: "")
+	static func DATA_DETAILS_EMISSION_CO2_SPAN(_ p1: String, _ p2: String) -> String { return NSLocalizedString("DATA_DETAILS_EMISSION_CO2_SPAN", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
+	static let DATA_DETAILS_EMISSION_CO2_UNIT = NSLocalizedString("DATA_DETAILS_EMISSION_CO2_UNIT", comment: "")
+	static let DATA_DETAILS_FIXED_FEES_LABEL = NSLocalizedString("DATA_DETAILS_FIXED_FEES_LABEL", comment: "")
+	static func DATA_DETAILS_PERCENTAGE(_ p1: String) -> String { return NSLocalizedString("DATA_DETAILS_PERCENTAGE", comment: "").replacingOccurrences(of: "%1", with: p1) }
+	static let DATA_DETAILS_PRICE_LABEL = NSLocalizedString("DATA_DETAILS_PRICE_LABEL", comment: "")
+	static let DATA_DETAILS_PRICE_UNIT = NSLocalizedString("DATA_DETAILS_PRICE_UNIT", comment: "")
+	static let DATA_DETAILS_RAW_PRICE_LABEL = NSLocalizedString("DATA_DETAILS_RAW_PRICE_LABEL", comment: "")
+	static let DATA_DETAILS_TITLE_EMISSION = NSLocalizedString("DATA_DETAILS_TITLE_EMISSION", comment: "")
+	static let DATA_DETAILS_TITLE_PRICE = NSLocalizedString("DATA_DETAILS_TITLE_PRICE", comment: "")
+	static let DATA_DETAILS_VARIABLE_FEES_LABEL = NSLocalizedString("DATA_DETAILS_VARIABLE_FEES_LABEL", comment: "")
 	static let DATA_LOADING_REFRESH_FAILED_MESSAGE = NSLocalizedString("DATA_LOADING_REFRESH_FAILED_MESSAGE", comment: "")
 	static let DATA_LOADING_REFRESH_FAILED_NEGATIVE_BUTTON = NSLocalizedString("DATA_LOADING_REFRESH_FAILED_NEGATIVE_BUTTON", comment: "")
 	static let DATA_LOADING_REFRESH_FAILED_POSITIVE_BUTTON = NSLocalizedString("DATA_LOADING_REFRESH_FAILED_POSITIVE_BUTTON", comment: "")

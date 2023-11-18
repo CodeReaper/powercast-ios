@@ -1,15 +1,12 @@
 import Foundation
 
 extension TimeInterval {
+    static var fiveMinutes: TimeInterval = 300
     static var oneHour: TimeInterval = 3600
+}
 
-    static var sixHours: TimeInterval = 21600
-
-    static var twelveHours: TimeInterval = 43200
-
-    static var oneDay: TimeInterval = 86400
-
-    static var thirtySixHours: TimeInterval = 129600
-
-    static var thirtyDays: TimeInterval = 2592000
+extension Array where Element == TimeInterval {
+    func span() -> ClosedRange<TimeInterval> {
+        reduce(Double.infinity, { $0 > $1 ? $1 : $0 })...reduce(-Double.infinity, { $0 < $1 ? $1 : $0 })
+    }
 }

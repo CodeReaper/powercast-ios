@@ -66,11 +66,8 @@ struct Charges {
     ///     - date: The time at which the price point is active
     func format(_ value: Double, at date: Date) -> Double {
         var dkr = value / 1000 * exchangeRate
-        dkr += transmissionTariff
-        dkr += systemTariff
-        dkr += electricityCharge
-        dkr += loadTariff(at: date)
         dkr *= 1 + (dkr > 0 ? valueAddedTax : 0)
+        dkr += fees(at: date)
         return dkr
     }
 
@@ -80,7 +77,9 @@ struct Charges {
     ///     - value: The raw MWh price in Euros
     ///     - date: The time at which the price point is active
     func convert(_ value: Double, at date: Date) -> Double {
-        return value / 1000 * exchangeRate
+        var dkr = value / 1000 * exchangeRate
+        dkr *= 1 + (dkr > 0 ? valueAddedTax : 0)
+        return dkr
     }
 
     static func from(_ grid: GridPrice, and network: NetworkPrice) -> Charges {

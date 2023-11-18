@@ -78,9 +78,8 @@ class CurrentPriceTableDatasource: PriceTableDatasource {
 
         return Price(
             price: charges.format(model.price, at: model.timestamp),
-            priceSpan: span(of: models.map({ charges.format($0.price, at: $0.timestamp) })),
-            rawPrice: model.price,
-            rawPriceSpan: span(of: models.map({ $0.price })),
+            priceSpan: models.map({ charges.format($0.price, at: $0.timestamp) }).span(),
+            rawPrice: charges.convert(model.price, at: model.timestamp),
             fees: charges.fees(at: model.timestamp),
             fixedFees: charges.fixedFees(at: model.timestamp),
             variableFees: charges.variableFees(at: model.timestamp),
@@ -100,11 +99,5 @@ class CurrentPriceTableDatasource: PriceTableDatasource {
 
     enum Failure: Error {
         case dataMissing
-    }
-
-    private func span(of values: [Double]) -> ClosedRange<Double> {
-        let high = values.reduce(-Double.infinity, { $0 < $1 ? $1 : $0 })
-        let low = values.reduce(Double.infinity, { $0 > $1 ? $1 : $0 })
-        return low...high
     }
 }

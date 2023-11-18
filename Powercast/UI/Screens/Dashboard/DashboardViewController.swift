@@ -203,6 +203,7 @@ class DashboardViewController: ViewController {
 
         func update(using price: Price, and emission: Emission.Co2?, with formatter: NumberFormatter, current: Bool) -> Self {
             backgroundColor = current ? .white : Color.offWhite
+            accessoryType = .disclosureIndicator
             selectionIndicator.set(hidden: !current)
 
             let ratio = (price.price - price.fees) / price.priceSpan.upperBound
@@ -213,12 +214,13 @@ class DashboardViewController: ViewController {
             ]
 
             if let emission = emission {
-                let space = emission.amount.lowerBound / emission.amountSpan.upperBound
+                let amounts = emission.amounts.upperBound == emission.amounts.lowerBound ? (emission.amounts.lowerBound - 0.5)...(emission.amounts.upperBound + 0.5) : emission.amounts
+                let space = amounts.lowerBound / emission.amountSpan.upperBound
                 emissionGaugeView.values = [
                     (space, emissionGaugeView.tintColor),
-                    ((emission.amount.upperBound / emission.amountSpan.upperBound) - space, Color.emissionColor)
+                    ((amounts.upperBound / emission.amountSpan.upperBound) - space, Color.emissionColor)
                 ]
-                emissionLabel.text = Translations.DASHBOARD_CO2_SPAN(formatter.string(with: emission.amount.lowerBound), formatter.string(with: emission.amount.upperBound))
+                emissionLabel.text = Translations.DASHBOARD_CO2_SPAN(formatter.string(with: emission.amounts.lowerBound), formatter.string(with: emission.amounts.upperBound))
             } else {
                 emissionLabel.text = "-"
             }
@@ -262,6 +264,11 @@ extension DashboardViewController: UITableViewDataSource {
 extension DashboardViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+
+        guard let price = priceSource.item(at: indexPath) else { return }
+        let emission = emissionSource.item(at: indexPath)
+
+        navigate(to: .dataDetails(price: price, emission: emission))
     }
 }
 

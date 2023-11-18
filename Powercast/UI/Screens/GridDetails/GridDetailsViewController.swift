@@ -4,7 +4,7 @@ import SugarKit
 class GridDetailsViewController: ViewController {
     private let tableView = UITableView(frame: .zero, style: .plain)
     private let now = Date()
-    private let currencyFormatter = NumberFormatter.with(style: .decimal, fractionDigits: 2)
+    private let formatter = NumberFormatter.with(style: .decimal, fractionDigits: 2)
 
     private let zone: Zone
     private let items: [GridPrice]
@@ -149,7 +149,7 @@ extension GridDetailsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = items[indexPath.section]
         let interval = DateInterval(start: item.validFrom, end: item.validTo ?? Date.distantFuture)
-        return tableView.dequeueReusableCell(Cell.self, forIndexPath: indexPath).update(with: item, and: currencyFormatter, current: interval.contains(now))
+        return tableView.dequeueReusableCell(Cell.self, forIndexPath: indexPath).update(with: item, and: formatter, current: interval.contains(now))
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

@@ -77,6 +77,7 @@
 		CD1068AB2B07F17800FD5B0E /* DateInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068AA2B07F17800FD5B0E /* DateInterval.swift */; };
 		CD1068AE2B07FEAA00FD5B0E /* GridDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068AD2B07FEAA00FD5B0E /* GridDetailsViewController.swift */; };
 		CD1068B02B080AA600FD5B0E /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068AF2B080AA600FD5B0E /* View.swift */; };
+		CD1068B32B081B8800FD5B0E /* DataDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068B22B081B8800FD5B0E /* DataDetailsViewController.swift */; };
 		CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */; };
 		CD36624729281614009FAC8B /* Flogger in Frameworks */ = {isa = PBXBuildFile; productRef = CD36624629281614009FAC8B /* Flogger */; };
 		CD4022E82A34AA2B00027798 /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD4022E72A34AA2B00027798 /* SugarKit */; };
@@ -188,6 +189,7 @@
 		CD1068AA2B07F17800FD5B0E /* DateInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateInterval.swift; sourceTree = "<group>"; };
 		CD1068AD2B07FEAA00FD5B0E /* GridDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridDetailsViewController.swift; sourceTree = "<group>"; };
 		CD1068AF2B080AA600FD5B0E /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		CD1068B22B081B8800FD5B0E /* DataDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataDetailsViewController.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		CD4022EB2A34ADA600027798 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CD5C58CF2AE4824900143060 /* ChargesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargesRepository.swift; sourceTree = "<group>"; };
@@ -457,6 +459,7 @@
 				389F717C28997B2B0007C2E0 /* MenuViewController.swift */,
 				38FD15DA28835353001C38F9 /* SettingsViewController.swift */,
 				CD1068A22B06AF6D00FD5B0E /* Dashboard */,
+				CD1068B12B081B8800FD5B0E /* DataDetailsViewController */,
 				384E64762891650E004ADCB1 /* DataLoading */,
 				CD1068AC2B07FEAA00FD5B0E /* GridDetails */,
 				CD1068892AFC333500FD5B0E /* Launch */,
@@ -506,6 +509,14 @@
 				CD1068AD2B07FEAA00FD5B0E /* GridDetailsViewController.swift */,
 			);
 			path = GridDetails;
+			sourceTree = "<group>";
+		};
+		CD1068B12B081B8800FD5B0E /* DataDetailsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CD1068B22B081B8800FD5B0E /* DataDetailsViewController.swift */,
+			);
+			path = DataDetailsViewController;
 			sourceTree = "<group>";
 		};
 		CD4022E62A34AA2B00027798 /* Frameworks */ = {
@@ -772,6 +783,7 @@
 				384E6446288DC430004ADCB1 /* Fonts.swift in Sources */,
 				CD1068A12B05476600FD5B0E /* EmissionTableDataSource.swift in Sources */,
 				CD8A4BC528BA6DB000EC68E3 /* Price.swift in Sources */,
+				CD1068B32B081B8800FD5B0E /* DataDetailsViewController.swift in Sources */,
 				38E0FA722884822C0096B98A /* _Database.swift in Sources */,
 				CDA37DED2AD0A739004B44B0 /* Message.swift in Sources */,
 				389F717D28997B2C0007C2E0 /* MenuViewController.swift in Sources */,
