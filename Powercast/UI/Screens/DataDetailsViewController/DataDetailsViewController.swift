@@ -74,6 +74,9 @@ class DataDetailsViewController: ViewController {
         private let rawLabel = Label(color: .black).aligned(to: .right)
         private let variableFeesLabel = Label(color: .black).aligned(to: .right)
         private let fixedFeesLabel = Label(color: .black).aligned(to: .right)
+        private let rawPercentageLabel = Label(color: .black).aligned(to: .right)
+        private let variablePercentageFeesLabel = Label(color: .black).aligned(to: .right)
+        private let fixedPercentageFeesLabel = Label(color: .black).aligned(to: .right)
 
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
@@ -82,10 +85,38 @@ class DataDetailsViewController: ViewController {
                 on: .vertical,
                 spacing: 10,
                 inset: NSDirectionalEdgeInsets(top: 7, leading: 15, bottom: 7, trailing: 15),
-                Stack.views(on: .horizontal, Label(text: Translations.DATA_DETAILS_PRICE_LABEL, color: .black), Label(), Stack.views(on: .horizontal, spacing: 5, priceLabel, Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .black).updateContentCompressionResistancePriority(.required, for: .vertical))),
-                Stack.views(on: .horizontal, Label(text: Translations.DATA_DETAILS_RAW_PRICE_LABEL, color: .black), Label(text: Translations.DATA_DETAILS_PERCENTAGE("0"), color: .black), Stack.views(on: .horizontal, spacing: 5, rawLabel, Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .black).updateContentCompressionResistancePriority(.required, for: .vertical))),
-                Stack.views(on: .horizontal, Label(text: Translations.DATA_DETAILS_FIXED_FEES_LABEL, color: .black), Label(text: Translations.DATA_DETAILS_PERCENTAGE("0"), color: .black), Stack.views(on: .horizontal, spacing: 5, fixedFeesLabel, Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .black).updateContentCompressionResistancePriority(.required, for: .vertical))),
-                Stack.views(on: .horizontal, Label(text: Translations.DATA_DETAILS_VARIABLE_FEES_LABEL, color: .black), Label(text: Translations.DATA_DETAILS_PERCENTAGE("0"), color: .black), Stack.views(on: .horizontal, spacing: 5, variableFeesLabel, Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .black).updateContentCompressionResistancePriority(.required, for: .vertical)))
+                Stack.views(
+                    on: .horizontal,
+                    spacing: 5,
+                    Label(text: Translations.DATA_DETAILS_PRICE_LABEL, color: .black).updateContentCompressionResistancePriority(.required, for: .horizontal),
+                    Label(),
+                    priceLabel,
+                    Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .black)
+                ),
+                Stack.views(
+                    on: .horizontal,
+                    spacing: 5,
+                    Label(text: Translations.DATA_DETAILS_RAW_PRICE_LABEL, color: .black).updateContentCompressionResistancePriority(.required, for: .horizontal),
+                    rawPercentageLabel,
+                    rawLabel,
+                    Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .black)
+                ),
+                Stack.views(
+                    on: .horizontal,
+                    spacing: 5,
+                    Label(text: Translations.DATA_DETAILS_FIXED_FEES_LABEL, color: .black).updateContentCompressionResistancePriority(.required, for: .horizontal),
+                    fixedPercentageFeesLabel,
+                    fixedFeesLabel,
+                    Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .black)
+                ),
+                Stack.views(
+                    on: .horizontal,
+                    spacing: 5,
+                    Label(text: Translations.DATA_DETAILS_VARIABLE_FEES_LABEL, color: .black).updateContentCompressionResistancePriority(.required, for: .horizontal),
+                    variablePercentageFeesLabel,
+                    variableFeesLabel,
+                    Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .black)
+                )
             ).layout(in: contentView) { (make, its) in
                 make(its.topAnchor.constraint(equalTo: contentView.topAnchor))
                 make(its.bottomAnchor.constraint(equalTo: contentView.bottomAnchor))
@@ -106,12 +137,17 @@ class DataDetailsViewController: ViewController {
         }
 
         func update(with price: Price) -> Self {
-            let formatter = NumberFormatter.with(style: .decimal, fractionDigits: 2)
-            // FIXME: percentages
+            var formatter = NumberFormatter.with(style: .decimal, fractionDigits: 2)
             priceLabel.text = formatter.string(from: price.price as NSNumber)
             rawLabel.text = formatter.string(from: price.rawPrice as NSNumber)
             variableFeesLabel.text = formatter.string(from: price.variableFees as NSNumber)
             fixedFeesLabel.text = formatter.string(from: price.fixedFees as NSNumber)
+
+            formatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
+            rawPercentageLabel.text = Translations.DATA_DETAILS_PERCENTAGE(formatter.string(from: 100 * (price.rawPrice / price.price) as NSNumber)!)
+            variablePercentageFeesLabel.text = Translations.DATA_DETAILS_PERCENTAGE(formatter.string(from: 100 * (price.variableFees / price.price) as NSNumber)!)
+            fixedPercentageFeesLabel.text = Translations.DATA_DETAILS_PERCENTAGE(formatter.string(from: 100 * (price.fixedFees / price.price) as NSNumber)!)
+
             return self
         }
     }
