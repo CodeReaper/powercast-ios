@@ -129,9 +129,9 @@ class GridDetailsViewController: ViewController {
         func update(with price: GridPrice, and formatter: NumberFormatter, current: Bool) -> Self {
             contentView.backgroundColor = current ? .white : Color.offWhite
             selectionIndicator.set(hidden: !current)
-            systemLabel.text = formatter.string(from: price.systemTariff as NSNumber)
-            transmissionLabel.text = formatter.string(from: price.transmissionTariff as NSNumber)
-            chargeLabel.text = formatter.string(from: price.electricityCharge as NSNumber)
+            systemLabel.text = formatter.string(with: price.systemTariff)
+            transmissionLabel.text = formatter.string(with: price.transmissionTariff)
+            chargeLabel.text = formatter.string(with: price.electricityCharge)
             return self
         }
     }

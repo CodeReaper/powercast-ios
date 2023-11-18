@@ -7,6 +7,7 @@ indirect enum Navigation {
     case loadData(network: Network)
     case dashboard
     case dataDetails(price: Price, emission: Emission.Co2?)
+    case priceArchive
     case settings
     case specificSettings(configuration: [SettingsViewController.Section])
     case networkDetails(network: Network)
@@ -97,6 +98,14 @@ class AppNavigation {
             }
         case let .dataDetails(price, emission):
             navigationController.pushViewController(DataDetailsViewController(navigation: self, price: price, emission: emission), animated: true)
+        case .priceArchive:
+            let viewController = PriceArchiveViewController(
+                navigation: self,
+                state: dependencies.stateRepository,
+                prices: dependencies.energyPriceRepository,
+                emission: dependencies.emissionRepository
+            )
+            navigationController.pushViewController(viewController, animated: true)
         case .settings:
             navigationController.pushViewController(SettingsViewController(navigation: self, state: dependencies.stateRepository, sections: nil), animated: true)
         case let .specificSettings(configuration):

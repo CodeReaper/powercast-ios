@@ -78,6 +78,10 @@
 		CD1068AE2B07FEAA00FD5B0E /* GridDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068AD2B07FEAA00FD5B0E /* GridDetailsViewController.swift */; };
 		CD1068B02B080AA600FD5B0E /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068AF2B080AA600FD5B0E /* View.swift */; };
 		CD1068B32B081B8800FD5B0E /* DataDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068B22B081B8800FD5B0E /* DataDetailsViewController.swift */; };
+		CD1068B62B0921FA00FD5B0E /* PriceArchiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068B52B0921FA00FD5B0E /* PriceArchiveViewController.swift */; };
+		CD1068B82B0927B300FD5B0E /* PriceArchiveInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068B72B0927B200FD5B0E /* PriceArchiveInteractor.swift */; };
+		CD1068BA2B092D3300FD5B0E /* PriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068B92B092D3300FD5B0E /* PriceCell.swift */; };
+		CD1068BC2B092D9D00FD5B0E /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068BB2B092D9D00FD5B0E /* NumberFormatter.swift */; };
 		CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */; };
 		CD36624729281614009FAC8B /* Flogger in Frameworks */ = {isa = PBXBuildFile; productRef = CD36624629281614009FAC8B /* Flogger */; };
 		CD4022E82A34AA2B00027798 /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD4022E72A34AA2B00027798 /* SugarKit */; };
@@ -190,6 +194,10 @@
 		CD1068AD2B07FEAA00FD5B0E /* GridDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridDetailsViewController.swift; sourceTree = "<group>"; };
 		CD1068AF2B080AA600FD5B0E /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		CD1068B22B081B8800FD5B0E /* DataDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataDetailsViewController.swift; sourceTree = "<group>"; };
+		CD1068B52B0921FA00FD5B0E /* PriceArchiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceArchiveViewController.swift; sourceTree = "<group>"; };
+		CD1068B72B0927B200FD5B0E /* PriceArchiveInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceArchiveInteractor.swift; sourceTree = "<group>"; };
+		CD1068B92B092D3300FD5B0E /* PriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCell.swift; sourceTree = "<group>"; };
+		CD1068BB2B092D9D00FD5B0E /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		CD4022EB2A34ADA600027798 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CD5C58CF2AE4824900143060 /* ChargesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargesRepository.swift; sourceTree = "<group>"; };
@@ -263,6 +271,7 @@
 				389F717E289982630007C2E0 /* Drawer.swift */,
 				CD4022EB2A34ADA600027798 /* LoadingView.swift */,
 				CDA37DF22ADB3174004B44B0 /* MultiColorGaugeView.swift */,
+				CD1068B92B092D3300FD5B0E /* PriceCell.swift */,
 				380CE8F9288AE55A0003FF36 /* ViewControllers.swift */,
 			);
 			path = Common;
@@ -307,6 +316,7 @@
 				CD1068A02B05476600FD5B0E /* EmissionTableDataSource.swift */,
 				CDA0E4092AC8C0DA00FF364D /* Evaluation.swift */,
 				CDA37DEC2AD0A739004B44B0 /* Message.swift */,
+				CD1068BB2B092D9D00FD5B0E /* NumberFormatter.swift */,
 				CD10688E2AFEF62D00FD5B0E /* Observer.swift */,
 				CD1068902B000B9C00FD5B0E /* PriceTableDatasource.swift */,
 				38ECF94C289C467B00ED8372 /* TimeInterval.swift */,
@@ -465,6 +475,7 @@
 				CD1068892AFC333500FD5B0E /* Launch */,
 				CD1068A72B06B21600FD5B0E /* NetworkDetails */,
 				CD1068842AF95A7300FD5B0E /* NetworkSelection */,
+				CD1068B42B0921FA00FD5B0E /* PriceArchiveViewController */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -517,6 +528,15 @@
 				CD1068B22B081B8800FD5B0E /* DataDetailsViewController.swift */,
 			);
 			path = DataDetailsViewController;
+			sourceTree = "<group>";
+		};
+		CD1068B42B0921FA00FD5B0E /* PriceArchiveViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CD1068B72B0927B200FD5B0E /* PriceArchiveInteractor.swift */,
+				CD1068B52B0921FA00FD5B0E /* PriceArchiveViewController.swift */,
+			);
+			path = PriceArchiveViewController;
 			sourceTree = "<group>";
 		};
 		CD4022E62A34AA2B00027798 /* Frameworks */ = {
@@ -747,8 +767,11 @@
 				CD10689F2B05425B00FD5B0E /* Emission.swift in Sources */,
 				CDA0E40A2AC8C0DA00FF364D /* Evaluation.swift in Sources */,
 				CD1068AE2B07FEAA00FD5B0E /* GridDetailsViewController.swift in Sources */,
+				CD1068BC2B092D9D00FD5B0E /* NumberFormatter.swift in Sources */,
+				CD1068B82B0927B300FD5B0E /* PriceArchiveInteractor.swift in Sources */,
 				380CE8EE288893F90003FF36 /* Animations.swift in Sources */,
 				384E64792891650E004ADCB1 /* DataLoadingInteractor.swift in Sources */,
+				CD1068B62B0921FA00FD5B0E /* PriceArchiveViewController.swift in Sources */,
 				38ECF953289DAC6500ED8372 /* Colors.swift in Sources */,
 				387FF5FA286B909B0051E3DC /* AppDelegate.swift in Sources */,
 				389F717F289982630007C2E0 /* Drawer.swift in Sources */,
@@ -772,6 +795,7 @@
 				CD1068AB2B07F17800FD5B0E /* DateInterval.swift in Sources */,
 				38ECF94B289B0ACF00ED8372 /* Date.swift in Sources */,
 				CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */,
+				CD1068BA2B092D3300FD5B0E /* PriceCell.swift in Sources */,
 				38E0FA68288476C40096B98A /* EnergyPriceService.swift in Sources */,
 				38ECF94D289C467B00ED8372 /* TimeInterval.swift in Sources */,
 				CDA37DF12ADB24F0004B44B0 /* ChargesService.swift in Sources */,

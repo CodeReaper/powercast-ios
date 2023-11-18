@@ -74,8 +74,8 @@ struct Message {
             }
         }
 
-        let lowPrice = NumberFormatter.with(style: .decimal, fractionDigits: 0).string(from: low.charges.format(low.model.price, at: low.model.timestamp) as NSNumber)!
-        let highPrice = NumberFormatter.with(style: .decimal, fractionDigits: 0).string(from: high.charges.format(high.model.price, at: high.model.timestamp) as NSNumber)!
+        let lowPrice = NumberFormatter.with(style: .decimal, fractionDigits: 0).string(with: low.charges.format(low.model.price, at: low.model.timestamp))
+        let highPrice = NumberFormatter.with(style: .decimal, fractionDigits: 0).string(with: high.charges.format(high.model.price, at: high.model.timestamp))
         let range = Translations.NOTIFICATION_TEMPLATE_RANGE("\(lowPrice)", "\(highPrice)")
 
         self.body = Translations.NOTIFICATION_TEMPLATE_BODY("\(time)", "\(status)", "\(range)")
@@ -101,8 +101,8 @@ struct Message {
             }
         }
 
-        let lowFees = NumberFormatter.with(style: .decimal, fractionDigits: 0).string(from: low.charges.convert(low.fees, at: low.model.timestamp) as NSNumber)!
-        let highFees = NumberFormatter.with(style: .decimal, fractionDigits: 0).string(from: high.charges.convert(high.fees, at: high.model.timestamp) as NSNumber)!
+        let lowFees = NumberFormatter.with(style: .decimal, fractionDigits: 0).string(with: low.charges.convert(low.fees, at: low.model.timestamp))
+        let highFees = NumberFormatter.with(style: .decimal, fractionDigits: 0).string(with: high.charges.convert(high.fees, at: high.model.timestamp))
         let formatter = DateFormatter.with(format: "HH")
         let hours = evaluations.map { formatter.string(from: $0.model.timestamp) }.joined(separator: ", ")
 
