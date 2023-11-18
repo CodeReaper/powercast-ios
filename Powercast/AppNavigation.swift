@@ -6,6 +6,7 @@ indirect enum Navigation {
     case networkSelection(forceSelection: Bool)
     case loadData(network: Network)
     case dashboard
+    case dataDetails(price: Price, emission: Emission.Co2?)
     case settings
     case specificSettings(configuration: [SettingsViewController.Section])
     case networkDetails(network: Network)
@@ -94,6 +95,8 @@ class AppNavigation {
             drawer.set(.closed, animated: true) {
                 self.navigationController.setViewControllers([self.drawer], animated: true)
             }
+        case let .dataDetails(price, emission):
+            navigationController.pushViewController(DataDetailsViewController(navigation: self, price: price, emission: emission), animated: true)
         case .settings:
             navigationController.pushViewController(SettingsViewController(navigation: self, state: dependencies.stateRepository, sections: nil), animated: true)
         case let .specificSettings(configuration):

@@ -73,10 +73,11 @@ class CurrentEmissionTableDataSource: EmissionTableDataSource {
         else { return nil }
 
         return Emission.Co2(
-            amount: span(of: hour.map({ $0.amount })),
-            amountSpan: span(of: day.map({ $0.amount })),
+            amounts: hour.map({ $0.amount }).span(),
+            amountSpan: day.map({ $0.amount }).span(),
             zone: zone,
-            duration: duration
+            duration: duration,
+            data: Dictionary(uniqueKeysWithValues: hour.map { ($0.timestamp, $0.amount) })
         )
     }
 
@@ -91,11 +92,5 @@ class CurrentEmissionTableDataSource: EmissionTableDataSource {
 
     enum Failure: Error {
         case dataMissing
-    }
-
-    private func span(of values: [Double]) -> ClosedRange<Double> {
-        let high = values.reduce(-Double.infinity, { $0 < $1 ? $1 : $0 })
-        let low = values.reduce(Double.infinity, { $0 > $1 ? $1 : $0 })
-        return low...high
     }
 }
