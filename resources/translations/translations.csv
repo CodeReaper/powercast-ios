@@ -40,7 +40,7 @@
 "DATA_DETAILS_EMISSION_CO2_UNIT","","g/kWh","g/kWh",""
 "DATA_DETAILS_PERCENTAGE","","%1 %","%1 %",""
 "DATA_DETAILS_PRICE_LABEL","","Total price","Total pris",""
-"DATA_DETAILS_RAW_PRICE_LABEL","","Raw price","Rå pris",""
+"DATA_DETAILS_RAW_PRICE_LABEL","","Base price","Grundpris",""
 "DATA_DETAILS_VARIABLE_FEES_LABEL","","Variable fees","Variable afgifter",""
 "DATA_DETAILS_FIXED_FEES_LABEL","","Fixed fees","Faste afgifter",""
 "DATA_DETAILS_EMISSION_CO2_SPAN","","%1 - %2","%1 - %2",""
