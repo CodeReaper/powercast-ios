@@ -102,7 +102,7 @@ class NotificationRepository {
             else { return }
 
             let date = Date(timeIntervalSince1970: epoch)
-            if state.deliveredNotification(for: kind) > date {
+            if date > state.deliveredNotification(for: kind) {
                 state.deliveredNotification(at: date, for: kind)
             }
         }
