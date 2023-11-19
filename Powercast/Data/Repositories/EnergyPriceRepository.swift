@@ -42,6 +42,7 @@ class EnergyPriceRepository {
         return DateInterval(start: start, end: end)
     }
 
+    // FIXME: generel enforcement of showing and syncing 14 days worth of data
     func source(for network: Network) throws -> PriceTableDatasource {
         let max = try database.read { db in
             return try Date.fetchOne(db, Database.EnergyPrice.select(GRDB.max(Database.EnergyPrice.Columns.timestamp)))

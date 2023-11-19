@@ -70,22 +70,7 @@ class CurrentPriceTableDatasource: PriceTableDatasource {
             let models = try? prices.data(for: network.zone, in: DateInterval(start: min, end: max))
         else { return nil }
 
-        let target = dates[indexPath.item]
-        guard
-            let model = models.first(where: { $0.timestamp == target }),
-            let charges = try? lookup.charges(for: network, at: model.timestamp)
-        else { return nil }
-
-        return Price(
-            price: charges.format(model.price, at: model.timestamp),
-            priceSpan: models.map({ charges.format($0.price, at: $0.timestamp) }).span(),
-            rawPrice: charges.convert(model.price, at: model.timestamp),
-            fees: charges.fees(at: model.timestamp),
-            fixedFees: charges.fixedFees(at: model.timestamp),
-            variableFees: charges.variableFees(at: model.timestamp),
-            zone: model.zone,
-            duration: model.timestamp...model.timestamp.addingTimeInterval(.oneHour)
-        )
+        return Price.map(models, at: dates[indexPath.row], in: network, using: lookup)
     }
 
     func activeIndexPath(at date: Date) -> IndexPath? {

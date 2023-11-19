@@ -164,11 +164,11 @@ extension NetworkDetailsViewController: UITableViewDataSource {
         let interval = DateInterval(start: item.validFrom, end: item.validTo ?? Date.distantFuture)
         return tableView.dequeueReusableCell(Cell.self, forIndexPath: indexPath).update(with: item, and: formatter, current: interval.contains(now))
     }
+}
 
+extension NetworkDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard items.count > section else { return nil }
         return tableView.dequeueReusableHeaderFooter(Header.self).update(using: items[section])
     }
 }
-
-extension NetworkDetailsViewController: UITableViewDelegate { }

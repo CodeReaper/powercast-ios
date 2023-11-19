@@ -215,7 +215,9 @@ extension DataDetailsViewController: UITableViewDataSource {
             return UITableViewCell()
         }
     }
+}
 
+extension DataDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case 0:
@@ -227,5 +229,3 @@ extension DataDetailsViewController: UITableViewDataSource {
         }
     }
 }
-
-extension DataDetailsViewController: UITableViewDelegate { }

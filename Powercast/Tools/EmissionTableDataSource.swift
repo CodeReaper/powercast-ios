@@ -63,22 +63,14 @@ class CurrentEmissionTableDataSource: EmissionTableDataSource {
 
         let dates = items[indexPath.section]
         let date = dates[indexPath.item]
-        let duration = date...date.addingTimeInterval(.oneHour)
 
         guard
             let max = dates.max(),
             let min = dates.min(),
-            let day = try? emission.data(for: zone, in: DateInterval(start: min, end: max.addingTimeInterval(.oneHour))),
-            let hour = try? emission.data(for: zone, in: DateInterval(start: date, end: duration.upperBound))
+            let items = try? emission.data(for: zone, in: DateInterval(start: min, end: max.addingTimeInterval(.oneHour)))
         else { return nil }
 
-        return Emission.Co2(
-            amounts: hour.map({ $0.amount }).span(),
-            amountSpan: day.map({ $0.amount }).span(),
-            zone: zone,
-            duration: duration,
-            data: Dictionary(uniqueKeysWithValues: hour.map { ($0.timestamp, $0.amount) })
-        )
+        return Emission.Co2.map(items, at: date, in: zone)
     }
 
     func activeIndexPath(at date: Date) -> IndexPath? {

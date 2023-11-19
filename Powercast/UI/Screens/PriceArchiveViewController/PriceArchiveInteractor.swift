@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 protocol PriceArchiveDelegate: AnyObject {
     func show(source: PriceArchiveSource)
@@ -6,16 +6,20 @@ protocol PriceArchiveDelegate: AnyObject {
 
 struct PriceArchiveInteractor {
     private weak var delegate: PriceArchiveDelegate?
+    private let network: Network
     private let prices: EnergyPriceRepository
     private let emission: EmissionRepository
+    private let lookup: ChargesLookup
 
-    init(delegate: PriceArchiveDelegate, prices: EnergyPriceRepository, emission: EmissionRepository) {
+    init(delegate: PriceArchiveDelegate, network: Network, prices: EnergyPriceRepository, emission: EmissionRepository, lookup: ChargesLookup) {
         self.delegate = delegate
+        self.network = network
         self.prices = prices
         self.emission = emission
+        self.lookup = lookup
     }
 
-    func viewWillAppear() {
+    func viewDidLoad() {
         delegate?.show(source: PriceArchiveSource(date: .now, loading: true))
         load(.now)
     }
@@ -28,40 +32,47 @@ struct PriceArchiveInteractor {
     private func load(_ date: Date) {
         Task {
             let minimumTime = DispatchTime.now() + 0.7
-            let success: Bool
+            var archivedPrices: [EnergyPrice]?
+            var archivedEmissions: [Co2]?
             do {
-//                try await charges.pullNetworks()
-//                try await charges.pullGrid()
-//                try await charges.pullNetwork(id: network.id)
-//
-//                let today = Calendar.current.startOfDay(for: Date())
-//                let start = Calendar.current.date(byAdding: .day, value: -14, to: today)!
-//                let end = Calendar.current.date(byAdding: .day, value: 2, to: today)!
-//                for date in DateInterval(start: start, end: end).dates() {
-//                    try await prices.pull(zone: network.zone, at: date)
-//                    try await emission.co2.pull(zone: network.zone, at: date)
-//                }
-                success = true
+                let start = date.startOfDay
+                let end = start.date(byAdding: .hour, value: 23)
+                let emissionEnd = end.date(byAdding: .hour, value: 1)
+                archivedPrices = try prices.data(for: network.zone, in: DateInterval(start: start, end: end))
+                archivedEmissions = try emission.co2.data(for: network.zone, in: DateInterval(start: start, end: emissionEnd))
+                if archivedPrices?.count != 24 || archivedEmissions?.count != 288 {
+                    let duration = DateInterval(start: start.date(byAdding: .day, value: -1), end: start.date(byAdding: .day, value: 1))
+                    for date in duration.dates() {
+                        try await prices.pull(zone: network.zone, at: date)
+                        try await emission.co2.pull(zone: network.zone, at: date)
+                    }
+                    archivedPrices = try prices.data(for: network.zone, in: DateInterval(start: start, end: end))
+                    archivedEmissions = try emission.co2.data(for: network.zone, in: DateInterval(start: start, end: emissionEnd))
+                }
             } catch {
-                success = false
+                archivedPrices = nil
+                archivedEmissions = nil
             }
 
-            DispatchQueue.main.asyncAfter(deadline: success ? minimumTime : DispatchTime.now()) { [self] in
-//                if success {
-//                    state.select(network: network)
-//                    navigation.navigate(to: .dashboard)
-//                } else {
-//                    delegate?.displayFailed()
-//                }
+            DispatchQueue.main.asyncAfter(deadline: minimumTime) { [delegate, network, lookup, archivedPrices, archivedEmissions] in
+                if let prices = archivedPrices, let emissions = archivedEmissions {
+                    let source = PriceArchiveSource(
+                        date: date,
+                        prices: prices.compactMap { Price.map(prices, at: $0.timestamp, in: network, using: lookup) },
+                        emissions: prices.compactMap { Emission.Co2.map(emissions, at: $0.timestamp, in: network.zone) }
+                    )
+                    delegate?.show(source: source)
+                } else {
+                    delegate?.show(source: PriceArchiveSource(date: date, failed: true))
+                }
             }
         }
-        // FIXME:
     }
 }
 
 struct PriceArchiveSource {
-    var itemCount: Int { loading ? 1 : prices.count }
-
+    var separatorStyle: UITableViewCell.SeparatorStyle { loading || failed ? .none : .singleLine }
+    var itemCount: Int { loading || failed ? 1 : prices.count }
     func items(at index: Int) -> (Price, Emission.Co2)? {
         guard index < prices.count && index < emissions.count else { return nil }
         return (prices[index], emissions[index])

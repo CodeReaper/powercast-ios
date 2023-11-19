@@ -103,7 +103,8 @@ class AppNavigation {
                 navigation: self,
                 state: dependencies.stateRepository,
                 prices: dependencies.energyPriceRepository,
-                emission: dependencies.emissionRepository
+                emission: dependencies.emissionRepository,
+                lookup: dependencies.chargesRepository
             )
             navigationController.pushViewController(viewController, animated: true)
         case .settings:

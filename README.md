@@ -10,16 +10,17 @@ Below follows a roadmap arranged by current best guess for completion:
  - [x] Intro - Region selection
  - [x] Settings
  - [x] Settings - Network
- - [ ] Settings - Network details
  - [ ] Settings - Notifications in general
  - [ ] Settings - Customizable notification for forecast at preset times
  - [ ] Settings - Pricedrop notifcations
+ - [x] Grid details
+ - [x] Network details
  - [x] Navigation routes
  - [x] Data updates
  - [x] Current prices
  - [x] Current co2 estimations
  - [x] Logo
- - [ ] Historic drilldown of prices
+ - [x] Historic drilldown of prices
  - [ ] Dark mode
  - [ ] IAP
  - [ ] Branding

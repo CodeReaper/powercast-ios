@@ -9,9 +9,9 @@ class PriceArchiveViewController: ViewController {
     private var source = PriceArchiveSource.empty()
     private var interactor: PriceArchiveInteractor!
 
-    init(navigation: AppNavigation, state: StateRepository, prices: EnergyPriceRepository, emission: EmissionRepository) {
+    init(navigation: AppNavigation, state: StateRepository, prices: EnergyPriceRepository, emission: EmissionRepository, lookup: ChargesLookup) {
         super.init(navigation: navigation)
-        interactor = PriceArchiveInteractor(delegate: self, prices: prices, emission: emission)
+        interactor = PriceArchiveInteractor(delegate: self, network: state.network, prices: prices, emission: emission, lookup: lookup)
         picker.date = .now
         picker.maximumDate = picker.date
         picker.datePickerMode = .date
@@ -30,24 +30,21 @@ class PriceArchiveViewController: ViewController {
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
         }
-        tableView.allowsSelection = false
         tableView
             .set(datasource: self, delegate: self)
             .set(backgroundColor: Color.primary)
             .registerClass(DatePickerCell.self)
             .registerClass(PriceCell.self)
             .registerClass(LoadingCell.self)
+            .registerClass(FailureCell.self)
             .layout(in: view) { make, its in
                 make(its.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor))
                 make(its.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor))
                 make(its.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor))
                 make(its.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor))
             }
-    }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        interactor.viewWillAppear()
+        interactor.viewDidLoad()
     }
 
     @objc private func didChangeDate() {
@@ -84,15 +81,30 @@ class PriceArchiveViewController: ViewController {
     }
 
     private class LoadingCell: UITableViewCell {
+        private let spinner = UIActivityIndicatorView()
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-
             contentView.backgroundColor = Color.primary
+            spinner.setup(centeredIn: contentView)
+            spinner.color = .white
+        }
 
-            let view = UIActivityIndicatorView()
-            view.setup(centeredIn: contentView)
-            view.color = .white
-            view.startAnimating()
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+
+        func update() -> Self {
+            spinner.startAnimating()
+            return self
+        }
+    }
+
+    private class FailureCell: UITableViewCell {
+        private let label = Label(style: .subheadline, text: Translations.PRICE_ARCHIVE_FAILURE_MESSAGE, color: .white)
+        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+            super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+            contentView.backgroundColor = Color.primary
+            label.setup(centeredIn: contentView)
         }
 
         required init?(coder: NSCoder) {
@@ -103,9 +115,9 @@ class PriceArchiveViewController: ViewController {
 
 extension PriceArchiveViewController: PriceArchiveDelegate {
     func show(source: PriceArchiveSource) {
-        title = formatter.string(from: source.date)
         self.source = source
-        tableView.separatorStyle = source.loading ? .none : .singleLine
+        title = formatter.string(from: source.date)
+        tableView.separatorStyle = source.separatorStyle
         tableView.reloadData()
     }
 }
@@ -123,9 +135,9 @@ extension PriceArchiveViewController: UITableViewDataSource {
         if indexPath.section == 0 {
             return tableView.dequeueReusableCell(DatePickerCell.self, forIndexPath: indexPath).update(with: picker)
         } else if source.loading {
-            return tableView.dequeueReusableCell(LoadingCell.self, forIndexPath: indexPath)
+            return tableView.dequeueReusableCell(LoadingCell.self, forIndexPath: indexPath).update()
         } else if source.failed {
-            return tableView.dequeueReusableCell(LoadingCell.self, forIndexPath: indexPath) // FIXME: failed?
+            return tableView.dequeueReusableCell(FailureCell.self, forIndexPath: indexPath)
         } else {
             guard let (price, emission) = source.items(at: indexPath.row) else { return UITableViewCell() }
             return tableView.dequeueReusableCell(PriceCell.self, forIndexPath: indexPath).update(using: price, and: emission, current: false)
@@ -133,4 +145,12 @@ extension PriceArchiveViewController: UITableViewDataSource {
     }
 }
 
-extension PriceArchiveViewController: UITableViewDelegate { }
+extension PriceArchiveViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        guard let (price, emission) = source.items(at: indexPath.row) else { return }
+
+        navigate(to: .dataDetails(price: price, emission: emission))
+    }
+}
