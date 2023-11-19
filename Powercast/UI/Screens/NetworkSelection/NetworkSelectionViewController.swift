@@ -41,7 +41,7 @@ class NetworkSelectionViewController: ViewController {
 
         tableView
             .set(datasource: self, delegate: self)
-            .set(backgroundColor: Color.primary)
+            .set(backgroundColor: .brand)
             .registerClass(Cell.self)
             .registerClass(Header.self)
             .layout(in: view) { make, its in
@@ -51,7 +51,7 @@ class NetworkSelectionViewController: ViewController {
                 make(its.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor))
             }
 
-        emptyView.set(backgroundColor: Color.primary).setup(matching: view, in: view)
+        emptyView.set(backgroundColor: .brand).setup(matching: view, in: view)
 
         Stack.views(
             aligned: .center,
@@ -114,7 +114,7 @@ class NetworkSelectionViewController: ViewController {
         override init(reuseIdentifier: String?) {
             super.init(reuseIdentifier: reuseIdentifier)
 
-            contentView.backgroundColor = Color.primary
+            contentView.backgroundColor = .brand
 
             Stack.views(
                 spacing: 10,

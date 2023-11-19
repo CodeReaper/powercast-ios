@@ -17,7 +17,7 @@ class LicensesViewController: ViewController {
 
         tableView
             .set(datasource: self, delegate: self)
-            .set(backgroundColor: Color.primary)
+            .set(backgroundColor: .brand)
             .registerClass(Cell.self)
             .layout(in: view) { make, its in
                 make(its.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor))

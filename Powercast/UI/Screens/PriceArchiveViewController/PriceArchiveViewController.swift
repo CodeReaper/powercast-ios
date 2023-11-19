@@ -32,7 +32,7 @@ class PriceArchiveViewController: ViewController {
         }
         tableView
             .set(datasource: self, delegate: self)
-            .set(backgroundColor: Color.primary)
+            .set(backgroundColor: .brand)
             .registerClass(DatePickerCell.self)
             .registerClass(PriceCell.self)
             .registerClass(LoadingCell.self)
@@ -87,7 +87,7 @@ class PriceArchiveViewController: ViewController {
         private let spinner = UIActivityIndicatorView()
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-            contentView.backgroundColor = Color.primary
+            contentView.backgroundColor = .brand
             spinner.setup(centeredIn: contentView)
             spinner.color = .white
         }
@@ -106,7 +106,7 @@ class PriceArchiveViewController: ViewController {
         private let label = Label(style: .subheadline, text: Translations.PRICE_ARCHIVE_FAILURE_MESSAGE, color: .white)
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-            contentView.backgroundColor = Color.primary
+            contentView.backgroundColor = .brand
             label.setup(centeredIn: contentView)
         }
 

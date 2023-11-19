@@ -34,7 +34,7 @@ class GridDetailsViewController: ViewController {
         tableView.allowsSelection = false
         tableView
             .set(datasource: self, delegate: self)
-            .set(backgroundColor: Color.primary)
+            .set(backgroundColor: .brand)
             .registerClass(Header.self)
             .registerClass(Cell.self)
             .layout(in: view) { make, its in
@@ -54,7 +54,7 @@ class GridDetailsViewController: ViewController {
         override init(reuseIdentifier: String?) {
             super.init(reuseIdentifier: reuseIdentifier)
 
-            contentView.backgroundColor = Color.primary
+            contentView.backgroundColor = .brand
 
             Stack.views(
                 on: .horizontal,
@@ -127,7 +127,7 @@ class GridDetailsViewController: ViewController {
         }
 
         func update(with price: GridPrice, and formatter: NumberFormatter, current: Bool) -> Self {
-            contentView.backgroundColor = current ? .white : Color.offWhite
+            contentView.backgroundColor = current ? .white : .offWhite
             selectionIndicator.set(hidden: !current)
             systemLabel.text = formatter.string(with: price.systemTariff)
             transmissionLabel.text = formatter.string(with: price.transmissionTariff)

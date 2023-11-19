@@ -34,7 +34,7 @@ class SettingsViewController: ViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView
             .set(datasource: self, delegate: self)
-            .set(backgroundColor: Color.primary)
+            .set(backgroundColor: .brand)
             .registerClass(NavigationCell.self)
             .registerClass(ToggleCell.self)
             .layout(in: view) { make, its in
@@ -46,6 +46,7 @@ class SettingsViewController: ViewController {
 
         for kind in Message.Kind.allCases {
             let view = UISwitch(frame: .zero)
+            view.onTintColor = .brand
             view.isOn = state.notifications(for: kind)
             toggles[kind] = view
         }

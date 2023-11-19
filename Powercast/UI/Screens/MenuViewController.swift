@@ -26,7 +26,7 @@ class MenuViewController: ViewController {
             on: .vertical,
             spacing: 15,
             FlexibleSpace(),
-            ImageView(image: Images.powercast_splash, mode: .center),
+            ImageView(image: UIImage.powercastSplash, mode: .center),
             MenuButton(symbolName: "square.3.stack.3d.middle.filled", text: Translations.DASHBOARD_TITLE, target: self, action: #selector(didTapDashboard)).set(height: 44),
             MenuButton(symbolName: "poweroutlet.type.k.fill", text: Translations.NETWORK_DETAILS_TITLE, target: self, action: #selector(didTapNetworkDetails)).set(height: 44),
             MenuButton(symbolName: "bolt.fill", text: Translations.GRID_DETAILS_TITLE, target: self, action: #selector(didTapGridDetails)).set(height: 44),

@@ -6,7 +6,7 @@ extension App {
             UINavigationBar.appearance().setBackgroundImage(UIImage(), for: metric)
         }
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
-        UINavigationBar.appearance().backgroundColor = Color.primary
+        UINavigationBar.appearance().backgroundColor = .brand
 
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).setTitleTextAttributes([.foregroundColor: UIColor.white], for: .highlighted)

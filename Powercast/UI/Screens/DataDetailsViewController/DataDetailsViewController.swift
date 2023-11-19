@@ -31,7 +31,7 @@ class DataDetailsViewController: ViewController {
         tableView.allowsSelection = false
         tableView
             .set(datasource: self, delegate: self)
-            .set(backgroundColor: Color.primary)
+            .set(backgroundColor: .brand)
             .registerClass(Header.self)
             .registerClass(PriceCell.self)
             .registerClass(EmissionCell.self)
@@ -49,7 +49,7 @@ class DataDetailsViewController: ViewController {
         override init(reuseIdentifier: String?) {
             super.init(reuseIdentifier: reuseIdentifier)
 
-            contentView.backgroundColor = Color.primary
+            contentView.backgroundColor = .brand
 
             Stack.views(
                 on: .horizontal,

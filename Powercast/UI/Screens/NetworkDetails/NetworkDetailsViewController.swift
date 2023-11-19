@@ -34,7 +34,7 @@ class NetworkDetailsViewController: ViewController {
         tableView.allowsSelection = false
         tableView
             .set(datasource: self, delegate: self)
-            .set(backgroundColor: Color.primary)
+            .set(backgroundColor: .brand)
             .registerClass(Header.self)
             .registerClass(Cell.self)
             .layout(in: view) { make, its in
@@ -54,7 +54,7 @@ class NetworkDetailsViewController: ViewController {
         override init(reuseIdentifier: String?) {
             super.init(reuseIdentifier: reuseIdentifier)
 
-            contentView.backgroundColor = Color.primary
+            contentView.backgroundColor = .brand
 
             Stack.views(
                 on: .horizontal,
@@ -140,7 +140,7 @@ class NetworkDetailsViewController: ViewController {
         }
 
         func update(with price: NetworkPrice, and formatter: NumberFormatter, current: Bool) -> Self {
-            backgroundColor = current ? .white : Color.offWhite
+            backgroundColor = current ? .white : .offWhite
             selectionIndicator.set(hidden: !current)
             for (index, price) in price.loadTariff.enumerated() {
                 labels[index].text = formatter.string(with: price)

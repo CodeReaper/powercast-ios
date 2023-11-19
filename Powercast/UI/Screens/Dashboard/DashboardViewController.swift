@@ -2,7 +2,7 @@ import UIKit
 import SugarKit
 
 class DashboardViewController: ViewController {
-    private let spinnerView = SpinnerView(color: Color.primary)
+    private let spinnerView = SpinnerView(color: .brand)
     private let updateFailedLabel = Label(style: .subheadline, text: Translations.DASHBOARD_REFRESH_FAILED_MESSAGE, color: .white)
     private let tableView = UITableView(frame: .zero, style: .plain)
     private let refreshControl = UIRefreshControl()
@@ -39,14 +39,14 @@ class DashboardViewController: ViewController {
 
         updateFailedLabel.textAlignment = .center
         updateFailedLabel
-            .set(backgroundColor: Color.pastelRed)
+            .set(backgroundColor: .warning)
             .set(hidden: true)
 
         tableView
             .registerClass(Header.self)
             .registerClass(PriceCell.self)
             .set(datasource: self, delegate: self)
-            .set(backgroundColor: Color.primary)
+            .set(backgroundColor: .brand)
         tableView.refreshControl = refreshControl
         tableView.showsVerticalScrollIndicator = false
         tableView.sectionFooterHeight = 0
@@ -119,7 +119,7 @@ class DashboardViewController: ViewController {
         override init(reuseIdentifier: String?) {
             super.init(reuseIdentifier: reuseIdentifier)
 
-            contentView.backgroundColor = Color.primary
+            contentView.backgroundColor = .brand
 
             Stack.views(
                 spacing: 10,

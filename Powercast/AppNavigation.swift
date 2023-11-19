@@ -55,6 +55,10 @@ class AppNavigation {
     func setup(using window: UIWindow) {
         self.window = window
 
+        if #available(iOS 13.0, *) { // FIXME: remove
+            window.overrideUserInterfaceStyle = .dark
+        }
+
         navigate(to: .launch)
 
         window.rootViewController = navigationController

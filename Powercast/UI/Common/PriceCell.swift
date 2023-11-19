@@ -65,15 +65,15 @@ class PriceCell: UITableViewCell {
     }
 
     func update(using price: Price, and emission: Emission.Co2?, current: Bool) -> Self {
-        backgroundColor = current ? .white : Color.offWhite
+        backgroundColor = current ? .white : .offWhite
         accessoryType = .disclosureIndicator
         selectionIndicator.set(hidden: !current)
 
         let ratio = (price.price - price.fees) / price.priceSpan.upperBound
         priceGaugeView.values = [
-            (price.fixedFees / price.priceSpan.upperBound, Color.fixedFeeColor),
-            (price.variableFees / price.priceSpan.upperBound, Color.variableFeeColor),
-            (ratio, Color.priceColor.withAlphaComponent(ratio > 0 ? 1 : 0))
+            (price.fixedFees / price.priceSpan.upperBound, .fixedFees),
+            (price.variableFees / price.priceSpan.upperBound, .variableFees),
+            (ratio, .price.withAlphaComponent(ratio > 0 ? 1 : 0))
         ]
 
         if let emission = emission {
@@ -81,7 +81,7 @@ class PriceCell: UITableViewCell {
             let space = amounts.lowerBound / emission.amountSpan.upperBound
             emissionGaugeView.values = [
                 (space, emissionGaugeView.tintColor),
-                ((amounts.upperBound / emission.amountSpan.upperBound) - space, Color.emissionColor)
+                ((amounts.upperBound / emission.amountSpan.upperBound) - space, .emission)
             ]
             emissionLabel.text = Translations.DASHBOARD_CO2_SPAN(Self.numberFormatter.string(with: emission.amounts.lowerBound), Self.numberFormatter.string(with: emission.amounts.upperBound))
         } else {
