@@ -46,7 +46,7 @@ class DataLoadingInteractor {
                 try await charges.pullNetwork(id: network.id)
 
                 let today = Calendar.current.startOfDay(for: Date())
-                let start = Calendar.current.date(byAdding: .day, value: -14, to: today)!
+                let start = Calendar.current.date(byAdding: .day, value: -16, to: today)!
                 let end = Calendar.current.date(byAdding: .day, value: 2, to: today)!
                 for date in DateInterval(start: start, end: end).dates() {
                     try await prices.pull(zone: network.zone, at: date)
