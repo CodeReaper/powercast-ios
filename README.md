@@ -10,9 +10,8 @@ Below follows a roadmap arranged by current best guess for completion:
  - [x] Intro - Region selection
  - [x] Settings
  - [x] Settings - Network
- - [ ] Settings - Notifications in general
+ - [x] Settings - Notifications
  - [ ] Settings - Customizable notification for forecast at preset times
- - [ ] Settings - Pricedrop notifcations
  - [x] Grid details
  - [x] Network details
  - [x] Navigation routes

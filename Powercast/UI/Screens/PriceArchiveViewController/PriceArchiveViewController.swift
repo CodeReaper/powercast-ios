@@ -71,7 +71,10 @@ class PriceArchiveViewController: ViewController {
 
         override func prepareForReuse() {
             super.prepareForReuse()
-            views.arrangedSubviews.forEach { views.removeArrangedSubview($0) }
+            views.arrangedSubviews.forEach {
+                views.removeArrangedSubview($0)
+                $0.removeFromSuperview()
+            }
         }
 
         func update(with datePicker: UIDatePicker) -> Self {

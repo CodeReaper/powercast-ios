@@ -16,6 +16,7 @@ indirect enum Navigation {
     case license(title: String, content: String)
     case actionSheet(options: [ActionSheetOption])
     case menu
+    case systemSettings
 }
 
 class AppNavigation {
@@ -77,7 +78,8 @@ class AppNavigation {
             let viewController = NetworkSelectionViewController(
                 navigation: self,
                 networks: networks ?? [],
-                charges: dependencies.chargesRepository
+                charges: dependencies.chargesRepository,
+                cancelable: force
             )
             navigationController.setViewControllers([viewController], animated: true)
         case let .loadData(network):
@@ -131,6 +133,8 @@ class AppNavigation {
             navigationController.pushViewController(LicenseViewController(navigation: self, title: title, content: content), animated: true)
         case .actionSheet(let options):
             (navigationController.topViewController ?? navigationController).present(UIAlertController.build(with: options), animated: true)
+        case .systemSettings:
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
         }
     }
 }

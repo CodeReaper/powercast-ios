@@ -38,11 +38,18 @@ class StateRepository: Observerable {
             name: UIApplication.didEnterBackgroundNotification,
             object: nil
         )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didBecomeActive),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
     }
 
     deinit {
         NotificationCenter.default.removeObserver(self, name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
     func erase() {
@@ -96,6 +103,12 @@ class StateRepository: Observerable {
 
     @objc private func didEnterBackground(notification: NSNotification) {
         store.synchronize()
+    }
+
+    @objc private func didBecomeActive() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            self.notificationStatus = settings.authorizationStatus
+        }
     }
 }
 
