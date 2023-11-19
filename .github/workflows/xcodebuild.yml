@@ -39,12 +39,3 @@ jobs:
           CODE_SIGNING_ALLOWED=NO \
           | xcpretty
 
-      - name: Build
-        run: |
-          set -o pipefail && \
-          xcodebuild -project Powercast.xcodeproj \
-          -scheme Powercast \
-          -sdk iphonesimulator \
-          build \
-          CODE_SIGNING_ALLOWED=NO \
-          | xcpretty

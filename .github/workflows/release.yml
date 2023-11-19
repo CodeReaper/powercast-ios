@@ -1,0 +1,64 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      major:
+        description: Major version
+        required: true
+        type: number
+      minor:
+        description: Minor version
+        required: true
+        type: number
+      patch:
+        description: Patch version
+        required: true
+        type: number
+
+jobs:
+  release:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup local configuration # FIXME: configure correctly
+        run: |
+          cp -v Powercast/Local.xcconfig.sample Powercast/Local.xcconfig
+
+      - name: Cache DerivedData
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/Library/Developer/Xcode/DerivedData/**/Build
+            ~/Library/Developer/Xcode/DerivedData/**/SourcePackages/checkouts
+            ~/Library/Developer/Xcode/DerivedData/**/SourcePackages/workspace-state.json
+          key: ${{ runner.os }}-xcode-${{ hashFiles('**/*.pbxproj', '**/swiftpm/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-xcode-
+
+      - name: Setup signing resources # FIXME: configure correctly
+        run: |
+          echo Resources
+
+      - name: Build # FIXME: configure correctly
+        run: |
+          set -o pipefail && \
+          xcodebuild -project Powercast.xcodeproj \
+          -scheme Powercast \
+          -sdk iphonesimulator \
+          build \
+          CODE_SIGNING_ALLOWED=NO \
+          | xcpretty
+
+      - name: Tag version # FIXME: configure correctly
+        run: |
+          echo Tagging
+
+      - name: Upload app to TestFlight # FIXME: configure correctly
+        uses: apple-actions/upload-testflight-build@v1
+        with:
+          app-path: 'path/to/application.ipa'
+          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
