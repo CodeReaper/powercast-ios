@@ -117,7 +117,7 @@ extension PriceArchiveViewController: PriceArchiveDelegate {
     func show(source: PriceArchiveSource) {
         self.source = source
         title = formatter.string(from: source.date)
-        tableView.separatorStyle = source.separatorStyle
+        tableView.separatorStyle = source.loading || source.failed ? .none : .singleLine
         tableView.reloadData()
     }
 }
@@ -128,7 +128,11 @@ extension PriceArchiveViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        section == 0 ? 1 : source.itemCount
+        if section == 0 || source.loading || source.failed {
+            return 1
+        } else {
+            return source.itemCount
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

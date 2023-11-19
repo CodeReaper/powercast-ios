@@ -71,8 +71,7 @@ struct PriceArchiveInteractor {
 }
 
 struct PriceArchiveSource {
-    var separatorStyle: UITableViewCell.SeparatorStyle { loading || failed ? .none : .singleLine }
-    var itemCount: Int { loading || failed ? 1 : prices.count }
+    var itemCount: Int { prices.count }
     func items(at index: Int) -> (Price, Emission.Co2)? {
         guard index < prices.count && index < emissions.count else { return nil }
         return (prices[index], emissions[index])
