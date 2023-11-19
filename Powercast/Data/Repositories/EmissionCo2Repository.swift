@@ -44,13 +44,10 @@ class EmissionCo2Repository {
         let max = try database.read { db in
             return try Date.fetchOne(db, Database.Co2.select(GRDB.max(Database.Co2.Columns.timestamp)))
         }
-        let min = try database.read { db in
-            return try Date.fetchOne(db, Database.Co2.select(GRDB.min(Database.Co2.Columns.timestamp)))
-        }
-        guard let min = min, let max = max else {
+        guard let max = max else {
             return EmptyEmissionTableDataSource()
         }
-        return try CurrentEmissionTableDataSource(interval: DateInterval(start: min, end: max), zone: zone, emission: self)
+        return try CurrentEmissionTableDataSource(interval: DateInterval(start: max.date(byAdding: .day, value: -15), end: max), zone: zone, emission: self)
     }
 
     func pull(zone: Zone, at date: Date) async throws {

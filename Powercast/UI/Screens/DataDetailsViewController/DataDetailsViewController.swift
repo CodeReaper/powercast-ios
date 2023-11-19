@@ -138,15 +138,15 @@ class DataDetailsViewController: ViewController {
 
         func update(with price: Price) -> Self {
             var formatter = NumberFormatter.with(style: .decimal, fractionDigits: 2)
-            priceLabel.text = formatter.string(from: price.price as NSNumber)
-            rawLabel.text = formatter.string(from: price.rawPrice as NSNumber)
-            variableFeesLabel.text = formatter.string(from: price.variableFees as NSNumber)
-            fixedFeesLabel.text = formatter.string(from: price.fixedFees as NSNumber)
+            priceLabel.text = formatter.string(with: price.price)
+            rawLabel.text = formatter.string(with: price.rawPrice)
+            variableFeesLabel.text = formatter.string(with: price.variableFees)
+            fixedFeesLabel.text = formatter.string(with: price.fixedFees)
 
             formatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
-            rawPercentageLabel.text = Translations.DATA_DETAILS_PERCENTAGE(formatter.string(from: 100 * (price.rawPrice / price.price) as NSNumber)!)
-            variablePercentageFeesLabel.text = Translations.DATA_DETAILS_PERCENTAGE(formatter.string(from: 100 * (price.variableFees / price.price) as NSNumber)!)
-            fixedPercentageFeesLabel.text = Translations.DATA_DETAILS_PERCENTAGE(formatter.string(from: 100 * (price.fixedFees / price.price) as NSNumber)!)
+            rawPercentageLabel.text = Translations.DATA_DETAILS_PERCENTAGE(formatter.string(with: 100 * (price.rawPrice / price.price)))
+            variablePercentageFeesLabel.text = Translations.DATA_DETAILS_PERCENTAGE(formatter.string(with: 100 * (price.variableFees / price.price)))
+            fixedPercentageFeesLabel.text = Translations.DATA_DETAILS_PERCENTAGE(formatter.string(with: 100 * (price.fixedFees / price.price)))
 
             return self
         }
@@ -185,7 +185,7 @@ class DataDetailsViewController: ViewController {
                         Label(text: Translations.DATA_DETAILS_EMISSION_CO2_SPAN(dateFormatter.string(from: date), dateFormatter.string(from: date.addingTimeInterval(.fiveMinutes))), color: .black),
                         Stack.views(
                             spacing: 5,
-                            Label(text: formatter.string(from: emission.data[date]! as NSNumber)!, color: .black).aligned(to: .right),
+                            Label(text: formatter.string(with: emission.data[date]!), color: .black).aligned(to: .right),
                             Label(text: Translations.DATA_DETAILS_EMISSION_CO2_UNIT, color: .black)
                         )
                     )
@@ -215,7 +215,9 @@ extension DataDetailsViewController: UITableViewDataSource {
             return UITableViewCell()
         }
     }
+}
 
+extension DataDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case 0:
@@ -227,5 +229,3 @@ extension DataDetailsViewController: UITableViewDataSource {
         }
     }
 }
-
-extension DataDetailsViewController: UITableViewDelegate { }

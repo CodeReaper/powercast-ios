@@ -129,9 +129,9 @@ class GridDetailsViewController: ViewController {
         func update(with price: GridPrice, and formatter: NumberFormatter, current: Bool) -> Self {
             contentView.backgroundColor = current ? .white : Color.offWhite
             selectionIndicator.set(hidden: !current)
-            systemLabel.text = formatter.string(from: price.systemTariff as NSNumber)
-            transmissionLabel.text = formatter.string(from: price.transmissionTariff as NSNumber)
-            chargeLabel.text = formatter.string(from: price.electricityCharge as NSNumber)
+            systemLabel.text = formatter.string(with: price.systemTariff)
+            transmissionLabel.text = formatter.string(with: price.transmissionTariff)
+            chargeLabel.text = formatter.string(with: price.electricityCharge)
             return self
         }
     }
@@ -151,11 +151,11 @@ extension GridDetailsViewController: UITableViewDataSource {
         let interval = DateInterval(start: item.validFrom, end: item.validTo ?? Date.distantFuture)
         return tableView.dequeueReusableCell(Cell.self, forIndexPath: indexPath).update(with: item, and: formatter, current: interval.contains(now))
     }
+}
 
+extension GridDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard items.count > section else { return nil }
         return tableView.dequeueReusableHeaderFooter(Header.self).update(using: items[section])
     }
 }
-
-extension GridDetailsViewController: UITableViewDelegate { }

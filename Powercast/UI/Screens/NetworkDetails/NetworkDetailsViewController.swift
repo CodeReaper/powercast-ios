@@ -115,11 +115,11 @@ class NetworkDetailsViewController: ViewController {
                     Stack.views(
                         spacing: 15,
                         Stack.views(
-                            Label(text: "\(formatter.string(from: index as NSNumber)!) - \(formatter.string(from: (index + 1) as NSNumber)!)", color: .black),
+                            Label(text: "\(formatter.string(with: index)) - \(formatter.string(with: (index + 1)))", color: .black),
                             Stack.views(spacing: 5, labels[index], Label(text: Translations.NETWORK_DETAILS_PRICE_LABEL, color: .black).updateContentCompressionResistancePriority(.required, for: .horizontal))
                         ),
                         Stack.views(
-                            Label(text: "\(formatter.string(from: (index + 12) as NSNumber)!) - \(formatter.string(from: (index + 13) as NSNumber)!)", color: .black),
+                            Label(text: "\(formatter.string(with: (index + 12))) - \(formatter.string(with: (index + 13)))", color: .black),
                             Stack.views(spacing: 5, labels[index + 12], Label(text: Translations.NETWORK_DETAILS_PRICE_LABEL, color: .black).updateContentCompressionResistancePriority(.required, for: .horizontal))
                         )
                     )
@@ -143,7 +143,7 @@ class NetworkDetailsViewController: ViewController {
             backgroundColor = current ? .white : Color.offWhite
             selectionIndicator.set(hidden: !current)
             for (index, price) in price.loadTariff.enumerated() {
-                labels[index].text = formatter.string(from: price as NSNumber)
+                labels[index].text = formatter.string(with: price)
             }
             return self
         }
@@ -164,11 +164,11 @@ extension NetworkDetailsViewController: UITableViewDataSource {
         let interval = DateInterval(start: item.validFrom, end: item.validTo ?? Date.distantFuture)
         return tableView.dequeueReusableCell(Cell.self, forIndexPath: indexPath).update(with: item, and: formatter, current: interval.contains(now))
     }
+}
 
+extension NetworkDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard items.count > section else { return nil }
         return tableView.dequeueReusableHeaderFooter(Header.self).update(using: items[section])
     }
 }
-
-extension NetworkDetailsViewController: UITableViewDelegate { }
