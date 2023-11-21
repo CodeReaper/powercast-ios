@@ -17,7 +17,7 @@ class LicensesViewController: ViewController {
 
         tableView
             .set(datasource: self, delegate: self)
-            .set(backgroundColor: .brand)
+            .set(backgroundColor: .tableBackground)
             .registerClass(Cell.self)
             .layout(in: view) { make, its in
                 make(its.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor))
@@ -51,32 +51,36 @@ class LicensesViewController: ViewController {
     private class Cell: UITableViewCell {
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+            backgroundColor = .cellBackground
         }
 
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
+        }
+
+        func update(name: String) -> Self {
+            textLabel?.text = name
+            textLabel?.textColor = .labelText
+            return self
         }
     }
 }
 
 extension LicensesViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        sections.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].rows.count
+        sections[section].rows.count
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section].title
+        sections[section].title
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let row = sections[indexPath.section].rows[indexPath.row]
-        let cell = tableView.dequeueReusableCell(Cell.self, forIndexPath: indexPath)
-        cell.textLabel?.text = row.name
-        return cell
+        tableView.dequeueReusableCell(Cell.self, forIndexPath: indexPath).update(name: sections[indexPath.section].rows[indexPath.row].name)
     }
 }
 
@@ -91,6 +95,6 @@ extension LicensesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let view = view as? UITableViewHeaderFooterView else { return }
 
-        view.textLabel?.textColor = .white
+        view.textLabel?.textColor = .cellHeaderTitle
     }
 }

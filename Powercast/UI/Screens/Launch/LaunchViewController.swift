@@ -27,11 +27,11 @@ class LaunchViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .brand
+        view.backgroundColor = .viewBackground
 
         ImageView(image: UIImage.powercastSplash, mode: .center).setup(centeredIn: view, usingSafeLayout: false)
 
-        SpinnerView(color: .white).startAnimating().layout(in: view) { (make, its) in
+        SpinnerView(color: .spinner).startAnimating().layout(in: view) { (make, its) in
             make(its.heightAnchor.constraint(greaterThanOrEqualToConstant: 60))
             make(its.centerXAnchor.constraint(equalTo: self.view.centerXAnchor))
             make(its.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 40))

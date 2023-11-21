@@ -2,8 +2,8 @@ import UIKit
 import SugarKit
 
 class DashboardViewController: ViewController {
-    private let spinnerView = SpinnerView(color: .brand)
-    private let updateFailedLabel = Label(style: .subheadline, text: Translations.DASHBOARD_REFRESH_FAILED_MESSAGE, color: .white)
+    private let spinnerView = SpinnerView(color: .spinner)
+    private let updateFailedLabel = Label(style: .subheadline, text: Translations.DASHBOARD_REFRESH_FAILED_MESSAGE, color: .warningText)
     private let tableView = UITableView(frame: .zero, style: .plain)
     private let refreshControl = UIRefreshControl()
 
@@ -39,14 +39,14 @@ class DashboardViewController: ViewController {
 
         updateFailedLabel.textAlignment = .center
         updateFailedLabel
-            .set(backgroundColor: .warning)
+            .set(backgroundColor: .warningBackground)
             .set(hidden: true)
 
         tableView
             .registerClass(Header.self)
             .registerClass(PriceCell.self)
             .set(datasource: self, delegate: self)
-            .set(backgroundColor: .brand)
+            .set(backgroundColor: .tableBackground)
         tableView.refreshControl = refreshControl
         tableView.showsVerticalScrollIndicator = false
         tableView.sectionFooterHeight = 0
@@ -55,8 +55,8 @@ class DashboardViewController: ViewController {
             tableView.sectionHeaderTopPadding = 0
         }
 
-        refreshControl.tintColor = .white
-        refreshControl.attributedTitle = NSAttributedString(string: Translations.DASHBOARD_REFRESH_CONTROL_MESSAGE, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        refreshControl.tintColor = .tableRefreshControl
+        refreshControl.attributedTitle = NSAttributedString(string: Translations.DASHBOARD_REFRESH_CONTROL_MESSAGE, attributes: [NSAttributedString.Key.foregroundColor: UIColor.tableRefreshControl])
         refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
 
         layout(with: bar)
@@ -113,13 +113,13 @@ class DashboardViewController: ViewController {
         private static let dateFormatter = DateFormatter.with(dateStyle: .medium, timeStyle: .none)
         private static let numberFormatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
 
-        private let dateLabel = Label(style: .body, color: .white)
-        private let pricesLabel = Label(style: .body, color: .white)
+        private let dateLabel = Label(style: .body, color: .cellHeaderTitle)
+        private let pricesLabel = Label(style: .body, color: .cellHeaderTitle)
 
         override init(reuseIdentifier: String?) {
             super.init(reuseIdentifier: reuseIdentifier)
 
-            contentView.backgroundColor = .brand
+            contentView.backgroundColor = .cellHeaderBackground
 
             Stack.views(
                 spacing: 10,
@@ -142,11 +142,11 @@ class DashboardViewController: ViewController {
 
 extension DashboardViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return priceSource.sectionCount
+        priceSource.sectionCount
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return priceSource.numberOfRows(in: section)
+        priceSource.numberOfRows(in: section)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

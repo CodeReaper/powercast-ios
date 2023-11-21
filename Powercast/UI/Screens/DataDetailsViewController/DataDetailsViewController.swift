@@ -31,7 +31,7 @@ class DataDetailsViewController: ViewController {
         tableView.allowsSelection = false
         tableView
             .set(datasource: self, delegate: self)
-            .set(backgroundColor: .brand)
+            .set(backgroundColor: .tableBackground)
             .registerClass(Header.self)
             .registerClass(PriceCell.self)
             .registerClass(EmissionCell.self)
@@ -44,12 +44,12 @@ class DataDetailsViewController: ViewController {
     }
 
     private class Header: UITableViewHeaderFooterView {
-        private let label = Label(style: .body, color: .white)
+        private let label = Label(style: .body, color: .cellHeaderTitle)
 
         override init(reuseIdentifier: String?) {
             super.init(reuseIdentifier: reuseIdentifier)
 
-            contentView.backgroundColor = .brand
+            contentView.backgroundColor = .cellHeaderBackground
 
             Stack.views(
                 on: .horizontal,
@@ -70,13 +70,13 @@ class DataDetailsViewController: ViewController {
     }
 
     private class PriceCell: UITableViewCell {
-        private let priceLabel = Label(color: .black).aligned(to: .right)
-        private let rawLabel = Label(color: .black).aligned(to: .right)
-        private let variableFeesLabel = Label(color: .black).aligned(to: .right)
-        private let fixedFeesLabel = Label(color: .black).aligned(to: .right)
-        private let rawPercentageLabel = Label(color: .black).aligned(to: .right)
-        private let variablePercentageFeesLabel = Label(color: .black).aligned(to: .right)
-        private let fixedPercentageFeesLabel = Label(color: .black).aligned(to: .right)
+        private let priceLabel = Label(color: .cellTitle).aligned(to: .right)
+        private let rawLabel = Label(color: .cellTitle).aligned(to: .right)
+        private let variableFeesLabel = Label(color: .cellTitle).aligned(to: .right)
+        private let fixedFeesLabel = Label(color: .cellTitle).aligned(to: .right)
+        private let rawPercentageLabel = Label(color: .cellSubtitle).aligned(to: .right)
+        private let variablePercentageFeesLabel = Label(color: .cellSubtitle).aligned(to: .right)
+        private let fixedPercentageFeesLabel = Label(color: .cellSubtitle).aligned(to: .right)
 
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
@@ -88,34 +88,34 @@ class DataDetailsViewController: ViewController {
                 Stack.views(
                     on: .horizontal,
                     spacing: 5,
-                    Label(text: Translations.DATA_DETAILS_PRICE_LABEL, color: .black).updateContentCompressionResistancePriority(.required, for: .horizontal),
+                    Label(text: Translations.DATA_DETAILS_PRICE_LABEL, color: .cellSubtitle).updateContentCompressionResistancePriority(.required, for: .horizontal),
                     Label(),
                     priceLabel,
-                    Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .black)
+                    Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .cellSubtitle)
                 ),
                 Stack.views(
                     on: .horizontal,
                     spacing: 5,
-                    Label(text: Translations.DATA_DETAILS_RAW_PRICE_LABEL, color: .black).updateContentCompressionResistancePriority(.required, for: .horizontal),
+                    Label(text: Translations.DATA_DETAILS_RAW_PRICE_LABEL, color: .cellSubtitle).updateContentCompressionResistancePriority(.required, for: .horizontal),
                     rawPercentageLabel,
                     rawLabel,
-                    Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .black)
+                    Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .cellSubtitle)
                 ),
                 Stack.views(
                     on: .horizontal,
                     spacing: 5,
-                    Label(text: Translations.DATA_DETAILS_FIXED_FEES_LABEL, color: .black).updateContentCompressionResistancePriority(.required, for: .horizontal),
+                    Label(text: Translations.DATA_DETAILS_FIXED_FEES_LABEL, color: .cellSubtitle).updateContentCompressionResistancePriority(.required, for: .horizontal),
                     fixedPercentageFeesLabel,
                     fixedFeesLabel,
-                    Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .black)
+                    Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .cellSubtitle)
                 ),
                 Stack.views(
                     on: .horizontal,
                     spacing: 5,
-                    Label(text: Translations.DATA_DETAILS_VARIABLE_FEES_LABEL, color: .black).updateContentCompressionResistancePriority(.required, for: .horizontal),
+                    Label(text: Translations.DATA_DETAILS_VARIABLE_FEES_LABEL, color: .cellSubtitle).updateContentCompressionResistancePriority(.required, for: .horizontal),
                     variablePercentageFeesLabel,
                     variableFeesLabel,
-                    Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .black)
+                    Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .cellSubtitle)
                 )
             ).layout(in: contentView) { (make, its) in
                 make(its.topAnchor.constraint(equalTo: contentView.topAnchor))
@@ -185,11 +185,11 @@ class DataDetailsViewController: ViewController {
                 views.addArrangedSubview(
                     Stack.views(
                         inset: NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10),
-                        Label(text: Translations.DATA_DETAILS_EMISSION_CO2_SPAN(dateFormatter.string(from: date), dateFormatter.string(from: date.addingTimeInterval(.fiveMinutes))), color: .black),
+                        Label(text: Translations.DATA_DETAILS_EMISSION_CO2_SPAN(dateFormatter.string(from: date), dateFormatter.string(from: date.addingTimeInterval(.fiveMinutes))), color: .cellSubtitle),
                         Stack.views(
                             spacing: 5,
-                            Label(text: formatter.string(with: emission.data[date]!), color: .black).aligned(to: .right),
-                            Label(text: Translations.DATA_DETAILS_EMISSION_CO2_UNIT, color: .black)
+                            Label(text: formatter.string(with: emission.data[date]!), color: .cellTitle).aligned(to: .right),
+                            Label(text: Translations.DATA_DETAILS_EMISSION_CO2_UNIT, color: .cellSubtitle)
                         )
                     )
                 )
