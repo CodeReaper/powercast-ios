@@ -162,9 +162,12 @@ extension DashboardViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(PriceCell.self, forIndexPath: indexPath)
 
-        guard let price = priceSource.item(at: indexPath) else { return cell }
+        guard
+            let price = priceSource.item(at: indexPath),
+            let emission = emissionSource.item(at: indexPath)
+        else { return cell }
 
-        return cell.update(using: price, and: emissionSource.item(at: indexPath), current: price.duration.contains(now), emissionRange: emissionSource.range)
+        return cell.update(using: price, and: emission, current: price.duration.contains(now), emissionRange: emissionSource.range)
     }
 }
 

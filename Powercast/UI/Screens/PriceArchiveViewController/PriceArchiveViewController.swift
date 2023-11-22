@@ -117,6 +117,10 @@ class PriceArchiveViewController: ViewController {
 }
 
 extension PriceArchiveViewController: PriceArchiveDelegate {
+    func configure(with interval: DateInterval) {
+        picker.minimumDate = interval.start
+    }
+
     func show(source: PriceArchiveSource) {
         self.source = source
         title = formatter.string(from: source.date)
