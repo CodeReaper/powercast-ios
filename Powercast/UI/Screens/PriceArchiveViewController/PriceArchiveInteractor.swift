@@ -10,6 +10,7 @@ struct PriceArchiveInteractor {
     private let prices: EnergyPriceRepository
     private let emission: EmissionRepository
     private let lookup: ChargesLookup
+    private let range: ClosedRange<Double>?
 
     init(delegate: PriceArchiveDelegate, network: Network, prices: EnergyPriceRepository, emission: EmissionRepository, lookup: ChargesLookup) {
         self.delegate = delegate
@@ -17,6 +18,7 @@ struct PriceArchiveInteractor {
         self.prices = prices
         self.emission = emission
         self.lookup = lookup
+        self.range = try? emission.co2.source(for: network.zone).range
     }
 
     func viewDidLoad() {
@@ -54,12 +56,13 @@ struct PriceArchiveInteractor {
                 archivedEmissions = nil
             }
 
-            DispatchQueue.main.asyncAfter(deadline: minimumTime) { [delegate, network, lookup, archivedPrices, archivedEmissions] in
+            DispatchQueue.main.asyncAfter(deadline: minimumTime) { [range, delegate, network, lookup, archivedPrices, archivedEmissions] in
                 if let prices = archivedPrices, let emissions = archivedEmissions {
                     let source = PriceArchiveSource(
                         date: date,
                         prices: prices.compactMap { Price.map(prices, at: $0.timestamp, in: network, using: lookup) },
-                        emissions: prices.compactMap { Emission.Co2.map(emissions, at: $0.timestamp, in: network.zone) }
+                        emissions: prices.compactMap { Emission.Co2.map(emissions, at: $0.timestamp, in: network.zone) },
+                        emissionRange: range
                     )
                     delegate?.show(source: source)
                 } else {
@@ -80,15 +83,17 @@ struct PriceArchiveSource {
     let date: Date
     let loading: Bool
     let failed: Bool
+    let emissionRange: ClosedRange<Double>?
     private let prices: [Price]
     private let emissions: [Emission.Co2]
 
-    init(date: Date, prices: [Price], emissions: [Emission.Co2]) {
+    init(date: Date, prices: [Price], emissions: [Emission.Co2], emissionRange: ClosedRange<Double>? = nil) {
         self.date = date
         self.loading = false
         self.failed = false
         self.prices = prices
         self.emissions = emissions
+        self.emissionRange = emissionRange
     }
 
     init(date: Date, loading: Bool = false, failed: Bool = false) {
@@ -97,6 +102,7 @@ struct PriceArchiveSource {
         self.failed = failed
         self.prices = []
         self.emissions = []
+        self.emissionRange = nil
     }
 
     static func empty() -> Self {

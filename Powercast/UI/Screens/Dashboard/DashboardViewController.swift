@@ -164,7 +164,7 @@ extension DashboardViewController: UITableViewDataSource {
 
         guard let price = priceSource.item(at: indexPath) else { return cell }
 
-        return cell.update(using: price, and: emissionSource.item(at: indexPath), current: price.duration.contains(now))
+        return cell.update(using: price, and: emissionSource.item(at: indexPath), current: price.duration.contains(now), emissionRange: emissionSource.range)
     }
 }
 
