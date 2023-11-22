@@ -2,7 +2,7 @@ import UIKit
 import SugarKit
 
 class DataLoadingViewController: ViewController {
-    private let loadingView = View.buildLoadingView(color: .white)
+    private let loadingView = View.buildLoadingView(color: .spinner)
 
     private var interactor: DataLoadingInteractor!
 

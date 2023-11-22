@@ -34,7 +34,7 @@ class SettingsViewController: ViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView
             .set(datasource: self, delegate: self)
-            .set(backgroundColor: Color.primary)
+            .set(backgroundColor: .tableBackground)
             .registerClass(NavigationCell.self)
             .registerClass(ToggleCell.self)
             .layout(in: view) { make, its in
@@ -46,6 +46,7 @@ class SettingsViewController: ViewController {
 
         for kind in Message.Kind.allCases {
             let view = UISwitch(frame: .zero)
+            view.onTintColor = .toggleTint
             view.isOn = state.notifications(for: kind)
             toggles[kind] = view
         }
@@ -82,7 +83,9 @@ class SettingsViewController: ViewController {
 
         func update(title: String, label: String?) -> Self {
             textLabel?.text = title
+            textLabel?.textColor = .cellText
             detailTextLabel?.text = label
+            detailTextLabel?.textColor = .cellSecondaryText
             accessoryType = .disclosureIndicator
             return self
         }
@@ -114,7 +117,7 @@ class SettingsViewController: ViewController {
         }
 
         func update(title: String, with view: UISwitch) -> Self {
-            views.addArrangedSubview(Stack.views(on: .vertical, spacing: 3, Label(style: .body, text: title, color: .black)))
+            views.addArrangedSubview(Stack.views(on: .vertical, spacing: 3, Label(style: .body, text: title, color: .cellText)))
             views.addArrangedSubview(Stack.views(on: .vertical, view, FlexibleSpace()))
             return self
         }
@@ -153,15 +156,15 @@ extension SettingsViewController: Observer {
 
 extension SettingsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        sections.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].rows.count
+        sections[section].rows.count
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section].title
+        sections[section].title
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -189,7 +192,7 @@ extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let view = view as? UITableViewHeaderFooterView else { return }
 
-        view.textLabel?.textColor = .white
+        view.textLabel?.textColor = .cellHeaderText
     }
 }
 

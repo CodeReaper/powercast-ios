@@ -34,7 +34,7 @@ class NetworkDetailsViewController: ViewController {
         tableView.allowsSelection = false
         tableView
             .set(datasource: self, delegate: self)
-            .set(backgroundColor: Color.primary)
+            .set(backgroundColor: .tableBackground)
             .registerClass(Header.self)
             .registerClass(Cell.self)
             .layout(in: view) { make, its in
@@ -48,13 +48,13 @@ class NetworkDetailsViewController: ViewController {
     private class Header: UITableViewHeaderFooterView {
         private static let dateFormatter = DateFormatter.with(dateStyle: .medium, timeStyle: .none)
 
-        private let validFromLabel = Label(style: .body, color: .white).aligned(to: .left)
-        private let validToLabel = Label(style: .body, color: .white).aligned(to: .right)
+        private let validFromLabel = Label(style: .body, color: .cellHeaderText).aligned(to: .left)
+        private let validToLabel = Label(style: .body, color: .cellHeaderText).aligned(to: .right)
 
         override init(reuseIdentifier: String?) {
             super.init(reuseIdentifier: reuseIdentifier)
 
-            contentView.backgroundColor = Color.primary
+            contentView.backgroundColor = .cellHeaderBackground
 
             Stack.views(
                 on: .horizontal,
@@ -84,13 +84,13 @@ class NetworkDetailsViewController: ViewController {
         private let selectionIndicator = UIView()
         private let labels: [UILabel]
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            labels = (0...23).map { _ in Label(color: .black).updateContentCompressionResistancePriority(.required, for: .horizontal) }
+            labels = (0...23).map { _ in Label(color: .cellText).updateContentCompressionResistancePriority(.required, for: .horizontal) }
 
             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
 
             selectionIndicator
                 .set(hidden: true)
-                .set(backgroundColor: .black.withAlphaComponent(0.6))
+                .set(backgroundColor: .cellActiveIndicator)
                 .layout(in: contentView) { (make, its) in
                     make(its.topAnchor.constraint(equalTo: contentView.topAnchor))
                     make(its.bottomAnchor.constraint(equalTo: contentView.bottomAnchor))
@@ -115,12 +115,12 @@ class NetworkDetailsViewController: ViewController {
                     Stack.views(
                         spacing: 15,
                         Stack.views(
-                            Label(text: "\(formatter.string(with: index)) - \(formatter.string(with: (index + 1)))", color: .black),
-                            Stack.views(spacing: 5, labels[index], Label(text: Translations.NETWORK_DETAILS_PRICE_LABEL, color: .black).updateContentCompressionResistancePriority(.required, for: .horizontal))
+                            Label(text: "\(formatter.string(with: index)) - \(formatter.string(with: (index + 1)))", color: .cellSecondaryText),
+                            Stack.views(spacing: 5, labels[index], Label(text: Translations.NETWORK_DETAILS_PRICE_LABEL, color: .cellSecondaryText).updateContentCompressionResistancePriority(.required, for: .horizontal))
                         ),
                         Stack.views(
-                            Label(text: "\(formatter.string(with: (index + 12))) - \(formatter.string(with: (index + 13)))", color: .black),
-                            Stack.views(spacing: 5, labels[index + 12], Label(text: Translations.NETWORK_DETAILS_PRICE_LABEL, color: .black).updateContentCompressionResistancePriority(.required, for: .horizontal))
+                            Label(text: "\(formatter.string(with: (index + 12))) - \(formatter.string(with: (index + 13)))", color: .cellSecondaryText),
+                            Stack.views(spacing: 5, labels[index + 12], Label(text: Translations.NETWORK_DETAILS_PRICE_LABEL, color: .cellSecondaryText).updateContentCompressionResistancePriority(.required, for: .horizontal))
                         )
                     )
                 )
@@ -140,7 +140,7 @@ class NetworkDetailsViewController: ViewController {
         }
 
         func update(with price: NetworkPrice, and formatter: NumberFormatter, current: Bool) -> Self {
-            backgroundColor = current ? .white : Color.offWhite
+            backgroundColor = current ? .cellActiveBackground : .cellBackground
             selectionIndicator.set(hidden: !current)
             for (index, price) in price.loadTariff.enumerated() {
                 labels[index].text = formatter.string(with: price)

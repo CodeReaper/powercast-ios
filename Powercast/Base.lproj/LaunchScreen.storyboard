@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +22,7 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" red="0.17254901960784313" green="0.56470588235294117" blue="0.82745098039215681" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="ViewBackground"/>
                         <constraints>
                             <constraint firstItem="8JA-hJ-KYT" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="9D2-eR-P4g"/>
                             <constraint firstItem="8JA-hJ-KYT" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="kMd-PC-II0"/>
@@ -35,5 +36,8 @@
     </scenes>
     <resources>
         <image name="powercast-splash" width="185.33332824707031" height="36.333332061767578"/>
+        <namedColor name="ViewBackground">
+            <color red="0.17254901960784313" green="0.56470588235294117" blue="0.82745098039215681" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

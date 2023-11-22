@@ -6,23 +6,23 @@ class PriceCell: UITableViewCell {
     private static let numberFormatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
 
     private let selectionIndicator = UIView()
-    private let dateLabel = Label(style: .body, color: .black)
-    private let priceLabel = Label(style: .headline, color: .black).aligned(to: .right)
-    private let co2Label = Label(style: .subheadline, text: Translations.DASHBOARD_CO2_LABEL, color: .darkGray)
-    private let emissionLabel = Label(style: .subheadline, color: .darkGray).aligned(to: .right)
-    private let priceUnitLabel = Label(style: .subheadline, text: Translations.DASHBOARD_COST_UNIT, color: .darkGray)
-    private let emissionUnitLabel = Label(style: .subheadline, text: Translations.DASHBOARD_CO2_UNIT, color: .darkGray)
+    private let dateLabel = Label(style: .body, color: .cellText)
+    private let priceLabel = Label(style: .headline, color: .cellText).aligned(to: .right)
+    private let co2Label = Label(style: .subheadline, text: Translations.DASHBOARD_CO2_LABEL, color: .cellSecondaryText)
+    private let emissionLabel = Label(style: .subheadline, color: .cellSecondaryText).aligned(to: .right)
+    private let priceUnitLabel = Label(style: .subheadline, text: Translations.DASHBOARD_COST_UNIT, color: .cellSecondaryText)
+    private let emissionUnitLabel = Label(style: .subheadline, text: Translations.DASHBOARD_CO2_UNIT, color: .cellSecondaryText)
     private let priceGaugeView = MultiColorGaugeView()
     private let emissionGaugeView = MultiColorGaugeView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        backgroundColor = .white
+        backgroundColor = .cellBackground
 
         selectionIndicator
             .set(hidden: true)
-            .set(backgroundColor: .black.withAlphaComponent(0.6))
+            .set(backgroundColor: .cellActiveIndicator)
             .layout(in: contentView) { (make, its) in
                 make(its.topAnchor.constraint(equalTo: contentView.topAnchor))
                 make(its.bottomAnchor.constraint(equalTo: contentView.bottomAnchor))
@@ -34,6 +34,7 @@ class PriceCell: UITableViewCell {
             view.set(height: 5)
             view.layer.cornerRadius = 2.5
             view.clipsToBounds = true
+            view.tintColor = .gaugeTint
         }
         Stack.views(
             on: .vertical,
@@ -65,15 +66,15 @@ class PriceCell: UITableViewCell {
     }
 
     func update(using price: Price, and emission: Emission.Co2?, current: Bool) -> Self {
-        backgroundColor = current ? .white : Color.offWhite
+        backgroundColor = current ? .cellActiveBackground : .cellBackground
         accessoryType = .disclosureIndicator
         selectionIndicator.set(hidden: !current)
 
         let ratio = (price.price - price.fees) / price.priceSpan.upperBound
         priceGaugeView.values = [
-            (price.fixedFees / price.priceSpan.upperBound, Color.fixedFeeColor),
-            (price.variableFees / price.priceSpan.upperBound, Color.variableFeeColor),
-            (ratio, Color.priceColor.withAlphaComponent(ratio > 0 ? 1 : 0))
+            (price.fixedFees / price.priceSpan.upperBound, .gaugeFixedFees),
+            (price.variableFees / price.priceSpan.upperBound, .gaugeVariableFees),
+            (ratio, .gaugePrice.withAlphaComponent(ratio > 0 ? 1 : 0))
         ]
 
         if let emission = emission {
@@ -81,7 +82,7 @@ class PriceCell: UITableViewCell {
             let space = amounts.lowerBound / emission.amountSpan.upperBound
             emissionGaugeView.values = [
                 (space, emissionGaugeView.tintColor),
-                ((amounts.upperBound / emission.amountSpan.upperBound) - space, Color.emissionColor)
+                ((amounts.upperBound / emission.amountSpan.upperBound) - space, .gaugeEmission)
             ]
             emissionLabel.text = Translations.DASHBOARD_CO2_SPAN(Self.numberFormatter.string(with: emission.amounts.lowerBound), Self.numberFormatter.string(with: emission.amounts.upperBound))
         } else {

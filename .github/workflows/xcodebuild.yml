@@ -5,8 +5,12 @@ on:
 
 jobs:
   xcodebuild:
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '^15.0'
+
       - uses: actions/checkout@v4
 
       - name: Setup local configuration
@@ -36,15 +40,5 @@ jobs:
           -destination 'platform=iOS Simulator,name=${{ env.name }},OS=${{ env.os }}' \
           -resultBundlePath TestResults \
           test \
-          CODE_SIGNING_ALLOWED=NO \
-          | xcpretty
-
-      - name: Build
-        run: |
-          set -o pipefail && \
-          xcodebuild -project Powercast.xcodeproj \
-          -scheme Powercast \
-          -sdk iphonesimulator \
-          build \
           CODE_SIGNING_ALLOWED=NO \
           | xcpretty
