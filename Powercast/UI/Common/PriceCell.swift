@@ -65,7 +65,7 @@ class PriceCell: UITableViewCell {
         emissionLabel.text = nil
     }
 
-    func update(using price: Price, and emission: Emission.Co2?, current: Bool) -> Self {
+    func update(using price: Price, and emission: Emission.Co2?, current: Bool, emissionRange: ClosedRange<Double>? = nil) -> Self {
         backgroundColor = current ? .cellActiveBackground : .cellBackground
         accessoryType = .disclosureIndicator
         selectionIndicator.set(hidden: !current)
@@ -78,11 +78,12 @@ class PriceCell: UITableViewCell {
         ]
 
         if let emission = emission {
+            let divisor = max(emissionRange?.upperBound ?? emission.amountSpan.upperBound, emission.amountSpan.upperBound)
             let amounts = emission.amounts.upperBound == emission.amounts.lowerBound ? (emission.amounts.lowerBound - 0.5)...(emission.amounts.upperBound + 0.5) : emission.amounts
-            let space = amounts.lowerBound / emission.amountSpan.upperBound
+            let space = amounts.lowerBound / divisor
             emissionGaugeView.values = [
                 (space, emissionGaugeView.tintColor),
-                ((amounts.upperBound / emission.amountSpan.upperBound) - space, .gaugeEmission)
+                ((amounts.upperBound / divisor) - space, .gaugeEmission)
             ]
             emissionLabel.text = Translations.DASHBOARD_CO2_SPAN(Self.numberFormatter.string(with: emission.amounts.lowerBound), Self.numberFormatter.string(with: emission.amounts.upperBound))
         } else {

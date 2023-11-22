@@ -2,17 +2,17 @@ import Foundation
 import GRDB
 
 protocol EmissionTableDataSource {
+    var range: ClosedRange<Double>? { get }
     var sectionCount: Int { get }
     func numberOfRows(in section: Int) -> Int
     func item(at indexPath: IndexPath) -> Emission.Co2?
-    func activeIndexPath(at date: Date) -> IndexPath?
 }
 
 struct EmptyEmissionTableDataSource: EmissionTableDataSource {
+    let range: ClosedRange<Double>? = nil
     let sectionCount: Int = 0
     func numberOfRows(in section: Int) -> Int { 0 }
     func item(at indexPath: IndexPath) -> Emission.Co2? { nil }
-    func activeIndexPath(at date: Date) -> IndexPath? { nil }
 }
 
 class CurrentEmissionTableDataSource: EmissionTableDataSource {
@@ -20,6 +20,8 @@ class CurrentEmissionTableDataSource: EmissionTableDataSource {
     private let emission: EmissionCo2Repository
     private let items: [[Date]]
     private let sections: [Date]
+
+    let range: ClosedRange<Double>?
 
     init(interval: DateInterval, zone: Zone, emission: EmissionCo2Repository) throws {
         let calendar = Calendar.current
@@ -47,6 +49,7 @@ class CurrentEmissionTableDataSource: EmissionTableDataSource {
         self.sections = sections.reversed()
         self.emission = emission
         self.zone = zone
+        self.range = try? emission.range(for: zone, in: interval)
     }
 
     var sectionCount: Int { sections.count }
@@ -71,15 +74,6 @@ class CurrentEmissionTableDataSource: EmissionTableDataSource {
         else { return nil }
 
         return Emission.Co2.map(items, at: date, in: zone)
-    }
-
-    func activeIndexPath(at date: Date) -> IndexPath? {
-        for (section, rows) in items.enumerated() {
-            for (row, item) in rows.enumerated() where date >= item && date < item.addingTimeInterval(.oneHour) {
-                return IndexPath(row: row, section: section)
-            }
-        }
-        return nil
     }
 
     enum Failure: Error {

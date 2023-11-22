@@ -147,7 +147,7 @@ extension PriceArchiveViewController: UITableViewDataSource {
             return tableView.dequeueReusableCell(FailureCell.self, forIndexPath: indexPath)
         } else {
             guard let (price, emission) = source.items(at: indexPath.row) else { return UITableViewCell() }
-            return tableView.dequeueReusableCell(PriceCell.self, forIndexPath: indexPath).update(using: price, and: emission, current: false)
+            return tableView.dequeueReusableCell(PriceCell.self, forIndexPath: indexPath).update(using: price, and: emission, current: false, emissionRange: source.emissionRange)
         }
     }
 }

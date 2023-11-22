@@ -12,6 +12,18 @@ class EmissionCo2Repository {
         self.service = service
     }
 
+    func range(for zone: Zone, in interval: DateInterval) throws -> ClosedRange<Double>? {
+        let items = try database.read { db in
+            return try Database.Co2
+                .filter(Database.Co2.Columns.zone == zone.rawValue)
+                .filter(Database.Co2.Columns.timestamp >= interval.start)
+                .filter(Database.Co2.Columns.timestamp < interval.end)
+                .order(Database.Co2.Columns.timestamp.desc)
+                .fetchAll(db)
+        }
+        return items.map { $0.amount }.span()
+    }
+
     func data(for zone: Zone, in interval: DateInterval) throws -> [Co2] {
         let items = try database.read { db in
             return try Database.Co2
