@@ -113,8 +113,8 @@ class DashboardViewController: ViewController {
         private static let dateFormatter = DateFormatter.with(dateStyle: .medium, timeStyle: .none)
         private static let numberFormatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
 
-        private let dateLabel = Label(style: .body, color: .cellHeaderTitle)
-        private let pricesLabel = Label(style: .body, color: .cellHeaderTitle)
+        private let dateLabel = Label(style: .body, color: .cellHeaderText)
+        private let pricesLabel = Label(style: .body, color: .cellHeaderText)
 
         override init(reuseIdentifier: String?) {
             super.init(reuseIdentifier: reuseIdentifier)

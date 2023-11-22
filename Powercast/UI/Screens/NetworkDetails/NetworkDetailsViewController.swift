@@ -48,8 +48,8 @@ class NetworkDetailsViewController: ViewController {
     private class Header: UITableViewHeaderFooterView {
         private static let dateFormatter = DateFormatter.with(dateStyle: .medium, timeStyle: .none)
 
-        private let validFromLabel = Label(style: .body, color: .cellHeaderTitle).aligned(to: .left)
-        private let validToLabel = Label(style: .body, color: .cellHeaderTitle).aligned(to: .right)
+        private let validFromLabel = Label(style: .body, color: .cellHeaderText).aligned(to: .left)
+        private let validToLabel = Label(style: .body, color: .cellHeaderText).aligned(to: .right)
 
         override init(reuseIdentifier: String?) {
             super.init(reuseIdentifier: reuseIdentifier)
@@ -84,7 +84,7 @@ class NetworkDetailsViewController: ViewController {
         private let selectionIndicator = UIView()
         private let labels: [UILabel]
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            labels = (0...23).map { _ in Label(color: .cellTitle).updateContentCompressionResistancePriority(.required, for: .horizontal) }
+            labels = (0...23).map { _ in Label(color: .cellText).updateContentCompressionResistancePriority(.required, for: .horizontal) }
 
             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
 
@@ -115,12 +115,12 @@ class NetworkDetailsViewController: ViewController {
                     Stack.views(
                         spacing: 15,
                         Stack.views(
-                            Label(text: "\(formatter.string(with: index)) - \(formatter.string(with: (index + 1)))", color: .cellSubtitle),
-                            Stack.views(spacing: 5, labels[index], Label(text: Translations.NETWORK_DETAILS_PRICE_LABEL, color: .cellSubtitle).updateContentCompressionResistancePriority(.required, for: .horizontal))
+                            Label(text: "\(formatter.string(with: index)) - \(formatter.string(with: (index + 1)))", color: .cellSecondaryText),
+                            Stack.views(spacing: 5, labels[index], Label(text: Translations.NETWORK_DETAILS_PRICE_LABEL, color: .cellSecondaryText).updateContentCompressionResistancePriority(.required, for: .horizontal))
                         ),
                         Stack.views(
-                            Label(text: "\(formatter.string(with: (index + 12))) - \(formatter.string(with: (index + 13)))", color: .cellSubtitle),
-                            Stack.views(spacing: 5, labels[index + 12], Label(text: Translations.NETWORK_DETAILS_PRICE_LABEL, color: .cellSubtitle).updateContentCompressionResistancePriority(.required, for: .horizontal))
+                            Label(text: "\(formatter.string(with: (index + 12))) - \(formatter.string(with: (index + 13)))", color: .cellSecondaryText),
+                            Stack.views(spacing: 5, labels[index + 12], Label(text: Translations.NETWORK_DETAILS_PRICE_LABEL, color: .cellSecondaryText).updateContentCompressionResistancePriority(.required, for: .horizontal))
                         )
                     )
                 )

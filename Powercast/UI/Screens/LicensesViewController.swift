@@ -95,6 +95,6 @@ extension LicensesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let view = view as? UITableViewHeaderFooterView else { return }
 
-        view.textLabel?.textColor = .cellHeaderTitle
+        view.textLabel?.textColor = .cellHeaderText
     }
 }

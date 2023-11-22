@@ -48,8 +48,8 @@ class GridDetailsViewController: ViewController {
     private class Header: UITableViewHeaderFooterView {
         private static let dateFormatter = DateFormatter.with(dateStyle: .medium, timeStyle: .none)
 
-        private let validFromLabel = Label(style: .body, color: .cellHeaderTitle).aligned(to: .left)
-        private let validToLabel = Label(style: .body, color: .cellHeaderTitle).aligned(to: .right)
+        private let validFromLabel = Label(style: .body, color: .cellHeaderText).aligned(to: .left)
+        private let validToLabel = Label(style: .body, color: .cellHeaderText).aligned(to: .right)
 
         override init(reuseIdentifier: String?) {
             super.init(reuseIdentifier: reuseIdentifier)
@@ -82,9 +82,9 @@ class GridDetailsViewController: ViewController {
 
     private class Cell: UITableViewCell {
         private let selectionIndicator = UIView()
-        private let systemLabel = Label(color: .cellTitle).aligned(to: .right)
-        private let chargeLabel = Label(color: .cellTitle).aligned(to: .right)
-        private let transmissionLabel = Label(color: .cellTitle).aligned(to: .right)
+        private let systemLabel = Label(color: .cellText).aligned(to: .right)
+        private let chargeLabel = Label(color: .cellText).aligned(to: .right)
+        private let transmissionLabel = Label(color: .cellText).aligned(to: .right)
 
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
@@ -103,9 +103,9 @@ class GridDetailsViewController: ViewController {
                 on: .vertical,
                 spacing: 6,
                 inset: NSDirectionalEdgeInsets(top: 7, leading: 15, bottom: 7, trailing: 15),
-                Stack.views(on: .horizontal, Label(text: Translations.GRID_DETAILS_SYSTEM_LABEL, color: .cellSubtitle), Stack.views(on: .horizontal, spacing: 5, systemLabel, Label(text: Translations.GRID_DETAILS_UNIT, color: .cellSubtitle))),
-                Stack.views(on: .horizontal, Label(text: Translations.GRID_DETAILS_TRANSMISSION_LABEL, color: .cellSubtitle), Stack.views(on: .horizontal, spacing: 5, transmissionLabel, Label(text: Translations.GRID_DETAILS_UNIT, color: .cellSubtitle))),
-                Stack.views(on: .horizontal, Label(text: Translations.GRID_DETAILS_CHARGE_LABEL, color: .cellSubtitle), Stack.views(on: .horizontal, spacing: 5, chargeLabel, Label(text: Translations.GRID_DETAILS_UNIT, color: .cellSubtitle)))
+                Stack.views(on: .horizontal, Label(text: Translations.GRID_DETAILS_SYSTEM_LABEL, color: .cellSecondaryText), Stack.views(on: .horizontal, spacing: 5, systemLabel, Label(text: Translations.GRID_DETAILS_UNIT, color: .cellSecondaryText))),
+                Stack.views(on: .horizontal, Label(text: Translations.GRID_DETAILS_TRANSMISSION_LABEL, color: .cellSecondaryText), Stack.views(on: .horizontal, spacing: 5, transmissionLabel, Label(text: Translations.GRID_DETAILS_UNIT, color: .cellSecondaryText))),
+                Stack.views(on: .horizontal, Label(text: Translations.GRID_DETAILS_CHARGE_LABEL, color: .cellSecondaryText), Stack.views(on: .horizontal, spacing: 5, chargeLabel, Label(text: Translations.GRID_DETAILS_UNIT, color: .cellSecondaryText)))
             ).layout(in: contentView) { (make, its) in
                 make(its.topAnchor.constraint(equalTo: contentView.topAnchor))
                 make(its.bottomAnchor.constraint(equalTo: contentView.bottomAnchor))

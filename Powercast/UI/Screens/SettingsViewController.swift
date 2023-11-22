@@ -83,9 +83,9 @@ class SettingsViewController: ViewController {
 
         func update(title: String, label: String?) -> Self {
             textLabel?.text = title
-            textLabel?.textColor = .cellTitle
+            textLabel?.textColor = .cellText
             detailTextLabel?.text = label
-            detailTextLabel?.textColor = .cellSubtitle
+            detailTextLabel?.textColor = .cellSecondaryText
             accessoryType = .disclosureIndicator
             return self
         }
@@ -117,7 +117,7 @@ class SettingsViewController: ViewController {
         }
 
         func update(title: String, with view: UISwitch) -> Self {
-            views.addArrangedSubview(Stack.views(on: .vertical, spacing: 3, Label(style: .body, text: title, color: .cellTitle)))
+            views.addArrangedSubview(Stack.views(on: .vertical, spacing: 3, Label(style: .body, text: title, color: .cellText)))
             views.addArrangedSubview(Stack.views(on: .vertical, view, FlexibleSpace()))
             return self
         }
@@ -192,7 +192,7 @@ extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let view = view as? UITableViewHeaderFooterView else { return }
 
-        view.textLabel?.textColor = .cellHeaderTitle
+        view.textLabel?.textColor = .cellHeaderText
     }
 }
 

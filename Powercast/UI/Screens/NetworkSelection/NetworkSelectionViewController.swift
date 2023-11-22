@@ -112,7 +112,7 @@ class NetworkSelectionViewController: ViewController {
     }
 
     private class Header: UITableViewHeaderFooterView {
-        private let label = Label(style: .body, color: .cellHeaderTitle)
+        private let label = Label(style: .body, color: .cellHeaderText)
         override init(reuseIdentifier: String?) {
             super.init(reuseIdentifier: reuseIdentifier)
 
@@ -151,7 +151,7 @@ class NetworkSelectionViewController: ViewController {
 
         func update(with network: Network) -> Cell {
             textLabel?.text = network.name
-            textLabel?.textColor = .cellTitle
+            textLabel?.textColor = .cellText
             accessoryType = .disclosureIndicator
             return self
         }

@@ -6,12 +6,12 @@ class PriceCell: UITableViewCell {
     private static let numberFormatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
 
     private let selectionIndicator = UIView()
-    private let dateLabel = Label(style: .body, color: .cellTitle)
-    private let priceLabel = Label(style: .headline, color: .cellTitle).aligned(to: .right)
-    private let co2Label = Label(style: .subheadline, text: Translations.DASHBOARD_CO2_LABEL, color: .cellSubtitle)
-    private let emissionLabel = Label(style: .subheadline, color: .cellSubtitle).aligned(to: .right)
-    private let priceUnitLabel = Label(style: .subheadline, text: Translations.DASHBOARD_COST_UNIT, color: .cellSubtitle)
-    private let emissionUnitLabel = Label(style: .subheadline, text: Translations.DASHBOARD_CO2_UNIT, color: .cellSubtitle)
+    private let dateLabel = Label(style: .body, color: .cellText)
+    private let priceLabel = Label(style: .headline, color: .cellText).aligned(to: .right)
+    private let co2Label = Label(style: .subheadline, text: Translations.DASHBOARD_CO2_LABEL, color: .cellSecondaryText)
+    private let emissionLabel = Label(style: .subheadline, color: .cellSecondaryText).aligned(to: .right)
+    private let priceUnitLabel = Label(style: .subheadline, text: Translations.DASHBOARD_COST_UNIT, color: .cellSecondaryText)
+    private let emissionUnitLabel = Label(style: .subheadline, text: Translations.DASHBOARD_CO2_UNIT, color: .cellSecondaryText)
     private let priceGaugeView = MultiColorGaugeView()
     private let emissionGaugeView = MultiColorGaugeView()
 

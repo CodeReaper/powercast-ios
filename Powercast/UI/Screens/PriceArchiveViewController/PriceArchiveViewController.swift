@@ -103,7 +103,7 @@ class PriceArchiveViewController: ViewController {
     }
 
     private class FailureCell: UITableViewCell {
-        private let label = Label(style: .subheadline, text: Translations.PRICE_ARCHIVE_FAILURE_MESSAGE, color: .cellSubtitle)
+        private let label = Label(style: .subheadline, text: Translations.PRICE_ARCHIVE_FAILURE_MESSAGE, color: .cellSecondaryText)
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
             contentView.backgroundColor = .tableBackground
