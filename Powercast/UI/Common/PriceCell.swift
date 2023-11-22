@@ -65,7 +65,7 @@ class PriceCell: UITableViewCell {
         emissionLabel.text = nil
     }
 
-    func update(using price: Price, and emission: Emission.Co2?, current: Bool, emissionRange: ClosedRange<Double>? = nil) -> Self {
+    func update(using price: Price, and emission: Emission.Co2, current: Bool, emissionRange: ClosedRange<Double>? = nil) -> Self {
         backgroundColor = current ? .cellActiveBackground : .cellBackground
         accessoryType = .disclosureIndicator
         selectionIndicator.set(hidden: !current)
@@ -77,18 +77,14 @@ class PriceCell: UITableViewCell {
             (ratio, .gaugePrice.withAlphaComponent(ratio > 0 ? 1 : 0))
         ]
 
-        if let emission = emission {
-            let divisor = max(emissionRange?.upperBound ?? emission.amountSpan.upperBound, emission.amountSpan.upperBound)
-            let amounts = emission.amounts.upperBound == emission.amounts.lowerBound ? (emission.amounts.lowerBound - 0.5)...(emission.amounts.upperBound + 0.5) : emission.amounts
-            let space = amounts.lowerBound / divisor
-            emissionGaugeView.values = [
-                (space, emissionGaugeView.tintColor),
-                ((amounts.upperBound / divisor) - space, .gaugeEmission)
-            ]
-            emissionLabel.text = Translations.DASHBOARD_CO2_SPAN(Self.numberFormatter.string(with: emission.amounts.lowerBound), Self.numberFormatter.string(with: emission.amounts.upperBound))
-        } else {
-            emissionLabel.text = "-"
-        }
+        let divisor = max(emissionRange?.upperBound ?? emission.amountSpan.upperBound, emission.amountSpan.upperBound)
+        let amounts = emission.amounts.upperBound == emission.amounts.lowerBound ? (emission.amounts.lowerBound - 0.5)...(emission.amounts.upperBound + 0.5) : emission.amounts
+        let space = amounts.lowerBound / divisor
+        emissionGaugeView.values = [
+            (space, emissionGaugeView.tintColor),
+            ((amounts.upperBound / divisor) - space, .gaugeEmission)
+        ]
+        emissionLabel.text = Translations.DASHBOARD_CO2_SPAN(Self.numberFormatter.string(with: emission.amounts.lowerBound), Self.numberFormatter.string(with: emission.amounts.upperBound))
 
         dateLabel.text = Translations.DASHBOARD_HOUR_TIME(Self.dateFormatter.string(from: price.duration.lowerBound), Self.dateFormatter.string(from: price.duration.upperBound))
         priceLabel.text = Self.numberFormatter.string(with: price.price)

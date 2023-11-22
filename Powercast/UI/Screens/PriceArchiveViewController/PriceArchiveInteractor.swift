@@ -1,6 +1,7 @@
 import UIKit
 
 protocol PriceArchiveDelegate: AnyObject {
+    func configure(with interval: DateInterval)
     func show(source: PriceArchiveSource)
 }
 
@@ -22,6 +23,9 @@ struct PriceArchiveInteractor {
     }
 
     func viewDidLoad() {
+        if let interval = try? lookup.interval(for: network) {
+            delegate?.configure(with: interval)
+        }
         delegate?.show(source: PriceArchiveSource(date: .now, loading: true))
         load(.now)
     }

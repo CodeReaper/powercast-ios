@@ -12,6 +12,24 @@ class ChargesRepository: ChargesLookup {
         self.service = service
     }
 
+    func interval(for network: Network) throws -> DateInterval {
+        try database.read { db in
+            let gridEnd = try Database.GridPrice.filter(Database.GridPrice.Columns.validFrom == Date.fetchOne(db, Database.GridPrice.select(max(Database.GridPrice.Columns.validFrom)))!).fetchOne(db)?.validTo
+            let grid = DateInterval(
+                start: try Date.fetchOne(db, Database.GridPrice.select(min(Database.GridPrice.Columns.validFrom)))!,
+                end: gridEnd ?? .distantFuture
+            )
+
+            let networkEnd = try Database.NetworkPrice.filter(Database.NetworkPrice.Columns.validFrom == Date.fetchOne(db, Database.NetworkPrice.select(max(Database.NetworkPrice.Columns.validFrom)))!).fetchOne(db)?.validTo
+            let network = DateInterval(
+                start: try Date.fetchOne(db, Database.NetworkPrice.select(min(Database.NetworkPrice.Columns.validFrom)))!,
+                end: networkEnd ?? .distantFuture
+            )
+
+            return DateInterval(start: max(grid.start, network.start), end: min(grid.end, network.end))
+        }
+    }
+
     func charges(for network: Network, at date: Date) throws -> Charges {
         guard let grid = try database.read({ db in
             return try Database.GridPrice
@@ -106,5 +124,6 @@ enum ChargesRepositoryError: Error {
 }
 
 protocol ChargesLookup {
+    func interval(for network: Network) throws -> DateInterval
     func charges(for network: Network, at date: Date) throws -> Charges
 }
