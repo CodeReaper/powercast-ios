@@ -5,6 +5,10 @@ final class EvaluationTests: XCTestCase {
     struct ChargesLookupMock: ChargesLookup {
         let charges: Charges
 
+        func interval(for network: Network) throws -> DateInterval {
+            DateInterval(start: .distantPast, end: .distantFuture)
+        }
+
         func charges(for network: Network, at date: Date) throws -> Charges {
             return charges
         }
