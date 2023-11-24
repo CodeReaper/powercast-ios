@@ -32,6 +32,7 @@ class NetworkDetailsViewController: ViewController {
             tableView.sectionHeaderTopPadding = 0
         }
         tableView.allowsSelection = false
+        tableView.showsVerticalScrollIndicator = false
         tableView
             .set(datasource: self, delegate: self)
             .set(backgroundColor: .tableBackground)
