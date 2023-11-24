@@ -80,6 +80,7 @@
 		CD1068B82B0927B300FD5B0E /* PriceArchiveInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068B72B0927B200FD5B0E /* PriceArchiveInteractor.swift */; };
 		CD1068BA2B092D3300FD5B0E /* PriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068B92B092D3300FD5B0E /* PriceCell.swift */; };
 		CD1068BC2B092D9D00FD5B0E /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068BB2B092D9D00FD5B0E /* NumberFormatter.swift */; };
+		CD1068BE2B112B4500FD5B0E /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068BD2B112B4500FD5B0E /* Collection.swift */; };
 		CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */; };
 		CD36624729281614009FAC8B /* Flogger in Frameworks */ = {isa = PBXBuildFile; productRef = CD36624629281614009FAC8B /* Flogger */; };
 		CD4022E82A34AA2B00027798 /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD4022E72A34AA2B00027798 /* SugarKit */; };
@@ -194,6 +195,7 @@
 		CD1068B72B0927B200FD5B0E /* PriceArchiveInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceArchiveInteractor.swift; sourceTree = "<group>"; };
 		CD1068B92B092D3300FD5B0E /* PriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCell.swift; sourceTree = "<group>"; };
 		CD1068BB2B092D9D00FD5B0E /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
+		CD1068BD2B112B4500FD5B0E /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		CD4022EB2A34ADA600027798 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CD5C58CF2AE4824900143060 /* ChargesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargesRepository.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				384E646A288EDAAF004ADCB1 /* Appearence.swift */,
+				CD1068BD2B112B4500FD5B0E /* Collection.swift */,
 				38ECF94A289B0ACF00ED8372 /* Date.swift */,
 				CD1068AA2B07F17800FD5B0E /* DateInterval.swift */,
 				CD1068A02B05476600FD5B0E /* EmissionTableDataSource.swift */,
@@ -762,6 +765,7 @@
 				CD1068AE2B07FEAA00FD5B0E /* GridDetailsViewController.swift in Sources */,
 				CD1068BC2B092D9D00FD5B0E /* NumberFormatter.swift in Sources */,
 				CD1068B82B0927B300FD5B0E /* PriceArchiveInteractor.swift in Sources */,
+				CD1068BE2B112B4500FD5B0E /* Collection.swift in Sources */,
 				380CE8EE288893F90003FF36 /* Animations.swift in Sources */,
 				384E64792891650E004ADCB1 /* DataLoadingInteractor.swift in Sources */,
 				CD1068B62B0921FA00FD5B0E /* PriceArchiveViewController.swift in Sources */,
