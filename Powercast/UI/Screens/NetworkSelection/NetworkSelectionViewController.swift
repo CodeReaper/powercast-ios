@@ -41,6 +41,7 @@ class NetworkSelectionViewController: ViewController {
 
         view.backgroundColor = .systemGroupedBackground
 
+        tableView.showsVerticalScrollIndicator = false
         tableView
             .set(datasource: self, delegate: self)
             .set(backgroundColor: .tableBackground)
@@ -70,8 +71,8 @@ class NetworkSelectionViewController: ViewController {
     }
 
     private func show(_ networks: [Network]) {
-        let zones = Set(networks.map { $0.zone })
-        self.zones = [Zone.dk2, .dk1].filter { zones.contains($0) }
+        let uniques = Set(networks.map { $0.zone })
+        self.zones = [Zone.dk2, .dk1].filter { uniques.contains($0) }
         self.items = zones.map { zone in
             networks.filter({ $0.zone == zone }).sorted(by: { $0.name < $1.name })
         }
