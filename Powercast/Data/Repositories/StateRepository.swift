@@ -8,8 +8,8 @@ class StateRepository: Observerable {
     var notificationStatus = UNAuthorizationStatus.denied { didSet { notifyObservers() } }
     var backgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus { didSet { notifyObservers() } }
 
-    private var deliveredNotifications = [Message.Kind: Date]() { didSet { notifyObservers() } }
-    private var disabledNotifications = [Message.Kind: Bool]() { didSet { notifyObservers() } }
+    private var deliveredNotifications = [String: Date]() { didSet { notifyObservers() } }
+    private var disabledNotifications = [String: Bool]() { didSet { notifyObservers() } }
 
     init(store: UserDefaults = .standard) {
         self.store = store
@@ -18,10 +18,11 @@ class StateRepository: Observerable {
             name: store.string(forKey: keySelectedNetworkName) ?? "",
             zone: Zone(rawValue: store.string(forKey: keySelectedNetworkName) ?? "") ?? .dk1
         )
-        for type in Message.Kind.allCases {
-            deliveredNotifications[type] = Date(timeIntervalSince1970: store.double(forKey: "\(keyLastDeliveredNotification)\(type.rawValue)"))
-            disabledNotifications[type] = store.bool(forKey: "\(keyEnabledNotification)\(type.rawValue)")
-        }
+        // FIXME: stuff
+//        for type in Message.Kind.allCases {
+//            deliveredNotifications[type] = Date(timeIntervalSince1970: store.double(forKey: "\(keyLastDeliveredNotification)\(type.rawValue)"))
+//            disabledNotifications[type] = store.bool(forKey: "\(keyEnabledNotification)\(type.rawValue)")
+//        }
         super.init()
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             self.notificationStatus = settings.authorizationStatus
@@ -73,21 +74,21 @@ class StateRepository: Observerable {
         self.network = network
     }
 
-    func deliveredNotification(for type: Message.Kind) -> Date {
+    func deliveredNotification(for type: String) -> Date {
         deliveredNotifications[type] ?? Date(timeIntervalSince1970: 0)
     }
 
-    func deliveredNotification(at date: Date, for type: Message.Kind) {
-        store.set(date.timeIntervalSince1970, forKey: "\(keyLastDeliveredNotification)\(type.rawValue)")
+    func deliveredNotification(at date: Date, for type: String) {
+        store.set(date.timeIntervalSince1970, forKey: "\(keyLastDeliveredNotification)\(type)")
         deliveredNotifications[type] = date
     }
 
-    func notifications(for type: Message.Kind) -> Bool {
+    func notifications(for type: String) -> Bool {
         !(disabledNotifications[type] ?? true)
     }
 
-    func notifications(enabled: Bool, for type: Message.Kind) {
-        store.set(!enabled, forKey: "\(keyEnabledNotification)\(type.rawValue)")
+    func notifications(enabled: Bool, for type: String) {
+        store.set(!enabled, forKey: "\(keyEnabledNotification)\(type)")
         disabledNotifications[type] = !enabled
     }
 

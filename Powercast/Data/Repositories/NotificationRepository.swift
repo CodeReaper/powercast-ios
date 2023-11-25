@@ -3,6 +3,20 @@ import UserNotifications
 import Flogger
 
 class NotificationRepository {
+    struct Item {
+        let id = "fixme-id"
+        let firingDate: Date
+        let period: DateInterval
+        init(date: Date, fireOffset: UInt, dateOffset: UInt, durationOffset: UInt) {
+            precondition(fireOffset < 12)
+            precondition(dateOffset + durationOffset <= 24)
+            precondition(durationOffset > 0)
+            let start = date.startOfDay.date(byAdding: .hour, value: Int(dateOffset))
+            self.firingDate = start.date(byAdding: .hour, value: -Int(fireOffset))
+            self.period = DateInterval(start: start, end: start.date(byAdding: .hour, value: Int(durationOffset) - 1))
+        }
+    }
+
     private let delegate: Delegate
     private let charges: ChargesRepository
     private let prices: EnergyPriceRepository
@@ -34,59 +48,57 @@ class NotificationRepository {
             return
         }
 
-        guard
-            let prices = try? self.prices.data(for: network.zone, in: DateInterval(start: Date.now.startOfDay.date(byAdding: .weekOfYear, value: -1), end: Date.now.startOfDay.date(byAdding: .day, value: 2)))
-        else {
-            Flog.error("Wanted to setup notification, but could not look up local prices")
-            return
-        }
-
-        let evaluations = Evaluation.of(prices, using: charges, and: network)
-
-        guard
-            evaluations.count > 0
-        else {
-            Flog.error("Wanted to setup notification, but no relevant evaluations could be made")
-            return
-        }
-
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         await UNUserNotificationCenter.current().deliveredNotifications().forEach { notification in
             delegate.mark(shown: notification)
         }
 
-        for message in Message.of(evaluations, using: charges) {
-            guard
-                state.notifications(for: message.kind),
-                message.fireDate > state.deliveredNotification(for: message.kind)
-            else { continue }
+        let items = [
+            Item(date: .now, fireOffset: 3, dateOffset: 0, durationOffset: 6),
+            Item(date: .now, fireOffset: 9, dateOffset: 6, durationOffset: 6),
+            Item(date: .now, fireOffset: 3, dateOffset: 12, durationOffset: 6),
+            Item(date: .now, fireOffset: 5, dateOffset: 18, durationOffset: 6),
+            Item(date: .now.endOfDay, fireOffset: 3, dateOffset: 0, durationOffset: 6),
+            Item(date: .now.endOfDay, fireOffset: 9, dateOffset: 6, durationOffset: 6),
+            Item(date: .now.endOfDay, fireOffset: 3, dateOffset: 12, durationOffset: 6),
+            Item(date: .now.endOfDay, fireOffset: 5, dateOffset: 18, durationOffset: 6)
+        ]
 
-            Flog.info("Prepared this message: \(message.body) in \(message.fireDate.timeIntervalSince(Date.now) / 3600) hours.")
-            await show(message: message, at: message.fireDate)
+        let numberFormatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
+        let dateFormatter = DateFormatter.with(dateStyle: .none, timeStyle: .short)
+
+        for item in items {
+            guard
+                let prices = try? self.prices.data(for: network.zone, in: item.period),
+                let price = prices.first,
+                let priceSpan = Price.map(prices, at: price.timestamp, in: network, using: charges)?.priceSpan
+            else {
+                continue
+            }
+
+            let content = UNMutableNotificationContent()
+            content.title = Translations.NOTIFICATION_TITLE
+            content.body = "Between \(dateFormatter.string(from: item.period.start)) and \(dateFormatter.string(from: item.period.end)) the prices range from \(numberFormatter.string(with: priceSpan.lowerBound)) to \(numberFormatter.string(with: priceSpan.upperBound)) øre/kWh"
+            content.userInfo = [
+                NotificationRepository.keyEpoch: item.firingDate.timeIntervalSince1970,
+                NotificationRepository.keyKind: item.id
+            ]
+
+            Flog.info("Prepared this message: \(content.body) in \(item.firingDate.timeIntervalSince(Date.now) / 3600) hours.")
+
+            let seconds = item.firingDate.timeIntervalSince(Date.now)
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: max(1, seconds), repeats: false)
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+            do {
+                try await UNUserNotificationCenter.current().add(request)
+            } catch {
+                Flog.error(error.localizedDescription)
+            }
         }
     }
 
     private static let keyEpoch = "keyEpoch"
     private static let keyKind = "keyKind"
-
-    private func show(message: Message, at date: Date) async {
-        let content = UNMutableNotificationContent()
-        content.title = Translations.NOTIFICATION_TITLE
-        content.body = message.body
-        content.userInfo = [
-            NotificationRepository.keyEpoch: date.timeIntervalSince1970,
-            NotificationRepository.keyKind: message.kind.rawValue
-        ]
-        let seconds = date.timeIntervalSince(Date.now)
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: max(1, seconds), repeats: false)
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-
-        do {
-            try await UNUserNotificationCenter.current().add(request)
-        } catch {
-            Flog.error(error.localizedDescription)
-        }
-    }
 
     class Delegate: NSObject {
         private let state: StateRepository
@@ -98,12 +110,12 @@ class NotificationRepository {
         fileprivate func mark(shown notification: UNNotification) {
             guard
                 let epoch = notification.request.content.userInfo[NotificationRepository.keyEpoch] as? TimeInterval,
-                let kind = Message.Kind(rawValue: notification.request.content.userInfo[NotificationRepository.keyKind] as? Int ?? -1)
+                let id = notification.request.content.userInfo[NotificationRepository.keyKind] as? String
             else { return }
 
             let date = Date(timeIntervalSince1970: epoch)
-            if date > state.deliveredNotification(for: kind) {
-                state.deliveredNotification(at: date, for: kind)
+            if date > state.deliveredNotification(for: id) {
+                state.deliveredNotification(at: date, for: id)
             }
         }
     }

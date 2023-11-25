@@ -11,7 +11,7 @@ Below follows a roadmap arranged by current best guess for completion:
  - [x] Settings
  - [x] Settings - Network
  - [x] Settings - Notifications
- - [ ] Settings - Customizable notification for forecast at preset times
+ - [ ] Settings - Preset notifications
  - [x] Grid details
  - [x] Network details
  - [x] Navigation routes
@@ -20,7 +20,10 @@ Below follows a roadmap arranged by current best guess for completion:
  - [x] Current co2 estimations
  - [x] Logo
  - [x] Historic drilldown of prices
- - [ ] Dark mode
+ - [x] Dark mode
  - [ ] IAP
- - [ ] Branding
- - [ ] Licenses up to date
+
+## Possible future features
+
+- Price comparisons between network companies
+- Fully customizable notifications

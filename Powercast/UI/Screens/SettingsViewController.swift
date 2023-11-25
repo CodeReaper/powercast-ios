@@ -7,7 +7,7 @@ class SettingsViewController: ViewController {
 
     private let state: StateRepository
 
-    private var toggles: [Message.Kind: UISwitch] = [:]
+//    private var toggles: [Message.Kind: UISwitch] = [:]
 
     private var sections: [Section]!
 
@@ -44,12 +44,12 @@ class SettingsViewController: ViewController {
                 make(its.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor))
             }
 
-        for kind in Message.Kind.allCases {
-            let view = UISwitch(frame: .zero)
-            view.onTintColor = .toggleTint
-            view.isOn = state.notifications(for: kind)
-            toggles[kind] = view
-        }
+//        for kind in Message.Kind.allCases {
+//            let view = UISwitch(frame: .zero)
+//            view.onTintColor = .toggleTint
+//            view.isOn = state.notifications(for: kind)
+//            toggles[kind] = view
+//        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -69,7 +69,7 @@ class SettingsViewController: ViewController {
 
     enum Row {
         case navigate(label: String, detailLabel: String?, endpoint: Navigation)
-        case toggle(kind: Message.Kind)
+//        case toggle(kind: Message.Kind)
     }
 
     private class NavigationCell: UITableViewCell {
@@ -146,8 +146,8 @@ extension SettingsViewController: Observer {
         switch (lhs, rhs) {
         case (let .navigate(lhsLabel, lhsDetailLabel, _), let .navigate(rhsLabel, rhsDetailLabel, _)):
             return lhsLabel == rhsLabel && lhsDetailLabel == rhsDetailLabel
-        case (let .toggle(lhsKind), let .toggle(rhsKind)):
-            return lhsKind == rhsKind
+//        case (let .toggle(lhsKind), let .toggle(rhsKind)):
+//            return lhsKind == rhsKind
         default:
             return false
         }
@@ -171,8 +171,8 @@ extension SettingsViewController: UITableViewDataSource {
         switch sections[indexPath.section].rows[indexPath.row] {
         case let .navigate(label, detail, _):
             return tableView.dequeueReusableCell(NavigationCell.self, forIndexPath: indexPath).update(title: label, label: detail)
-        case let .toggle(kind):
-            return tableView.dequeueReusableCell(ToggleCell.self, forIndexPath: indexPath).update(title: kind.string, with: toggles[kind]!)
+//        case let .toggle(kind):
+//            return tableView.dequeueReusableCell(ToggleCell.self, forIndexPath: indexPath).update(title: kind.string, with: toggles[kind]!)
         }
     }
 }
@@ -183,9 +183,9 @@ extension SettingsViewController: UITableViewDelegate {
         switch sections[indexPath.section].rows[indexPath.row] {
         case let .navigate(_, _, endpoint):
             navigate(to: endpoint)
-        case let .toggle(kind):
-            state.notifications(enabled: !state.notifications(for: kind), for: kind)
-            toggles[kind]?.setOn(state.notifications(for: kind), animated: true)
+//        case let .toggle(kind):
+//            state.notifications(enabled: !state.notifications(for: kind), for: kind)
+//            toggles[kind]?.setOn(state.notifications(for: kind), animated: true)
         }
     }
 
@@ -223,7 +223,7 @@ extension SettingsViewController {
     private func buildNotificationSettings() -> Section {
         SettingsViewController.Section(
             title: Translations.SETTINGS_NOTIFICATIONS_TITLE,
-            rows: Message.Kind.allCases.map { Row.toggle(kind: $0) }
+            rows: [] // Message.Kind.allCases.map { Row.toggle(kind: $0) }
         )
     }
 }
@@ -254,19 +254,19 @@ private extension UIBackgroundRefreshStatus {
     }
 }
 
-private extension Message.Kind {
-    var string: String {
-        switch self {
-        case .night:
-            return Translations.SETTINGS_NOTIFICATIONS_ITEM_NIGHT
-        case .morning:
-            return Translations.SETTINGS_NOTIFICATIONS_ITEM_MORNING
-        case .afternoon:
-            return Translations.SETTINGS_NOTIFICATIONS_ITEM_AFTERNOON
-        case .evening:
-            return Translations.SETTINGS_NOTIFICATIONS_ITEM_EVENING
-        case .free:
-            return Translations.SETTINGS_NOTIFICATIONS_ITEM_FREE
-        }
-    }
-}
+//private extension Message.Kind {
+//    var string: String {
+//        switch self {
+//        case .night:
+//            return Translations.SETTINGS_NOTIFICATIONS_ITEM_NIGHT
+//        case .morning:
+//            return Translations.SETTINGS_NOTIFICATIONS_ITEM_MORNING
+//        case .afternoon:
+//            return Translations.SETTINGS_NOTIFICATIONS_ITEM_AFTERNOON
+//        case .evening:
+//            return Translations.SETTINGS_NOTIFICATIONS_ITEM_EVENING
+//        case .free:
+//            return Translations.SETTINGS_NOTIFICATIONS_ITEM_FREE
+//        }
+//    }
+//}
