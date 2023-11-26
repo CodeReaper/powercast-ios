@@ -25,8 +25,6 @@ class NetworkDetailsViewController: ViewController {
 
         title = Translations.NETWORK_DETAILS_TITLE_TEMPLATE(network.name)
 
-        navigationController?.navigationBar.shadowImage = UIImage()
-
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0

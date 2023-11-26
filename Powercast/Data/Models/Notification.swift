@@ -2,7 +2,7 @@ import Foundation
 import UserNotifications
 import Flogger
 
-struct Notification: AutoCopy {
+struct Notification: AutoCopy, Equatable {
     static let ID = "id"
     static let DATE = "date"
 
@@ -13,11 +13,24 @@ struct Notification: AutoCopy {
     let durationOffset: UInt
     let lastDelivery: Date
 
-    init(id: String, enabled: Bool, fireOffset: UInt, dateOffset: UInt, durationOffset: UInt, lastDelivery: Date) {
-        precondition(fireOffset < 12)
-        precondition(dateOffset + durationOffset <= 24)
-        precondition(durationOffset > 0)
+    // FIXME: translations
+    var title: String {
+        "Prices between \(dateOffset) and \(durationOffset)"
+    }
 
+    var subtitle: String? {
+        if enabled {
+            return "Will trigger at \(fireOffset / 3600)"
+        } else {
+            return "disabled"
+        }
+    }
+
+    var description: String {
+        "Display prices between \(dateOffset) and \(durationOffset) at \(fireOffset / 3600)\(enabled ? "" : ", but currently disabled")"
+    }
+
+    init(id: String, enabled: Bool, fireOffset: UInt, dateOffset: UInt, durationOffset: UInt, lastDelivery: Date) {
         self.id = id
         self.enabled = enabled
         self.fireOffset = fireOffset
@@ -42,6 +55,7 @@ struct Notification: AutoCopy {
         let numberFormatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
         let dateFormatter = DateFormatter.with(dateStyle: .none, timeStyle: .short)
 
+        // FIXME: translations
         let content = UNMutableNotificationContent()
         content.title = Translations.NOTIFICATION_TITLE
         content.body = "Between \(dateFormatter.string(from: period.start)) and \(dateFormatter.string(from: period.end)) the prices range from \(numberFormatter.string(with: priceSpan.lowerBound)) to \(numberFormatter.string(with: priceSpan.upperBound)) øre/kWh"
@@ -57,15 +71,3 @@ struct Notification: AutoCopy {
         return UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
     }
 }
-
-
-//let items = [
-//    Item(date: .now, fireOffset: 3, dateOffset: 0, durationOffset: 6),
-//    Item(date: .now, fireOffset: 9, dateOffset: 6, durationOffset: 6),
-//    Item(date: .now, fireOffset: 3, dateOffset: 12, durationOffset: 6),
-//    Item(date: .now, fireOffset: 5, dateOffset: 18, durationOffset: 6),
-//    Item(date: .now.endOfDay, fireOffset: 3, dateOffset: 0, durationOffset: 6),
-//    Item(date: .now.endOfDay, fireOffset: 9, dateOffset: 6, durationOffset: 6),
-//    Item(date: .now.endOfDay, fireOffset: 3, dateOffset: 12, durationOffset: 6),
-//    Item(date: .now.endOfDay, fireOffset: 5, dateOffset: 18, durationOffset: 6)
-//]

@@ -32,8 +32,6 @@ class NetworkSelectionViewController: ViewController {
 
         title = Translations.NETWORK_SELECTION_TITLE
 
-        navigationController?.navigationBar.shadowImage = UIImage()
-
         if cancelable {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
         }

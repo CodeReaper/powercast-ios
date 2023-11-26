@@ -1,17 +1,14 @@
 import UIKit
 import SugarKit
-import Combine
 
 class SettingsViewController: ViewController {
     private let tableView = UITableView(frame: .zero, style: .grouped)
 
     private let state: StateRepository
 
-//    private var toggles: [Message.Kind: UISwitch] = [:]
-
     private var sections: [Section] = []
 
-    init(navigation: AppNavigation, state: StateRepository, sections: [Section]? = nil) {
+    init(navigation: AppNavigation, state: StateRepository) {
         self.state = state
         super.init(navigation: navigation)
     }
@@ -24,7 +21,6 @@ class SettingsViewController: ViewController {
         super.viewDidLoad()
 
         title = Translations.SETTINGS_TITLE
-        navigationController?.navigationBar.shadowImage = UIImage()
 
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         if #available(iOS 15.0, *) {
@@ -42,13 +38,6 @@ class SettingsViewController: ViewController {
                 make(its.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor))
                 make(its.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor))
             }
-
-//        for kind in Message.Kind.allCases {
-//            let view = UISwitch(frame: .zero)
-//            view.onTintColor = .toggleTint
-//            view.isOn = state.notifications(for: kind)
-//            toggles[kind] = view
-//        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -62,14 +51,13 @@ class SettingsViewController: ViewController {
         state.remove(observer: self)
     }
 
-    struct Section {
+    private struct Section {
         let title: String
         let rows: [Row]
     }
 
-    enum Row {
+    private enum Row {
         case navigate(label: String, detailLabel: String?, endpoint: Navigation)
-//        case toggle(kind: Message.Kind)
     }
 
     private class NavigationCell: UITableViewCell {
@@ -127,18 +115,8 @@ class SettingsViewController: ViewController {
 extension SettingsViewController: Observer {
     func updated() {
         DispatchQueue.main.async {
-            let sections = self.buildSettings()
-            let changes: [IndexPath] = zip(sections, self.sections).enumerated().flatMap { (section: Int, sections: (Section, Section)) -> [IndexPath] in
-                return zip(sections.0.rows, sections.1.rows).enumerated().compactMap { (row: Int, rows: (Row, Row)) -> IndexPath? in
-                    if self.matches(lhs: rows.0, rhs: rows.1) {
-                        return nil
-                    } else {
-                        return IndexPath(row: row, section: section)
-                    }
-                }
-            }
-            self.sections = sections
-            self.tableView.reloadRows(at: changes, with: .automatic)
+            self.sections = self.buildSettings()
+            self.tableView.reloadData()
         }
     }
 
@@ -146,10 +124,6 @@ extension SettingsViewController: Observer {
         switch (lhs, rhs) {
         case (let .navigate(lhsLabel, lhsDetailLabel, _), let .navigate(rhsLabel, rhsDetailLabel, _)):
             return lhsLabel == rhsLabel && lhsDetailLabel == rhsDetailLabel
-//        case (let .toggle(lhsKind), let .toggle(rhsKind)):
-//            return lhsKind == rhsKind
-        default:
-            return false
         }
     }
 }
@@ -171,8 +145,6 @@ extension SettingsViewController: UITableViewDataSource {
         switch sections[indexPath.section].rows[indexPath.row] {
         case let .navigate(label, detail, _):
             return tableView.dequeueReusableCell(NavigationCell.self, forIndexPath: indexPath).update(title: label, label: detail)
-//        case let .toggle(kind):
-//            return tableView.dequeueReusableCell(ToggleCell.self, forIndexPath: indexPath).update(title: kind.string, with: toggles[kind]!)
         }
     }
 }
@@ -183,9 +155,6 @@ extension SettingsViewController: UITableViewDelegate {
         switch sections[indexPath.section].rows[indexPath.row] {
         case let .navigate(_, _, endpoint):
             navigate(to: endpoint)
-//        case let .toggle(kind):
-//            state.notifications(enabled: !state.notifications(for: kind), for: kind)
-//            toggles[kind]?.setOn(state.notifications(for: kind), animated: true)
         }
     }
 
@@ -197,7 +166,7 @@ extension SettingsViewController: UITableViewDelegate {
 }
 
 extension SettingsViewController {
-    func buildSettings() -> [Section] {
+    private func buildSettings() -> [Section] {
         return [buildNetworkSettings(), buildSystemSettings(), buildNotificationSettings()]
     }
 
@@ -221,9 +190,12 @@ extension SettingsViewController {
     }
 
     private func buildNotificationSettings() -> Section {
-        SettingsViewController.Section(
+        let rows = state.notifications.map { notification in
+            Row.navigate(label: notification.title, detailLabel: notification.subtitle, endpoint: .notification(notification: notification))
+        }
+        return SettingsViewController.Section(
             title: Translations.SETTINGS_NOTIFICATIONS_TITLE,
-            rows: [] // Message.Kind.allCases.map { Row.toggle(kind: $0) }
+            rows: rows + [.navigate(label: Translations.SETTINGS_NOTIFICATIONS_ADD_BUTTON, detailLabel: nil, endpoint: .notification(notification: nil))] // FIXME: overall disabled state and initial permissions
         )
     }
 }
@@ -253,20 +225,3 @@ private extension UIBackgroundRefreshStatus {
         }
     }
 }
-
-//private extension Message.Kind {
-//    var string: String {
-//        switch self {
-//        case .night:
-//            return Translations.SETTINGS_NOTIFICATIONS_ITEM_NIGHT
-//        case .morning:
-//            return Translations.SETTINGS_NOTIFICATIONS_ITEM_MORNING
-//        case .afternoon:
-//            return Translations.SETTINGS_NOTIFICATIONS_ITEM_AFTERNOON
-//        case .evening:
-//            return Translations.SETTINGS_NOTIFICATIONS_ITEM_EVENING
-//        case .free:
-//            return Translations.SETTINGS_NOTIFICATIONS_ITEM_FREE
-//        }
-//    }
-//}

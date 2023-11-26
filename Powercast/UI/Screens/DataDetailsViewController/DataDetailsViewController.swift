@@ -22,8 +22,6 @@ class DataDetailsViewController: ViewController {
 
         title = DateFormatter.with(dateStyle: .medium, timeStyle: .short).string(from: price.duration.lowerBound)
 
-        navigationController?.navigationBar.shadowImage = UIImage()
-
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0

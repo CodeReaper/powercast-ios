@@ -25,8 +25,6 @@ class GridDetailsViewController: ViewController {
 
         title = zone.name
 
-        navigationController?.navigationBar.shadowImage = UIImage()
-
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0

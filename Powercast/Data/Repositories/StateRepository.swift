@@ -1,6 +1,6 @@
 import UIKit
 import UserNotifications
-// FIXME: protocols
+
 protocol NetworkState: Observerable {
     var network: Network { get }
     func select(network: Network)

@@ -9,7 +9,7 @@ indirect enum Navigation {
     case dataDetails(price: Price, emission: Emission.Co2?)
     case priceArchive
     case settings
-    case specificSettings(configuration: [SettingsViewController.Section])
+    case notification(notification: Notification?)
     case networkDetails(network: Network)
     case gridDetails(zone: Zone)
     case licenses
@@ -110,9 +110,9 @@ class AppNavigation {
             )
             navigationController.pushViewController(viewController, animated: true)
         case .settings:
-            navigationController.pushViewController(SettingsViewController(navigation: self, state: dependencies.stateRepository, sections: nil), animated: true)
-        case let .specificSettings(configuration):
-            navigationController.pushViewController(SettingsViewController(navigation: self, state: dependencies.stateRepository, sections: configuration), animated: true)
+            navigationController.pushViewController(SettingsViewController(navigation: self, state: dependencies.stateRepository), animated: true)
+        case let .notification(notification):
+            navigationController.pushViewController(NotificationViewController(navigation: self, state: dependencies.stateRepository, notification: notification), animated: true)
         case let .networkDetails(network):
             let viewController = NetworkDetailsViewController(
                 navigation: self,
