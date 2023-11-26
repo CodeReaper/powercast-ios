@@ -9,12 +9,11 @@ class SettingsViewController: ViewController {
 
 //    private var toggles: [Message.Kind: UISwitch] = [:]
 
-    private var sections: [Section]!
+    private var sections: [Section] = []
 
     init(navigation: AppNavigation, state: StateRepository, sections: [Section]? = nil) {
         self.state = state
         super.init(navigation: navigation)
-        self.sections = sections ?? buildSettings()
     }
 
     required init?(coder: NSCoder) {
@@ -55,6 +54,7 @@ class SettingsViewController: ViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         state.add(observer: self)
+        sections = buildSettings()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
