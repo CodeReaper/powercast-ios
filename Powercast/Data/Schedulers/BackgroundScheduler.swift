@@ -10,9 +10,9 @@ class BackgroundScheduler {
     private let emission: EmissionRepository
     private let charges: ChargesRepository
     private let state: StateRepository
-    private let notifications: NotificationRepository
+    private let notifications: NotificationScheduler
 
-    init(charges: ChargesRepository, prices: EnergyPriceRepository, emission: EmissionRepository, state: StateRepository, notifications: NotificationRepository) {
+    init(charges: ChargesRepository, prices: EnergyPriceRepository, emission: EmissionRepository, state: StateRepository, notifications: NotificationScheduler) {
         self.prices = prices
         self.emission = emission
         self.charges = charges

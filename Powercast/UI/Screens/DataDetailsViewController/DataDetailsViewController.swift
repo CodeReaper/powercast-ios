@@ -22,8 +22,6 @@ class DataDetailsViewController: ViewController {
 
         title = DateFormatter.with(dateStyle: .medium, timeStyle: .short).string(from: price.duration.lowerBound)
 
-        navigationController?.navigationBar.shadowImage = UIImage()
-
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
@@ -179,7 +177,7 @@ class DataDetailsViewController: ViewController {
         }
 
         func update(with emission: Emission.Co2) -> Self {
-            let dateFormatter = DateFormatter.with(format: "HH:mm")
+            let dateFormatter = DateFormatter.with(format: "HH:mm") // TODO: handle fixed date format
             let formatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
             for date in emission.data.keys.sorted() {
                 views.addArrangedSubview(

@@ -10,7 +10,7 @@ class DataLoadingInteractor {
     private let prices: EnergyPriceRepository
     private let charges: ChargesRepository
     private let emission: EmissionRepository
-    private let state: StateRepository
+    private let state: NetworkState
     private let network: Network
 
     private var statusSink: AnyCancellable?
@@ -18,7 +18,7 @@ class DataLoadingInteractor {
 
     private weak var delegate: DataLoadingDelegate?
 
-    init(navigation: AppNavigation, delegate: DataLoadingDelegate, prices: EnergyPriceRepository, charges: ChargesRepository, emission: EmissionRepository, state: StateRepository, network: Network) {
+    init(navigation: AppNavigation, delegate: DataLoadingDelegate, prices: EnergyPriceRepository, charges: ChargesRepository, emission: EmissionRepository, state: NetworkState, network: Network) {
         self.navigation = navigation
         self.delegate = delegate
         self.prices = prices
