@@ -2,7 +2,7 @@ import UIKit
 import SugarKit
 
 class NotificationViewController: ViewController {
-    private let views = Stack.views(on: .vertical, inset: NSDirectionalEdgeInsets(top: 25, leading: 15, bottom: 5, trailing: 15))
+    private let views = Stack.views(on: .vertical, spacing: 15, inset: NSDirectionalEdgeInsets(top: 25, leading: 15, bottom: 5, trailing: 15))
     private let label = Label()
     private let triggerPicker = UIDatePicker()
     private let startPicker = UIPickerView()
@@ -63,11 +63,11 @@ class NotificationViewController: ViewController {
         toggle.addTarget(self, action: #selector(didTapToggle), for: .valueChanged)
 
         // FIXME: translations
-        views.addArrangedSubview(Stack.views(distributed: .fillEqually, Label(text: "Enabled"), toggle))
-        views.addArrangedSubview(label)
-        views.addArrangedSubview(Stack.views(distributed: .fillEqually, Label(text: "start"), Label(text: "duration")))
+        views.addArrangedSubview(Stack.views(distributed: .fill, Label(text: "Enabled"), toggle.updateContentHuggingPriority(.required, for: .horizontal)))
+        views.addArrangedSubview(Stack.views(distributed: .fillEqually, Label(text: "start").aligned(to: .center), Label(text: "duration").aligned(to: .center)))
         views.addArrangedSubview(Stack.views(distributed: .fillEqually, startPicker, durationPicker))
         views.addArrangedSubview(Stack.views(distributed: .fillEqually, Label(text: "Trigger"), triggerPicker))
+        views.addArrangedSubview(label)
 
         update()
     }
@@ -103,7 +103,7 @@ class NotificationViewController: ViewController {
         navigationItem.setHidesBackButton(hasChanges, animated: true)
         navigationItem.setLeftBarButton(hasChanges ? cancelButton : nil, animated: true)
         navigationItem.setRightBarButton(hasChanges ? saveButton : nil, animated: true)
-        title = notification.title
+        title = "Notification" // FIXME: notification.title
         label.text = notification.description
         triggerPicker.setDate(.now.startOfDay.addingTimeInterval(TimeInterval(notification.fireOffset)), animated: true)
         startPicker.selectRow(startingHours.firstIndex(of: Int(notification.dateOffset)) ?? 0, inComponent: 0, animated: true)
@@ -147,6 +147,6 @@ extension NotificationViewController: UIPickerViewDataSource, UIPickerViewDelega
 
 private extension Notification {
     static func create() -> Notification {
-        Notification(id: UUID().uuidString, enabled: false, fireOffset: 46800, dateOffset: 16, durationOffset: 5, lastDelivery: Date(timeIntervalSince1970: 0))
+        Notification(id: UUID().uuidString, enabled: true, fireOffset: 46800, dateOffset: 16, durationOffset: 5, lastDelivery: Date(timeIntervalSince1970: 0))
     }
 }
