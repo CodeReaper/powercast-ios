@@ -5,6 +5,7 @@ class StackviewCell: UITableViewCell {
     let views = Stack.views(on: .horizontal, inset: NSDirectionalEdgeInsets(top: 7, leading: 20, bottom: 7, trailing: 20))
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+        views.set(height: 44)
         views.layout(in: contentView) { make, its in
             make(its.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor))
             make(its.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor))
