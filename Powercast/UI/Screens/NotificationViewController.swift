@@ -143,17 +143,16 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         func update(with message: String) -> Self {
             views.addArrangedSubview(Label(text: message, color: .cellText))
             backgroundColor = .clear
-            separatorInset = UIEdgeInsets(top: 0, left: bounds.size.width, bottom: 0, right: bounds.size.width)
             return self
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch (indexPath.section, indexPath.row) {
-        case (0, 0): tableView.dequeueReusableCell(ToggleCell.self, forIndexPath: indexPath).update(with: toggle)
-        case (1, 0): tableView.dequeueReusableCell(DateSelectionCell.self, forIndexPath: indexPath).update(with: triggerPicker)
-        case (2, 0): tableView.dequeueReusableCell(DurationCell.self, forIndexPath: indexPath).update(with: startPicker, and: durationPicker)
-        case (3, 0): tableView.dequeueReusableCell(MessageCell.self, forIndexPath: indexPath).update(with: notification.fullDescription)
+        switch indexPath.section {
+        case 0: tableView.dequeueReusableCell(ToggleCell.self, forIndexPath: indexPath).update(with: toggle)
+        case 1: tableView.dequeueReusableCell(DateSelectionCell.self, forIndexPath: indexPath).update(with: triggerPicker)
+        case 2: tableView.dequeueReusableCell(DurationCell.self, forIndexPath: indexPath).update(with: startPicker, and: durationPicker)
+        case 3: tableView.dequeueReusableCell(MessageCell.self, forIndexPath: indexPath).update(with: notification.fullDescription)
         default: tableView.dequeueReusableCell(UITableViewCell.self, forIndexPath: indexPath)
         }
     }

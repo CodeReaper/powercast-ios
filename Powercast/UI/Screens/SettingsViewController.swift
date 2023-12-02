@@ -98,16 +98,6 @@ extension SettingsViewController: Observer {
             self.tableView.reloadData()
         }
     }
-
-    private func matches(lhs: Row, rhs: Row) -> Bool {
-        switch (lhs, rhs) {
-        case (let .navigate(lhsLabel, lhsDetailLabel, _), let .navigate(rhsLabel, rhsDetailLabel, _)):
-            return lhsLabel == rhsLabel && lhsDetailLabel == rhsDetailLabel
-        case (.notification, .notification): return true
-        case (.disabled, .disabled): return true
-        default: return false
-        }
-    }
 }
 
 extension SettingsViewController: UITableViewDataSource {
