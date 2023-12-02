@@ -35,7 +35,7 @@ class NotificationViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Notification" // FIXME: notification.title
+        title = Translations.NOTIFICATION_TITLE
 
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         if #available(iOS 15.0, *) {
@@ -114,19 +114,18 @@ class NotificationViewController: ViewController {
 }
 
 extension NotificationViewController: UITableViewDelegate, UITableViewDataSource {
-    // FIXME: translations
     private class DurationCell: StackviewCell {
         func update(with firstView: UIPickerView, and secondView: UIPickerView) -> Self {
             views.directionalLayoutMargins.top = 15
-            views.addArrangedSubview(Stack.views(on: .vertical, Label(text: "Starting at hour").aligned(to: .center), firstView))
-            views.addArrangedSubview(Stack.views(on: .vertical, Label(text: "Duration in hours").aligned(to: .center), secondView))
+            views.addArrangedSubview(Stack.views(on: .vertical, Label(text: Translations.NOTIFICATION_PERIOD_START_LABEL).aligned(to: .center), firstView))
+            views.addArrangedSubview(Stack.views(on: .vertical, Label(text: Translations.NOTIFICATION_PERIOD_DURATION_LABEL).aligned(to: .center), secondView))
             return self
         }
     }
 
     private class ToggleCell: StackviewCell {
         func update(with view: UISwitch) -> Self {
-            views.addArrangedSubview(Label(text: "Enabled"))
+            views.addArrangedSubview(Label(text: Translations.NOTIFICATION_ENABLE_LABEL))
             views.addArrangedSubview(view.updateContentHuggingPriority(.required, for: .horizontal))
             return self
         }
@@ -134,7 +133,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
 
     private class DateSelectionCell: StackviewCell {
         func update(with view: UIDatePicker) -> Self {
-            views.addArrangedSubview(Label(text: "At selected time"))
+            views.addArrangedSubview(Label(text: Translations.NOTIFICATION_TRIGGER_LABEL))
             views.addArrangedSubview(view.updateContentHuggingPriority(.required, for: .horizontal))
             return self
         }
@@ -159,12 +158,11 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         }
     }
 
-    // FIXME: *
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 1: return "Trigger"
-        case 2: return "Period"
-        case 3: return "Description"
+        case 1: return Translations.NOTIFICATION_TRIGGER_TITLE
+        case 2: return Translations.NOTIFICATION_PERIOD_TITLE
+        case 3: return Translations.NOTIFICATION_DESCRIPTION_TITLE
         default: return ""
         }
     }
@@ -201,10 +199,8 @@ extension NotificationViewController: UIPickerViewDataSource, UIPickerViewDelega
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch true {
-        case pickerView === startPicker:
-            notification = notification.copy(dateOffset: UInt(startingHours[row]))
-        case pickerView === durationPicker:
-            notification = notification.copy(durationOffset: UInt(durationHours[row]))
+        case pickerView === startPicker: notification = notification.copy(dateOffset: UInt(startingHours[row]))
+        case pickerView === durationPicker: notification = notification.copy(durationOffset: UInt(durationHours[row]))
         default: break
         }
         update()

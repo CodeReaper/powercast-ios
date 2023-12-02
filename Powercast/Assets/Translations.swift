@@ -46,17 +46,19 @@ struct Translations {
 	static let NETWORK_SELECTION_HELP_MESSAGE = NSLocalizedString("NETWORK_SELECTION_HELP_MESSAGE", comment: "")
 	static let NETWORK_SELECTION_HELP_TITLE = NSLocalizedString("NETWORK_SELECTION_HELP_TITLE", comment: "")
 	static let NETWORK_SELECTION_TITLE = NSLocalizedString("NETWORK_SELECTION_TITLE", comment: "")
-	static func NOTIFICATION_TEMPLATE_BODY(_ p1: String, _ p2: String, _ p3: String) -> String { return NSLocalizedString("NOTIFICATION_TEMPLATE_BODY", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2).replacingOccurrences(of: "%3", with: p3) }
-	static func NOTIFICATION_TEMPLATE_FREE_BODY(_ p1: String, _ p2: String, _ p3: String) -> String { return NSLocalizedString("NOTIFICATION_TEMPLATE_FREE_BODY", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2).replacingOccurrences(of: "%3", with: p3) }
-	static func NOTIFICATION_TEMPLATE_RANGE(_ p1: String, _ p2: String) -> String { return NSLocalizedString("NOTIFICATION_TEMPLATE_RANGE", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
-	static let NOTIFICATION_TEMPLATE_SEPARATOR = NSLocalizedString("NOTIFICATION_TEMPLATE_SEPARATOR", comment: "")
+	static let NOTIFICATION_DESCRIPTION_TITLE = NSLocalizedString("NOTIFICATION_DESCRIPTION_TITLE", comment: "")
+	static let NOTIFICATION_ENABLE_LABEL = NSLocalizedString("NOTIFICATION_ENABLE_LABEL", comment: "")
+	static let NOTIFICATION_MESSAGE_ACTION_DISABLED = NSLocalizedString("NOTIFICATION_MESSAGE_ACTION_DISABLED", comment: "")
+	static func NOTIFICATION_MESSAGE_ACTION_ENABLED(_ p1: String) -> String { return NSLocalizedString("NOTIFICATION_MESSAGE_ACTION_ENABLED", comment: "").replacingOccurrences(of: "%1", with: p1) }
+	static func NOTIFICATION_MESSAGE_DESCRIPTION(_ p1: String, _ p2: String, _ p3: String) -> String { return NSLocalizedString("NOTIFICATION_MESSAGE_DESCRIPTION", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2).replacingOccurrences(of: "%3", with: p3) }
+	static func NOTIFICATION_MESSAGE_TEMPLATE_BODY(_ p1: String, _ p2: String, _ p3: String, _ p4: String) -> String { return NSLocalizedString("NOTIFICATION_MESSAGE_TEMPLATE_BODY", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2).replacingOccurrences(of: "%3", with: p3).replacingOccurrences(of: "%4", with: p4) }
+	static let NOTIFICATION_MESSAGE_TITLE = NSLocalizedString("NOTIFICATION_MESSAGE_TITLE", comment: "")
+	static let NOTIFICATION_PERIOD_DURATION_LABEL = NSLocalizedString("NOTIFICATION_PERIOD_DURATION_LABEL", comment: "")
+	static let NOTIFICATION_PERIOD_START_LABEL = NSLocalizedString("NOTIFICATION_PERIOD_START_LABEL", comment: "")
+	static let NOTIFICATION_PERIOD_TITLE = NSLocalizedString("NOTIFICATION_PERIOD_TITLE", comment: "")
 	static let NOTIFICATION_TITLE = NSLocalizedString("NOTIFICATION_TITLE", comment: "")
-	static let NOTIFICATION_VALUE_STATUS_HIGH = NSLocalizedString("NOTIFICATION_VALUE_STATUS_HIGH", comment: "")
-	static let NOTIFICATION_VALUE_STATUS_LOW = NSLocalizedString("NOTIFICATION_VALUE_STATUS_LOW", comment: "")
-	static let NOTIFICATION_VALUE_TOD_AFTERNOON = NSLocalizedString("NOTIFICATION_VALUE_TOD_AFTERNOON", comment: "")
-	static let NOTIFICATION_VALUE_TOD_EVENING = NSLocalizedString("NOTIFICATION_VALUE_TOD_EVENING", comment: "")
-	static let NOTIFICATION_VALUE_TOD_MORNING = NSLocalizedString("NOTIFICATION_VALUE_TOD_MORNING", comment: "")
-	static let NOTIFICATION_VALUE_TOD_NIGHT = NSLocalizedString("NOTIFICATION_VALUE_TOD_NIGHT", comment: "")
+	static let NOTIFICATION_TRIGGER_LABEL = NSLocalizedString("NOTIFICATION_TRIGGER_LABEL", comment: "")
+	static let NOTIFICATION_TRIGGER_TITLE = NSLocalizedString("NOTIFICATION_TRIGGER_TITLE", comment: "")
 	static let PRICE_ARCHIVE_FAILURE_MESSAGE = NSLocalizedString("PRICE_ARCHIVE_FAILURE_MESSAGE", comment: "")
 	static let PRICE_ARCHIVE_TITLE = NSLocalizedString("PRICE_ARCHIVE_TITLE", comment: "")
 	static let SETTINGS_NETWORK_TITLE = NSLocalizedString("SETTINGS_NETWORK_TITLE", comment: "")

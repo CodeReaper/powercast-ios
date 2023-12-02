@@ -13,17 +13,12 @@ struct Notification: AutoCopy, Equatable {
     let durationOffset: UInt
     let lastDelivery: Date
 
-    // FIXME: translations
     var action: String? {
-        if enabled {
-            return "Will trigger at \(fireOffset / 3600)"
-        } else {
-            return "disabled"
-        }
+        enabled ? Translations.NOTIFICATION_MESSAGE_ACTION_ENABLED("\(fireOffset / 3600)") : Translations.NOTIFICATION_MESSAGE_ACTION_DISABLED
     }
 
     var description: String {
-        "Display prices at \(fireOffset / 3600) between \(dateOffset) and \(durationOffset)"
+        Translations.NOTIFICATION_MESSAGE_DESCRIPTION("\(fireOffset / 3600)", "\(dateOffset)", "\(durationOffset)")
     }
 
     init(id: String, enabled: Bool, fireOffset: UInt, dateOffset: UInt, durationOffset: UInt, lastDelivery: Date) {
@@ -51,10 +46,14 @@ struct Notification: AutoCopy, Equatable {
         let numberFormatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
         let dateFormatter = DateFormatter.with(dateStyle: .none, timeStyle: .short)
 
-        // FIXME: translations
         let content = UNMutableNotificationContent()
-        content.title = Translations.NOTIFICATION_TITLE
-        content.body = "Between \(dateFormatter.string(from: period.start)) and \(dateFormatter.string(from: period.end)) the prices range from \(numberFormatter.string(with: priceSpan.lowerBound)) to \(numberFormatter.string(with: priceSpan.upperBound)) øre/kWh"
+        content.title = Translations.NOTIFICATION_MESSAGE_TITLE
+        content.body = Translations.NOTIFICATION_MESSAGE_TEMPLATE_BODY(
+            dateFormatter.string(from: period.start),
+            dateFormatter.string(from: period.end),
+            numberFormatter.string(with: priceSpan.lowerBound),
+            numberFormatter.string(with: priceSpan.upperBound)
+        )
         content.userInfo = [
             Notification.DATE: firingDate.timeIntervalSince1970,
             Notification.ID: id
