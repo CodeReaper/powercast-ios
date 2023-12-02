@@ -85,7 +85,7 @@
 		CD1068C72B12BC2400FD5B0E /* .editorconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD1068C52B12BC2400FD5B0E /* .editorconfig */; };
 		CD1068C82B12BC2400FD5B0E /* AutoCopyNotification.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068C62B12BC2400FD5B0E /* AutoCopyNotification.generated.swift */; };
 		CD1068CA2B13870300FD5B0E /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068C92B13870300FD5B0E /* NotificationViewController.swift */; };
-		CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */; };
+		CD2CFE0128E0D2A500DC55C1 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationScheduler.swift */; };
 		CD36624729281614009FAC8B /* Flogger in Frameworks */ = {isa = PBXBuildFile; productRef = CD36624629281614009FAC8B /* Flogger */; };
 		CD4022E82A34AA2B00027798 /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD4022E72A34AA2B00027798 /* SugarKit */; };
 		CD4022EC2A34ADA600027798 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4022EB2A34ADA600027798 /* LoadingView.swift */; };
@@ -204,7 +204,7 @@
 		CD1068C52B12BC2400FD5B0E /* .editorconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .editorconfig; sourceTree = "<group>"; };
 		CD1068C62B12BC2400FD5B0E /* AutoCopyNotification.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCopyNotification.generated.swift; sourceTree = "<group>"; };
 		CD1068C92B13870300FD5B0E /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
-		CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
+		CD2CFE0028E0D2A500DC55C1 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		CD4022EB2A34ADA600027798 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CD5C58CF2AE4824900143060 /* ChargesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargesRepository.swift; sourceTree = "<group>"; };
 		CD5C58D12AE4844B00143060 /* ChargeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeDatabase.swift; sourceTree = "<group>"; };
@@ -288,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				384E642D288D90EF004ADCB1 /* BackgroundScheduler.swift */,
+				CD2CFE0028E0D2A500DC55C1 /* NotificationScheduler.swift */,
 			);
 			path = Schedulers;
 			sourceTree = "<group>";
@@ -425,7 +426,6 @@
 				CD10689A2B0412F300FD5B0E /* EmissionCo2Repository.swift */,
 				CD10689C2B04165600FD5B0E /* EmissionRepository.swift */,
 				38E0FA642884759B0096B98A /* EnergyPriceRepository.swift */,
-				CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */,
 				384E6434288D9E38004ADCB1 /* StateRepository.swift */,
 			);
 			path = Repositories;
@@ -815,7 +815,7 @@
 				CDEAF3332B1BAEA700C4ED7A /* StackviewCell.swift in Sources */,
 				CD1068AB2B07F17800FD5B0E /* DateInterval.swift in Sources */,
 				38ECF94B289B0ACF00ED8372 /* Date.swift in Sources */,
-				CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */,
+				CD2CFE0128E0D2A500DC55C1 /* NotificationScheduler.swift in Sources */,
 				CD1068BA2B092D3300FD5B0E /* PriceCell.swift in Sources */,
 				38E0FA68288476C40096B98A /* EnergyPriceService.swift in Sources */,
 				38ECF94D289C467B00ED8372 /* TimeInterval.swift in Sources */,

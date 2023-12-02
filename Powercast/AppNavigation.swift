@@ -34,7 +34,7 @@ class AppNavigation {
             navigation: self,
             prices: dependencies.energyPriceRepository,
             emission: dependencies.emissionRepository,
-            notifications: dependencies.notificationRepository,
+            notifications: dependencies.notificationScheduler,
             state: dependencies.stateRepository
         )
     )

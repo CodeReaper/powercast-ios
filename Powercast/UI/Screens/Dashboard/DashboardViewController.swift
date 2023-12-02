@@ -13,7 +13,7 @@ class DashboardViewController: ViewController {
 
     private var interactor: DashboardInteractor!
 
-    init(navigation: AppNavigation, prices: EnergyPriceRepository, emission: EmissionRepository, notifications: NotificationRepository, state: StateRepository) {
+    init(navigation: AppNavigation, prices: EnergyPriceRepository, emission: EmissionRepository, notifications: NotificationScheduler, state: StateRepository) {
         super.init(navigation: navigation)
         interactor = DashboardInteractor(delegate: self, prices: prices, emission: emission, notifications: notifications, state: state)
     }

@@ -2,8 +2,7 @@ import Foundation
 import UserNotifications
 import Flogger
 
-// FIXME: is this a service/manager/controller and not a repo?
-class NotificationRepository {
+class NotificationScheduler {
     private let delegate: Delegate
     private let charges: ChargesRepository
     private let prices: EnergyPriceRepository
@@ -76,7 +75,7 @@ class NotificationRepository {
     }
 }
 
-extension NotificationRepository.Delegate: UNUserNotificationCenterDelegate {
+extension NotificationScheduler.Delegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         mark(shown: notification)
         completionHandler([.banner, .badge, .sound])
