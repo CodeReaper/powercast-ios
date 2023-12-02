@@ -89,7 +89,7 @@ class ChargesRepository: ChargesLookup {
 
     func pullGrid() async throws {
         let items = try await service.grid()
-        Flog.info("ChargesRepository: Updating \(items.count) grid price rows")
+        Flog.debug("ChargesRepository: Updating \(items.count) grid price rows")
         try await database.write { db in
             try items.map { try Database.GridPrice.from(model: $0) }.forEach { var item = $0; try item.insert(db) }
         }
@@ -97,7 +97,7 @@ class ChargesRepository: ChargesLookup {
 
     func pullNetworks() async throws {
         let items = try await service.networks()
-        Flog.info("ChargesRepository: Updating \(items.count) network rows")
+        Flog.debug("ChargesRepository: Updating \(items.count) network rows")
         try await database.write { db in
             try items.map { try Database.Network.from(model: $0) }.forEach { var item = $0; try item.upsert(db) }
         }
@@ -106,7 +106,7 @@ class ChargesRepository: ChargesLookup {
     func pullNetworks(_ ids: [Int]) async throws {
         for id in ids {
             let items = try await service.network(id: id)
-            Flog.info("ChargesRepository: Updating \(items.count) network price rows")
+            Flog.debug("ChargesRepository: Updating \(items.count) network price rows")
             try await database.write { db in
                 try items.map { try Database.NetworkPrice.from(model: $0) }.forEach { var item = $0; try item.insert(db) }
             }

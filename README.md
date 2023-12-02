@@ -11,7 +11,7 @@ Below follows a roadmap arranged by current best guess for completion:
  - [x] Settings
  - [x] Settings - Network
  - [x] Settings - Notifications
- - [ ] Settings - Preset notifications
+ - [x] Settings - Fully customizable notifications
  - [x] Grid details
  - [x] Network details
  - [x] Navigation routes
@@ -22,8 +22,11 @@ Below follows a roadmap arranged by current best guess for completion:
  - [x] Historic drilldown of prices
  - [x] Dark mode
  - [ ] IAP
+ - [ ] Create privacy policy page
+ - [ ] Pipelines for deployment, artwork and whatnots needed for App Store
 
-## Possible future features
+## Possible future features and tasks
 
 - Price comparisons between network companies
-- Fully customizable notifications
+- Allocate a type-of-power-usage-session to estimate a price and savings, if delayed
+- Enrollment in this [program](https://developer.apple.com/app-store/small-business-program/)

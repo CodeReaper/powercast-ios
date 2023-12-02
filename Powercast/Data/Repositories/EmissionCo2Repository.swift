@@ -65,7 +65,7 @@ class EmissionCo2Repository {
     func pull(zone: Zone, at date: Date) async throws {
         guard let items: [Co2] = try? await service.co2Data(for: zone, at: date) else { return }
 
-        Flog.info("EmissionRepository: Updating \(items.count) co2 items in \(zone)")
+        Flog.debug("EmissionRepository: Updating \(items.count) co2 items in \(zone)")
 
         try await database.write { [items] db in
             try items.map { Database.Co2.from(model: $0) }.forEach {

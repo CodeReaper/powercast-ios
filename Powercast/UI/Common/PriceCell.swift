@@ -2,7 +2,7 @@ import UIKit
 import SugarKit
 
 class PriceCell: UITableViewCell {
-    private static let dateFormatter = DateFormatter.with(format: "HH")
+    private static let dateFormatter = DateFormatter.with(format: "HH") // TODO: handle fixed date format
     private static let numberFormatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
 
     private let selectionIndicator = UIView()

@@ -47,7 +47,8 @@
 "NOTIFICATION_ENABLE_LABEL" = "Enabled";
 "NOTIFICATION_MESSAGE_ACTION_DISABLED" = "Disabled";
 "NOTIFICATION_MESSAGE_ACTION_ENABLED" = "Will display at %1";
-"NOTIFICATION_MESSAGE_DESCRIPTION" = "Display at %1 prices between %2 and %3";
+"NOTIFICATION_MESSAGE_DESCRIPTION" = "Prices between %1 and %2";
+"NOTIFICATION_MESSAGE_FULL_DESCRIPTION" = "Display at %1 prices between %2 and %3";
 "NOTIFICATION_MESSAGE_TEMPLATE_BODY" = "Between %1 and %2 the prices range from %3 to %4 øre/kWh";
 "NOTIFICATION_MESSAGE_TITLE" = "Price update";
 "NOTIFICATION_PERIOD_DURATION_LABEL" = "Duration in hours";
@@ -59,7 +60,7 @@
 "PRICE_ARCHIVE_FAILURE_MESSAGE" = "Failed to load data";
 "PRICE_ARCHIVE_TITLE" = "Price archive";
 "SETTINGS_NETWORK_TITLE" = "Network";
-"SETTINGS_NOTIFICATIONS_ADD_BUTTON" = "Add";
+"SETTINGS_NOTIFICATIONS_ADD_BUTTON" = "Add notification";
 "SETTINGS_NOTIFICATIONS_SYSTEM_DISABLED" = "Notifications are disabled by system settings";
 "SETTINGS_NOTIFICATIONS_TITLE" = "Notifications";
 "SETTINGS_STATE_DISABLED" = "Disabled";

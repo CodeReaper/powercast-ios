@@ -13,6 +13,7 @@ class NotificationScheduler {
         self.charges = charges
         self.prices = prices
         self.state = state
+        state.add(observer: self)
     }
 
     func register() {
@@ -39,6 +40,8 @@ class NotificationScheduler {
         await center.deliveredNotifications().forEach { notification in
             delegate.mark(shown: notification)
         }
+
+        Flog.info("Delivered notifications has been registered and pending notifications cleared.")
 
         do {
             for date in [Date.now, .now.endOfDay] {
@@ -79,5 +82,11 @@ extension NotificationScheduler.Delegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         mark(shown: notification)
         completionHandler([.banner, .badge, .sound])
+    }
+}
+
+extension NotificationScheduler: Observer {
+    func updated() {
+        Task { await schedule() }
     }
 }

@@ -106,8 +106,8 @@ class NotificationViewController: ViewController {
         navigationItem.setLeftBarButton(hasChanges ? cancelButton : nil, animated: true)
         navigationItem.setRightBarButton(hasChanges || !existingNotification ? saveButton : nil, animated: true)
         triggerPicker.setDate(.now.startOfDay.addingTimeInterval(TimeInterval(notification.fireOffset)), animated: true)
-        startPicker.selectRow(startingHours.firstIndex(of: Int(notification.dateOffset)) ?? 0, inComponent: 0, animated: true)
-        durationPicker.selectRow(durationHours.firstIndex(of: Int(notification.durationOffset)) ?? 0, inComponent: 0, animated: true)
+        startPicker.selectRow(startingHours.firstIndex(of: Int(notification.dateOffset / 3600)) ?? 0, inComponent: 0, animated: true)
+        durationPicker.selectRow(durationHours.firstIndex(of: Int(notification.durationOffset / 3600)) ?? 0, inComponent: 0, animated: true)
         toggle.setOn(notification.enabled, animated: true)
         tableView.reloadSections(IndexSet(integer: 3), with: .automatic)
     }
@@ -153,7 +153,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         case (0, 0): tableView.dequeueReusableCell(ToggleCell.self, forIndexPath: indexPath).update(with: toggle)
         case (1, 0): tableView.dequeueReusableCell(DateSelectionCell.self, forIndexPath: indexPath).update(with: triggerPicker)
         case (2, 0): tableView.dequeueReusableCell(DurationCell.self, forIndexPath: indexPath).update(with: startPicker, and: durationPicker)
-        case (3, 0): tableView.dequeueReusableCell(MessageCell.self, forIndexPath: indexPath).update(with: notification.description)
+        case (3, 0): tableView.dequeueReusableCell(MessageCell.self, forIndexPath: indexPath).update(with: notification.fullDescription)
         default: tableView.dequeueReusableCell(UITableViewCell.self, forIndexPath: indexPath)
         }
     }
@@ -199,8 +199,8 @@ extension NotificationViewController: UIPickerViewDataSource, UIPickerViewDelega
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch true {
-        case pickerView === startPicker: notification = notification.copy(dateOffset: UInt(startingHours[row]))
-        case pickerView === durationPicker: notification = notification.copy(durationOffset: UInt(durationHours[row]))
+        case pickerView === startPicker: notification = notification.copy(dateOffset: UInt(startingHours[row]) * 3600)
+        case pickerView === durationPicker: notification = notification.copy(durationOffset: UInt(durationHours[row]) * 3600)
         default: break
         }
         update()
@@ -209,6 +209,6 @@ extension NotificationViewController: UIPickerViewDataSource, UIPickerViewDelega
 
 private extension Notification {
     static func create() -> Notification {
-        Notification(id: UUID().uuidString, enabled: true, fireOffset: 46800, dateOffset: 16, durationOffset: 5, lastDelivery: Date(timeIntervalSince1970: 0))
+        Notification(id: UUID().uuidString, enabled: true, fireOffset: 13 * 3600, dateOffset: 16 * 3600, durationOffset: 5 * 3600, lastDelivery: Date(timeIntervalSince1970: 0))
     }
 }

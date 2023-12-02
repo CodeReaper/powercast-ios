@@ -97,7 +97,7 @@ class StateRepository: Observerable, NetworkState, NotificationState, SystemStat
     func update(notification: Notification) {
         var keys = store.stringArray(forKey: keyNotificationKeys) ?? []
         keys.append(notification.id)
-        store.setValue(Set(keys), forKey: keyNotificationKeys)
+        store.setValue(Array(Set(keys)), forKey: keyNotificationKeys)
 
         store.setValue(notification.enabled, forKey: id(of: notification, with: suffixNotificationEnabled))
         store.setValue(notification.fireOffset, forKey: id(of: notification, with: suffixNotificationFire))

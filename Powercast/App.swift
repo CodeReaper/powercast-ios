@@ -73,10 +73,6 @@ class App: Dependenables {
         backgroundScheduler.schedule()
         notificationScheduler.register()
         navigation.setup(using: window)
-
-        Task {
-            await notificationScheduler.schedule()
-        }
     }
 
     func willEnterForeground() { }
