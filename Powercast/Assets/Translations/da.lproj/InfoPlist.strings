@@ -60,6 +60,7 @@
 "PRICE_ARCHIVE_TITLE" = "Pris arkiv";
 "SETTINGS_NETWORK_TITLE" = "Netværk";
 "SETTINGS_NOTIFICATIONS_ADD_BUTTON" = "Tilføj";
+"SETTINGS_NOTIFICATIONS_SYSTEM_DISABLED" = "Notifikationer er slået fra i system indstillinger";
 "SETTINGS_NOTIFICATIONS_TITLE" = "Notifikationer";
 "SETTINGS_STATE_DISABLED" = "Slået fra";
 "SETTINGS_STATE_ENABLED" = "Slået til";

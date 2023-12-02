@@ -53,13 +53,9 @@ class DashboardInteractor {
                 await refreshAsync()
             }
         }
-        state.add(observer: self)
-        updated()
     }
 
-    func viewWillDisappear() {
-        state.remove(observer: self)
-    }
+    func viewWillDisappear() { }
 
     func refreshData() {
         Task {
@@ -93,18 +89,6 @@ class DashboardInteractor {
                 return
             }
             delegate?.show(priceData: priceSource, emissionData: updatedEmissionSource ?? EmptyEmissionTableDataSource())
-        }
-    }
-}
-
-extension DashboardInteractor: Observer {
-    func updated() {
-        DispatchQueue.main.async {
-            switch self.state.notificationStatus {
-            case .notDetermined:
-                self.notifications.request()
-            default: break
-            }
         }
     }
 }

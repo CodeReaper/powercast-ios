@@ -60,6 +60,7 @@
 "PRICE_ARCHIVE_TITLE" = "Price archive";
 "SETTINGS_NETWORK_TITLE" = "Network";
 "SETTINGS_NOTIFICATIONS_ADD_BUTTON" = "Add";
+"SETTINGS_NOTIFICATIONS_SYSTEM_DISABLED" = "Notifications are disabled by system settings";
 "SETTINGS_NOTIFICATIONS_TITLE" = "Notifications";
 "SETTINGS_STATE_DISABLED" = "Disabled";
 "SETTINGS_STATE_ENABLED" = "Enabled";

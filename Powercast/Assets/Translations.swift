@@ -63,6 +63,7 @@ struct Translations {
 	static let PRICE_ARCHIVE_TITLE = NSLocalizedString("PRICE_ARCHIVE_TITLE", comment: "")
 	static let SETTINGS_NETWORK_TITLE = NSLocalizedString("SETTINGS_NETWORK_TITLE", comment: "")
 	static let SETTINGS_NOTIFICATIONS_ADD_BUTTON = NSLocalizedString("SETTINGS_NOTIFICATIONS_ADD_BUTTON", comment: "")
+	static let SETTINGS_NOTIFICATIONS_SYSTEM_DISABLED = NSLocalizedString("SETTINGS_NOTIFICATIONS_SYSTEM_DISABLED", comment: "")
 	static let SETTINGS_NOTIFICATIONS_TITLE = NSLocalizedString("SETTINGS_NOTIFICATIONS_TITLE", comment: "")
 	static let SETTINGS_STATE_DISABLED = NSLocalizedString("SETTINGS_STATE_DISABLED", comment: "")
 	static let SETTINGS_STATE_ENABLED = NSLocalizedString("SETTINGS_STATE_ENABLED", comment: "")

@@ -58,6 +58,7 @@
 "SETTINGS_SYSTEM_NOTIFICATIONS","","Notifications","Notifikationer",""
 "SETTINGS_NOTIFICATIONS_TITLE","","Notifications","Notifikationer",""
 "SETTINGS_NOTIFICATIONS_ADD_BUTTON","","Add","Tilføj",""
+"SETTINGS_NOTIFICATIONS_SYSTEM_DISABLED","","Notifications are disabled by system settings","Notifikationer er slået fra i system indstillinger",""
 "NOTIFICATION_TITLE","","Notification","Notifikation",""
 "NOTIFICATION_ENABLE_LABEL","","Enabled","Aktiv",""
 "NOTIFICATION_TRIGGER_TITLE","","Trigger","Igangsættelse",""

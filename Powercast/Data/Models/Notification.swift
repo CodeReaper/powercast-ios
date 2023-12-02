@@ -2,7 +2,7 @@ import Foundation
 import UserNotifications
 import Flogger
 
-struct Notification: AutoCopy, Equatable {
+struct Notification: AutoCopy, Equatable { // FIXME: use seconds in all of this
     static let ID = "id"
     static let DATE = "date"
 

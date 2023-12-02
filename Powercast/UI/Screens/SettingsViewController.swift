@@ -5,11 +5,13 @@ class SettingsViewController: ViewController {
     private let tableView = UITableView(frame: .zero, style: .grouped)
 
     private let state: StateRepository
+    private let notifications: NotificationScheduler
 
     private var sections: [Section] = []
 
-    init(navigation: AppNavigation, state: StateRepository) {
+    init(navigation: AppNavigation, state: StateRepository, notifications: NotificationScheduler) {
         self.state = state
+        self.notifications = notifications
         super.init(navigation: navigation)
     }
 
@@ -31,6 +33,7 @@ class SettingsViewController: ViewController {
             .set(datasource: self, delegate: self)
             .set(backgroundColor: .tableBackground)
             .registerClass(NavigationCell.self)
+            .registerClass(MessageCell.self)
             .layout(in: view) { make, its in
                 make(its.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor))
                 make(its.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor))
@@ -57,6 +60,8 @@ class SettingsViewController: ViewController {
 
     private enum Row {
         case navigate(label: String, detailLabel: String?, endpoint: Navigation)
+        case notification
+        case disabled
     }
 
     private class NavigationCell: UITableViewCell {
@@ -77,6 +82,13 @@ class SettingsViewController: ViewController {
             return self
         }
     }
+
+    private class MessageCell: StackviewCell {
+        func update(with message: String) -> Self {
+            views.addArrangedSubview(Label(text: message, color: .cellSecondaryText))
+            return self
+        }
+    }
 }
 
 extension SettingsViewController: Observer {
@@ -91,6 +103,9 @@ extension SettingsViewController: Observer {
         switch (lhs, rhs) {
         case (let .navigate(lhsLabel, lhsDetailLabel, _), let .navigate(rhsLabel, rhsDetailLabel, _)):
             return lhsLabel == rhsLabel && lhsDetailLabel == rhsDetailLabel
+        case (.notification, .notification): return true
+        case (.disabled, .disabled): return true
+        default: return false
         }
     }
 }
@@ -112,6 +127,10 @@ extension SettingsViewController: UITableViewDataSource {
         switch sections[indexPath.section].rows[indexPath.row] {
         case let .navigate(label, detail, _):
             return tableView.dequeueReusableCell(NavigationCell.self, forIndexPath: indexPath).update(title: label, label: detail)
+        case .notification:
+            return tableView.dequeueReusableCell(NavigationCell.self, forIndexPath: indexPath).update(title: Translations.SETTINGS_NOTIFICATIONS_ADD_BUTTON, label: nil)
+        case .disabled:
+            return tableView.dequeueReusableCell(MessageCell.self, forIndexPath: indexPath).update(with: Translations.SETTINGS_NOTIFICATIONS_SYSTEM_DISABLED)
         }
     }
 }
@@ -122,6 +141,16 @@ extension SettingsViewController: UITableViewDelegate {
         switch sections[indexPath.section].rows[indexPath.row] {
         case let .navigate(_, _, endpoint):
             navigate(to: endpoint)
+        case .notification:
+            switch state.notificationStatus {
+            case .authorized:
+                navigate(to: .notification(notification: nil))
+            case .notDetermined:
+                notifications.request()
+            default: return
+            }
+        case .disabled:
+            return
         }
     }
 
@@ -157,13 +186,21 @@ extension SettingsViewController {
     }
 
     private func buildNotificationSettings() -> Section {
-        let rows = state.notifications.map { notification in
-            Row.navigate(label: notification.description, detailLabel: notification.action, endpoint: .notification(notification: notification))
+        switch state.notificationStatus {
+        case .authorized:
+            let rows = state.notifications.map { notification in
+                Row.navigate(label: notification.description, detailLabel: notification.action, endpoint: .notification(notification: notification))
+            }
+            return SettingsViewController.Section(
+                title: Translations.SETTINGS_NOTIFICATIONS_TITLE,
+                rows: rows + [.notification]
+            )
+        default:
+            return SettingsViewController.Section(
+                title: Translations.SETTINGS_NOTIFICATIONS_TITLE,
+                rows: [.disabled]
+            )
         }
-        return SettingsViewController.Section(
-            title: Translations.SETTINGS_NOTIFICATIONS_TITLE,
-            rows: rows + [.navigate(label: Translations.SETTINGS_NOTIFICATIONS_ADD_BUTTON, detailLabel: nil, endpoint: .notification(notification: nil))] // FIXME: overall disabled state and initial permissions
-        )
     }
 }
 

@@ -117,15 +117,15 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
     private class DurationCell: StackviewCell {
         func update(with firstView: UIPickerView, and secondView: UIPickerView) -> Self {
             views.directionalLayoutMargins.top = 15
-            views.addArrangedSubview(Stack.views(on: .vertical, Label(text: Translations.NOTIFICATION_PERIOD_START_LABEL).aligned(to: .center), firstView))
-            views.addArrangedSubview(Stack.views(on: .vertical, Label(text: Translations.NOTIFICATION_PERIOD_DURATION_LABEL).aligned(to: .center), secondView))
+            views.addArrangedSubview(Stack.views(on: .vertical, Label(text: Translations.NOTIFICATION_PERIOD_START_LABEL, color: .cellText).aligned(to: .center), firstView))
+            views.addArrangedSubview(Stack.views(on: .vertical, Label(text: Translations.NOTIFICATION_PERIOD_DURATION_LABEL, color: .cellText).aligned(to: .center), secondView))
             return self
         }
     }
 
     private class ToggleCell: StackviewCell {
         func update(with view: UISwitch) -> Self {
-            views.addArrangedSubview(Label(text: Translations.NOTIFICATION_ENABLE_LABEL))
+            views.addArrangedSubview(Label(text: Translations.NOTIFICATION_ENABLE_LABEL, color: .cellText))
             views.addArrangedSubview(view.updateContentHuggingPriority(.required, for: .horizontal))
             return self
         }
@@ -133,7 +133,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
 
     private class DateSelectionCell: StackviewCell {
         func update(with view: UIDatePicker) -> Self {
-            views.addArrangedSubview(Label(text: Translations.NOTIFICATION_TRIGGER_LABEL))
+            views.addArrangedSubview(Label(text: Translations.NOTIFICATION_TRIGGER_LABEL, color: .cellText))
             views.addArrangedSubview(view.updateContentHuggingPriority(.required, for: .horizontal))
             return self
         }
@@ -141,7 +141,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
 
     private class MessageCell: StackviewCell {
         func update(with message: String) -> Self {
-            views.addArrangedSubview(Label(text: message))
+            views.addArrangedSubview(Label(text: message, color: .cellText))
             backgroundColor = .clear
             separatorInset = UIEdgeInsets(top: 0, left: bounds.size.width, bottom: 0, right: bounds.size.width)
             return self
