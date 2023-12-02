@@ -31,7 +31,6 @@ class SettingsViewController: ViewController {
             .set(datasource: self, delegate: self)
             .set(backgroundColor: .tableBackground)
             .registerClass(NavigationCell.self)
-            .registerClass(ToggleCell.self)
             .layout(in: view) { make, its in
                 make(its.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor))
                 make(its.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor))
@@ -75,38 +74,6 @@ class SettingsViewController: ViewController {
             detailTextLabel?.text = label
             detailTextLabel?.textColor = .cellSecondaryText
             accessoryType = .disclosureIndicator
-            return self
-        }
-    }
-
-    private class ToggleCell: UITableViewCell {
-        private let views = Stack.views(on: .horizontal, inset: NSDirectionalEdgeInsets(top: 7, leading: 20, bottom: 7, trailing: 20))
-        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-            views.layout(in: contentView) { make, its in
-                make(its.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor))
-                make(its.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor))
-                make(its.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor))
-                make(its.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor))
-                make(its.heightAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.heightAnchor))
-            }
-        }
-
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-
-        override func prepareForReuse() {
-            super.prepareForReuse()
-            views.arrangedSubviews.forEach {
-                views.removeArrangedSubview($0)
-                $0.removeFromSuperview()
-            }
-        }
-
-        func update(title: String, with view: UISwitch) -> Self {
-            views.addArrangedSubview(Stack.views(on: .vertical, spacing: 3, Label(style: .body, text: title, color: .cellText)))
-            views.addArrangedSubview(Stack.views(on: .vertical, view, FlexibleSpace()))
             return self
         }
     }
@@ -191,7 +158,7 @@ extension SettingsViewController {
 
     private func buildNotificationSettings() -> Section {
         let rows = state.notifications.map { notification in
-            Row.navigate(label: notification.title, detailLabel: notification.subtitle, endpoint: .notification(notification: notification))
+            Row.navigate(label: notification.description, detailLabel: notification.action, endpoint: .notification(notification: notification))
         }
         return SettingsViewController.Section(
             title: Translations.SETTINGS_NOTIFICATIONS_TITLE,

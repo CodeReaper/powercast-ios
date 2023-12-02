@@ -57,10 +57,6 @@ class AppNavigation {
 
         navigate(to: .launch)
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // FIXME: remove
-            self.navigate(to: .notification(notification: nil))
-        }
-
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
     }

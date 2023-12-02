@@ -14,11 +14,7 @@ struct Notification: AutoCopy, Equatable {
     let lastDelivery: Date
 
     // FIXME: translations
-    var title: String {
-        "Prices between \(dateOffset) and \(durationOffset)"
-    }
-
-    var subtitle: String? {
+    var action: String? {
         if enabled {
             return "Will trigger at \(fireOffset / 3600)"
         } else {
@@ -27,7 +23,7 @@ struct Notification: AutoCopy, Equatable {
     }
 
     var description: String {
-        "Display prices between \(dateOffset) and \(durationOffset) at \(fireOffset / 3600)\(enabled ? "" : ", but currently disabled")"
+        "Display prices at \(fireOffset / 3600) between \(dateOffset) and \(durationOffset)"
     }
 
     init(id: String, enabled: Bool, fireOffset: UInt, dateOffset: UInt, durationOffset: UInt, lastDelivery: Date) {

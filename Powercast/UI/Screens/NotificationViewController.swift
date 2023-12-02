@@ -2,8 +2,7 @@ import UIKit
 import SugarKit
 
 class NotificationViewController: ViewController {
-    private let views = Stack.views(on: .vertical, spacing: 15, inset: NSDirectionalEdgeInsets(top: 25, leading: 15, bottom: 5, trailing: 15))
-    private let label = Label()
+    private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     private let triggerPicker = UIDatePicker()
     private let startPicker = UIPickerView()
     private let durationPicker = UIPickerView()
@@ -13,6 +12,7 @@ class NotificationViewController: ViewController {
     private let durationHours = Array(stride(from: 1, to: 25, by: 1))
 
     private let state: StateRepository
+    private let existingNotification: Bool
     private let originalNotification: Notification
 
     private var notification: Notification
@@ -22,6 +22,7 @@ class NotificationViewController: ViewController {
 
     init(navigation: AppNavigation, state: StateRepository, notification: Notification?) {
         self.state = state
+        self.existingNotification = notification != nil
         self.originalNotification = notification ?? Notification.create()
         self.notification = self.originalNotification
         super.init(navigation: navigation)
@@ -34,18 +35,28 @@ class NotificationViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let scrollView = UIScrollView().setup(matching: view, in: view)
-        scrollView.alwaysBounceVertical = true
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.contentInsetAdjustmentBehavior = .never
+        title = "Notification" // FIXME: notification.title
 
-        views.layout(in: scrollView) { make, its in
-            make(its.topAnchor.constraint(equalTo: scrollView.topAnchor))
-            make(its.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor))
-            make(its.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor))
-            make(its.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor))
-            make(its.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor))
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
         }
+        tableView.separatorStyle = .none
+        tableView.allowsSelection = false
+        tableView.showsVerticalScrollIndicator = false
+        tableView
+            .set(datasource: self, delegate: self)
+            .set(backgroundColor: .tableBackground)
+            .registerClass(DurationCell.self)
+            .registerClass(DateSelectionCell.self)
+            .registerClass(ToggleCell.self)
+            .registerClass(MessageCell.self)
+            .layout(in: view) { make, its in
+                make(its.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor))
+                make(its.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor))
+                make(its.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor))
+                make(its.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor))
+            }
 
         triggerPicker.preferredDatePickerStyle = .inline
         triggerPicker.datePickerMode = .time
@@ -55,19 +66,10 @@ class NotificationViewController: ViewController {
         for picker in [startPicker, durationPicker] {
             picker.dataSource = self
             picker.delegate = self
-            picker.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([picker.heightAnchor.constraint(equalToConstant: 162)])
         }
 
         toggle.onTintColor = .toggleTint
         toggle.addTarget(self, action: #selector(didTapToggle), for: .valueChanged)
-
-        // FIXME: translations
-        views.addArrangedSubview(Stack.views(distributed: .fill, Label(text: "Enabled"), toggle.updateContentHuggingPriority(.required, for: .horizontal)))
-        views.addArrangedSubview(Stack.views(distributed: .fillEqually, Label(text: "start").aligned(to: .center), Label(text: "duration").aligned(to: .center)))
-        views.addArrangedSubview(Stack.views(distributed: .fillEqually, startPicker, durationPicker))
-        views.addArrangedSubview(Stack.views(distributed: .fillEqually, Label(text: "Trigger"), triggerPicker))
-        views.addArrangedSubview(label)
 
         update()
     }
@@ -102,13 +104,77 @@ class NotificationViewController: ViewController {
         let hasChanges = originalNotification != notification
         navigationItem.setHidesBackButton(hasChanges, animated: true)
         navigationItem.setLeftBarButton(hasChanges ? cancelButton : nil, animated: true)
-        navigationItem.setRightBarButton(hasChanges ? saveButton : nil, animated: true)
-        title = "Notification" // FIXME: notification.title
-        label.text = notification.description
+        navigationItem.setRightBarButton(hasChanges || !existingNotification ? saveButton : nil, animated: true)
         triggerPicker.setDate(.now.startOfDay.addingTimeInterval(TimeInterval(notification.fireOffset)), animated: true)
         startPicker.selectRow(startingHours.firstIndex(of: Int(notification.dateOffset)) ?? 0, inComponent: 0, animated: true)
         durationPicker.selectRow(durationHours.firstIndex(of: Int(notification.durationOffset)) ?? 0, inComponent: 0, animated: true)
         toggle.setOn(notification.enabled, animated: true)
+        tableView.reloadSections(IndexSet(integer: 3), with: .automatic)
+    }
+}
+
+extension NotificationViewController: UITableViewDelegate, UITableViewDataSource {
+    // FIXME: translations
+    private class DurationCell: StackviewCell {
+        func update(with firstView: UIPickerView, and secondView: UIPickerView) -> Self {
+            views.directionalLayoutMargins.top = 15
+            views.addArrangedSubview(Stack.views(on: .vertical, Label(text: "Starting at hour").aligned(to: .center), firstView))
+            views.addArrangedSubview(Stack.views(on: .vertical, Label(text: "Duration in hours").aligned(to: .center), secondView))
+            return self
+        }
+    }
+
+    private class ToggleCell: StackviewCell {
+        func update(with view: UISwitch) -> Self {
+            views.addArrangedSubview(Label(text: "Enabled"))
+            views.addArrangedSubview(view.updateContentHuggingPriority(.required, for: .horizontal))
+            return self
+        }
+    }
+
+    private class DateSelectionCell: StackviewCell {
+        func update(with view: UIDatePicker) -> Self {
+            views.addArrangedSubview(Label(text: "At selected time"))
+            views.addArrangedSubview(view.updateContentHuggingPriority(.required, for: .horizontal))
+            return self
+        }
+    }
+
+    private class MessageCell: StackviewCell {
+        func update(with message: String) -> Self {
+            views.addArrangedSubview(Label(text: message))
+            backgroundColor = .clear
+            separatorInset = UIEdgeInsets(top: 0, left: bounds.size.width, bottom: 0, right: bounds.size.width)
+            return self
+        }
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch (indexPath.section, indexPath.row) {
+        case (0, 0): tableView.dequeueReusableCell(ToggleCell.self, forIndexPath: indexPath).update(with: toggle)
+        case (1, 0): tableView.dequeueReusableCell(DateSelectionCell.self, forIndexPath: indexPath).update(with: triggerPicker)
+        case (2, 0): tableView.dequeueReusableCell(DurationCell.self, forIndexPath: indexPath).update(with: startPicker, and: durationPicker)
+        case (3, 0): tableView.dequeueReusableCell(MessageCell.self, forIndexPath: indexPath).update(with: notification.description)
+        default: tableView.dequeueReusableCell(UITableViewCell.self, forIndexPath: indexPath)
+        }
+    }
+
+    // FIXME: *
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 1: return "Trigger"
+        case 2: return "Period"
+        case 3: return "Description"
+        default: return ""
+        }
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        4
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
     }
 }
 
