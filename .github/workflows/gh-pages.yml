@@ -15,11 +15,8 @@ on:
       - privacy-policy/**
 
 concurrency:
-  group: publishing-pages-${{ github.ref_name }}
+  group: publishing-pages-${{ github.ref }}
   cancel-in-progress: true
-
-# FIXME: replace ~Date~
-# FIXME: insert css
 
 jobs:
   render:
@@ -27,21 +24,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup markdown
+      - name: Load variables
         shell: bash
-        run: pipx install markdown
-      - name: Prepare output directories
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "updated=$(gh api /repos/${{ github.repository }}/commits?path=privacy-policy/index.md&sha=${{ github.sha }}| jq -r '.[0].commit.committer.date' | cut -dT -f1)" >> $GITHUB_ENV
+      - name: Render
         shell: bash
-        run: mkdir -p output/privacy-policy
-      - name: Convert markdowns
-        shell: bash
-        run: markdown_py privacy-policy/index.md > output/privacy-policy/index.html
-      - name: Copy stylesheets
-        shell: bash
-        run: find privacy-policy -type f -name '*.css' -print0 | rsync -av --files-from=- --from0 . output/
-      - name: Prepare artifact
-        shell: bash
-        run: chmod +rx output
+        run: |
+          pipx install markdown
+          mkdir -p output/privacy-policy
+          sed "s/~Date~/$updated/g" < privacy-policy/index.md > /tmp/out && mv /tmp/out privacy-policy/index.md
+          markdown_py privacy-policy/index.md > output/privacy-policy/index.html
+          printf '\n<link rel="stylesheet" href="styles.css">' >> output/privacy-policy/index.html
+          find privacy-policy -type f -name '*.css' -print0 | rsync -av --files-from=- --from0 . output/
+          chmod +rx output
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
@@ -53,11 +51,11 @@ jobs:
     permissions:
       pages: write
       id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
