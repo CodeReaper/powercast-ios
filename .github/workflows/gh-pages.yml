@@ -55,10 +55,15 @@ jobs:
       #   uses: docker://datafolklabs/markdown
       #   with:
       #     args: privacy-policy/index.md > output/privacy-policy/index.html
+      # - name: Convert
+      #   shell: bash
+      #   run: |
+      #     docker run -v .:/workspace datafolklabs/markdown -- /workspace/privacy-policy/index.md > /workspace/output/privacy-policy/index.html
       - name: Convert
         shell: bash
         run: |
-          docker run -v .:/workspace datafolklabs/markdown -- /workspace/privacy-policy/index.md > /workspace/output/privacy-policy/index.html
+          pipx install markdown
+          markdown privacy-policy/index.md > output/privacy-policy/index.html
       - name: Prepare artifact
         shell: bash
         run: chmod +rx output
