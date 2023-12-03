@@ -34,11 +34,15 @@ jobs:
         shell: bash
         run: |
           pipx install markdown
-          mkdir -p output/privacy-policy
+
+          find . -type f -name '*.css' -print0 | rsync -av --files-from=- --from0 . output/
+
+          printf '<meta http-equiv="refresh" content="0; url=./privacy-policy/" />' > output/index.html
+
           sed "s/~Date~/$updated/g" < privacy-policy/index.md > /tmp/out && mv /tmp/out privacy-policy/index.md
-          printf '<link rel="stylesheet" href="styles.css">\n' > output/privacy-policy/index.html
+          printf '<link rel="stylesheet" href="styles.css?_=${{ github.sha }}">\n' > output/privacy-policy/index.html
           markdown_py privacy-policy/index.md >> output/privacy-policy/index.html
-          find privacy-policy -type f -name '*.css' -print0 | rsync -av --files-from=- --from0 . output/
+
           chmod +rx output
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
