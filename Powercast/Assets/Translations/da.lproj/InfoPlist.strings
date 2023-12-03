@@ -43,6 +43,10 @@
 "NETWORK_SELECTION_HELP_MESSAGE" = "Du kan slå dit netselskab op hos Green Power Denmark, hvis du indtaster din adresse der";
 "NETWORK_SELECTION_HELP_TITLE" = "Slå dit netselskab op";
 "NETWORK_SELECTION_TITLE" = "Vælg netværk";
+"NOTIFICATION_DELETE_BUTTON_DESTRUCTIVE" = "Slet";
+"NOTIFICATION_DELETE_BUTTON_NEGATIVE" = "Annuller";
+"NOTIFICATION_DELETE_MESSAGE" = "Du kan ikke fortryde sletningen af denne notifikation. Er du sikker?";
+"NOTIFICATION_DELETE_TITLE" = "Slet";
 "NOTIFICATION_DESCRIPTION_TITLE" = "Beskrivelse";
 "NOTIFICATION_ENABLE_LABEL" = "Aktiv";
 "NOTIFICATION_MESSAGE_ACTION_DISABLED" = "Inaktiv";
