@@ -1,0 +1,122 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      major:
+        description: Major version
+        required: true
+        type: number
+      minor:
+        description: Minor version
+        required: true
+        type: number
+
+jobs:
+  release:
+    runs-on: macos-13
+    steps:
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '^15.0'
+
+      - name: Version information
+        run: xcrun xcodebuild -version
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup configuration
+        run: |
+          {
+            echo "DEVELOPMENT_TEAM = ${{ vars.DEVELOPMENT_TEAM }};"
+            echo "ORGANIZATION_IDENTIFIER = ${{ vars.ORGANIZATION_IDENTIFIER }};"
+            echo "HUMIO_INGEST_TOKEN = ${{ secrets.HUMIO_INGEST_TOKEN }};"
+            echo "HUMIO_DATA_SPACE = ${{ secrets.HUMIO_DATA_SPACE }};"
+            echo "MARKETING_VERSION = ${{ inputs.major }}.${{ inputs.minor }};"
+            echo "CURRENT_PROJECT_VERSION = $(git log --oneline main | wc -l);"
+          } > Powercast/Local.xcconfig
+
+      - name: Cache DerivedData
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/Library/Developer/Xcode/DerivedData/**/Build
+            ~/Library/Developer/Xcode/DerivedData/**/SourcePackages/checkouts
+            ~/Library/Developer/Xcode/DerivedData/**/SourcePackages/workspace-state.json
+          key: ${{ runner.os }}-xcode-${{ hashFiles('**/*.pbxproj', '**/swiftpm/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-xcode-
+
+      - name: Setup authentication
+        run: |
+          mkdir -p ~/.appstoreconnect/private_keys
+          printf '${{ secrets.APPSTORE_KEY_P8 }}' | base64 -d > ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_KEY_ID }}.p8
+          echo "KEY_FILE=~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_KEY_ID }}.p8" >> $GITHUB_ENV
+
+      - name: Build information
+        run: xcrun xcodebuild -showBuildSettings
+
+      - name: Build archive
+        run: |
+          xcodebuild -project Powercast.xcodeproj \
+          -archivePath "${{ runner.temp }}/Powercast.xcarchive" \
+          -scheme Powercast \
+          -configuration Release \
+          -sdk iphoneos \
+          -destination generic/platform=iOS \
+          -allowProvisioningUpdates \
+          -authenticationKeyID ${{ secrets.APPSTORE_KEY_ID }} \
+          -authenticationKeyIssuerID ${{ secrets.APPSTORE_KEY_ID }} \
+          -authenticationKeyPath "${{ env.KEY_FILE }}" \
+          clean archive
+
+      - name: Export ipa
+        run: |
+          cat <<EOF > ExportOptions.plist
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>teamID</key>
+            <string>${{ vars.DEVELOPMENT_TEAM }}</string>
+            <key>method</key>
+            <string>app-store</string>
+            <key>destination</key>
+            <string>upload</string>
+            <key>uploadSymbols</key>
+            <true/>
+          </dict>
+          </plist>
+          EOF
+
+          xcodebuild -exportArchive \
+          -archivePath "${{ runner.temp }}/Powercast.xcarchive" \
+          -exportOptionsPlist ExportOptions.plist
+          -exportPath "${{ runner.temp }}/build"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app
+          path: ${{ runner.temp }}/build/**.ipa
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: app
+
+      - name: List contents
+        run: find .
+
+      - name: Upload app
+        if: github.ref == 'refs/heads/main'
+        run: xcrun altool --upload-app -f app/*.ipa --type ios --apiKey ${{ secrets.APPSTORE_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_KEY_ID }}
+
+      - name: Save tag ${{ inputs.major }}.${{ inputs.minor }}
+        run: |
+          git tag -d ${{ inputs.major }}.${{ inputs.minor }} 2>/dev/null || true
+          git push origin :refs/tags/${{ inputs.major }}.${{ inputs.minor }} 2>/dev/null || true
+          git tag ${{ inputs.major }}.${{ inputs.minor }} ${{ github.sha }}
+          git push origin ${{ inputs.major }}.${{ inputs.minor }}

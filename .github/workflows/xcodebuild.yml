@@ -11,6 +11,10 @@ jobs:
         with:
           xcode-version: '^15.0'
 
+      - name: Build information
+        run: |
+          xcrun xcodebuild -version
+
       - uses: actions/checkout@v4
 
       - name: Setup local configuration
@@ -30,6 +34,9 @@ jobs:
           key: ${{ runner.os }}-xcode-${{ hashFiles('**/*.pbxproj', '**/swiftpm/Package.resolved') }}
           restore-keys: |
             ${{ runner.os }}-xcode-
+
+      - name: Build information
+        run: xcrun xcodebuild -showBuildSettings
 
       - name: Test
         run: |

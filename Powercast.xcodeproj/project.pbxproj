@@ -1033,6 +1033,7 @@
 		};
 		387FF60C286B90A40051E3DC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD8A4BC928BC1B9100EC68E3 /* Local.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1051,7 +1052,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).Powercast";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).Powercast.app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1086,6 +1087,7 @@
 		};
 		CDA0E4172AC982EC00FF364D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD8A4BC928BC1B9100EC68E3 /* Local.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
