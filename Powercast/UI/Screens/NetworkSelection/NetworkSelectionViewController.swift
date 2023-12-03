@@ -19,7 +19,7 @@ class NetworkSelectionViewController: ViewController {
         self.charges = charges
         self.cancelable = cancelable
         super.init(navigation: navigation)
-        retryButton = Button(text: Translations.NETWORK_SELECTION_EMPTY_BUTTON, textColor: .white, target: self, action: #selector(didTapRetry))
+        retryButton = Button(text: Translations.NETWORK_SELECTION_EMPTY_BUTTON, textColor: .buttonText, target: self, action: #selector(didTapRetry))
         show(networks)
     }
 
@@ -32,16 +32,17 @@ class NetworkSelectionViewController: ViewController {
 
         title = Translations.NETWORK_SELECTION_TITLE
 
-        navigationController?.navigationBar.shadowImage = UIImage()
-
         if cancelable {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
         }
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark.circle"), style: .plain, target: self, action: #selector(didTapHelp))
 
+        view.backgroundColor = .systemGroupedBackground
+
+        tableView.showsVerticalScrollIndicator = false
         tableView
             .set(datasource: self, delegate: self)
-            .set(backgroundColor: Color.primary)
+            .set(backgroundColor: .tableBackground)
             .registerClass(Cell.self)
             .registerClass(Header.self)
             .layout(in: view) { make, its in
@@ -51,13 +52,13 @@ class NetworkSelectionViewController: ViewController {
                 make(its.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor))
             }
 
-        emptyView.set(backgroundColor: Color.primary).setup(matching: view, in: view)
+        emptyView.set(backgroundColor: .tableBackground).setup(matching: view, in: view)
 
         Stack.views(
             aligned: .center,
             on: .vertical,
             spacing: 5,
-            Label(style: .body, text: Translations.NETWORK_SELECTION_EMPTY_TITLE, color: .white),
+            Label(style: .body, text: Translations.NETWORK_SELECTION_EMPTY_TITLE, color: .labelText),
             retryButton.set(height: 44),
             indicator.set(height: 44)
         ).layout(in: emptyView) { (make, its) in
@@ -68,8 +69,8 @@ class NetworkSelectionViewController: ViewController {
     }
 
     private func show(_ networks: [Network]) {
-        let zones = Set(networks.map { $0.zone })
-        self.zones = [Zone.dk2, .dk1].filter { zones.contains($0) }
+        let uniques = Set(networks.map { $0.zone })
+        self.zones = [Zone.dk2, .dk1].filter { uniques.contains($0) }
         self.items = zones.map { zone in
             networks.filter({ $0.zone == zone }).sorted(by: { $0.name < $1.name })
         }
@@ -110,11 +111,11 @@ class NetworkSelectionViewController: ViewController {
     }
 
     private class Header: UITableViewHeaderFooterView {
-        private let label = Label(style: .body, color: .white)
+        private let label = Label(style: .body, color: .cellHeaderText)
         override init(reuseIdentifier: String?) {
             super.init(reuseIdentifier: reuseIdentifier)
 
-            contentView.backgroundColor = Color.primary
+            contentView.backgroundColor = .cellHeaderBackground
 
             Stack.views(
                 spacing: 10,
@@ -139,6 +140,8 @@ class NetworkSelectionViewController: ViewController {
     private class Cell: UITableViewCell {
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+
+            backgroundColor = .cellBackground
         }
 
         required init?(coder: NSCoder) {
@@ -147,6 +150,7 @@ class NetworkSelectionViewController: ViewController {
 
         func update(with network: Network) -> Cell {
             textLabel?.text = network.name
+            textLabel?.textColor = .cellText
             accessoryType = .disclosureIndicator
             return self
         }

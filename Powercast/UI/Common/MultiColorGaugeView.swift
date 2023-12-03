@@ -9,7 +9,6 @@ class MultiColorGaugeView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        tintColor = UIColor.systemGray5
     }
 
     required init?(coder: NSCoder) {

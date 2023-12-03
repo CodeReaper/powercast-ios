@@ -27,7 +27,7 @@ class LicenseViewController: ViewController {
                 aligned: .center,
                 on: .vertical,
                 inset: NSDirectionalEdgeInsets(top: 25, leading: 15, bottom: 5, trailing: 15),
-                Label(text: content)
+                Label(text: content, color: .labelText)
             )
             .layout(in: scrollView) { make, its in
                 make(its.topAnchor.constraint(equalTo: scrollView.topAnchor))

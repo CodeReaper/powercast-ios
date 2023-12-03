@@ -15,9 +15,9 @@ protocol Dependenables: AnyObject {
     var emissionRepository: EmissionRepository { get }
     var energyPriceRepository: EnergyPriceRepository { get }
     var stateRepository: StateRepository { get }
-    var notificationRepository: NotificationRepository { get }
+    var notificationScheduler: NotificationScheduler { get }
 
-    var scheduler: BackgroundScheduler { get }
+    var backgroundScheduler: BackgroundScheduler { get }
 }
 
 class App: Dependenables {
@@ -33,19 +33,19 @@ class App: Dependenables {
     lazy var chargesRepository = ChargesRepository(database: chargesDatabase.queue, service: ChargesServiceAPI())
     lazy var emissionRepository = EmissionRepository(database: emissionDatabase, service: EmissionServiceAPI())
     lazy var energyPriceRepository = EnergyPriceRepository(database: energyPriceDatabase.queue, service: EnergyPriceServiceAPI(), lookup: chargesRepository)
-    lazy var notificationRepository = NotificationRepository(
+    lazy var notificationScheduler = NotificationScheduler(
         charges: chargesRepository,
         prices: energyPriceRepository,
         state: stateRepository
     )
 
-    var scheduler: BackgroundScheduler {
+    var backgroundScheduler: BackgroundScheduler {
         BackgroundScheduler(
             charges: chargesRepository,
             prices: energyPriceRepository,
             emission: emissionRepository,
             state: stateRepository,
-            notifications: notificationRepository
+            notifications: notificationScheduler
         )
     }
 
@@ -69,20 +69,16 @@ class App: Dependenables {
         Flog.info("App: Cold start")
 
         setupAppearence()
-        scheduler.register()
-        scheduler.schedule()
-        notificationRepository.register()
+        backgroundScheduler.register()
+        backgroundScheduler.schedule()
+        notificationScheduler.register()
         navigation.setup(using: window)
-
-        Task {
-            await notificationRepository.schedule()
-        }
     }
 
     func willEnterForeground() { }
 
     func didEnterBackground() {
-        scheduler.schedule()
+        backgroundScheduler.schedule()
     }
 
     // MARK: - setups

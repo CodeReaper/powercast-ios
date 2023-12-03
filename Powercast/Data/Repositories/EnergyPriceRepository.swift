@@ -55,7 +55,7 @@ class EnergyPriceRepository {
     func pull(zone: Zone, at date: Date) async throws {
         guard let items: [EnergyPrice] = try? await service.data(for: zone, at: date) else { return }
 
-        Flog.info("EnergyPriceRepository: Updating \(items.count) items in \(zone)")
+        Flog.debug("EnergyPriceRepository: Updating \(items.count) items in \(zone)")
 
         try await database.write { [items] db in
             try items.map { Database.EnergyPrice.from(model: $0) }.forEach {

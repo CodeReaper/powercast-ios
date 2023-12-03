@@ -2,8 +2,8 @@ import UIKit
 import SugarKit
 
 class DashboardViewController: ViewController {
-    private let spinnerView = SpinnerView(color: Color.primary)
-    private let updateFailedLabel = Label(style: .subheadline, text: Translations.DASHBOARD_REFRESH_FAILED_MESSAGE, color: .white)
+    private let spinnerView = SpinnerView(color: .spinner)
+    private let updateFailedLabel = Label(style: .subheadline, text: Translations.DASHBOARD_REFRESH_FAILED_MESSAGE, color: .warningText)
     private let tableView = UITableView(frame: .zero, style: .plain)
     private let refreshControl = UIRefreshControl()
 
@@ -13,7 +13,7 @@ class DashboardViewController: ViewController {
 
     private var interactor: DashboardInteractor!
 
-    init(navigation: AppNavigation, prices: EnergyPriceRepository, emission: EmissionRepository, notifications: NotificationRepository, state: StateRepository) {
+    init(navigation: AppNavigation, prices: EnergyPriceRepository, emission: EmissionRepository, notifications: NotificationScheduler, state: StateRepository) {
         super.init(navigation: navigation)
         interactor = DashboardInteractor(delegate: self, prices: prices, emission: emission, notifications: notifications, state: state)
     }
@@ -39,14 +39,14 @@ class DashboardViewController: ViewController {
 
         updateFailedLabel.textAlignment = .center
         updateFailedLabel
-            .set(backgroundColor: Color.pastelRed)
+            .set(backgroundColor: .warningBackground)
             .set(hidden: true)
 
         tableView
             .registerClass(Header.self)
             .registerClass(PriceCell.self)
             .set(datasource: self, delegate: self)
-            .set(backgroundColor: Color.primary)
+            .set(backgroundColor: .tableBackground)
         tableView.refreshControl = refreshControl
         tableView.showsVerticalScrollIndicator = false
         tableView.sectionFooterHeight = 0
@@ -55,8 +55,8 @@ class DashboardViewController: ViewController {
             tableView.sectionHeaderTopPadding = 0
         }
 
-        refreshControl.tintColor = .white
-        refreshControl.attributedTitle = NSAttributedString(string: Translations.DASHBOARD_REFRESH_CONTROL_MESSAGE, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        refreshControl.tintColor = .tableRefreshControl
+        refreshControl.attributedTitle = NSAttributedString(string: Translations.DASHBOARD_REFRESH_CONTROL_MESSAGE, attributes: [NSAttributedString.Key.foregroundColor: UIColor.tableRefreshControl])
         refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
 
         layout(with: bar)
@@ -113,13 +113,13 @@ class DashboardViewController: ViewController {
         private static let dateFormatter = DateFormatter.with(dateStyle: .medium, timeStyle: .none)
         private static let numberFormatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
 
-        private let dateLabel = Label(style: .body, color: .white)
-        private let pricesLabel = Label(style: .body, color: .white)
+        private let dateLabel = Label(style: .body, color: .cellHeaderText)
+        private let pricesLabel = Label(style: .body, color: .cellHeaderText)
 
         override init(reuseIdentifier: String?) {
             super.init(reuseIdentifier: reuseIdentifier)
 
-            contentView.backgroundColor = Color.primary
+            contentView.backgroundColor = .cellHeaderBackground
 
             Stack.views(
                 spacing: 10,
@@ -142,11 +142,11 @@ class DashboardViewController: ViewController {
 
 extension DashboardViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return priceSource.sectionCount
+        priceSource.sectionCount
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return priceSource.numberOfRows(in: section)
+        priceSource.numberOfRows(in: section)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -162,9 +162,12 @@ extension DashboardViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(PriceCell.self, forIndexPath: indexPath)
 
-        guard let price = priceSource.item(at: indexPath) else { return cell }
+        guard
+            let price = priceSource.item(at: indexPath),
+            let emission = emissionSource.item(at: indexPath)
+        else { return cell }
 
-        return cell.update(using: price, and: emissionSource.item(at: indexPath), current: price.duration.contains(now))
+        return cell.update(using: price, and: emission, current: price.duration.contains(now), emissionRange: emissionSource.range)
     }
 }
 

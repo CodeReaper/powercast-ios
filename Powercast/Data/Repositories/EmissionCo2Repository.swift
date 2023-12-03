@@ -12,6 +12,18 @@ class EmissionCo2Repository {
         self.service = service
     }
 
+    func range(for zone: Zone, in interval: DateInterval) throws -> ClosedRange<Double>? {
+        let items = try database.read { db in
+            return try Database.Co2
+                .filter(Database.Co2.Columns.zone == zone.rawValue)
+                .filter(Database.Co2.Columns.timestamp >= interval.start)
+                .filter(Database.Co2.Columns.timestamp < interval.end)
+                .order(Database.Co2.Columns.timestamp.desc)
+                .fetchAll(db)
+        }
+        return items.map { $0.amount }.span()
+    }
+
     func data(for zone: Zone, in interval: DateInterval) throws -> [Co2] {
         let items = try database.read { db in
             return try Database.Co2
@@ -53,7 +65,7 @@ class EmissionCo2Repository {
     func pull(zone: Zone, at date: Date) async throws {
         guard let items: [Co2] = try? await service.co2Data(for: zone, at: date) else { return }
 
-        Flog.info("EmissionRepository: Updating \(items.count) co2 items in \(zone)")
+        Flog.debug("EmissionRepository: Updating \(items.count) co2 items in \(zone)")
 
         try await database.write { [items] db in
             try items.map { Database.Co2.from(model: $0) }.forEach {

@@ -5,6 +5,7 @@ class PriceArchiveViewController: ViewController {
     private let tableView = UITableView(frame: .zero, style: .plain)
     private let picker = UIDatePicker(frame: .zero)
     private let formatter = DateFormatter.with(dateStyle: .medium, timeStyle: .none)
+    private let now = Date()
 
     private var source = PriceArchiveSource.empty()
     private var interactor: PriceArchiveInteractor!
@@ -30,9 +31,10 @@ class PriceArchiveViewController: ViewController {
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
         }
+        tableView.showsVerticalScrollIndicator = false
         tableView
             .set(datasource: self, delegate: self)
-            .set(backgroundColor: Color.primary)
+            .set(backgroundColor: .tableBackground)
             .registerClass(DatePickerCell.self)
             .registerClass(PriceCell.self)
             .registerClass(LoadingCell.self)
@@ -87,9 +89,10 @@ class PriceArchiveViewController: ViewController {
         private let spinner = UIActivityIndicatorView()
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-            contentView.backgroundColor = Color.primary
+            contentView.backgroundColor = .tableBackground
+            contentView.set(height: 44)
             spinner.setup(centeredIn: contentView)
-            spinner.color = .white
+            spinner.color = .spinner
         }
 
         required init?(coder: NSCoder) {
@@ -103,11 +106,19 @@ class PriceArchiveViewController: ViewController {
     }
 
     private class FailureCell: UITableViewCell {
-        private let label = Label(style: .subheadline, text: Translations.PRICE_ARCHIVE_FAILURE_MESSAGE, color: .white)
+        private let views = Stack.views(on: .vertical, inset: NSDirectionalEdgeInsets(top: 7, leading: 10, bottom: 7, trailing: 10))
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-            contentView.backgroundColor = Color.primary
-            label.setup(centeredIn: contentView)
+            contentView.backgroundColor = .tableBackground
+
+            views.layout(in: contentView) { (make, its) in
+                make(its.topAnchor.constraint(equalTo: contentView.topAnchor))
+                make(its.bottomAnchor.constraint(equalTo: contentView.bottomAnchor))
+                make(its.leadingAnchor.constraint(equalTo: contentView.leadingAnchor))
+                make(its.trailingAnchor.constraint(equalTo: contentView.trailingAnchor))
+            }
+
+            views.addArrangedSubview(Label(style: .subheadline, text: Translations.PRICE_ARCHIVE_FAILURE_MESSAGE, color: .cellSecondaryText).aligned(to: .center))
         }
 
         required init?(coder: NSCoder) {
@@ -117,6 +128,10 @@ class PriceArchiveViewController: ViewController {
 }
 
 extension PriceArchiveViewController: PriceArchiveDelegate {
+    func configure(with interval: DateInterval) {
+        picker.minimumDate = interval.start
+    }
+
     func show(source: PriceArchiveSource) {
         self.source = source
         title = formatter.string(from: source.date)
@@ -147,7 +162,7 @@ extension PriceArchiveViewController: UITableViewDataSource {
             return tableView.dequeueReusableCell(FailureCell.self, forIndexPath: indexPath)
         } else {
             guard let (price, emission) = source.items(at: indexPath.row) else { return UITableViewCell() }
-            return tableView.dequeueReusableCell(PriceCell.self, forIndexPath: indexPath).update(using: price, and: emission, current: false)
+            return tableView.dequeueReusableCell(PriceCell.self, forIndexPath: indexPath).update(using: price, and: emission, current: price.duration.contains(now), emissionRange: source.emissionRange)
         }
     }
 }

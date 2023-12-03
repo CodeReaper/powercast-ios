@@ -43,7 +43,6 @@
 		387FF610286B95BB0051E3DC /* global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387FF60F286B95BB0051E3DC /* global.swift */; };
 		389F717D28997B2C0007C2E0 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F717C28997B2B0007C2E0 /* MenuViewController.swift */; };
 		389F717F289982630007C2E0 /* Drawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F717E289982630007C2E0 /* Drawer.swift */; };
-		38DF5AB7287079DE008630FB /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DF5AAC287079DE008630FB /* Images.swift */; };
 		38DF5ABE28707A7E008630FB /* Translations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DF5ABD28707A7E008630FB /* Translations.swift */; };
 		38DF5AC828708077008630FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 38DF5AC028708077008630FB /* Localizable.strings */; };
 		38DF5AC928708077008630FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 38DF5AC228708077008630FB /* InfoPlist.strings */; };
@@ -55,7 +54,6 @@
 		38E0FA722884822C0096B98A /* _Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E0FA712884822C0096B98A /* _Database.swift */; };
 		38ECF94B289B0ACF00ED8372 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF94A289B0ACF00ED8372 /* Date.swift */; };
 		38ECF94D289C467B00ED8372 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF94C289C467B00ED8372 /* TimeInterval.swift */; };
-		38ECF953289DAC6500ED8372 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ECF952289DAC6500ED8372 /* Colors.swift */; };
 		38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15C828833A5B001C38F9 /* AppNavigation.swift */; };
 		38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DA28835353001C38F9 /* SettingsViewController.swift */; };
 		38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD15DE28835528001C38F9 /* LicensesViewController.swift */; };
@@ -82,7 +80,11 @@
 		CD1068B82B0927B300FD5B0E /* PriceArchiveInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068B72B0927B200FD5B0E /* PriceArchiveInteractor.swift */; };
 		CD1068BA2B092D3300FD5B0E /* PriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068B92B092D3300FD5B0E /* PriceCell.swift */; };
 		CD1068BC2B092D9D00FD5B0E /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068BB2B092D9D00FD5B0E /* NumberFormatter.swift */; };
-		CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */; };
+		CD1068BE2B112B4500FD5B0E /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068BD2B112B4500FD5B0E /* Collection.swift */; };
+		CD1068C32B12B78B00FD5B0E /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068C22B12B78B00FD5B0E /* Notification.swift */; };
+		CD1068C82B12BC2400FD5B0E /* AutoCopyNotification.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068C62B12BC2400FD5B0E /* AutoCopyNotification.generated.swift */; };
+		CD1068CA2B13870300FD5B0E /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068C92B13870300FD5B0E /* NotificationViewController.swift */; };
+		CD2CFE0128E0D2A500DC55C1 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationScheduler.swift */; };
 		CD36624729281614009FAC8B /* Flogger in Frameworks */ = {isa = PBXBuildFile; productRef = CD36624629281614009FAC8B /* Flogger */; };
 		CD4022E82A34AA2B00027798 /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD4022E72A34AA2B00027798 /* SugarKit */; };
 		CD4022EC2A34ADA600027798 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4022EB2A34ADA600027798 /* LoadingView.swift */; };
@@ -102,10 +104,10 @@
 		CDA0E40A2AC8C0DA00FF364D /* Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0E4092AC8C0DA00FF364D /* Evaluation.swift */; };
 		CDA0E4122AC982EC00FF364D /* EvaluationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0E4112AC982EC00FF364D /* EvaluationTests.swift */; };
 		CDA0E4192AC988A000FF364D /* EnergyPrices.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0E4182AC988A000FF364D /* EnergyPrices.swift */; };
-		CDA37DED2AD0A739004B44B0 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA37DEC2AD0A739004B44B0 /* Message.swift */; };
 		CDA37DF12ADB24F0004B44B0 /* ChargesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA37DF02ADB24F0004B44B0 /* ChargesService.swift */; };
 		CDA37DF32ADB3174004B44B0 /* MultiColorGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA37DF22ADB3174004B44B0 /* MultiColorGaugeView.swift */; };
 		CDE77AC428C369370021EEDD /* Migratable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE77AC328C369370021EEDD /* Migratable.swift */; };
+		CDEAF3332B1BAEA700C4ED7A /* StackviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEAF3322B1BAEA700C4ED7A /* StackviewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -156,7 +158,6 @@
 		387FF60F286B95BB0051E3DC /* global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = global.swift; sourceTree = "<group>"; };
 		389F717C28997B2B0007C2E0 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		389F717E289982630007C2E0 /* Drawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawer.swift; sourceTree = "<group>"; };
-		38DF5AAC287079DE008630FB /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		38DF5ABD28707A7E008630FB /* Translations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Translations.swift; sourceTree = "<group>"; };
 		38DF5AC128708077008630FB /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		38DF5AC328708077008630FB /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -171,7 +172,6 @@
 		38E0FA712884822C0096B98A /* _Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Database.swift; sourceTree = "<group>"; };
 		38ECF94A289B0ACF00ED8372 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		38ECF94C289C467B00ED8372 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
-		38ECF952289DAC6500ED8372 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		38FD15C828833A5B001C38F9 /* AppNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigation.swift; sourceTree = "<group>"; };
 		38FD15DA28835353001C38F9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		38FD15DE28835528001C38F9 /* LicensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
@@ -198,7 +198,11 @@
 		CD1068B72B0927B200FD5B0E /* PriceArchiveInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceArchiveInteractor.swift; sourceTree = "<group>"; };
 		CD1068B92B092D3300FD5B0E /* PriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCell.swift; sourceTree = "<group>"; };
 		CD1068BB2B092D9D00FD5B0E /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
-		CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
+		CD1068BD2B112B4500FD5B0E /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		CD1068C22B12B78B00FD5B0E /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		CD1068C62B12BC2400FD5B0E /* AutoCopyNotification.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCopyNotification.generated.swift; sourceTree = "<group>"; };
+		CD1068C92B13870300FD5B0E /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		CD2CFE0028E0D2A500DC55C1 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		CD4022EB2A34ADA600027798 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CD5C58CF2AE4824900143060 /* ChargesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargesRepository.swift; sourceTree = "<group>"; };
 		CD5C58D12AE4844B00143060 /* ChargeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeDatabase.swift; sourceTree = "<group>"; };
@@ -215,10 +219,10 @@
 		CDA0E40F2AC982EC00FF364D /* PowercastTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PowercastTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDA0E4112AC982EC00FF364D /* EvaluationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationTests.swift; sourceTree = "<group>"; };
 		CDA0E4182AC988A000FF364D /* EnergyPrices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyPrices.swift; sourceTree = "<group>"; };
-		CDA37DEC2AD0A739004B44B0 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		CDA37DF02ADB24F0004B44B0 /* ChargesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargesService.swift; sourceTree = "<group>"; };
 		CDA37DF22ADB3174004B44B0 /* MultiColorGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiColorGaugeView.swift; sourceTree = "<group>"; };
 		CDE77AC328C369370021EEDD /* Migratable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migratable.swift; sourceTree = "<group>"; };
+		CDEAF3322B1BAEA700C4ED7A /* StackviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackviewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,6 +276,7 @@
 				CD4022EB2A34ADA600027798 /* LoadingView.swift */,
 				CDA37DF22ADB3174004B44B0 /* MultiColorGaugeView.swift */,
 				CD1068B92B092D3300FD5B0E /* PriceCell.swift */,
+				CDEAF3322B1BAEA700C4ED7A /* StackviewCell.swift */,
 				380CE8F9288AE55A0003FF36 /* ViewControllers.swift */,
 			);
 			path = Common;
@@ -281,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				384E642D288D90EF004ADCB1 /* BackgroundScheduler.swift */,
+				CD2CFE0028E0D2A500DC55C1 /* NotificationScheduler.swift */,
 			);
 			path = Schedulers;
 			sourceTree = "<group>";
@@ -311,11 +317,11 @@
 			isa = PBXGroup;
 			children = (
 				384E646A288EDAAF004ADCB1 /* Appearence.swift */,
+				CD1068BD2B112B4500FD5B0E /* Collection.swift */,
 				38ECF94A289B0ACF00ED8372 /* Date.swift */,
 				CD1068AA2B07F17800FD5B0E /* DateInterval.swift */,
 				CD1068A02B05476600FD5B0E /* EmissionTableDataSource.swift */,
 				CDA0E4092AC8C0DA00FF364D /* Evaluation.swift */,
-				CDA37DEC2AD0A739004B44B0 /* Message.swift */,
 				CD1068BB2B092D9D00FD5B0E /* NumberFormatter.swift */,
 				CD10688E2AFEF62D00FD5B0E /* Observer.swift */,
 				CD1068902B000B9C00FD5B0E /* PriceTableDatasource.swift */,
@@ -370,6 +376,7 @@
 				380CE8EA288893E30003FF36 /* Assets.Animations */,
 				384E6442288DBD53004ADCB1 /* Assets.Fonts */,
 				CD5E307F28B2540200DBA019 /* Assets.Licenses */,
+				CD1068C42B12BC2400FD5B0E /* Autogenerated */,
 				38E0FA622884759B0096B98A /* Data */,
 				387FF604286B90A40051E3DC /* LaunchScreen.storyboard */,
 				384E647328915F52004ADCB1 /* Tools */,
@@ -382,9 +389,7 @@
 			isa = PBXGroup;
 			children = (
 				380CE8ED288893F90003FF36 /* Animations.swift */,
-				38ECF952289DAC6500ED8372 /* Colors.swift */,
 				384E6445288DC430004ADCB1 /* Fonts.swift */,
-				38DF5AAC287079DE008630FB /* Images.swift */,
 				38DF5ABD28707A7E008630FB /* Translations.swift */,
 				38DF5ABF28708077008630FB /* Translations */,
 			);
@@ -419,7 +424,6 @@
 				CD10689A2B0412F300FD5B0E /* EmissionCo2Repository.swift */,
 				CD10689C2B04165600FD5B0E /* EmissionRepository.swift */,
 				38E0FA642884759B0096B98A /* EnergyPriceRepository.swift */,
-				CD2CFE0028E0D2A500DC55C1 /* NotificationRepository.swift */,
 				384E6434288D9E38004ADCB1 /* StateRepository.swift */,
 			);
 			path = Repositories;
@@ -446,6 +450,7 @@
 				CD5C58D72AE7018E00143060 /* GridPrice.swift */,
 				CD5C58D92AE8612100143060 /* Network.swift */,
 				CD5C58D32AE59E0200143060 /* NetworkPrice.swift */,
+				CD1068C22B12B78B00FD5B0E /* Notification.swift */,
 				CD8A4BC428BA6DB000EC68E3 /* Price.swift */,
 				38E0FA6F2884808D0096B98A /* Zone.swift */,
 			);
@@ -467,6 +472,7 @@
 				38FD15DE28835528001C38F9 /* LicensesViewController.swift */,
 				CD5E309428B25B1800DBA019 /* LicenseViewController.swift */,
 				389F717C28997B2B0007C2E0 /* MenuViewController.swift */,
+				CD1068C92B13870300FD5B0E /* NotificationViewController.swift */,
 				38FD15DA28835353001C38F9 /* SettingsViewController.swift */,
 				CD1068A22B06AF6D00FD5B0E /* Dashboard */,
 				CD1068B12B081B8800FD5B0E /* DataDetailsViewController */,
@@ -537,6 +543,14 @@
 				CD1068B52B0921FA00FD5B0E /* PriceArchiveViewController.swift */,
 			);
 			path = PriceArchiveViewController;
+			sourceTree = "<group>";
+		};
+		CD1068C42B12BC2400FD5B0E /* Autogenerated */ = {
+			isa = PBXGroup;
+			children = (
+				CD1068C62B12BC2400FD5B0E /* AutoCopyNotification.generated.swift */,
+			);
+			path = Autogenerated;
 			sourceTree = "<group>";
 		};
 		CD4022E62A34AA2B00027798 /* Frameworks */ = {
@@ -746,6 +760,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD1068C82B12BC2400FD5B0E /* AutoCopyNotification.generated.swift in Sources */,
 				CDA37DF32ADB3174004B44B0 /* MultiColorGaugeView.swift in Sources */,
 				CD1068A52B06AF6D00FD5B0E /* DashboardInteractor.swift in Sources */,
 				380CE8E62888901A0003FF36 /* EnergyPriceDatabase.swift in Sources */,
@@ -753,9 +768,9 @@
 				38E0FA702884808D0096B98A /* Zone.swift in Sources */,
 				CD1068B02B080AA600FD5B0E /* View.swift in Sources */,
 				380CE8FF288AE55A0003FF36 /* ViewControllers.swift in Sources */,
-				38DF5AB7287079DE008630FB /* Images.swift in Sources */,
 				387FF60E286B95B00051E3DC /* App.swift in Sources */,
 				384E647A2891650E004ADCB1 /* DataLoadingViewController.swift in Sources */,
+				CD1068CA2B13870300FD5B0E /* NotificationViewController.swift in Sources */,
 				384E6435288D9E38004ADCB1 /* StateRepository.swift in Sources */,
 				CD10689B2B0412F300FD5B0E /* EmissionCo2Repository.swift in Sources */,
 				38E0FA652884759B0096B98A /* EnergyPriceRepository.swift in Sources */,
@@ -769,15 +784,16 @@
 				CD1068AE2B07FEAA00FD5B0E /* GridDetailsViewController.swift in Sources */,
 				CD1068BC2B092D9D00FD5B0E /* NumberFormatter.swift in Sources */,
 				CD1068B82B0927B300FD5B0E /* PriceArchiveInteractor.swift in Sources */,
+				CD1068BE2B112B4500FD5B0E /* Collection.swift in Sources */,
 				380CE8EE288893F90003FF36 /* Animations.swift in Sources */,
 				384E64792891650E004ADCB1 /* DataLoadingInteractor.swift in Sources */,
 				CD1068B62B0921FA00FD5B0E /* PriceArchiveViewController.swift in Sources */,
-				38ECF953289DAC6500ED8372 /* Colors.swift in Sources */,
 				387FF5FA286B909B0051E3DC /* AppDelegate.swift in Sources */,
 				389F717F289982630007C2E0 /* Drawer.swift in Sources */,
 				CD5C58D82AE7018E00143060 /* GridPrice.swift in Sources */,
 				CD1068912B000B9C00FD5B0E /* PriceTableDatasource.swift in Sources */,
 				CDE77AC428C369370021EEDD /* Migratable.swift in Sources */,
+				CD1068C32B12B78B00FD5B0E /* Notification.swift in Sources */,
 				38DF5ABE28707A7E008630FB /* Translations.swift in Sources */,
 				CD1068A62B06AF6D00FD5B0E /* DashboardViewController.swift in Sources */,
 				CD81C59B2A6DBDD300E88418 /* Charges.swift in Sources */,
@@ -792,9 +808,10 @@
 				CD1068952B040F5A00FD5B0E /* EmissionService.swift in Sources */,
 				38E0FA6E2884803F0096B98A /* EnergyPrice.swift in Sources */,
 				387FF5FC286B909B0051E3DC /* SceneDelegate.swift in Sources */,
+				CDEAF3332B1BAEA700C4ED7A /* StackviewCell.swift in Sources */,
 				CD1068AB2B07F17800FD5B0E /* DateInterval.swift in Sources */,
 				38ECF94B289B0ACF00ED8372 /* Date.swift in Sources */,
-				CD2CFE0128E0D2A500DC55C1 /* NotificationRepository.swift in Sources */,
+				CD2CFE0128E0D2A500DC55C1 /* NotificationScheduler.swift in Sources */,
 				CD1068BA2B092D3300FD5B0E /* PriceCell.swift in Sources */,
 				38E0FA68288476C40096B98A /* EnergyPriceService.swift in Sources */,
 				38ECF94D289C467B00ED8372 /* TimeInterval.swift in Sources */,
@@ -809,7 +826,6 @@
 				CD8A4BC528BA6DB000EC68E3 /* Price.swift in Sources */,
 				CD1068B32B081B8800FD5B0E /* DataDetailsViewController.swift in Sources */,
 				38E0FA722884822C0096B98A /* _Database.swift in Sources */,
-				CDA37DED2AD0A739004B44B0 /* Message.swift in Sources */,
 				389F717D28997B2C0007C2E0 /* MenuViewController.swift in Sources */,
 				CD1068992B0411D700FD5B0E /* EmissionDatabase.swift in Sources */,
 				CD5C58D22AE4844B00143060 /* ChargeDatabase.swift in Sources */,
@@ -1001,7 +1017,6 @@
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1030,7 +1045,6 @@
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

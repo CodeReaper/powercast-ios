@@ -1,1 +1,0 @@
-lane mobile-static-resources-images -i Powercast/Assets.xcassets -o Powercast/Assets/Images.swift

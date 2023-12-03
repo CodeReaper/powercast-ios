@@ -14,7 +14,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.primary
+        view.backgroundColor = .viewBackground
+        navigationController?.navigationBar.shadowImage = UIImage()
     }
 
     func navigate(to endpoint: Navigation) {

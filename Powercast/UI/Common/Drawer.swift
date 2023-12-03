@@ -132,7 +132,9 @@ final class Drawer: UIViewController {
                     constraint.constant = -self.drawerWidth
                     self.overlayView.backgroundColor = UIColor(white: 0, alpha: self.dimmingAlpha)
                 }
-                self.view.layoutIfNeeded()
+                if self.view.superview != nil {
+                    self.view.layoutIfNeeded()
+                }
         }, completion: { _ in
             switch state {
             case .closed:

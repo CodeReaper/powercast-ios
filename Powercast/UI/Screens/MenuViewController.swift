@@ -26,13 +26,13 @@ class MenuViewController: ViewController {
             on: .vertical,
             spacing: 15,
             FlexibleSpace(),
-            ImageView(image: Images.powercast_splash, mode: .center),
-            MenuButton(symbolName: "square.3.stack.3d.middle.filled", text: Translations.DASHBOARD_TITLE, target: self, action: #selector(didTapDashboard)).set(height: 44),
-            MenuButton(symbolName: "poweroutlet.type.k.fill", text: Translations.NETWORK_DETAILS_TITLE, target: self, action: #selector(didTapNetworkDetails)).set(height: 44),
-            MenuButton(symbolName: "bolt.fill", text: Translations.GRID_DETAILS_TITLE, target: self, action: #selector(didTapGridDetails)).set(height: 44),
-            MenuButton(symbolName: "archivebox.fill", text: Translations.PRICE_ARCHIVE_TITLE, target: self, action: #selector(didTapPriceArchive)).set(height: 44),
-            MenuButton(symbolName: "gearshape", text: Translations.SETTINGS_TITLE, target: self, action: #selector(didTapSettings)).set(height: 44),
-            MenuButton(symbolName: "paragraphsign", text: Translations.LICENSES_TITLE, target: self, action: #selector(didTapLicense)).set(height: 44),
+            ImageView(image: UIImage.powercastSplash, mode: .center),
+            MenuButton(symbolName: "square.3.stack.3d.middle.filled", text: Translations.DASHBOARD_TITLE, textColor: .buttonText, target: self, action: #selector(didTapDashboard)).set(height: 44),
+            MenuButton(symbolName: "poweroutlet.type.k.fill", text: Translations.NETWORK_DETAILS_TITLE, textColor: .buttonText, target: self, action: #selector(didTapNetworkDetails)).set(height: 44),
+            MenuButton(symbolName: "bolt.fill", text: Translations.GRID_DETAILS_TITLE, textColor: .buttonText, target: self, action: #selector(didTapGridDetails)).set(height: 44),
+            MenuButton(symbolName: "archivebox.fill", text: Translations.PRICE_ARCHIVE_TITLE, textColor: .buttonText, target: self, action: #selector(didTapPriceArchive)).set(height: 44),
+            MenuButton(symbolName: "gearshape", text: Translations.SETTINGS_TITLE, textColor: .buttonText, target: self, action: #selector(didTapSettings)).set(height: 44),
+            MenuButton(symbolName: "paragraphsign", text: Translations.LICENSES_TITLE, textColor: .buttonText, target: self, action: #selector(didTapLicense)).set(height: 44),
             FlexibleSpace()
         )
         .apply(flexible: .fillEqual)

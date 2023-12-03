@@ -12,7 +12,7 @@ protocol DashboardDelegate: AnyObject {
 class DashboardInteractor {
     let timeBetweenRefreshes: TimeInterval = 900
 
-    private let notifications: NotificationRepository
+    private let notifications: NotificationScheduler
     private let prices: EnergyPriceRepository
     private let emission: EmissionRepository
     private let state: StateRepository
@@ -21,7 +21,7 @@ class DashboardInteractor {
 
     private weak var delegate: DashboardDelegate?
 
-    init(delegate: DashboardDelegate, prices: EnergyPriceRepository, emission: EmissionRepository, notifications: NotificationRepository, state: StateRepository) {
+    init(delegate: DashboardDelegate, prices: EnergyPriceRepository, emission: EmissionRepository, notifications: NotificationScheduler, state: StateRepository) {
         self.delegate = delegate
         self.notifications = notifications
         self.prices = prices
@@ -53,13 +53,9 @@ class DashboardInteractor {
                 await refreshAsync()
             }
         }
-        state.add(observer: self)
-        updated()
     }
 
-    func viewWillDisappear() {
-        state.remove(observer: self)
-    }
+    func viewWillDisappear() { }
 
     func refreshData() {
         Task {
@@ -93,18 +89,6 @@ class DashboardInteractor {
                 return
             }
             delegate?.show(priceData: priceSource, emissionData: updatedEmissionSource ?? EmptyEmissionTableDataSource())
-        }
-    }
-}
-
-extension DashboardInteractor: Observer {
-    func updated() {
-        DispatchQueue.main.async {
-            switch self.state.notificationStatus {
-            case .notDetermined:
-                self.notifications.request()
-            default: break
-            }
         }
     }
 }

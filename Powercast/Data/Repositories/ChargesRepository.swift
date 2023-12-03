@@ -12,6 +12,24 @@ class ChargesRepository: ChargesLookup {
         self.service = service
     }
 
+    func interval(for network: Network) throws -> DateInterval {
+        try database.read { db in
+            let gridEnd = try Database.GridPrice.filter(Database.GridPrice.Columns.validFrom == Date.fetchOne(db, Database.GridPrice.select(max(Database.GridPrice.Columns.validFrom)))!).fetchOne(db)?.validTo
+            let grid = DateInterval(
+                start: try Date.fetchOne(db, Database.GridPrice.select(min(Database.GridPrice.Columns.validFrom)))!,
+                end: gridEnd ?? .distantFuture
+            )
+
+            let networkEnd = try Database.NetworkPrice.filter(Database.NetworkPrice.Columns.validFrom == Date.fetchOne(db, Database.NetworkPrice.select(max(Database.NetworkPrice.Columns.validFrom)))!).fetchOne(db)?.validTo
+            let network = DateInterval(
+                start: try Date.fetchOne(db, Database.NetworkPrice.select(min(Database.NetworkPrice.Columns.validFrom)))!,
+                end: networkEnd ?? .distantFuture
+            )
+
+            return DateInterval(start: max(grid.start, network.start), end: min(grid.end, network.end))
+        }
+    }
+
     func charges(for network: Network, at date: Date) throws -> Charges {
         guard let grid = try database.read({ db in
             return try Database.GridPrice
@@ -71,7 +89,7 @@ class ChargesRepository: ChargesLookup {
 
     func pullGrid() async throws {
         let items = try await service.grid()
-        Flog.info("ChargesRepository: Updating \(items.count) grid price rows")
+        Flog.debug("ChargesRepository: Updating \(items.count) grid price rows")
         try await database.write { db in
             try items.map { try Database.GridPrice.from(model: $0) }.forEach { var item = $0; try item.insert(db) }
         }
@@ -79,7 +97,7 @@ class ChargesRepository: ChargesLookup {
 
     func pullNetworks() async throws {
         let items = try await service.networks()
-        Flog.info("ChargesRepository: Updating \(items.count) network rows")
+        Flog.debug("ChargesRepository: Updating \(items.count) network rows")
         try await database.write { db in
             try items.map { try Database.Network.from(model: $0) }.forEach { var item = $0; try item.upsert(db) }
         }
@@ -88,7 +106,7 @@ class ChargesRepository: ChargesLookup {
     func pullNetworks(_ ids: [Int]) async throws {
         for id in ids {
             let items = try await service.network(id: id)
-            Flog.info("ChargesRepository: Updating \(items.count) network price rows")
+            Flog.debug("ChargesRepository: Updating \(items.count) network price rows")
             try await database.write { db in
                 try items.map { try Database.NetworkPrice.from(model: $0) }.forEach { var item = $0; try item.insert(db) }
             }
@@ -106,5 +124,6 @@ enum ChargesRepositoryError: Error {
 }
 
 protocol ChargesLookup {
+    func interval(for network: Network) throws -> DateInterval
     func charges(for network: Network, at date: Date) throws -> Charges
 }

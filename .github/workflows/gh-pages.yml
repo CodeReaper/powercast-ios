@@ -1,0 +1,66 @@
+name: Deploy GitHub Pages
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/gh-pages.yml
+      - privacy-policy/**
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/gh-pages.yml
+      - privacy-policy/**
+
+concurrency:
+  group: publishing-pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  render:
+    name: Render pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Load variables
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "updated=$(gh api "/repos/${{ github.repository }}/commits?path=privacy-policy/index.md&sha=${{ github.sha }}" | jq -r '.[0].commit.committer.date' | cut -dT -f1)" >> $GITHUB_ENV
+      - name: Render
+        shell: bash
+        run: |
+          pipx install markdown
+
+          find . -type f -name '*.css' -print0 | rsync -av --files-from=- --from0 . output/
+
+          printf '<meta http-equiv="refresh" content="0; url=./privacy-policy/" />' > output/index.html
+
+          sed "s/~Date~/$updated/g" < privacy-policy/index.md > /tmp/out && mv /tmp/out privacy-policy/index.md
+          printf '<link rel="stylesheet" href="styles.css?_=${{ github.sha }}">\n' > output/privacy-policy/index.html
+          markdown_py privacy-policy/index.md >> output/privacy-policy/index.html
+
+          chmod +rx output
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: output
+
+  deploy:
+    name: Deploy pages
+    needs: render
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}

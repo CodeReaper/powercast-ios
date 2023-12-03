@@ -1,20 +1,18 @@
 import UIKit
 import SugarKit
-import Combine
 
 class SettingsViewController: ViewController {
     private let tableView = UITableView(frame: .zero, style: .grouped)
 
     private let state: StateRepository
+    private let notifications: NotificationScheduler
 
-    private var toggles: [Message.Kind: UISwitch] = [:]
+    private var sections: [Section] = []
 
-    private var sections: [Section]!
-
-    init(navigation: AppNavigation, state: StateRepository, sections: [Section]? = nil) {
+    init(navigation: AppNavigation, state: StateRepository, notifications: NotificationScheduler) {
         self.state = state
+        self.notifications = notifications
         super.init(navigation: navigation)
-        self.sections = sections ?? buildSettings()
     }
 
     required init?(coder: NSCoder) {
@@ -25,7 +23,6 @@ class SettingsViewController: ViewController {
         super.viewDidLoad()
 
         title = Translations.SETTINGS_TITLE
-        navigationController?.navigationBar.shadowImage = UIImage()
 
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         if #available(iOS 15.0, *) {
@@ -34,26 +31,21 @@ class SettingsViewController: ViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView
             .set(datasource: self, delegate: self)
-            .set(backgroundColor: Color.primary)
+            .set(backgroundColor: .tableBackground)
             .registerClass(NavigationCell.self)
-            .registerClass(ToggleCell.self)
+            .registerClass(MessageCell.self)
             .layout(in: view) { make, its in
                 make(its.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor))
                 make(its.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor))
                 make(its.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor))
                 make(its.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor))
             }
-
-        for kind in Message.Kind.allCases {
-            let view = UISwitch(frame: .zero)
-            view.isOn = state.notifications(for: kind)
-            toggles[kind] = view
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         state.add(observer: self)
+        updated()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -61,14 +53,15 @@ class SettingsViewController: ViewController {
         state.remove(observer: self)
     }
 
-    struct Section {
+    private struct Section {
         let title: String
         let rows: [Row]
     }
 
-    enum Row {
+    private enum Row {
         case navigate(label: String, detailLabel: String?, endpoint: Navigation)
-        case toggle(kind: Message.Kind)
+        case notification
+        case disabled
     }
 
     private class NavigationCell: UITableViewCell {
@@ -82,40 +75,17 @@ class SettingsViewController: ViewController {
 
         func update(title: String, label: String?) -> Self {
             textLabel?.text = title
+            textLabel?.textColor = .cellText
             detailTextLabel?.text = label
+            detailTextLabel?.textColor = .cellSecondaryText
             accessoryType = .disclosureIndicator
             return self
         }
     }
 
-    private class ToggleCell: UITableViewCell {
-        private let views = Stack.views(on: .horizontal, inset: NSDirectionalEdgeInsets(top: 7, leading: 20, bottom: 7, trailing: 20))
-        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-            views.layout(in: contentView) { make, its in
-                make(its.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor))
-                make(its.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor))
-                make(its.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor))
-                make(its.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor))
-                make(its.heightAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.heightAnchor))
-            }
-        }
-
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-
-        override func prepareForReuse() {
-            super.prepareForReuse()
-            views.arrangedSubviews.forEach {
-                views.removeArrangedSubview($0)
-                $0.removeFromSuperview()
-            }
-        }
-
-        func update(title: String, with view: UISwitch) -> Self {
-            views.addArrangedSubview(Stack.views(on: .vertical, spacing: 3, Label(style: .body, text: title, color: .black)))
-            views.addArrangedSubview(Stack.views(on: .vertical, view, FlexibleSpace()))
+    private class MessageCell: StackviewCell {
+        func update(with message: String) -> Self {
+            views.addArrangedSubview(Label(text: message, color: .cellSecondaryText))
             return self
         }
     }
@@ -124,52 +94,33 @@ class SettingsViewController: ViewController {
 extension SettingsViewController: Observer {
     func updated() {
         DispatchQueue.main.async {
-            let sections = self.buildSettings()
-            let changes: [IndexPath] = zip(sections, self.sections).enumerated().flatMap { (section: Int, sections: (Section, Section)) -> [IndexPath] in
-                return zip(sections.0.rows, sections.1.rows).enumerated().compactMap { (row: Int, rows: (Row, Row)) -> IndexPath? in
-                    if self.matches(lhs: rows.0, rhs: rows.1) {
-                        return nil
-                    } else {
-                        return IndexPath(row: row, section: section)
-                    }
-                }
-            }
-            self.sections = sections
-            self.tableView.reloadRows(at: changes, with: .automatic)
-        }
-    }
-
-    private func matches(lhs: Row, rhs: Row) -> Bool {
-        switch (lhs, rhs) {
-        case (let .navigate(lhsLabel, lhsDetailLabel, _), let .navigate(rhsLabel, rhsDetailLabel, _)):
-            return lhsLabel == rhsLabel && lhsDetailLabel == rhsDetailLabel
-        case (let .toggle(lhsKind), let .toggle(rhsKind)):
-            return lhsKind == rhsKind
-        default:
-            return false
+            self.sections = self.buildSettings()
+            self.tableView.reloadData()
         }
     }
 }
 
 extension SettingsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        sections.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].rows.count
+        sections[section].rows.count
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section].title
+        sections[section].title
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section].rows[indexPath.row] {
         case let .navigate(label, detail, _):
             return tableView.dequeueReusableCell(NavigationCell.self, forIndexPath: indexPath).update(title: label, label: detail)
-        case let .toggle(kind):
-            return tableView.dequeueReusableCell(ToggleCell.self, forIndexPath: indexPath).update(title: kind.string, with: toggles[kind]!)
+        case .notification:
+            return tableView.dequeueReusableCell(NavigationCell.self, forIndexPath: indexPath).update(title: Translations.SETTINGS_NOTIFICATIONS_ADD_BUTTON, label: nil)
+        case .disabled:
+            return tableView.dequeueReusableCell(MessageCell.self, forIndexPath: indexPath).update(with: Translations.SETTINGS_NOTIFICATIONS_SYSTEM_DISABLED)
         }
     }
 }
@@ -180,21 +131,28 @@ extension SettingsViewController: UITableViewDelegate {
         switch sections[indexPath.section].rows[indexPath.row] {
         case let .navigate(_, _, endpoint):
             navigate(to: endpoint)
-        case let .toggle(kind):
-            state.notifications(enabled: !state.notifications(for: kind), for: kind)
-            toggles[kind]?.setOn(state.notifications(for: kind), animated: true)
+        case .notification:
+            switch state.notificationStatus {
+            case .authorized:
+                navigate(to: .notification(notification: nil))
+            case .notDetermined:
+                notifications.request()
+            default: return
+            }
+        case .disabled:
+            return
         }
     }
 
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let view = view as? UITableViewHeaderFooterView else { return }
 
-        view.textLabel?.textColor = .white
+        view.textLabel?.textColor = .cellHeaderText
     }
 }
 
 extension SettingsViewController {
-    func buildSettings() -> [Section] {
+    private func buildSettings() -> [Section] {
         return [buildNetworkSettings(), buildSystemSettings(), buildNotificationSettings()]
     }
 
@@ -218,10 +176,29 @@ extension SettingsViewController {
     }
 
     private func buildNotificationSettings() -> Section {
-        SettingsViewController.Section(
-            title: Translations.SETTINGS_NOTIFICATIONS_TITLE,
-            rows: Message.Kind.allCases.map { Row.toggle(kind: $0) }
-        )
+        switch state.notificationStatus {
+        case .authorized:
+            let rows = state.notifications.sorted(by: { (lhs, rhs) -> Bool in
+                if lhs.fireOffset == rhs.fireOffset {
+                    if lhs.dateOffset == rhs.dateOffset {
+                        return lhs.durationOffset < rhs.durationOffset
+                    }
+                    return lhs.dateOffset < rhs.dateOffset
+                }
+                return lhs.fireOffset < rhs.fireOffset
+            }).map { notification in
+                Row.navigate(label: notification.description, detailLabel: notification.action, endpoint: .notification(notification: notification))
+            }
+            return SettingsViewController.Section(
+                title: Translations.SETTINGS_NOTIFICATIONS_TITLE,
+                rows: rows + [.notification]
+            )
+        default:
+            return SettingsViewController.Section(
+                title: Translations.SETTINGS_NOTIFICATIONS_TITLE,
+                rows: [.disabled]
+            )
+        }
     }
 }
 
@@ -247,23 +224,6 @@ private extension UIBackgroundRefreshStatus {
             return Translations.SETTINGS_STATE_ENABLED
         default:
             return Translations.SETTINGS_STATE_DISABLED
-        }
-    }
-}
-
-private extension Message.Kind {
-    var string: String {
-        switch self {
-        case .night:
-            return Translations.SETTINGS_NOTIFICATIONS_ITEM_NIGHT
-        case .morning:
-            return Translations.SETTINGS_NOTIFICATIONS_ITEM_MORNING
-        case .afternoon:
-            return Translations.SETTINGS_NOTIFICATIONS_ITEM_AFTERNOON
-        case .evening:
-            return Translations.SETTINGS_NOTIFICATIONS_ITEM_EVENING
-        case .free:
-            return Translations.SETTINGS_NOTIFICATIONS_ITEM_FREE
         }
     }
 }
