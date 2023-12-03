@@ -58,7 +58,7 @@ jobs:
       - name: Convert
         shell: bash
         run: |
-          docker run datafolklabs/markdown -- markdown privacy-policy/index.md > output/privacy-policy/index.html
+          docker run datafolklabs/markdown -- privacy-policy/index.md > output/privacy-policy/index.html
       - name: Prepare artifact
         shell: bash
         run: chmod +rx output
