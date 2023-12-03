@@ -43,6 +43,10 @@
 "NETWORK_SELECTION_HELP_MESSAGE" = "You can look up your network company on Green Power Denmark, if you provide them with your address";
 "NETWORK_SELECTION_HELP_TITLE" = "Look up your network company";
 "NETWORK_SELECTION_TITLE" = "Choose network";
+"NOTIFICATION_DELETE_BUTTON_DESTRUCTIVE" = "Delete";
+"NOTIFICATION_DELETE_BUTTON_NEGATIVE" = "Cancel";
+"NOTIFICATION_DELETE_MESSAGE" = "You cannot undo deleting this notification. Are you sure?";
+"NOTIFICATION_DELETE_TITLE" = "Delete";
 "NOTIFICATION_DESCRIPTION_TITLE" = "Description";
 "NOTIFICATION_ENABLE_LABEL" = "Enabled";
 "NOTIFICATION_MESSAGE_ACTION_DISABLED" = "Disabled";

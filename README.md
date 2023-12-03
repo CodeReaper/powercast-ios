@@ -22,7 +22,7 @@ Below follows a roadmap arranged by current best guess for completion:
  - [x] Historic drilldown of prices
  - [x] Dark mode
  - [ ] IAP
- - [ ] Create privacy policy page
+ - [x] Create privacy policy page
  - [ ] Pipelines for deployment, artwork and whatnots needed for App Store
 
 ## Possible future features and tasks

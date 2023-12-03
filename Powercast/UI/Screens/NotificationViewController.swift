@@ -51,6 +51,7 @@ class NotificationViewController: ViewController {
             .registerClass(DateSelectionCell.self)
             .registerClass(ToggleCell.self)
             .registerClass(MessageCell.self)
+            .registerClass(ButtonCell.self)
             .layout(in: view) { make, its in
                 make(its.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor))
                 make(its.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor))
@@ -87,6 +88,19 @@ class NotificationViewController: ViewController {
     @objc private func didTapToggle() {
         notification = notification.copy(enabled: toggle.isOn)
         update()
+    }
+
+    @objc private func didTapDelete() {
+        let options = [
+            ActionSheetOption.title(text: Translations.NOTIFICATION_DELETE_TITLE),
+            .message(text: Translations.NOTIFICATION_DELETE_MESSAGE),
+            .danger(text: Translations.NOTIFICATION_DELETE_BUTTON_DESTRUCTIVE, action: { [notification, state, navigationController] _ in
+                state.forget(notification: notification)
+                navigationController?.popViewController(animated: true)
+            }),
+            .cancel(text: Translations.NOTIFICATION_DELETE_BUTTON_NEGATIVE, action: nil)
+        ]
+        navigate(to: .actionSheet(options: options))
     }
 
     @objc private func didChangeTrigger() {
@@ -147,12 +161,21 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         }
     }
 
+    private class ButtonCell: StackviewCell {
+        func update(target: Any, action: Selector) -> Self {
+            views.addArrangedSubview(RoundedButton(text: Translations.NOTIFICATION_DELETE_TITLE, textColor: .buttonText, backgroundColor: .warningBackground, target: target, action: action))
+            backgroundColor = .clear
+            return self
+        }
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0: tableView.dequeueReusableCell(ToggleCell.self, forIndexPath: indexPath).update(with: toggle)
         case 1: tableView.dequeueReusableCell(DateSelectionCell.self, forIndexPath: indexPath).update(with: triggerPicker)
         case 2: tableView.dequeueReusableCell(DurationCell.self, forIndexPath: indexPath).update(with: startPicker, and: durationPicker)
         case 3: tableView.dequeueReusableCell(MessageCell.self, forIndexPath: indexPath).update(with: notification.fullDescription)
+        case 4: tableView.dequeueReusableCell(ButtonCell.self, forIndexPath: indexPath).update(target: self, action: #selector(didTapDelete))
         default: tableView.dequeueReusableCell(UITableViewCell.self, forIndexPath: indexPath)
         }
     }
@@ -167,7 +190,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        4
+        5
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -51,7 +51,8 @@ struct Notification: AutoCopy, Equatable {
             let prices = try? price.data(for: network.zone, in: period),
             let model = prices.first,
             let priceSpan = Price.map(prices, at: model.timestamp, in: network, using: charges)?.priceSpan,
-            firingDate > lastDelivery
+            firingDate > lastDelivery,
+            firingDate >= Date.now.date(byAdding: .minute, value: -2)
         else {
             return nil
         }

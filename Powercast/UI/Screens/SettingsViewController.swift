@@ -45,7 +45,7 @@ class SettingsViewController: ViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         state.add(observer: self)
-        sections = buildSettings()
+        updated()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -178,7 +178,15 @@ extension SettingsViewController {
     private func buildNotificationSettings() -> Section {
         switch state.notificationStatus {
         case .authorized:
-            let rows = state.notifications.map { notification in
+            let rows = state.notifications.sorted(by: { (lhs, rhs) -> Bool in
+                if lhs.fireOffset == rhs.fireOffset {
+                    if lhs.dateOffset == rhs.dateOffset {
+                        return lhs.durationOffset < rhs.durationOffset
+                    }
+                    return lhs.dateOffset < rhs.dateOffset
+                }
+                return lhs.fireOffset < rhs.fireOffset
+            }).map { notification in
                 Row.navigate(label: notification.description, detailLabel: notification.action, endpoint: .notification(notification: notification))
             }
             return SettingsViewController.Section(
