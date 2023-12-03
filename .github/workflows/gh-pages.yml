@@ -22,48 +22,23 @@ concurrency:
 # FIXME: insert css
 
 jobs:
-  # render:
-  #   name: Render pages
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: datafolklabs/markdown
-  #     volumes:
-  #       - ${{ github.workspace }}:/workspace
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Convert
-  #       run: |
-  #         mkdir -p /output/privacy-policy
-  #         markdown /workspace/privacy-policy/index.md > /output/privacy-policy/index.html
-  #         find /workspace/privacy-policy -type f -name "*.css" -exec cp -v {} /output/privacy-policy/ \;
-  #     - name: Upload artifact
-  #       uses: actions/upload-pages-artifact@v1
-  #       with:
-  #         path: /output
-
   render:
     name: Render pages
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Prepare output
+      - name: Setup markdown
         shell: bash
-        run: |
-          mkdir -p output/privacy-policy
-          find privacy-policy -type f -name "*.css" -exec cp -v {} output/privacy-policy/ \;
-      # - name: Convert
-      #   uses: docker://datafolklabs/markdown
-      #   with:
-      #     args: privacy-policy/index.md > output/privacy-policy/index.html
-      # - name: Convert
-      #   shell: bash
-      #   run: |
-      #     docker run -v .:/workspace datafolklabs/markdown -- /workspace/privacy-policy/index.md > /workspace/output/privacy-policy/index.html
-      - name: Convert
+        run: pipx install markdown
+      - name: Prepare output directories
         shell: bash
-        run: |
-          pipx install markdown
-          markdown_py privacy-policy/index.md > output/privacy-policy/index.html
+        run: mkdir -p output/privacy-policy
+      - name: Convert markdowns
+        shell: bash
+        run: markdown_py privacy-policy/index.md > output/privacy-policy/index.html
+      - name: Copy stylesheets
+        shell: bash
+        run: find privacy-policy -type f -name '*.css' -print0 | rsync -av --files-from=- --from0 . output/
       - name: Prepare artifact
         shell: bash
         run: chmod +rx output
