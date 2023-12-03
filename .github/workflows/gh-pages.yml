@@ -1,0 +1,57 @@
+name: Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/gh-pages.yml
+      - privacy-policy/**
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/gh-pages.yml
+      - privacy-policy/**
+
+concurrency:
+  group: publishing-pages-${{ github.ref_name }}
+  cancel-in-progress: true
+
+# FIXME: replace ~Date~
+# FIXME: insert css
+
+jobs:
+  render:
+    name: Render pages
+    runs-on: ubuntu-latest
+    container:
+      image: datafolklabs/markdown
+      volumes:
+        - ${{ github.workspace }}:/workspace
+    steps:
+      - uses: actions/checkout@v4
+      - name: Convert
+        run: |
+          mkdir -p /output/privacy-policy
+          markdown /workspace/privacy-policy/index.md > /output/privacy-policy/index.html
+          find /workspace/privacy-policy -type f -name "*.css" -exec cp -v {} /output/privacy-policy/ \;
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: /output
+
+  deploy:
+    needs: render
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
