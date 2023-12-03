@@ -36,7 +36,7 @@ jobs:
           pipx install markdown
           mkdir -p output/privacy-policy
           sed "s/~Date~/$updated/g" < privacy-policy/index.md > /tmp/out && mv /tmp/out privacy-policy/index.md
-          printf '<link rel="stylesheet" href="styles.css">\n' > output/privacy-policy/index.html
+          printf '<link rel="stylesheet" href="styles.css?_=${{ github.sha }}">\n' > output/privacy-policy/index.html
           markdown_py privacy-policy/index.md >> output/privacy-policy/index.html
           find privacy-policy -type f -name '*.css' -print0 | rsync -av --files-from=- --from0 . output/
           chmod +rx output
