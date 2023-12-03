@@ -63,7 +63,7 @@ jobs:
         shell: bash
         run: |
           pipx install markdown
-          markdown privacy-policy/index.md > output/privacy-policy/index.html
+          markdown_py privacy-policy/index.md > output/privacy-policy/index.html
       - name: Prepare artifact
         shell: bash
         run: chmod +rx output
