@@ -11,6 +11,10 @@ jobs:
         with:
           xcode-version: '^15.0'
 
+      - name: Build information
+        run: |
+          xcrun xcodebuild -version
+
       - uses: actions/checkout@v4
 
       - name: Setup local configuration

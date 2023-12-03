@@ -58,10 +58,13 @@ class App: Dependenables {
     }
 
     func didLaunch(with window: UIWindow) {
+        let tags = ["session": UUID().uuidString, "release": "\(configuration.isReleaseBuild)"]
         if configuration.isRunningOnSimulator || configuration.isRunningUnitTests {
             Flogger(level: .debug, [ConsoleLogger()])
+        } else if configuration.isReleaseBuild {
+            Flogger(level: .warn, [HumioLogger(tags: tags)])
         } else {
-            Flogger(level: .debug, [ConsoleLogger(), HumioLogger(tags: ["session": UUID().uuidString])])
+            Flogger(level: .debug, [ConsoleLogger(), HumioLogger(tags: tags)])
         }
 
         if configuration.isRunningUnitTests { return }

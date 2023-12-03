@@ -12,6 +12,9 @@ Thank you for using Powercast! This privacy policy explains how we collect, use,
 **2. Analytics:**
    - We do not collect any analytics or usage data directly. However, Apple may provide us with aggregated and anonymized data related to app downloads, updates, and crashes for the purpose of improving app performance.
 
+**3. Error and Warning Logging:**
+   - In rare and unexpected cases, our app may log error and warning messages for diagnostic purposes. These logs are not part of normal or regular app usage and are generated only in exceptional circumstances. The logs are used solely for troubleshooting and improving the app's stability. They do not contain personally identifiable information.
+
 ## How We Use Your Information
 
 We use the information collected through the Apple App Store for the following purposes:
@@ -19,6 +22,8 @@ We use the information collected through the Apple App Store for the following p
 - **App Distribution:** To facilitate the distribution, updates, and licensing of our app through the Apple App Store.
 
 - **Improvement:** To analyze aggregated and anonymized data provided by Apple for the purpose of improving the performance and user experience of our app.
+
+- **Error and Warning Logs:** To identify and address rare and unexpected issues, we may log error and warning messages. These logs are used for diagnostic purposes only and are not part of normal or regular app usage.
 
 ## Information Sharing
 
