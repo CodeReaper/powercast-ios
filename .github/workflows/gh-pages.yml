@@ -51,10 +51,17 @@ jobs:
         run: |
           mkdir -p output/privacy-policy
           find privacy-policy -type f -name "*.css" -exec cp -v {} output/privacy-policy/ \;
+      # - name: Convert
+      #   uses: docker://datafolklabs/markdown
+      #   with:
+      #     args: privacy-policy/index.md > output/privacy-policy/index.html
       - name: Convert
-        uses: docker://datafolklabs/markdown
-        with:
-          args: privacy-policy/index.md > output/privacy-policy/index.html
+        shell: bash
+        run: |
+          docker run datafolklabs/markdown -- markdown privacy-policy/index.md > output/privacy-policy/index.html
+      - name: Prepare artifact
+        shell: bash
+        run: chmod +rx output
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
