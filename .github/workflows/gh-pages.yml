@@ -46,6 +46,7 @@ jobs:
           path: output
 
   deploy:
+    name: Deploy pages
     needs: render
     runs-on: ubuntu-latest
     permissions:
