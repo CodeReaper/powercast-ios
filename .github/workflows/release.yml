@@ -17,14 +17,14 @@ on:
         type: number
 
 jobs:
-  prepare-release:
+  release:
     runs-on: macos-13
     steps:
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '^15.0'
 
-      - name: Build information
+      - name: Version information
         run: xcrun xcodebuild -version
 
       - uses: actions/checkout@v4
@@ -38,9 +38,9 @@ jobs:
             echo "ORGANIZATION_IDENTIFIER = ${{ vars.ORGANIZATION_IDENTIFIER }};"
             echo "HUMIO_INGEST_TOKEN = ${{ secrets.HUMIO_INGEST_TOKEN }};"
             echo "HUMIO_DATA_SPACE = ${{ secrets.HUMIO_DATA_SPACE }};"
+            echo "MARKETING_VERSION = ${{ inputs.major }}.${{ inputs.minor }};"
+            echo "CURRENT_PROJECT_VERSION = $(git log --oneline main | wc -l);"
           } > Powercast/Local.xcconfig
-
-          xcrun agvtool new-marketing-version 1.0
 
       - name: Cache DerivedData
         uses: actions/cache@v3
@@ -59,10 +59,13 @@ jobs:
           printf '${{ secrets.APPSTORE_KEY_P8 }}' | base64 -d > ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_KEY_ID }}.p8
           echo "KEY_FILE=~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_KEY_ID }}.p8" >> $GITHUB_ENV
 
+      - name: Build information
+        run: xcrun xcodebuild -showBuildSettings
+
       - name: Build archive
         run: |
           xcodebuild -project Powercast.xcodeproj \
-          -archivePath "$RUNNER_TEMP/Powercast.xcarchive" \
+          -archivePath "${{ runner.temp }}/Powercast.xcarchive" \
           -scheme Powercast \
           -configuration Release \
           -sdk iphoneos \
@@ -93,60 +96,31 @@ jobs:
           EOF
 
           xcodebuild -exportArchive \
-          -archivePath "$RUNNER_TEMP/Powercast.xcarchive" \
+          -archivePath "${{ runner.temp }}/Powercast.xcarchive" \
           -exportOptionsPlist ExportOptions.plist
-          -exportPath "$RUNNER_TEMP/build"
+          -exportPath "${{ runner.temp }}/build"
 
-      - name: Tag version # FIXME: configure correctly
-        run: |
-          echo Tagging
-
-      - name: Upload app to TestFlight # FIXME: configure correctly
-        uses: apple-actions/upload-testflight-build@v1
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
         with:
-          app-path: 'path/to/application.ipa'
-          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
-          api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
-          api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
+          name: app
+          path: ${{ runner.temp }}/build/**.ipa
 
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: app
 
-#      - name: Upload application
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: app
-#          path: ${{ runner.temp }}/build/YourApp.ipa
-#          retention-days: 3
+      - name: List contents
+        run: find .
 
-# ---
-# - name: Upload to App Store Connect
-#  uses: app-store-connect/app-store-connect-action@v1
-#  with:
-#    app-store-connect-user: ${{ secrets.APP_STORE_CONNECT_USER }}
-#    app-store-connect-password: ${{ secrets.APP_STORE_CONNECT_PASSWORD }}
-#    app-store-connect-apple-id: ${{ secrets.APP_STORE_CONNECT_APPLE_ID }}
-#    app-store-connect-api-key: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
-#    app-store-connect-api-key-path: ${{ secrets.APP_STORE_CONNECT_API_KEY_PATH }}
-#    app-store-connect-api-key-key-id: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID }}
-#    app-store-connect-api-key-issuer-id: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
-#    app-store-connect-api-key-key-filepath: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_```
+      - name: Upload app
+        if: github.ref == 'refs/heads/main'
+        run: xcrun altool --upload-app -f app/*.ipa --type ios --apiKey ${{ secrets.APPSTORE_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_KEY_ID }}
 
-# ---
-# <?xml version="1.0" encoding="UTF-8"?>
-# <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-# <plist version="1.0">
-# <dict>
-#    <key>method</key>
-#    <string>app-store</string>
-#    <key>destination</key>
-#    <string>upload</string>
-# </dict>
-# </plist>
-
-# ---
-# Create a new keychain item. Name this item Xcode:itunesconnect.apple.com.
-# Provide your iTunes Connect credentials to this new keychain item.
-# xcrun -sdk iphoneos Validation -online -upload -verbose path/app.ipa
-
-# ---
-# xcrun altool --upload-package MyApp.ipa --type ios --asc-public-id 69a6de71-xxxx-xxxx-xxxx-xxxxxxxxxxxx --apple-id 42xxxx --bundle-version '5' --bundle-short-version-string '1.0' --bundle-id 'com.mycompany.myapp' -u user@mycompany.com -p **********
-# Uploads the package for App Store submission. The result is either success or a list of errors that need to be addressed before the upload is accepted.
+      - name: Save tag ${{ inputs.major }}.${{ inputs.minor }}
+        run: |
+          git tag -d ${{ inputs.major }}.${{ inputs.minor }} 2>/dev/null || true
+          git push origin :refs/tags/${{ inputs.major }}.${{ inputs.minor }} 2>/dev/null || true
+          git tag ${{ inputs.major }}.${{ inputs.minor }} ${{ github.sha }}
+          git push origin ${{ inputs.major }}.${{ inputs.minor }}
