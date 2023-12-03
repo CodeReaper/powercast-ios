@@ -11,10 +11,6 @@ on:
         description: Minor version
         required: true
         type: number
-      patch:
-        description: Patch version
-        required: true
-        type: number
 
 jobs:
   release:

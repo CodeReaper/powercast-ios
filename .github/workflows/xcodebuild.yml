@@ -35,6 +35,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-xcode-
 
+      - name: Build information
+        run: xcrun xcodebuild -showBuildSettings
+
       - name: Test
         run: |
           set -o pipefail && \
