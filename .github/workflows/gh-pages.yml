@@ -1,4 +1,4 @@
-name: Tests
+name: Deploy GitHub Pages
 
 on:
   pull_request:
@@ -22,20 +22,39 @@ concurrency:
 # FIXME: insert css
 
 jobs:
+  # render:
+  #   name: Render pages
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: datafolklabs/markdown
+  #     volumes:
+  #       - ${{ github.workspace }}:/workspace
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Convert
+  #       run: |
+  #         mkdir -p /output/privacy-policy
+  #         markdown /workspace/privacy-policy/index.md > /output/privacy-policy/index.html
+  #         find /workspace/privacy-policy -type f -name "*.css" -exec cp -v {} /output/privacy-policy/ \;
+  #     - name: Upload artifact
+  #       uses: actions/upload-pages-artifact@v1
+  #       with:
+  #         path: /output
+
   render:
     name: Render pages
     runs-on: ubuntu-latest
-    container:
-      image: datafolklabs/markdown
-      volumes:
-        - ${{ github.workspace }}:/workspace
     steps:
       - uses: actions/checkout@v4
-      - name: Convert
+      - name: Prepare output
+        shell: bash
         run: |
-          mkdir -p /output/privacy-policy
-          markdown /workspace/privacy-policy/index.md > /output/privacy-policy/index.html
-          find /workspace/privacy-policy -type f -name "*.css" -exec cp -v {} /output/privacy-policy/ \;
+          mkdir -p output/privacy-policy
+          find privacy-policy -type f -name "*.css" -exec cp -v {} output/privacy-policy/ \;
+      - name: Convert
+        uses: docker://datafolklabs/markdown
+        with:
+          args: privacy-policy/index.md > output/privacy-policy/index.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
