@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="styles.css">
+
 # Privacy Policy for Powercast
 
 **Last updated:** ~Date~
