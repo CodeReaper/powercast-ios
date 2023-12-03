@@ -186,7 +186,7 @@ extension SettingsViewController {
                     return lhs.dateOffset < rhs.dateOffset
                 }
                 return lhs.fireOffset < rhs.fireOffset
-             }).map { notification in
+            }).map { notification in
                 Row.navigate(label: notification.description, detailLabel: notification.action, endpoint: .notification(notification: notification))
             }
             return SettingsViewController.Section(
