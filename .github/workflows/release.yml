@@ -24,18 +24,21 @@ jobs:
         run: xcrun xcodebuild -version
 
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup configuration
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          count=$(gh api -i "/repos/codereaper/powercast-ios/commits?per_page=1" | grep -i '^link' | cut -d ';' -f2 | cut -d= -f4 | tr -cd '[:digit:]')
+          echo "BUILD_VERSION=$count" >> $GITHUB_ENV
           {
             echo "DEVELOPMENT_TEAM = ${{ vars.DEVELOPMENT_TEAM }};"
             echo "ORGANIZATION_IDENTIFIER = ${{ vars.ORGANIZATION_IDENTIFIER }};"
             echo "HUMIO_INGEST_TOKEN = ${{ secrets.HUMIO_INGEST_TOKEN }};"
             echo "HUMIO_DATA_SPACE = ${{ secrets.HUMIO_DATA_SPACE }};"
             echo "MARKETING_VERSION = ${{ inputs.major }}.${{ inputs.minor }};"
-            echo "CURRENT_PROJECT_VERSION = $(git log --oneline main | wc -l);"
+            echo "CURRENT_PROJECT_VERSION = ${count};"
           } > Powercast/Local.xcconfig
 
       - name: Cache DerivedData
