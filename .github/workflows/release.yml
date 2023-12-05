@@ -57,7 +57,7 @@ jobs:
           KEY_BASE64: ${{ secrets.APPSTORE_KEY_P8 }}
         run: |
           mkdir -p ~/.appstoreconnect/private_keys
-          echo -n "$KEY_BASE64" | base64 -d > "~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_KEY_ID }}.p8"
+          echo -n "$KEY_BASE64" | base64 -d > ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_KEY_ID }}.p8
           echo 'KEY_FILE=~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_KEY_ID }}.p8' >> $GITHUB_ENV
 
       - name: Setup keychain
@@ -88,9 +88,9 @@ jobs:
           -destination generic/platform=iOS \
           -parallelizeTargets \
           -allowProvisioningUpdates \
-          -authenticationKeyID '${{ secrets.APPSTORE_KEY_ID }}' \
-          -authenticationKeyIssuerID '${{ secrets.APPSTORE_ISSUER_ID }}' \
-          -authenticationKeyPath "${{ env.KEY_FILE }}" \
+          -authenticationKeyID ${{ secrets.APPSTORE_KEY_ID }} \
+          -authenticationKeyIssuerID ${{ secrets.APPSTORE_ISSUER_ID }} \
+          -authenticationKeyPath ${{ env.KEY_FILE }} \
           archive
 
       - name: Export ipa
@@ -116,9 +116,9 @@ jobs:
           -archivePath '${{ runner.temp }}/Powercast.xcarchive' \
           -exportOptionsPlist ExportOptions.plist \
           -exportPath '${{ runner.temp }}/build' \
-          -authenticationKeyID '${{ secrets.APPSTORE_KEY_ID }}' \
-          -authenticationKeyIssuerID '${{ secrets.APPSTORE_ISSUER_ID }}' \
-          -authenticationKeyPath "${{ env.KEY_FILE }}"
+          -authenticationKeyID ${{ secrets.APPSTORE_KEY_ID }} \
+          -authenticationKeyIssuerID ${{ secrets.APPSTORE_ISSUER_ID }} \
+          -authenticationKeyPath ${{ env.KEY_FILE }}
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
