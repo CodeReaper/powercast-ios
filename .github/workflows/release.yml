@@ -53,21 +53,26 @@ jobs:
             ${{ runner.os }}-xcode-
 
       - name: Setup authentication
+        env:
+          KEY_BASE64: ${{ secrets.APPSTORE_KEY_P8 }}
         run: |
           mkdir -p ~/.appstoreconnect/private_keys
-          printf '${{ secrets.APPSTORE_KEY_P8 }}' | base64 -d > '~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_KEY_ID }}.p8'
+          echo -n "$KEY_BASE64" | base64 -d > '~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_KEY_ID }}.p8'
           echo 'KEY_FILE=~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_KEY_ID }}.p8' >> $GITHUB_ENV
 
       - name: Setup keychain
+        env:
+          CERTIFICATE_BASE64: ${{ secrets.APPSTORE_CERTIFICATE_P12 }}
+          P12_PASSWORD: ${{ secrets.APPSTORE_CERTIFICATE_P12_PASSWORD }}
         run: |
           password=$(head -c 30 /dev/random| base64)
           keychain='${{ runner.temp }}/signing.keychain-db'
           certificate='${{ runner.temp }}/certificate.p12'
-          printf '${{ secrets.APPSTORE_CERTIFICATE_P12 }}' | base64 -d > "$certificate"
+          echo -n "$CERTIFICATE_BASE64" | base64 -d > "$certificate"
           security create-keychain -p "$password" "$keychain"
           security set-keychain-settings -lut 21600 "$keychain"
           security unlock-keychain -p "$password" "$keychain"
-          security import "$certificate" -P '${{ secrets.APPSTORE_CERTIFICATE_P12_PASSWORD }}' -A -t cert -f pkcs12 -k "$keychain"
+          security import "$certificate" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$keychain"
           security list-keychain -d user -s "$keychain"
 
       - name: Build information
