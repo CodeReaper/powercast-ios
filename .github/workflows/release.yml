@@ -94,7 +94,28 @@ jobs:
           -authenticationKeyPath ${{ env.KEY_FILE }} \
           archive
 
-      - name: Export ipa
+      - name: Resolve provisioning profiles related values
+        run: |
+          BUNDLE_ID=${{ vars.ORGANIZATION_IDENTIFIER }}.powercast.app
+          APPLICATION_ID=${{ vars.DEVELOPMENT_TEAM }}.${{ vars.ORGANIZATION_IDENTIFIER }}.powercast.app
+
+          for file in ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision; do
+            application=$(/usr/libexec/PlistBuddy -c 'Print :Entitlements:application-identifier' /dev/stdin <<< $(security cms -D -i "$file"))
+            echo "Checking $application ..."
+            if [ "$APPLICATION_ID" = "$application" ]; then
+              NAME=$(/usr/libexec/PlistBuddy -c 'Print :Name' /dev/stdin <<< $(security cms -D -i "$file"))
+            fi
+          done
+
+          if [ -z "$NAME" ]; then
+            echo 'Unable to locate a valid provisioning profile!'
+            exit 1
+          fi
+
+          echo "PROVISIONING_NAME=${NAME}" >> $GITHUB_ENV
+          echo "PROVISIONING_BUNDLE_ID=${BUNDLE_ID}" >> $GITHUB_ENV
+
+      - name: Create ExportOptions.plist
         run: |
           cat <<EOF > ExportOptions.plist
           <?xml version="1.0" encoding="UTF-8"?>
@@ -113,13 +134,15 @@ jobs:
             <string>manual</string>
             <key>provisioningProfiles</key>
             <dict>
-                <key>${{ vars.ORGANIZATION_IDENTIFIER }}.powercast.app</key>
-                <string>Powercast</string>
+                <key>${{ env.PROVISIONING_BUNDLE_ID }}</key>
+                <string>${{ env.PROVISIONING_NAME }}</string>
             </dict>
             </dict>
           </plist>
           EOF
 
+      - name: Upload ipa
+        run: |
           xcodebuild -exportArchive \
           -archivePath '${{ runner.temp }}/Powercast.xcarchive' \
           -exportOptionsPlist ExportOptions.plist \
@@ -133,18 +156,6 @@ jobs:
         with:
           name: app
           path: ${{ runner.temp }}/build/**.ipa
-
-      - name: Download build artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: app
-
-      - name: List contents
-        run: find .
-
-      - name: Upload app
-        if: github.ref == 'refs/heads/main'
-        run: xcrun altool --upload-app -f app/*.ipa --type ios --apiKey '${{ secrets.APPSTORE_KEY_ID }}' --apiIssuer '${{ secrets.APPSTORE_ISSUER_ID }}'
 
       - name: Save tag ${{ inputs.major }}.${{ inputs.minor }}
         run: |
