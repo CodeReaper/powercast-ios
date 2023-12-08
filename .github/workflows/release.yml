@@ -74,6 +74,7 @@ jobs:
           security unlock-keychain -p "$password" "$keychain"
           security import "$certificate" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$keychain"
           security list-keychain -d user -s "$keychain"
+          security find-identity -v
 
       - name: Build information
         run: xcrun xcodebuild -showBuildSettings
@@ -108,7 +109,14 @@ jobs:
             <string>upload</string>
             <key>uploadSymbols</key>
             <true/>
-          </dict>
+            <key>signingStyle</key>
+            <string>manual</string>
+            <key>provisioningProfiles</key>
+            <dict>
+                <key>${{ vars.ORGANIZATION_IDENTIFIER }}.powercast.app</key>
+                <string>Powercast</string>
+            </dict>
+            </dict>
           </plist>
           EOF
 
