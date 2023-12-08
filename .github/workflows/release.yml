@@ -124,6 +124,7 @@ jobs:
 
       - name: Upload ipa
         run: |
+          mkdir '${{ runner.temp }}/build'
           xcodebuild -exportArchive \
           -archivePath '${{ runner.temp }}/Powercast.xcarchive' \
           -exportOptionsPlist ExportOptions.plist \
