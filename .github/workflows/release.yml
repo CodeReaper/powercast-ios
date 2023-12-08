@@ -131,6 +131,9 @@ jobs:
           -authenticationKeyIssuerID ${{ secrets.APPSTORE_ISSUER_ID }} \
           -authenticationKeyPath ${{ env.KEY_FILE }}
 
+      - name: List contents
+        run: find ${{ runner.temp }}/build
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
