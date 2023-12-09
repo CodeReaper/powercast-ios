@@ -69,7 +69,7 @@
 "SETTINGS_NOTIFICATIONS_TITLE" = "Notifikationer";
 "SETTINGS_STATE_DISABLED" = "Slået fra";
 "SETTINGS_STATE_ENABLED" = "Slået til";
-"SETTINGS_STATE_UNKNOWN" = "Ukendt";
+"SETTINGS_STATE_UNKNOWN" = "Vil spørge efter tilladelse når nødvendigt";
 "SETTINGS_SYSTEM_BACKGROUND_REFRESH" = "Bagrrundsopdateringer";
 "SETTINGS_SYSTEM_NOTIFICATIONS" = "Notifikationer";
 "SETTINGS_SYSTEM_TITLE" = "System indstillinger";

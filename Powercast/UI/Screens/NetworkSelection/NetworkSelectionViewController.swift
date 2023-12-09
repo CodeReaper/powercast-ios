@@ -37,8 +37,6 @@ class NetworkSelectionViewController: ViewController {
         }
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark.circle"), style: .plain, target: self, action: #selector(didTapHelp))
 
-        view.backgroundColor = .systemGroupedBackground
-
         tableView.showsVerticalScrollIndicator = false
         tableView
             .set(datasource: self, delegate: self)

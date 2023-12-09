@@ -59,7 +59,7 @@ class SettingsViewController: ViewController {
     }
 
     private enum Row {
-        case navigate(label: String, detailLabel: String?, endpoint: Navigation)
+        case navigate(label: String, detailLabel: String?, endpoint: Navigation?)
         case notification
         case disabled
     }
@@ -73,18 +73,20 @@ class SettingsViewController: ViewController {
             fatalError("init(coder:) has not been implemented")
         }
 
-        func update(title: String, label: String?) -> Self {
+        func update(title: String, label: String?, enabled: Bool) -> Self {
             textLabel?.text = title
             textLabel?.textColor = .cellText
             detailTextLabel?.text = label
             detailTextLabel?.textColor = .cellSecondaryText
-            accessoryType = .disclosureIndicator
+            accessoryType = enabled ? .disclosureIndicator : .none
+            selectionStyle = enabled ? .default : .none
             return self
         }
     }
 
     private class MessageCell: StackviewCell {
         func update(with message: String) -> Self {
+            selectionStyle = .none
             views.addArrangedSubview(Label(text: message, color: .cellSecondaryText))
             return self
         }
@@ -115,10 +117,10 @@ extension SettingsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section].rows[indexPath.row] {
-        case let .navigate(label, detail, _):
-            return tableView.dequeueReusableCell(NavigationCell.self, forIndexPath: indexPath).update(title: label, label: detail)
+        case let .navigate(label, detail, endpoint):
+            return tableView.dequeueReusableCell(NavigationCell.self, forIndexPath: indexPath).update(title: label, label: detail, enabled: endpoint != nil)
         case .notification:
-            return tableView.dequeueReusableCell(NavigationCell.self, forIndexPath: indexPath).update(title: Translations.SETTINGS_NOTIFICATIONS_ADD_BUTTON, label: nil)
+            return tableView.dequeueReusableCell(NavigationCell.self, forIndexPath: indexPath).update(title: Translations.SETTINGS_NOTIFICATIONS_ADD_BUTTON, label: nil, enabled: true)
         case .disabled:
             return tableView.dequeueReusableCell(MessageCell.self, forIndexPath: indexPath).update(with: Translations.SETTINGS_NOTIFICATIONS_SYSTEM_DISABLED)
         }
@@ -130,7 +132,9 @@ extension SettingsViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         switch sections[indexPath.section].rows[indexPath.row] {
         case let .navigate(_, _, endpoint):
-            navigate(to: endpoint)
+            if let endpoint = endpoint {
+                navigate(to: endpoint)
+            }
         case .notification:
             switch state.notificationStatus {
             case .authorized:
@@ -170,14 +174,14 @@ extension SettingsViewController {
             title: Translations.SETTINGS_SYSTEM_TITLE,
             rows: [
                 .navigate(label: Translations.SETTINGS_SYSTEM_BACKGROUND_REFRESH, detailLabel: state.backgroundRefreshStatus.string, endpoint: .systemSettings),
-                .navigate(label: Translations.SETTINGS_SYSTEM_NOTIFICATIONS, detailLabel: state.notificationStatus.string, endpoint: .systemSettings)
+                .navigate(label: Translations.SETTINGS_SYSTEM_NOTIFICATIONS, detailLabel: state.notificationStatus.string, endpoint: state.notificationStatus == .notDetermined ? nil : .systemSettings)
             ]
         )
     }
 
     private func buildNotificationSettings() -> Section {
         switch state.notificationStatus {
-        case .authorized:
+        case .authorized, .notDetermined:
             let rows = state.notifications.sorted(by: { (lhs, rhs) -> Bool in
                 if lhs.fireOffset == rhs.fireOffset {
                     if lhs.dateOffset == rhs.dateOffset {

@@ -60,7 +60,7 @@ class LicensesViewController: ViewController {
 
         func update(name: String) -> Self {
             textLabel?.text = name
-            textLabel?.textColor = .labelText
+            textLabel?.textColor = .cellText
             return self
         }
     }
