@@ -14,6 +14,7 @@ on:
 
 jobs:
   release:
+    name: Release ${{ inputs.major }}.${{ inputs.minor }}
     runs-on: macos-13
     steps:
       - uses: maxim-lobanov/setup-xcode@v1
@@ -24,18 +25,15 @@ jobs:
         run: xcrun xcodebuild -version
 
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup configuration
         run: |
           {
-            echo "DEVELOPMENT_TEAM = ${{ vars.DEVELOPMENT_TEAM }};"
-            echo "ORGANIZATION_IDENTIFIER = ${{ vars.ORGANIZATION_IDENTIFIER }};"
-            echo "HUMIO_INGEST_TOKEN = ${{ secrets.HUMIO_INGEST_TOKEN }};"
-            echo "HUMIO_DATA_SPACE = ${{ secrets.HUMIO_DATA_SPACE }};"
-            echo "MARKETING_VERSION = ${{ inputs.major }}.${{ inputs.minor }};"
-            echo "CURRENT_PROJECT_VERSION = $(git log --oneline main | wc -l);"
+            echo 'DEVELOPMENT_TEAM = ${{ vars.DEVELOPMENT_TEAM }};'
+            echo 'ORGANIZATION_IDENTIFIER = ${{ vars.ORGANIZATION_IDENTIFIER }};'
+            echo 'HUMIO_INGEST_TOKEN = ${{ secrets.HUMIO_INGEST_TOKEN }};'
+            echo 'HUMIO_DATA_SPACE = ${{ secrets.HUMIO_DATA_SPACE }};'
+            echo 'MARKETING_VERSION = ${{ inputs.major }}.${{ inputs.minor }};'
           } > Powercast/Local.xcconfig
 
       - name: Cache DerivedData
@@ -50,10 +48,28 @@ jobs:
             ${{ runner.os }}-xcode-
 
       - name: Setup authentication
+        env:
+          KEY_BASE64: ${{ secrets.APPSTORE_KEY_P8 }}
         run: |
           mkdir -p ~/.appstoreconnect/private_keys
-          printf '${{ secrets.APPSTORE_KEY_P8 }}' | base64 -d > ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_KEY_ID }}.p8
-          echo "KEY_FILE=~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_KEY_ID }}.p8" >> $GITHUB_ENV
+          echo -n "$KEY_BASE64" | base64 -d > ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_KEY_ID }}.p8
+          echo 'KEY_FILE=~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_KEY_ID }}.p8' >> $GITHUB_ENV
+
+      - name: Setup keychain
+        env:
+          CERTIFICATE_BASE64: ${{ secrets.APPSTORE_CERTIFICATE_P12 }}
+          P12_PASSWORD: ${{ secrets.APPSTORE_CERTIFICATE_P12_PASSWORD }}
+        run: |
+          password=$(head -c 30 /dev/random| base64)
+          keychain='${{ runner.temp }}/signing.keychain-db'
+          certificate='${{ runner.temp }}/certificate.p12'
+          echo -n "$CERTIFICATE_BASE64" | base64 -d > "$certificate"
+          security create-keychain -p "$password" "$keychain"
+          security set-keychain-settings -lut 21600 "$keychain"
+          security unlock-keychain -p "$password" "$keychain"
+          security import "$certificate" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$keychain"
+          security list-keychain -d user -s "$keychain"
+          security find-identity -v
 
       - name: Build information
         run: xcrun xcodebuild -showBuildSettings
@@ -61,18 +77,20 @@ jobs:
       - name: Build archive
         run: |
           xcodebuild -project Powercast.xcodeproj \
-          -archivePath "${{ runner.temp }}/Powercast.xcarchive" \
+          -archivePath '${{ runner.temp }}/Powercast.xcarchive' \
           -scheme Powercast \
           -configuration Release \
           -sdk iphoneos \
           -destination generic/platform=iOS \
+          -parallelizeTargets \
           -allowProvisioningUpdates \
           -authenticationKeyID ${{ secrets.APPSTORE_KEY_ID }} \
-          -authenticationKeyIssuerID ${{ secrets.APPSTORE_KEY_ID }} \
-          -authenticationKeyPath "${{ env.KEY_FILE }}" \
-          clean archive
+          -authenticationKeyIssuerID ${{ secrets.APPSTORE_ISSUER_ID }} \
+          -authenticationKeyPath ${{ env.KEY_FILE }} \
+          archive \
+          PROVISIONING_PROFILE_SPECIFIER=${{ vars.PROVISIONING_PROFILE }}
 
-      - name: Export ipa
+      - name: Create ExportOptions.plist
         run: |
           cat <<EOF > ExportOptions.plist
           <?xml version="1.0" encoding="UTF-8"?>
@@ -87,34 +105,29 @@ jobs:
             <string>upload</string>
             <key>uploadSymbols</key>
             <true/>
-          </dict>
+            <key>signingStyle</key>
+            <string>manual</string>
+            <key>provisioningProfiles</key>
+            <dict>
+                <key>${{ vars.ORGANIZATION_IDENTIFIER }}.powercast.app</key>
+                <string>${{ vars.PROVISIONING_PROFILE }}</string>
+            </dict>
+            </dict>
           </plist>
           EOF
 
-          xcodebuild -exportArchive \
-          -archivePath "${{ runner.temp }}/Powercast.xcarchive" \
-          -exportOptionsPlist ExportOptions.plist
-          -exportPath "${{ runner.temp }}/build"
-
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: app
-          path: ${{ runner.temp }}/build/**.ipa
-
-      - name: Download build artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: app
-
-      - name: List contents
-        run: find .
-
-      - name: Upload app
+      - name: Upload ipa
         if: github.ref == 'refs/heads/main'
-        run: xcrun altool --upload-app -f app/*.ipa --type ios --apiKey ${{ secrets.APPSTORE_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_KEY_ID }}
+        run: |
+          xcodebuild -exportArchive \
+          -archivePath '${{ runner.temp }}/Powercast.xcarchive' \
+          -exportOptionsPlist ExportOptions.plist \
+          -authenticationKeyID ${{ secrets.APPSTORE_KEY_ID }} \
+          -authenticationKeyIssuerID ${{ secrets.APPSTORE_ISSUER_ID }} \
+          -authenticationKeyPath ${{ env.KEY_FILE }}
 
       - name: Save tag ${{ inputs.major }}.${{ inputs.minor }}
+        if: github.ref == 'refs/heads/main'
         run: |
           git tag -d ${{ inputs.major }}.${{ inputs.minor }} 2>/dev/null || true
           git push origin :refs/tags/${{ inputs.major }}.${{ inputs.minor }} 2>/dev/null || true

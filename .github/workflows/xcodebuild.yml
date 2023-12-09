@@ -11,7 +11,7 @@ jobs:
         with:
           xcode-version: '^15.0'
 
-      - name: Build information
+      - name: Version information
         run: |
           xcrun xcodebuild -version
 
