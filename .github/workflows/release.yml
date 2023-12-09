@@ -27,19 +27,13 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Setup configuration
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
-          count=$(gh api -i '/repos/${{ github.repository }}/commits?per_page=1' | grep -i '^link' | cut -d ';' -f2 | cut -d= -f4 | tr -cd '[:digit:]')
-          echo "BUILD_VERSION=$count" >> $GITHUB_ENV
           {
             echo 'DEVELOPMENT_TEAM = ${{ vars.DEVELOPMENT_TEAM }};'
             echo 'ORGANIZATION_IDENTIFIER = ${{ vars.ORGANIZATION_IDENTIFIER }};'
             echo 'HUMIO_INGEST_TOKEN = ${{ secrets.HUMIO_INGEST_TOKEN }};'
             echo 'HUMIO_DATA_SPACE = ${{ secrets.HUMIO_DATA_SPACE }};'
             echo 'MARKETING_VERSION = ${{ inputs.major }}.${{ inputs.minor }};'
-            echo "CURRENT_PROJECT_VERSION = ${count};"
           } > Powercast/Local.xcconfig
 
       - name: Cache DerivedData
@@ -124,23 +118,12 @@ jobs:
 
       - name: Upload ipa
         run: |
-          mkdir '${{ runner.temp }}/build'
           xcodebuild -exportArchive \
           -archivePath '${{ runner.temp }}/Powercast.xcarchive' \
           -exportOptionsPlist ExportOptions.plist \
-          -exportPath '${{ runner.temp }}/build' \
           -authenticationKeyID ${{ secrets.APPSTORE_KEY_ID }} \
           -authenticationKeyIssuerID ${{ secrets.APPSTORE_ISSUER_ID }} \
           -authenticationKeyPath ${{ env.KEY_FILE }}
-
-      - name: List contents
-        run: find ${{ runner.temp }}/build
-
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: app
-          path: ${{ runner.temp }}/build/**.ipa
 
       - name: Save tag ${{ inputs.major }}.${{ inputs.minor }}
         run: |
