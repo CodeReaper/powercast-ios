@@ -117,6 +117,7 @@ jobs:
           EOF
 
       - name: Upload ipa
+        if: github.ref == 'refs/heads/main'
         run: |
           xcodebuild -exportArchive \
           -archivePath '${{ runner.temp }}/Powercast.xcarchive' \
@@ -126,6 +127,7 @@ jobs:
           -authenticationKeyPath ${{ env.KEY_FILE }}
 
       - name: Save tag ${{ inputs.major }}.${{ inputs.minor }}
+        if: github.ref == 'refs/heads/main'
         run: |
           git tag -d ${{ inputs.major }}.${{ inputs.minor }} 2>/dev/null || true
           git push origin :refs/tags/${{ inputs.major }}.${{ inputs.minor }} 2>/dev/null || true
