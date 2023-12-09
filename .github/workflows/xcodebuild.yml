@@ -4,7 +4,7 @@ on:
   workflow_call: {}
 
 jobs:
-  xcodebuild:
+  validate:
     runs-on: macos-13
     steps:
       - uses: maxim-lobanov/setup-xcode@v1

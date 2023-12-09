@@ -14,6 +14,8 @@ jobs:
     outputs:
       xcode: ${{ steps.xcode.outputs.matches }}
       lint: ${{ steps.lint.outputs.matches }}
+      dependabot: ${{ steps.dependabot.outputs.matches }}
+      lane: ${{ steps.lane.outputs.matches }}
     steps:
       - uses: CodeReaper/find-diff-action@v3
         name: Changes requiring xcodebuild
