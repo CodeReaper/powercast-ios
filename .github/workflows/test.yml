@@ -14,6 +14,8 @@ jobs:
     outputs:
       xcode: ${{ steps.xcode.outputs.matches }}
       lint: ${{ steps.lint.outputs.matches }}
+      dependabot: ${{ steps.dependabot.outputs.matches }}
+      lane: ${{ steps.lane.outputs.matches }}
     steps:
       - uses: CodeReaper/find-diff-action@v3
         name: Changes requiring xcodebuild
@@ -30,6 +32,11 @@ jobs:
         id: dependabot
         with:
           paths: .github/dependabot.yml .github/workflows/dependabot-validate.yml
+      - uses: CodeReaper/find-diff-action@v3
+        name: Changes requiring validation of lane
+        id: lane
+        with:
+          paths: lanes resources .github/workflows/lane.yml
 
   build-test:
     needs: changes
@@ -50,9 +57,13 @@ jobs:
       - run: editorconfig-checker
 
   lane-check:
+    needs: changes
+    if: needs.changes.outputs.lane == 'true'
     uses: ./.github/workflows/lane.yml
 
   dependabot-validate:
+    needs: changes
+    if: needs.changes.outputs.dependabot == 'true'
     uses: ./.github/workflows/dependabot-validate.yml
 
   tests-succeeded:
