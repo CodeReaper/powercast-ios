@@ -67,6 +67,7 @@ class AppNavigation {
             let viewController = LaunchViewController(
                 navigation: self,
                 databases: dependencies.databases,
+                store: dependencies.storeRepository,
                 charges: dependencies.chargesRepository
             )
             navigationController.setViewControllers([viewController], animated: true)
@@ -110,7 +111,7 @@ class AppNavigation {
             )
             navigationController.pushViewController(viewController, animated: true)
         case .settings:
-            navigationController.pushViewController(SettingsViewController(navigation: self, state: dependencies.stateRepository, notifications: dependencies.notificationScheduler), animated: true)
+            navigationController.pushViewController(SettingsViewController(navigation: self, state: dependencies.stateRepository, store: dependencies.storeRepository, notifications: dependencies.notificationScheduler), animated: true)
         case let .notification(notification):
             navigationController.pushViewController(NotificationViewController(navigation: self, state: dependencies.stateRepository, notification: notification), animated: true)
         case let .networkDetails(network):
