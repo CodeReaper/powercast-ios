@@ -7,13 +7,15 @@ protocol LaunchDelegate: AnyObject {
 
 struct LaunchInteractor {
     private let databases: [Migratable]
+    private let store: StoreRepository
     private let charges: ChargesRepository
 
     private weak var delegate: LaunchDelegate?
 
-    init(delegate: LaunchDelegate, databases: [Migratable], charges: ChargesRepository) {
+    init(delegate: LaunchDelegate, databases: [Migratable], store: StoreRepository, charges: ChargesRepository) {
         self.delegate = delegate
         self.databases = databases
+        self.store = store
         self.charges = charges
     }
 
@@ -33,6 +35,11 @@ struct LaunchInteractor {
                 try! database.migrate()
                 dispatch.leave()
             }
+        }
+        dispatch.enter()
+        Task {
+            try! await store.load()
+            dispatch.leave()
         }
         // swiftlint:enable force_try
 

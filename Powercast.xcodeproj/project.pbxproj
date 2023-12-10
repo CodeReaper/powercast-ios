@@ -108,6 +108,7 @@
 		CDA37DF32ADB3174004B44B0 /* MultiColorGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA37DF22ADB3174004B44B0 /* MultiColorGaugeView.swift */; };
 		CDA7A6012B254241004CF7D1 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA7A6002B254241004CF7D1 /* Bundle.swift */; };
 		CDA7A6032B2619FE004CF7D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDA7A6022B2619FE004CF7D1 /* StoreKit.framework */; };
+		CDA7A6072B2649BA004CF7D1 /* StoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA7A6062B2649BA004CF7D1 /* StoreRepository.swift */; };
 		CDE77AC428C369370021EEDD /* Migratable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE77AC328C369370021EEDD /* Migratable.swift */; };
 		CDEAF3332B1BAEA700C4ED7A /* StackviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEAF3322B1BAEA700C4ED7A /* StackviewCell.swift */; };
 /* End PBXBuildFile section */
@@ -225,6 +226,8 @@
 		CDA37DF22ADB3174004B44B0 /* MultiColorGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiColorGaugeView.swift; sourceTree = "<group>"; };
 		CDA7A6002B254241004CF7D1 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		CDA7A6022B2619FE004CF7D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		CDA7A6062B2649BA004CF7D1 /* StoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRepository.swift; sourceTree = "<group>"; };
+		CDA7A6082B265962004CF7D1 /* Powercast.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Powercast.storekit; sourceTree = "<group>"; };
 		CDE77AC328C369370021EEDD /* Migratable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migratable.swift; sourceTree = "<group>"; };
 		CDEAF3322B1BAEA700C4ED7A /* StackviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackviewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -369,6 +372,7 @@
 			isa = PBXGroup;
 			children = (
 				387FF607286B90A40051E3DC /* Info.plist */,
+				CDA7A6082B265962004CF7D1 /* Powercast.storekit */,
 				387FF60D286B95B00051E3DC /* App.swift */,
 				380CE904288AF2040003FF36 /* AppConfiguration.swift */,
 				387FF5F9286B909B0051E3DC /* AppDelegate.swift */,
@@ -431,6 +435,7 @@
 				CD10689C2B04165600FD5B0E /* EmissionRepository.swift */,
 				38E0FA642884759B0096B98A /* EnergyPriceRepository.swift */,
 				384E6434288D9E38004ADCB1 /* StateRepository.swift */,
+				CDA7A6062B2649BA004CF7D1 /* StoreRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -836,6 +841,7 @@
 				38E0FA722884822C0096B98A /* _Database.swift in Sources */,
 				389F717D28997B2C0007C2E0 /* MenuViewController.swift in Sources */,
 				CD1068992B0411D700FD5B0E /* EmissionDatabase.swift in Sources */,
+				CDA7A6072B2649BA004CF7D1 /* StoreRepository.swift in Sources */,
 				CD5C58D22AE4844B00143060 /* ChargeDatabase.swift in Sources */,
 				CD5C58D42AE59E0200143060 /* NetworkPrice.swift in Sources */,
 			);
