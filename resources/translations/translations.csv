@@ -48,6 +48,7 @@
 "PRICE_ARCHIVE_FAILURE_MESSAGE","","Failed to load data","Kunne ikke hente data",""
 "ZONE_DK1","","DK1","DK1",""
 "ZONE_DK2","","DK2","DK2",""
+"VERSION_LABEL","","v.%1.%2/%3","v.%1.%2/%3",""
 "SETTINGS_TITLE","","Settings","Indstillinger",""
 "SETTINGS_STATE_ENABLED","","Enabled","Slået til",""
 "SETTINGS_STATE_DISABLED","","Disabled","Slået fra",""
