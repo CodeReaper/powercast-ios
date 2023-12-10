@@ -106,6 +106,7 @@
 		CDA0E4192AC988A000FF364D /* EnergyPrices.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0E4182AC988A000FF364D /* EnergyPrices.swift */; };
 		CDA37DF12ADB24F0004B44B0 /* ChargesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA37DF02ADB24F0004B44B0 /* ChargesService.swift */; };
 		CDA37DF32ADB3174004B44B0 /* MultiColorGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA37DF22ADB3174004B44B0 /* MultiColorGaugeView.swift */; };
+		CDA7A6012B254241004CF7D1 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA7A6002B254241004CF7D1 /* Bundle.swift */; };
 		CDE77AC428C369370021EEDD /* Migratable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE77AC328C369370021EEDD /* Migratable.swift */; };
 		CDEAF3332B1BAEA700C4ED7A /* StackviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEAF3322B1BAEA700C4ED7A /* StackviewCell.swift */; };
 /* End PBXBuildFile section */
@@ -221,6 +222,7 @@
 		CDA0E4182AC988A000FF364D /* EnergyPrices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyPrices.swift; sourceTree = "<group>"; };
 		CDA37DF02ADB24F0004B44B0 /* ChargesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargesService.swift; sourceTree = "<group>"; };
 		CDA37DF22ADB3174004B44B0 /* MultiColorGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiColorGaugeView.swift; sourceTree = "<group>"; };
+		CDA7A6002B254241004CF7D1 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		CDE77AC328C369370021EEDD /* Migratable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migratable.swift; sourceTree = "<group>"; };
 		CDEAF3322B1BAEA700C4ED7A /* StackviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackviewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -317,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				384E646A288EDAAF004ADCB1 /* Appearence.swift */,
+				CDA7A6002B254241004CF7D1 /* Bundle.swift */,
 				CD1068BD2B112B4500FD5B0E /* Collection.swift */,
 				38ECF94A289B0ACF00ED8372 /* Date.swift */,
 				CD1068AA2B07F17800FD5B0E /* DateInterval.swift */,
@@ -792,6 +795,7 @@
 				389F717F289982630007C2E0 /* Drawer.swift in Sources */,
 				CD5C58D82AE7018E00143060 /* GridPrice.swift in Sources */,
 				CD1068912B000B9C00FD5B0E /* PriceTableDatasource.swift in Sources */,
+				CDA7A6012B254241004CF7D1 /* Bundle.swift in Sources */,
 				CDE77AC428C369370021EEDD /* Migratable.swift in Sources */,
 				CD1068C32B12B78B00FD5B0E /* Notification.swift in Sources */,
 				38DF5ABE28707A7E008630FB /* Translations.swift in Sources */,

@@ -10,6 +10,8 @@
 	<string>$(HUMIO_DATA_SPACE)</string>
 	<key>HUMIO_INGEST_TOKEN</key>
 	<string>$(HUMIO_INGEST_TOKEN)</string>
+	<key>COMMIT</key>
+	<string>$(COMMIT)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AlexBrush-Regular.ttf</string>

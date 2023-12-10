@@ -58,7 +58,7 @@ class App: Dependenables {
     }
 
     func didLaunch(with window: UIWindow) {
-        let tags = ["session": UUID().uuidString, "release": "\(configuration.isReleaseBuild)"]
+        let tags = ["session": UUID().uuidString, "release": "\(configuration.isReleaseBuild)", "commit": Bundle.commit]
         if configuration.isRunningOnSimulator || configuration.isRunningUnitTests {
             Flogger(level: .debug, [ConsoleLogger()])
         } else if configuration.isReleaseBuild {

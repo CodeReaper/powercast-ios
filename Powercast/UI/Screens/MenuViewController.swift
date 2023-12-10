@@ -44,6 +44,19 @@ class MenuViewController: ViewController {
             make(its.heightAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.heightAnchor))
             make(its.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor))
         }
+
+        let container = Stack.views(
+            inset: NSDirectionalEdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12),
+            Label(style: .body, text: Translations.VERSION_LABEL(Bundle.shortVersion, Bundle.version, Bundle.commit), color: .secondaryLabel).aligned(to: .center)
+        ).layout(in: view) { make, its in
+            make(its.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor))
+            make(its.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor))
+            make(its.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor))
+        }
+
+        UIView().set(backgroundColor: .viewBackground).setup(matching: container, in: view)
+
+        view.bringSubviewToFront(container)
     }
 
     @objc private func didTapDashboard() {

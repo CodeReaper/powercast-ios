@@ -74,5 +74,6 @@
 "SETTINGS_SYSTEM_NOTIFICATIONS" = "Notifications";
 "SETTINGS_SYSTEM_TITLE" = "System settings";
 "SETTINGS_TITLE" = "Settings";
+"VERSION_LABEL" = "v.%1.%2/%3";
 "ZONE_DK1" = "DK1";
 "ZONE_DK2" = "DK2";
