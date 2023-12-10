@@ -23,10 +23,11 @@ Below follows a roadmap arranged by current best guess for completion:
  - [x] Dark mode
  - [ ] IAP
  - [x] Create privacy policy page
- - [ ] Pipelines for deployment, artwork and whatnots needed for App Store
+ - [x] Pipeline for deployment to App Store
 
 ## Possible future features and tasks
 
+- FAQ, specifically about price calculation, euro conversion and update schedules
 - Price comparisons between network companies
 - Allocate a type-of-power-usage-session to estimate a price and savings, if delayed
 - Enrollment in this [program](https://developer.apple.com/app-store/small-business-program/)
