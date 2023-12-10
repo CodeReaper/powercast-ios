@@ -5,7 +5,7 @@ typealias Transaction = StoreKit.Transaction
 
 class StoreRepository {
     private enum Item: String, CaseIterable {
-        case additionalNotification = "notification.additional"
+        case unlimitedNotifications = "notification.additional"
     }
 
     private(set) var notification: Product!
@@ -32,7 +32,7 @@ class StoreRepository {
     func load() async throws {
         let ids = Item.allCases.map { $0.rawValue }
         let products = try await Product.products(for: ids)
-        notification = products.filter { $0.id == Item.additionalNotification.rawValue && $0.type == .nonConsumable }.first!
+        notification = products.filter { $0.id == Item.unlimitedNotifications.rawValue && $0.type == .nonConsumable }.first!
         await updateProducts()
     }
 
