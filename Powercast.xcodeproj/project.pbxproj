@@ -107,6 +107,7 @@
 		CDA37DF12ADB24F0004B44B0 /* ChargesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA37DF02ADB24F0004B44B0 /* ChargesService.swift */; };
 		CDA37DF32ADB3174004B44B0 /* MultiColorGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA37DF22ADB3174004B44B0 /* MultiColorGaugeView.swift */; };
 		CDA7A6012B254241004CF7D1 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA7A6002B254241004CF7D1 /* Bundle.swift */; };
+		CDA7A6032B2619FE004CF7D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDA7A6022B2619FE004CF7D1 /* StoreKit.framework */; };
 		CDE77AC428C369370021EEDD /* Migratable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE77AC328C369370021EEDD /* Migratable.swift */; };
 		CDEAF3332B1BAEA700C4ED7A /* StackviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEAF3322B1BAEA700C4ED7A /* StackviewCell.swift */; };
 /* End PBXBuildFile section */
@@ -223,6 +224,7 @@
 		CDA37DF02ADB24F0004B44B0 /* ChargesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargesService.swift; sourceTree = "<group>"; };
 		CDA37DF22ADB3174004B44B0 /* MultiColorGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiColorGaugeView.swift; sourceTree = "<group>"; };
 		CDA7A6002B254241004CF7D1 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
+		CDA7A6022B2619FE004CF7D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		CDE77AC328C369370021EEDD /* Migratable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migratable.swift; sourceTree = "<group>"; };
 		CDEAF3322B1BAEA700C4ED7A /* StackviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackviewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -233,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD5C58CE2ADBFD5E00143060 /* CSQLite in Frameworks */,
+				CDA7A6032B2619FE004CF7D1 /* StoreKit.framework in Frameworks */,
 				CD8801242A61E18300A30B1D /* SugarKit in Frameworks */,
 				CD36624729281614009FAC8B /* Flogger in Frameworks */,
 				38E0FA61288441BE0096B98A /* GRDB in Frameworks */,
@@ -559,6 +562,7 @@
 		CD4022E62A34AA2B00027798 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CDA7A6022B2619FE004CF7D1 /* StoreKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
