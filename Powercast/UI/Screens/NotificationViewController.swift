@@ -12,7 +12,6 @@ class NotificationViewController: ViewController {
     private let durationHours = Array(stride(from: 1, to: 25, by: 1))
 
     private let state: StateRepository
-    private let store: StoreRepository
     private let existingNotification: Bool
     private let originalNotification: Notification
 
@@ -21,9 +20,8 @@ class NotificationViewController: ViewController {
     private lazy var saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(didTapSave))
     private lazy var cancelButton = UIBarButtonItem(barButtonSystemItem: .undo, target: self, action: #selector(didTapCancel))
 
-    init(navigation: AppNavigation, state: StateRepository, store: StoreRepository, notification: Notification?) {
+    init(navigation: AppNavigation, state: StateRepository, notification: Notification?) {
         self.state = state
-        self.store = store
         self.existingNotification = notification != nil
         self.originalNotification = notification ?? Notification.create()
         self.notification = self.originalNotification

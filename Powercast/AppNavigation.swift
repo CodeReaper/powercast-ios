@@ -113,7 +113,7 @@ class AppNavigation {
         case .settings:
             navigationController.pushViewController(SettingsViewController(navigation: self, state: dependencies.stateRepository, store: dependencies.storeRepository, notifications: dependencies.notificationScheduler), animated: true)
         case let .notification(notification):
-            navigationController.pushViewController(NotificationViewController(navigation: self, state: dependencies.stateRepository, store: dependencies.storeRepository, notification: notification), animated: true)
+            navigationController.pushViewController(NotificationViewController(navigation: self, state: dependencies.stateRepository, notification: notification), animated: true)
         case let .networkDetails(network):
             let viewController = NetworkDetailsViewController(
                 navigation: self,
