@@ -69,7 +69,7 @@
 "SETTINGS_NOTIFICATIONS_TITLE" = "Notifications";
 "SETTINGS_STATE_DISABLED" = "Disabled";
 "SETTINGS_STATE_ENABLED" = "Enabled";
-"SETTINGS_STATE_UNKNOWN" = "Unknown";
+"SETTINGS_STATE_UNKNOWN" = "Will ask for permission when needed";
 "SETTINGS_SYSTEM_BACKGROUND_REFRESH" = "Background Refresh";
 "SETTINGS_SYSTEM_NOTIFICATIONS" = "Notifications";
 "SETTINGS_SYSTEM_TITLE" = "System settings";

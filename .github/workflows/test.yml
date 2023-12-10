@@ -38,7 +38,7 @@ jobs:
         with:
           paths: lanes resources .github/workflows/lane.yml
 
-  build-test:
+  build:
     needs: changes
     if: needs.changes.outputs.xcode == 'true'
     uses: ./.github/workflows/xcodebuild.yml
@@ -48,20 +48,20 @@ jobs:
     if: needs.changes.outputs.lint == 'true'
     uses: ./.github/workflows/swiftlint.yml
 
-  editorconfig-check:
-    name: Editorconfig check
+  editorconfig:
+    name: Editorconfig validation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: editorconfig-checker/action-editorconfig-checker@main
       - run: editorconfig-checker
 
-  lane-check:
+  lane:
     needs: changes
     if: needs.changes.outputs.lane == 'true'
     uses: ./.github/workflows/lane.yml
 
-  dependabot-validate:
+  dependabot:
     needs: changes
     if: needs.changes.outputs.dependabot == 'true'
     uses: ./.github/workflows/dependabot-validate.yml
@@ -69,11 +69,11 @@ jobs:
   tests-succeeded:
     name: Tests Succeeded
     needs:
-      - build-test
+      - build
       - swiftlint
-      - editorconfig-check
-      - lane-check
-      - dependabot-validate
+      - editorconfig
+      - lane
+      - dependabot
 
     runs-on: ubuntu-latest
     steps:

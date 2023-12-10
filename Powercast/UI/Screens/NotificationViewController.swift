@@ -155,7 +155,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
 
     private class MessageCell: StackviewCell {
         func update(with message: String) -> Self {
-            views.addArrangedSubview(Label(text: message, color: .cellText))
+            views.addArrangedSubview(Label(text: message, color: .labelText))
             backgroundColor = .clear
             return self
         }
@@ -189,8 +189,14 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         }
     }
 
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let view = view as? UITableViewHeaderFooterView else { return }
+
+        view.textLabel?.textColor = .cellHeaderText
+    }
+
     func numberOfSections(in tableView: UITableView) -> Int {
-        5
+        existingNotification ? 5 : 4
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

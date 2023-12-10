@@ -51,7 +51,7 @@
 "SETTINGS_TITLE","","Settings","Indstillinger",""
 "SETTINGS_STATE_ENABLED","","Enabled","Slået til",""
 "SETTINGS_STATE_DISABLED","","Disabled","Slået fra",""
-"SETTINGS_STATE_UNKNOWN","","Unknown","Ukendt",""
+"SETTINGS_STATE_UNKNOWN","","Will ask for permission when needed","Vil spørge efter tilladelse når nødvendigt",""
 "SETTINGS_NETWORK_TITLE","","Network","Netværk",""
 "SETTINGS_SYSTEM_TITLE","","System settings","System indstillinger",""
 "SETTINGS_SYSTEM_BACKGROUND_REFRESH","","Background Refresh","Bagrrundsopdateringer",""
