@@ -38,7 +38,7 @@ struct LaunchInteractor {
         }
         dispatch.enter()
         Task {
-            try! await store.load()
+            try? await store.load()
             dispatch.leave()
         }
         // swiftlint:enable force_try

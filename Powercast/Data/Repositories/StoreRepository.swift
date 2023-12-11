@@ -8,7 +8,7 @@ class StoreRepository {
         case unlimitedNotifications = "notification.additional"
     }
 
-    private(set) var notification: Product!
+    private(set) var notification: Product?
 
     private var updatingTask: Task<Void, Never>!
 
@@ -32,16 +32,17 @@ class StoreRepository {
     func load() async throws {
         let ids = Item.allCases.map { $0.rawValue }
         let products = try await Product.products(for: ids)
-        notification = products.filter { $0.id == Item.unlimitedNotifications.rawValue && $0.type == .nonConsumable }.first!
+        notification = products.filter { $0.id == Item.unlimitedNotifications.rawValue && $0.type == .nonConsumable }.first
         await updateProducts()
     }
 
-    func `is`(purchased: Product) -> Bool {
-        purchasedProducts.contains(purchased)
+    func `is`(purchased: Product?) -> Bool {
+        guard let purchased = purchased else { return false }
+        return purchasedProducts.contains(purchased)
     }
 
-    func purchase(product: Product) async {
-        guard let result = try? await product.purchase() else { return }
+    func purchase(product: Product?) async {
+        guard let product = product, let result = try? await product.purchase() else { return }
         if case let Product.PurchaseResult.success(verification) = result {
             if case let VerificationResult.verified(transaction) = verification {
                 await updateProducts()
@@ -53,7 +54,7 @@ class StoreRepository {
     private func updateProducts() async {
         var purchasedProducts: [Product] = []
         for await result in Transaction.currentEntitlements {
-            if case let VerificationResult.verified(transaction) = result, transaction.productID == notification.id {
+            if case let VerificationResult.verified(transaction) = result, let notification = notification, transaction.productID == notification.id {
                 purchasedProducts.append(notification)
             }
         }

@@ -125,7 +125,7 @@ extension SettingsViewController: UITableViewDataSource {
         case .notification:
             return tableView.dequeueReusableCell(NavigationCell.self, forIndexPath: indexPath).update(title: Translations.SETTINGS_NOTIFICATIONS_ADD_BUTTON, label: nil, enabled: true)
         case .purchase:
-            return tableView.dequeueReusableCell(NavigationCell.self, forIndexPath: indexPath).update(title: store.notification.displayName, label: nil, enabled: true)
+            return tableView.dequeueReusableCell(NavigationCell.self, forIndexPath: indexPath).update(title: store.notification?.displayName ?? "", label: nil, enabled: true)
         case .disabled:
             return tableView.dequeueReusableCell(MessageCell.self, forIndexPath: indexPath).update(with: Translations.SETTINGS_NOTIFICATIONS_SYSTEM_DISABLED)
         }
@@ -207,7 +207,7 @@ extension SettingsViewController {
                 rows = [.notification]
             } else if store.is(purchased: store.notification) {
                 rows.append(.notification)
-            } else {
+            } else if store.notification != nil {
                 rows.append(.purchase)
             }
             return SettingsViewController.Section(

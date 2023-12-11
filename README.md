@@ -21,7 +21,7 @@ Below follows a roadmap arranged by current best guess for completion:
  - [x] Logo
  - [x] Historic drilldown of prices
  - [x] Dark mode
- - [ ] IAP
+ - [x] IAP
  - [x] Create privacy policy page
  - [x] Pipeline for deployment to App Store
 
