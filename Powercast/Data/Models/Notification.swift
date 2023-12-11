@@ -77,6 +77,6 @@ struct Notification: AutoCopy, Equatable {
 
         let seconds = firingDate.timeIntervalSince(Date.now)
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: max(1, seconds), repeats: false)
-        return UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        return UNNotificationRequest(identifier: "\(id)-\(firingDate.timeIntervalSince1970)", content: content, trigger: trigger)
     }
 }
