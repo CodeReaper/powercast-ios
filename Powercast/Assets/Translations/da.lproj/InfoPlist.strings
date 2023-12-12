@@ -74,6 +74,7 @@
 "SETTINGS_SYSTEM_NOTIFICATIONS" = "Notifikationer";
 "SETTINGS_SYSTEM_TITLE" = "System indstillinger";
 "SETTINGS_TITLE" = "Indstillinger";
+"UPGRADE_IS_REQUIRED" = "Kræver opdatering fra App Store";
 "VERSION_LABEL" = "v.%1.%2/%3";
 "ZONE_DK1" = "DK1";
 "ZONE_DK2" = "DK2";

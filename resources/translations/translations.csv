@@ -49,6 +49,7 @@
 "ZONE_DK1","","DK1","DK1",""
 "ZONE_DK2","","DK2","DK2",""
 "VERSION_LABEL","","v.%1.%2/%3","v.%1.%2/%3",""
+"UPGRADE_IS_REQUIRED","","Requires updating from App Store","Kræver opdatering fra App Store",""
 "SETTINGS_TITLE","","Settings","Indstillinger",""
 "SETTINGS_STATE_ENABLED","","Enabled","Slået til",""
 "SETTINGS_STATE_DISABLED","","Disabled","Slået fra",""

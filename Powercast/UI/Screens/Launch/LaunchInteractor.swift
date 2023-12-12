@@ -65,13 +65,11 @@ struct LaunchInteractor {
         }
 
         dispatch.notify(queue: .main) {
-            // FIXME: this
-            delegate?.showUpgradeRequired()
-//            if Int(Bundle.version)! >= state.configuration.minimumBuildVersion {
-//                delegate?.showNetworkSelection()
-//            } else {
-//                delegate?.showUpgradeRequired()
-//            }
+            if Int(Bundle.version)! >= state.configuration.minimumBuildVersion {
+                delegate?.showNetworkSelection()
+            } else {
+                delegate?.showUpgradeRequired()
+            }
         }
     }
 }

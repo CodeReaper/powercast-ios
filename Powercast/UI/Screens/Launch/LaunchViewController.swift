@@ -3,7 +3,7 @@ import SugarKit
 
 class LaunchViewController: ViewController {
     private let spinner = SpinnerView(color: .spinner)
-    private let label = Label(style: .body, text: "Meh", color: .warningText) // FIXME: adsf
+    private let requiredUpdate = Label(style: .body, text: Translations.UPGRADE_IS_REQUIRED, color: .labelText)
 
     private var interactor: LaunchInteractor!
 
@@ -34,7 +34,13 @@ class LaunchViewController: ViewController {
 
         let imageView = ImageView(image: UIImage.powercastSplash, mode: .center).setup(centeredIn: view, usingSafeLayout: false)
 
-        label.setup(under: imageView, in: view).set(hidden: true)
+        requiredUpdate.set(hidden: true).aligned(to: .center).layout(in: view) { make, its in
+            make(its.topAnchor.constraint(equalTo: imageView.safeAreaLayoutGuide.bottomAnchor, constant: 12))
+            make(its.centerXAnchor.constraint(equalTo: imageView.safeAreaLayoutGuide.centerXAnchor))
+            make(its.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20))
+            make(its.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20))
+            make(its.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor))
+        }
 
         spinner.startAnimating().layout(in: view) { (make, its) in
             make(its.heightAnchor.constraint(greaterThanOrEqualToConstant: 60))
@@ -51,6 +57,6 @@ extension LaunchViewController: LaunchDelegate {
 
     func showUpgradeRequired() {
         spinner.stopAnimating().set(hidden: true)
-        label.set(hidden: false)
+        requiredUpdate.set(hidden: false)
     }
 }
