@@ -68,7 +68,9 @@ class AppNavigation {
                 navigation: self,
                 databases: dependencies.databases,
                 store: dependencies.storeRepository,
-                charges: dependencies.chargesRepository
+                charges: dependencies.chargesRepository,
+                state: dependencies.stateRepository,
+                service: dependencies.configurationService
             )
             navigationController.setViewControllers([viewController], animated: true)
         case let .networkSelection(force):

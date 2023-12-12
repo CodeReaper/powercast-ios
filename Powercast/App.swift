@@ -17,6 +17,8 @@ protocol Dependenables: AnyObject {
     var stateRepository: StateRepository { get }
     var storeRepository: StoreRepository { get }
 
+    var configurationService: ConfigurationService { get }
+
     var notificationScheduler: NotificationScheduler { get }
     var backgroundScheduler: BackgroundScheduler { get }
 }
@@ -30,6 +32,8 @@ class App: Dependenables {
     let energyPriceDatabase: EnergyPriceDatabase
     let stateRepository = StateRepository()
     let databases: [Migratable]
+
+    let configurationService = ConfigurationServiceAPI() as ConfigurationService
 
     lazy var storeRepository = StoreRepository()
     lazy var chargesRepository = ChargesRepository(database: chargesDatabase.queue, service: ChargesServiceAPI())
@@ -89,7 +93,7 @@ class App: Dependenables {
     // MARK: - setups
 
     private class func setupChargesDatabase(_ configuration: AppConfiguration) -> ChargesDatabase {
-        var config = Configuration()
+        var config = GRDB.Configuration()
         config.label = "EnergyCharges"
 
         let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("energyCharges.db")
@@ -99,7 +103,7 @@ class App: Dependenables {
     }
 
     private class func setupEmissionDatabase(_ configuration: AppConfiguration) -> EmissionDatabase {
-        var config = Configuration()
+        var config = GRDB.Configuration()
         config.label = "Emission"
 
         let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("emission.db")
@@ -109,7 +113,7 @@ class App: Dependenables {
     }
 
     private class func setupEnergyPriceDatabase(_ configuration: AppConfiguration) -> EnergyPriceDatabase {
-        var config = Configuration()
+        var config = GRDB.Configuration()
         config.label = "EnergyPrice"
 
         let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("energyPrice.db")
@@ -118,7 +122,7 @@ class App: Dependenables {
         return EnergyPriceDatabase(queue: database, configuration: configuration)
     }
 
-    private class func setupDatabase(at url: URL, using config: Configuration, and configuration: AppConfiguration) -> DatabaseQueue {
+    private class func setupDatabase(at url: URL, using config: GRDB.Configuration, and configuration: AppConfiguration) -> DatabaseQueue {
         var config = config
         if configuration.traceDatabaseStatments {
             NSLog("enabled tracing for: \(url.path)")

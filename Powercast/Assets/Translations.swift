@@ -77,6 +77,7 @@ struct Translations {
 	static let SETTINGS_SYSTEM_NOTIFICATIONS = NSLocalizedString("SETTINGS_SYSTEM_NOTIFICATIONS", comment: "")
 	static let SETTINGS_SYSTEM_TITLE = NSLocalizedString("SETTINGS_SYSTEM_TITLE", comment: "")
 	static let SETTINGS_TITLE = NSLocalizedString("SETTINGS_TITLE", comment: "")
+	static let UPGRADE_IS_REQUIRED = NSLocalizedString("UPGRADE_IS_REQUIRED", comment: "")
 	static func VERSION_LABEL(_ p1: String, _ p2: String, _ p3: String) -> String { return NSLocalizedString("VERSION_LABEL", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2).replacingOccurrences(of: "%3", with: p3) }
 	static let ZONE_DK1 = NSLocalizedString("ZONE_DK1", comment: "")
 	static let ZONE_DK2 = NSLocalizedString("ZONE_DK2", comment: "")

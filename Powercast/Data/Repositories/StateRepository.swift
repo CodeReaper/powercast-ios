@@ -19,8 +19,17 @@ protocol SystemState: Observerable {
     var backgroundRefreshStatus: UIBackgroundRefreshStatus { get }
 }
 
-class StateRepository: Observerable, NetworkState, NotificationState, SystemState {
+protocol ConfigurationState {
+    var configuration: Configuration { get }
+    func save(configuration: Configuration)
+}
+
+class StateRepository: Observerable, NetworkState, NotificationState, SystemState, ConfigurationState {
     private let store: UserDefaults
+
+    var configuration: Configuration {
+        Configuration(minimumBuildVersion: store.integer(forKey: keyMinimumBuild))
+    }
 
     var notifications: [Notification] { Array(notificationMap.values) }
     var network = Network.empty { didSet { notifyObservers() } }
@@ -121,6 +130,10 @@ class StateRepository: Observerable, NetworkState, NotificationState, SystemStat
         notificationMap.removeValue(forKey: notification.id)
     }
 
+    func save(configuration: Configuration) {
+        store.setValue(configuration.minimumBuildVersion, forKey: keyMinimumBuild)
+    }
+
     private func id(of notification: Notification, with suffix: String) -> String {
         id(of: notification.id, with: suffix)
     }
@@ -147,6 +160,7 @@ class StateRepository: Observerable, NetworkState, NotificationState, SystemStat
         )
     }
 
+    private let keyMinimumBuild = "keyMinimumBuild"
     private let keySelectedNetworkId = "keySelectedNetworkId"
     private let keySelectedNetworkName = "keySelectedNetworkName"
     private let keySelectedNetworkZone = "keySelectedNetworkZone"

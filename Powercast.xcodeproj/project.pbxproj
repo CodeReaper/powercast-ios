@@ -88,6 +88,8 @@
 		CD36624729281614009FAC8B /* Flogger in Frameworks */ = {isa = PBXBuildFile; productRef = CD36624629281614009FAC8B /* Flogger */; };
 		CD4022E82A34AA2B00027798 /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD4022E72A34AA2B00027798 /* SugarKit */; };
 		CD4022EC2A34ADA600027798 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4022EB2A34ADA600027798 /* LoadingView.swift */; };
+		CD51C6692B27AF2F002524A6 /* ConfigurationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD51C6682B27AF2F002524A6 /* ConfigurationService.swift */; };
+		CD51C66B2B27AFAB002524A6 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD51C66A2B27AFAB002524A6 /* Configuration.swift */; };
 		CD5C58CC2ADBFD4A00143060 /* CSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = CD5C58CB2ADBFD4A00143060 /* CSQLite */; };
 		CD5C58CE2ADBFD5E00143060 /* CSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = CD5C58CD2ADBFD5E00143060 /* CSQLite */; };
 		CD5C58D02AE4824900143060 /* ChargesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5C58CF2AE4824900143060 /* ChargesRepository.swift */; };
@@ -207,6 +209,8 @@
 		CD1068C92B13870300FD5B0E /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		CD4022EB2A34ADA600027798 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		CD51C6682B27AF2F002524A6 /* ConfigurationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationService.swift; sourceTree = "<group>"; };
+		CD51C66A2B27AFAB002524A6 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		CD5C58CF2AE4824900143060 /* ChargesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargesRepository.swift; sourceTree = "<group>"; };
 		CD5C58D12AE4844B00143060 /* ChargeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeDatabase.swift; sourceTree = "<group>"; };
 		CD5C58D32AE59E0200143060 /* NetworkPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPrice.swift; sourceTree = "<group>"; };
@@ -444,6 +448,7 @@
 			isa = PBXGroup;
 			children = (
 				CDA37DF02ADB24F0004B44B0 /* ChargesService.swift */,
+				CD51C6682B27AF2F002524A6 /* ConfigurationService.swift */,
 				CD1068942B040F5A00FD5B0E /* EmissionService.swift */,
 				38E0FA67288476C40096B98A /* EnergyPriceService.swift */,
 			);
@@ -456,6 +461,7 @@
 				38E0FA712884822C0096B98A /* _Database.swift */,
 				CD81C59A2A6DBDD300E88418 /* Charges.swift */,
 				CD1068962B0410F100FD5B0E /* Co2.swift */,
+				CD51C66A2B27AFAB002524A6 /* Configuration.swift */,
 				CD10689E2B05425B00FD5B0E /* Emission.swift */,
 				38E0FA6D2884803F0096B98A /* EnergyPrice.swift */,
 				CD5C58D72AE7018E00143060 /* GridPrice.swift */,
@@ -775,6 +781,7 @@
 				CD1068C82B12BC2400FD5B0E /* AutoCopyNotification.generated.swift in Sources */,
 				CDA37DF32ADB3174004B44B0 /* MultiColorGaugeView.swift in Sources */,
 				CD1068A52B06AF6D00FD5B0E /* DashboardInteractor.swift in Sources */,
+				CD51C6692B27AF2F002524A6 /* ConfigurationService.swift in Sources */,
 				380CE8E62888901A0003FF36 /* EnergyPriceDatabase.swift in Sources */,
 				38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */,
 				38E0FA702884808D0096B98A /* Zone.swift in Sources */,
@@ -791,6 +798,7 @@
 				38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */,
 				CD5C58D02AE4824900143060 /* ChargesRepository.swift in Sources */,
 				CD1068972B0410F100FD5B0E /* Co2.swift in Sources */,
+				CD51C66B2B27AFAB002524A6 /* Configuration.swift in Sources */,
 				CD10689F2B05425B00FD5B0E /* Emission.swift in Sources */,
 				CDA0E40A2AC8C0DA00FF364D /* Evaluation.swift in Sources */,
 				CD1068AE2B07FEAA00FD5B0E /* GridDetailsViewController.swift in Sources */,
