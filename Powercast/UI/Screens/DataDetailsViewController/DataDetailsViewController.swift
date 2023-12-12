@@ -177,7 +177,7 @@ class DataDetailsViewController: ViewController {
         }
 
         func update(with emission: Emission.Co2) -> Self {
-            let dateFormatter = DateFormatter.with(format: "HH:mm") // TODO: handle fixed date format
+            let dateFormatter = DateFormatter.with(format: "HH:mm")
             let formatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
             for date in emission.data.keys.sorted() {
                 views.addArrangedSubview(

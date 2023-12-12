@@ -28,6 +28,7 @@ Below follows a roadmap arranged by current best guess for completion:
 ## Possible future features and tasks
 
 - FAQ, specifically about price calculation, euro conversion and update schedules
+- Display setting for currency
 - Price comparisons between network companies
 - Allocate a type-of-power-usage-session to estimate a price and savings, if delayed
 - Enrollment in this [program](https://developer.apple.com/app-store/small-business-program/)
