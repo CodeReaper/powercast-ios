@@ -42,7 +42,7 @@ class StoreRepository {
     }
 
     func purchase(product: Product?) async {
-        guard let product = product, let result = try? await product.purchase() else { return }
+        guard let product = product, SKPaymentQueue.canMakePayments(), let result = try? await product.purchase() else { return }
         if case let Product.PurchaseResult.success(verification) = result {
             if case let VerificationResult.verified(transaction) = verification {
                 await updateProducts()
