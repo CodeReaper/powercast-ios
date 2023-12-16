@@ -1,3 +1,4 @@
+"COMMIT_LABEL" = "byg %1";
 "DASHBOARD_CO2_LABEL" = "CO₂";
 "DASHBOARD_CO2_SPAN" = "%1 - %2";
 "DASHBOARD_CO2_UNIT" = "g/kWh";
@@ -75,6 +76,6 @@
 "SETTINGS_SYSTEM_TITLE" = "System indstillinger";
 "SETTINGS_TITLE" = "Indstillinger";
 "UPGRADE_IS_REQUIRED" = "Kræver opdatering fra App Store";
-"VERSION_LABEL" = "v.%1.%2/%3";
+"VERSION_LABEL" = "version %1.%2";
 "ZONE_DK1" = "DK1";
 "ZONE_DK2" = "DK2";
