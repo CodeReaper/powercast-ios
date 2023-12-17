@@ -3,6 +3,7 @@ import SugarKit
 
 class DataLoadingViewController: ViewController {
     private let loadingView = View.buildLoadingView(color: .spinner)
+    private let progressView = UIProgressView()
 
     private var interactor: DataLoadingInteractor!
 
@@ -28,12 +29,19 @@ class DataLoadingViewController: ViewController {
 
         title = Translations.DATA_LOADING_TITLE
 
+        progressView.progressTintColor = .gaugeProgress
+        progressView.trackTintColor = .gaugeTint
+        progressView.progress = 0
+
         Stack.views(
             aligned: .center,
             on: .vertical,
             FlexibleSpace(),
-            loadingView,
-            Label(text: Translations.DATA_LOADING_TITLE),
+            Stack.views(
+                on: .vertical,
+                loadingView.set(width: 150).set(height: 150),
+                progressView
+            ),
             FlexibleSpace()
         )
         .apply(flexible: .fillEqual)
@@ -62,5 +70,9 @@ extension DataLoadingViewController: DataLoadingDelegate {
             .cancel(text: Translations.DATA_LOADING_REFRESH_FAILED_NEGATIVE_BUTTON, action: { _ in self.navigationController?.popViewController(animated: true) }),
             .button(text: Translations.DATA_LOADING_REFRESH_FAILED_POSITIVE_BUTTON, action: { _ in self.interactor.retry() })
         ]))
+    }
+
+    func display(progress: Float) {
+        progressView.setProgress(progress, animated: true)
     }
 }
