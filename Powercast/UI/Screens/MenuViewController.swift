@@ -103,7 +103,7 @@ class MenuViewController: ViewController {
                     string: Translations.VERSION_LABEL(Bundle.shortVersion, Bundle.version),
                     attributes: [NSAttributedString.Key.font: UIFont.monospacedSystemFont(ofSize: 16, weight: .medium)]
                 ),
-                color: .secondaryLabel
+                color: .menuSecondaryLabel
             ).aligned(to: .center)
 
             let commitLabel = Label(
@@ -112,7 +112,7 @@ class MenuViewController: ViewController {
                     string: Translations.COMMIT_LABEL(Bundle.commit),
                     attributes: [NSAttributedString.Key.font: UIFont.monospacedSystemFont(ofSize: 12, weight: .thin)]
                 ),
-                color: .secondaryLabel
+                color: .menuSecondaryLabel
             ).aligned(to: .center)
 
             Stack.views(
@@ -139,7 +139,7 @@ class MenuViewController: ViewController {
             guard let image = UIImage(systemName: symbol) else { return self }
 
             let imageView = ImageView(image: image, mode: .center).set(width: 20).set(height: 20).updateContentHuggingPriority(.required, for: .horizontal)
-            imageView.tintColor = .cellText
+            imageView.tintColor = .menuLabel
 
             views.spacing = 8
             views.addArrangedSubview(FlexibleSpace())
@@ -152,7 +152,7 @@ class MenuViewController: ViewController {
         }
 
         static func label(with name: String) -> UILabel {
-            Label(style: .body, text: name, color: .cellText)
+            Label(style: .body, text: name, color: .menuLabel)
         }
     }
 }
