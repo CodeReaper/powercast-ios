@@ -138,6 +138,8 @@ class MenuViewController: ViewController {
             backgroundColor = .tableBackground
             guard let image = UIImage(systemName: symbol) else { return self }
 
+            selectedBackgroundView = UIView().set(backgroundColor: .white.withAlphaComponent(0.15))
+
             let imageView = ImageView(image: image, mode: .center).set(width: 20).set(height: 20).updateContentHuggingPriority(.required, for: .horizontal)
             imageView.tintColor = .menuLabel
 
