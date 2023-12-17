@@ -1,8 +1,8 @@
 import Foundation
-import Combine
 
 protocol DataLoadingDelegate: AnyObject {
     func displayFailed()
+    func display(progress: Float)
 }
 
 class DataLoadingInteractor {
@@ -12,9 +12,6 @@ class DataLoadingInteractor {
     private let emission: EmissionRepository
     private let state: NetworkState
     private let network: Network
-
-    private var statusSink: AnyCancellable?
-    private var refreshTask: Task<Void, Never>?
 
     private weak var delegate: DataLoadingDelegate?
 
@@ -38,24 +35,40 @@ class DataLoadingInteractor {
 
     private func update() {
         Task {
-            let minimumTime = DispatchTime.now() + 2
             let success: Bool
+            let minimumTime = DispatchTime.now() + 0.7
+
+            let today = Calendar.current.startOfDay(for: Date())
+            let start = Calendar.current.date(byAdding: .day, value: -16, to: today)!
+            let end = Calendar.current.date(byAdding: .day, value: 2, to: today)!
+            let dates = DateInterval(start: start, end: end).dates()
+            let totalCalls = Float(3 + (dates.count * 2))
+            var calls = Float.zero
+
+            DispatchQueue.main.async { [delegate] in delegate?.display(progress: 0) }
             do {
                 try await charges.pullNetworks()
-                try await charges.pullGrid()
-                try await charges.pullNetwork(id: network.id)
+                report(&calls, of: totalCalls)
 
-                let today = Calendar.current.startOfDay(for: Date())
-                let start = Calendar.current.date(byAdding: .day, value: -16, to: today)!
-                let end = Calendar.current.date(byAdding: .day, value: 2, to: today)!
-                for date in DateInterval(start: start, end: end).dates() {
+                try await charges.pullGrid()
+                report(&calls, of: totalCalls)
+
+                try await charges.pullNetwork(id: network.id)
+                report(&calls, of: totalCalls)
+
+                for date in dates {
                     try await prices.pull(zone: network.zone, at: date)
+                    report(&calls, of: totalCalls)
+
                     try await emission.co2.pull(zone: network.zone, at: date)
+                    report(&calls, of: totalCalls)
                 }
                 success = true
             } catch {
                 success = false
             }
+
+            DispatchQueue.main.async { [delegate] in delegate?.display(progress: success ? 1 : 0) }
 
             DispatchQueue.main.asyncAfter(deadline: success ? minimumTime : DispatchTime.now()) { [self] in
                 if success {
@@ -66,5 +79,11 @@ class DataLoadingInteractor {
                 }
             }
         }
+    }
+
+    private func report(_ calls: inout Float, of total: Float) {
+        calls += 1
+        let ratio = calls / total
+        DispatchQueue.main.async { [delegate] in delegate?.display(progress: ratio) }
     }
 }
