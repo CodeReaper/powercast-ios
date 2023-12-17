@@ -4,7 +4,7 @@ on:
   pull_request: {}
 
 concurrency:
-  group: running-tests
+  group: running-tests-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
