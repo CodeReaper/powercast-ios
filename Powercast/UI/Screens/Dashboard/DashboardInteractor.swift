@@ -2,7 +2,7 @@ import Foundation
 
 protocol DashboardDelegate: AnyObject {
     func show(loading: Bool)
-    func show(priceData: PriceTableDatasource, emissionData: EmissionTableDataSource)
+    func show(priceData: PriceTableDatasource, emissionData: EmissionTableDataSource, forceOffsetUpdate: Bool)
     func showNoData()
     func showRefreshFailed()
     func endRefreshing()
@@ -43,7 +43,7 @@ class DashboardInteractor {
                     delegate?.showNoData()
                     return
                 }
-                delegate?.show(priceData: priceSource, emissionData: emissionSource ?? EmptyEmissionTableDataSource())
+                delegate?.show(priceData: priceSource, emissionData: emissionSource ?? EmptyEmissionTableDataSource(), forceOffsetUpdate: false)
             }
 
             let now = Date().timeIntervalSince1970
@@ -87,7 +87,7 @@ class DashboardInteractor {
                 delegate?.showNoData()
                 return
             }
-            delegate?.show(priceData: priceSource, emissionData: updatedEmissionSource ?? EmptyEmissionTableDataSource())
+            delegate?.show(priceData: priceSource, emissionData: updatedEmissionSource ?? EmptyEmissionTableDataSource(), forceOffsetUpdate: true)
         }
     }
 }

@@ -27,10 +27,7 @@ jobs:
       - name: Cache DerivedData
         uses: actions/cache@v3
         with:
-          path: |
-            ~/Library/Developer/Xcode/DerivedData/**/Build
-            ~/Library/Developer/Xcode/DerivedData/**/SourcePackages/checkouts
-            ~/Library/Developer/Xcode/DerivedData/**/SourcePackages/workspace-state.json
+          path: ~/Library/Developer/Xcode/DerivedData/Powercast-*
           key: ${{ runner.os }}-xcode-${{ hashFiles('**/*.pbxproj', '**/swiftpm/Package.resolved') }}
           restore-keys: |
             ${{ runner.os }}-xcode-

@@ -183,13 +183,15 @@ extension DashboardViewController: UITableViewDelegate {
 }
 
 extension DashboardViewController: DashboardDelegate {
-    func show(priceData: PriceTableDatasource, emissionData: EmissionTableDataSource) {
+    func show(priceData: PriceTableDatasource, emissionData: EmissionTableDataSource, forceOffsetUpdate: Bool) {
+        let applyOffset = forceOffsetUpdate || priceData.isUpdated(comparedTo: priceSource)
+
         updateFailedLabel.set(hidden: true)
-        let applyOffset = priceData.isUpdated(comparedTo: priceSource)
         now = Date()
         priceSource = priceData
         emissionSource = emissionData
         tableView.reloadData()
+
         if let indexPath = priceSource.activeIndexPath(at: now), applyOffset {
             DispatchQueue.main.async { [tableView] in
                 tableView.scrollToRow(at: indexPath, at: .middle, animated: false)
