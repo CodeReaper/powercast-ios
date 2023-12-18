@@ -1168,10 +1168,10 @@
 /* Begin XCRemoteSwiftPackageReference section */
 		380CE8E7288892480003FF36 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
 			requirement = {
 				kind = exactVersion;
-				version = 3.4.1;
+				version = 4.3.4;
 			};
 		};
 		38E0FA5F288441BE0096B98A /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
@@ -1179,23 +1179,23 @@
 			repositoryURL = "https://github.com/groue/GRDB.swift.git";
 			requirement = {
 				kind = exactVersion;
-				version = 6.20.1;
+				version = 6.23.0;
 			};
 		};
 		CD36624529281614009FAC8B /* XCRemoteSwiftPackageReference "Flogger" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CodeReaper/Flogger.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				kind = exactVersion;
+				version = 1.0.2;
 			};
 		};
 		CD8801222A61E18300A30B1D /* XCRemoteSwiftPackageReference "SugarKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/CodeReaper/SugarKit";
+			repositoryURL = "https://github.com/CodeReaper/SugarKit.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				kind = exactVersion;
+				version = 1.0.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
