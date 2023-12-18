@@ -1,6 +1,11 @@
 name: "CodeQL"
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/codeql.yml
   schedule:
     - cron: "23 5 * * 0"
 
@@ -30,7 +35,7 @@ jobs:
           cp -v Powercast/Local.xcconfig.sample Powercast/Local.xcconfig
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
+        uses: github/codeql-action/init@v3
         with:
           languages: swift
 
@@ -46,6 +51,6 @@ jobs:
           | xcpretty
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v3
         with:
           category: "/language:swift"
