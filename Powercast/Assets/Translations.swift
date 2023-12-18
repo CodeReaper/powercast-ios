@@ -1,6 +1,7 @@
 // swiftlint:disable all
 import Foundation
 struct Translations {
+	static func BUILD_LABEL(_ p1: String) -> String { return NSLocalizedString("BUILD_LABEL", comment: "").replacingOccurrences(of: "%1", with: p1) }
 	static func COMMIT_LABEL(_ p1: String) -> String { return NSLocalizedString("COMMIT_LABEL", comment: "").replacingOccurrences(of: "%1", with: p1) }
 	static let DASHBOARD_CO2_LABEL = NSLocalizedString("DASHBOARD_CO2_LABEL", comment: "")
 	static func DASHBOARD_CO2_SPAN(_ p1: String, _ p2: String) -> String { return NSLocalizedString("DASHBOARD_CO2_SPAN", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
@@ -79,7 +80,7 @@ struct Translations {
 	static let SETTINGS_SYSTEM_TITLE = NSLocalizedString("SETTINGS_SYSTEM_TITLE", comment: "")
 	static let SETTINGS_TITLE = NSLocalizedString("SETTINGS_TITLE", comment: "")
 	static let UPGRADE_IS_REQUIRED = NSLocalizedString("UPGRADE_IS_REQUIRED", comment: "")
-	static func VERSION_LABEL(_ p1: String, _ p2: String) -> String { return NSLocalizedString("VERSION_LABEL", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
+	static func VERSION_LABEL(_ p1: String) -> String { return NSLocalizedString("VERSION_LABEL", comment: "").replacingOccurrences(of: "%1", with: p1) }
 	static let ZONE_DK1 = NSLocalizedString("ZONE_DK1", comment: "")
 	static let ZONE_DK2 = NSLocalizedString("ZONE_DK2", comment: "")
 }

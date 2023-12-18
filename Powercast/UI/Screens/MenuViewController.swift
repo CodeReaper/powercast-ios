@@ -7,6 +7,8 @@ class MenuViewController: ViewController {
     private let menuWidth: CGFloat
     private let rows: [Row]
 
+    private var showingBuildDetails = false
+
     private enum Row {
         case title
         case item(name: String, symbol: String, endpoint: Navigation)
@@ -55,7 +57,7 @@ class MenuViewController: ViewController {
             .set(backgroundColor: .tableBackground)
             .registerClass(TitleCell.self)
             .registerClass(ItemCell.self)
-            .registerClass(VersionCell.self)
+            .registerClass(ViewCell.self)
             .layout(in: view) { make, its in
                 make(its.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor))
                 make(its.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor))
@@ -69,6 +71,54 @@ class MenuViewController: ViewController {
 
         let inset = max((tableView.frame.height - tableView.contentSize.height) / 2.0, 0)
         tableView.contentInset = UIEdgeInsets(top: inset, left: 0.0, bottom: 0.0, right: 0.0)
+    }
+
+    private func versionView() -> UIView {
+        let label = Label(
+            style: .body,
+            attributedString: NSAttributedString(
+                string: Translations.VERSION_LABEL(Bundle.shortVersion),
+                attributes: [NSAttributedString.Key.font: UIFont.monospacedSystemFont(ofSize: 16, weight: .medium)]
+            ),
+            color: .menuSecondaryLabel
+        ).aligned(to: .center)
+
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(didToggleVersion))
+        recognizer.numberOfTapsRequired = 3
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(recognizer)
+
+        let views = Stack.views(on: .vertical, spacing: 4, label)
+
+        if showingBuildDetails {
+            views.addArrangedSubview(
+                Label(
+                    style: .body,
+                    attributedString: NSAttributedString(
+                        string: Translations.COMMIT_LABEL(Bundle.commit),
+                        attributes: [NSAttributedString.Key.font: UIFont.monospacedSystemFont(ofSize: 12, weight: .thin)]
+                    ),
+                    color: .menuSecondaryLabel
+                ).aligned(to: .center)
+            )
+            views.addArrangedSubview(
+                Label(
+                    style: .body,
+                    attributedString: NSAttributedString(
+                        string: Translations.BUILD_LABEL(Bundle.version),
+                        attributes: [NSAttributedString.Key.font: UIFont.monospacedSystemFont(ofSize: 12, weight: .thin)]
+                    ),
+                    color: .menuSecondaryLabel
+                ).aligned(to: .center)
+            )
+        }
+
+        return views
+    }
+
+    @objc private func didToggleVersion() {
+        showingBuildDetails.toggle()
+        tableView.reloadData()
     }
 
     private class TitleCell: UITableViewCell {
@@ -91,45 +141,12 @@ class MenuViewController: ViewController {
         }
     }
 
-    private class VersionCell: UITableViewCell {
-        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+    private class ViewCell: StackviewCell {
+        func update(with view: UIView) -> Self {
             backgroundColor = .tableBackground
             selectionStyle = .none
-
-            let versionLabel = Label(
-                style: .body,
-                attributedString: NSAttributedString(
-                    string: Translations.VERSION_LABEL(Bundle.shortVersion, Bundle.version),
-                    attributes: [NSAttributedString.Key.font: UIFont.monospacedSystemFont(ofSize: 16, weight: .medium)]
-                ),
-                color: .menuSecondaryLabel
-            ).aligned(to: .center)
-
-            let commitLabel = Label(
-                style: .body,
-                attributedString: NSAttributedString(
-                    string: Translations.COMMIT_LABEL(Bundle.commit),
-                    attributes: [NSAttributedString.Key.font: UIFont.monospacedSystemFont(ofSize: 12, weight: .thin)]
-                ),
-                color: .menuSecondaryLabel
-            ).aligned(to: .center)
-
-            Stack.views(
-                on: .vertical,
-                spacing: 4,
-                versionLabel,
-                commitLabel
-            ).layout(in: contentView) { (make, its) in
-                make(its.leadingAnchor.constraint(equalTo: contentView.leadingAnchor))
-                make(its.trailingAnchor.constraint(equalTo: contentView.trailingAnchor))
-                make(its.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20))
-                make(its.bottomAnchor.constraint(equalTo: contentView.bottomAnchor))
-            }
-        }
-
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
+            views.addArrangedSubview(view)
+            return self
         }
     }
 
@@ -169,7 +186,7 @@ extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
         case .title:
             return tableView.dequeueReusableCell(TitleCell.self, forIndexPath: indexPath)
         case .version:
-            return tableView.dequeueReusableCell(VersionCell.self, forIndexPath: indexPath)
+            return tableView.dequeueReusableCell(ViewCell.self, forIndexPath: indexPath).update(with: versionView())
         case let .item(name, symbol, _):
             return tableView.dequeueReusableCell(ItemCell.self, forIndexPath: indexPath).update(name: name, symbol: symbol, width: menuWidth)
         }
