@@ -9,7 +9,6 @@ class DashboardViewController: ViewController {
 
     private var priceSource = EmptyPriceTableDatasource() as PriceTableDatasource
     private var emissionSource = EmptyEmissionTableDataSource() as EmissionTableDataSource
-    private var updateOffset = false
     private var now = Date()
 
     private var interactor: DashboardInteractor!
@@ -184,8 +183,8 @@ extension DashboardViewController: UITableViewDelegate {
 }
 
 extension DashboardViewController: DashboardDelegate {
-    func show(priceData: PriceTableDatasource, emissionData: EmissionTableDataSource) {
-        let applyOffset = priceData.isUpdated(comparedTo: priceSource)
+    func show(priceData: PriceTableDatasource, emissionData: EmissionTableDataSource, forceOffsetUpdate: Bool) {
+        let applyOffset = forceOffsetUpdate || priceData.isUpdated(comparedTo: priceSource)
 
         updateFailedLabel.set(hidden: true)
         now = Date()
@@ -193,13 +192,10 @@ extension DashboardViewController: DashboardDelegate {
         emissionSource = emissionData
         tableView.reloadData()
 
-        if applyOffset || updateOffset, view.window != nil, let indexPath = priceSource.activeIndexPath(at: now) {
-            updateOffset = false
+        if let indexPath = priceSource.activeIndexPath(at: now), applyOffset {
             DispatchQueue.main.async { [tableView] in
                 tableView.scrollToRow(at: indexPath, at: .middle, animated: false)
             }
-        } else if applyOffset {
-            updateOffset = true
         }
     }
 
