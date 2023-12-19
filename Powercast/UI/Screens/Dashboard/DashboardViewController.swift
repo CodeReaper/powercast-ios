@@ -140,7 +140,7 @@ class DashboardViewController: ViewController {
     }
 }
 
-extension DashboardViewController: UITableViewDataSource {
+extension DashboardViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         priceSource.sectionCount
     }
@@ -169,9 +169,7 @@ extension DashboardViewController: UITableViewDataSource {
 
         return cell.update(using: price, and: emission, current: price.duration.contains(now), emissionRange: emissionSource.range)
     }
-}
 
-extension DashboardViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
@@ -179,6 +177,13 @@ extension DashboardViewController: UITableViewDelegate {
         let emission = emissionSource.item(at: indexPath)
 
         navigate(to: .dataDetails(price: price, emission: emission))
+    }
+
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        guard let indexPath = priceSource.activeIndexPath(at: now) else { return true }
+
+        tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+        return false
     }
 }
 
