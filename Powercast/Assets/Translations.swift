@@ -2,24 +2,19 @@
 import Foundation
 struct Translations {
 	static func BUILD_LABEL(_ p1: String) -> String { return NSLocalizedString("BUILD_LABEL", comment: "").replacingOccurrences(of: "%1", with: p1) }
+	static let CO2_LABEL = NSLocalizedString("CO2_LABEL", comment: "")
+	static let CO2_UNIT = NSLocalizedString("CO2_UNIT", comment: "")
 	static func COMMIT_LABEL(_ p1: String) -> String { return NSLocalizedString("COMMIT_LABEL", comment: "").replacingOccurrences(of: "%1", with: p1) }
-	static let DASHBOARD_CO2_LABEL = NSLocalizedString("DASHBOARD_CO2_LABEL", comment: "")
-	static func DASHBOARD_CO2_SPAN(_ p1: String, _ p2: String) -> String { return NSLocalizedString("DASHBOARD_CO2_SPAN", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
-	static let DASHBOARD_CO2_UNIT = NSLocalizedString("DASHBOARD_CO2_UNIT", comment: "")
-	static let DASHBOARD_COST_UNIT = NSLocalizedString("DASHBOARD_COST_UNIT", comment: "")
-	static func DASHBOARD_DAY_PRICE_SPAN(_ p1: String, _ p2: String) -> String { return NSLocalizedString("DASHBOARD_DAY_PRICE_SPAN", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
-	static func DASHBOARD_HOUR_TIME(_ p1: String, _ p2: String) -> String { return NSLocalizedString("DASHBOARD_HOUR_TIME", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
+	static let COST_UNIT = NSLocalizedString("COST_UNIT", comment: "")
+	static let DASHBOARD_CO2_VARIATION = NSLocalizedString("DASHBOARD_CO2_VARIATION", comment: "")
+	static let DASHBOARD_RAW_PRICE_VARIATION = NSLocalizedString("DASHBOARD_RAW_PRICE_VARIATION", comment: "")
 	static let DASHBOARD_REFRESH_CONTROL_MESSAGE = NSLocalizedString("DASHBOARD_REFRESH_CONTROL_MESSAGE", comment: "")
 	static let DASHBOARD_REFRESH_FAILED_MESSAGE = NSLocalizedString("DASHBOARD_REFRESH_FAILED_MESSAGE", comment: "")
 	static let DASHBOARD_TITLE = NSLocalizedString("DASHBOARD_TITLE", comment: "")
-	static func DATA_DETAILS_EMISSION_CO2_SPAN(_ p1: String, _ p2: String) -> String { return NSLocalizedString("DATA_DETAILS_EMISSION_CO2_SPAN", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
-	static let DATA_DETAILS_EMISSION_CO2_UNIT = NSLocalizedString("DATA_DETAILS_EMISSION_CO2_UNIT", comment: "")
 	static let DATA_DETAILS_FIXED_FEES_LABEL = NSLocalizedString("DATA_DETAILS_FIXED_FEES_LABEL", comment: "")
 	static func DATA_DETAILS_PERCENTAGE(_ p1: String) -> String { return NSLocalizedString("DATA_DETAILS_PERCENTAGE", comment: "").replacingOccurrences(of: "%1", with: p1) }
 	static let DATA_DETAILS_PRICE_LABEL = NSLocalizedString("DATA_DETAILS_PRICE_LABEL", comment: "")
-	static let DATA_DETAILS_PRICE_UNIT = NSLocalizedString("DATA_DETAILS_PRICE_UNIT", comment: "")
 	static let DATA_DETAILS_RAW_PRICE_LABEL = NSLocalizedString("DATA_DETAILS_RAW_PRICE_LABEL", comment: "")
-	static let DATA_DETAILS_TITLE_EMISSION = NSLocalizedString("DATA_DETAILS_TITLE_EMISSION", comment: "")
 	static let DATA_DETAILS_TITLE_PRICE = NSLocalizedString("DATA_DETAILS_TITLE_PRICE", comment: "")
 	static let DATA_DETAILS_VARIABLE_FEES_LABEL = NSLocalizedString("DATA_DETAILS_VARIABLE_FEES_LABEL", comment: "")
 	static let DATA_LOADING_REFRESH_FAILED_MESSAGE = NSLocalizedString("DATA_LOADING_REFRESH_FAILED_MESSAGE", comment: "")
@@ -31,11 +26,9 @@ struct Translations {
 	static let GRID_DETAILS_SYSTEM_LABEL = NSLocalizedString("GRID_DETAILS_SYSTEM_LABEL", comment: "")
 	static let GRID_DETAILS_TITLE = NSLocalizedString("GRID_DETAILS_TITLE", comment: "")
 	static let GRID_DETAILS_TRANSMISSION_LABEL = NSLocalizedString("GRID_DETAILS_TRANSMISSION_LABEL", comment: "")
-	static let GRID_DETAILS_UNIT = NSLocalizedString("GRID_DETAILS_UNIT", comment: "")
 	static let LICENSES_ASSETS_TITLE = NSLocalizedString("LICENSES_ASSETS_TITLE", comment: "")
 	static let LICENSES_PACKAGES_TITLE = NSLocalizedString("LICENSES_PACKAGES_TITLE", comment: "")
 	static let LICENSES_TITLE = NSLocalizedString("LICENSES_TITLE", comment: "")
-	static let NETWORK_DETAILS_PRICE_LABEL = NSLocalizedString("NETWORK_DETAILS_PRICE_LABEL", comment: "")
 	static let NETWORK_DETAILS_TITLE = NSLocalizedString("NETWORK_DETAILS_TITLE", comment: "")
 	static func NETWORK_DETAILS_TITLE_TEMPLATE(_ p1: String) -> String { return NSLocalizedString("NETWORK_DETAILS_TITLE_TEMPLATE", comment: "").replacingOccurrences(of: "%1", with: p1) }
 	static let NETWORK_DETAILS_UNSPECIFICED_END = NSLocalizedString("NETWORK_DETAILS_UNSPECIFICED_END", comment: "")
@@ -79,6 +72,7 @@ struct Translations {
 	static let SETTINGS_SYSTEM_NOTIFICATIONS = NSLocalizedString("SETTINGS_SYSTEM_NOTIFICATIONS", comment: "")
 	static let SETTINGS_SYSTEM_TITLE = NSLocalizedString("SETTINGS_SYSTEM_TITLE", comment: "")
 	static let SETTINGS_TITLE = NSLocalizedString("SETTINGS_TITLE", comment: "")
+	static func SPAN(_ p1: String, _ p2: String) -> String { return NSLocalizedString("SPAN", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
 	static let UPGRADE_IS_REQUIRED = NSLocalizedString("UPGRADE_IS_REQUIRED", comment: "")
 	static func VERSION_LABEL(_ p1: String) -> String { return NSLocalizedString("VERSION_LABEL", comment: "").replacingOccurrences(of: "%1", with: p1) }
 	static let ZONE_DK1 = NSLocalizedString("ZONE_DK1", comment: "")

@@ -8,10 +8,10 @@ class PriceCell: UITableViewCell {
     private let selectionIndicator = UIView()
     private let dateLabel = Label(style: .body, color: .cellText)
     private let priceLabel = Label(style: .headline, color: .cellText).aligned(to: .right)
-    private let co2Label = Label(style: .subheadline, text: Translations.DASHBOARD_CO2_LABEL, color: .cellSecondaryText)
+    private let co2Label = Label(style: .subheadline, text: Translations.CO2_LABEL, color: .cellSecondaryText)
     private let emissionLabel = Label(style: .subheadline, color: .cellSecondaryText).aligned(to: .right)
-    private let priceUnitLabel = Label(style: .subheadline, text: Translations.DASHBOARD_COST_UNIT, color: .cellSecondaryText)
-    private let emissionUnitLabel = Label(style: .subheadline, text: Translations.DASHBOARD_CO2_UNIT, color: .cellSecondaryText)
+    private let priceUnitLabel = Label(style: .subheadline, text: Translations.COST_UNIT, color: .cellSecondaryText)
+    private let emissionUnitLabel = Label(style: .subheadline, text: Translations.CO2_UNIT, color: .cellSecondaryText)
     private let priceGaugeView = MultiColorGaugeView()
     private let emissionGaugeView = MultiColorGaugeView()
 
@@ -31,7 +31,7 @@ class PriceCell: UITableViewCell {
             }
 
         for view in [priceGaugeView, emissionGaugeView] {
-            view.set(height: 5)
+            view.updateContentHuggingPriority(.required, for: .vertical).updateContentCompressionResistancePriority(.required, for: .vertical).set(height: 5)
             view.layer.cornerRadius = 2.5
             view.clipsToBounds = true
             view.tintColor = .gaugeTint
@@ -80,7 +80,7 @@ class PriceCell: UITableViewCell {
             (price.variableFees / price.priceSpan.upperBound, .gaugeVariableFees),
             (ratio, .gaugePrice.withAlphaComponent(ratio > 0 ? 1 : 0))
         ]
-        dateLabel.text = Translations.DASHBOARD_HOUR_TIME(Self.dateFormatter.string(from: price.duration.lowerBound), Self.dateFormatter.string(from: price.duration.upperBound))
+        dateLabel.text = Translations.SPAN(Self.dateFormatter.string(from: price.duration.lowerBound), Self.dateFormatter.string(from: price.duration.upperBound))
         priceLabel.text = Self.numberFormatter.string(with: price.price)
 
         guard let emission = emission else { return self }
@@ -92,7 +92,7 @@ class PriceCell: UITableViewCell {
             (space, emissionGaugeView.tintColor),
             ((amounts.upperBound / divisor) - space, .gaugeEmission)
         ]
-        emissionLabel.text = Translations.DASHBOARD_CO2_SPAN(Self.numberFormatter.string(with: emission.amounts.lowerBound), Self.numberFormatter.string(with: emission.amounts.upperBound))
+        emissionLabel.text = Translations.SPAN(Self.numberFormatter.string(with: emission.amounts.lowerBound), Self.numberFormatter.string(with: emission.amounts.upperBound))
 
         return self
     }

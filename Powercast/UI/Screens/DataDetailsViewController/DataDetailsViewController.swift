@@ -89,7 +89,7 @@ class DataDetailsViewController: ViewController {
                     Label(text: Translations.DATA_DETAILS_PRICE_LABEL, color: .cellSecondaryText).updateContentCompressionResistancePriority(.required, for: .horizontal),
                     Label(),
                     priceLabel,
-                    Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .cellSecondaryText)
+                    Label(text: Translations.COST_UNIT, color: .cellSecondaryText)
                 ),
                 Stack.views(
                     on: .horizontal,
@@ -97,7 +97,7 @@ class DataDetailsViewController: ViewController {
                     Label(text: Translations.DATA_DETAILS_RAW_PRICE_LABEL, color: .cellSecondaryText).updateContentCompressionResistancePriority(.required, for: .horizontal),
                     rawPercentageLabel,
                     rawLabel,
-                    Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .cellSecondaryText)
+                    Label(text: Translations.COST_UNIT, color: .cellSecondaryText)
                 ),
                 Stack.views(
                     on: .horizontal,
@@ -105,7 +105,7 @@ class DataDetailsViewController: ViewController {
                     Label(text: Translations.DATA_DETAILS_FIXED_FEES_LABEL, color: .cellSecondaryText).updateContentCompressionResistancePriority(.required, for: .horizontal),
                     fixedPercentageFeesLabel,
                     fixedFeesLabel,
-                    Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .cellSecondaryText)
+                    Label(text: Translations.COST_UNIT, color: .cellSecondaryText)
                 ),
                 Stack.views(
                     on: .horizontal,
@@ -113,7 +113,7 @@ class DataDetailsViewController: ViewController {
                     Label(text: Translations.DATA_DETAILS_VARIABLE_FEES_LABEL, color: .cellSecondaryText).updateContentCompressionResistancePriority(.required, for: .horizontal),
                     variablePercentageFeesLabel,
                     variableFeesLabel,
-                    Label(text: Translations.DATA_DETAILS_PRICE_UNIT, color: .cellSecondaryText)
+                    Label(text: Translations.COST_UNIT, color: .cellSecondaryText)
                 )
             ).layout(in: contentView) { (make, its) in
                 make(its.topAnchor.constraint(equalTo: contentView.topAnchor))
@@ -183,11 +183,11 @@ class DataDetailsViewController: ViewController {
                 views.addArrangedSubview(
                     Stack.views(
                         inset: NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10),
-                        Label(text: Translations.DATA_DETAILS_EMISSION_CO2_SPAN(dateFormatter.string(from: date), dateFormatter.string(from: date.addingTimeInterval(.fiveMinutes))), color: .cellSecondaryText),
+                        Label(text: Translations.SPAN(dateFormatter.string(from: date), dateFormatter.string(from: date.addingTimeInterval(.fiveMinutes))), color: .cellSecondaryText),
                         Stack.views(
                             spacing: 5,
                             Label(text: formatter.string(with: emission.data[date]!), color: .cellText).aligned(to: .right),
-                            Label(text: Translations.DATA_DETAILS_EMISSION_CO2_UNIT, color: .cellSecondaryText)
+                            Label(text: Translations.CO2_UNIT, color: .cellSecondaryText)
                         )
                     )
                 )
@@ -224,7 +224,7 @@ extension DataDetailsViewController: UITableViewDelegate {
         case 0:
             return tableView.dequeueReusableHeaderFooter(Header.self).update(using: Translations.DATA_DETAILS_TITLE_PRICE)
         case 1:
-            return tableView.dequeueReusableHeaderFooter(Header.self).update(using: Translations.DATA_DETAILS_TITLE_EMISSION)
+            return tableView.dequeueReusableHeaderFooter(Header.self).update(using: Translations.CO2_LABEL)
         default:
             return nil
         }

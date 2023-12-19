@@ -102,9 +102,9 @@ class GridDetailsViewController: ViewController {
                 on: .vertical,
                 spacing: 6,
                 inset: NSDirectionalEdgeInsets(top: 7, leading: 15, bottom: 7, trailing: 15),
-                Stack.views(on: .horizontal, Label(text: Translations.GRID_DETAILS_SYSTEM_LABEL, color: .cellSecondaryText), Stack.views(on: .horizontal, spacing: 5, systemLabel, Label(text: Translations.GRID_DETAILS_UNIT, color: .cellSecondaryText))),
-                Stack.views(on: .horizontal, Label(text: Translations.GRID_DETAILS_TRANSMISSION_LABEL, color: .cellSecondaryText), Stack.views(on: .horizontal, spacing: 5, transmissionLabel, Label(text: Translations.GRID_DETAILS_UNIT, color: .cellSecondaryText))),
-                Stack.views(on: .horizontal, Label(text: Translations.GRID_DETAILS_CHARGE_LABEL, color: .cellSecondaryText), Stack.views(on: .horizontal, spacing: 5, chargeLabel, Label(text: Translations.GRID_DETAILS_UNIT, color: .cellSecondaryText)))
+                Stack.views(on: .horizontal, Label(text: Translations.GRID_DETAILS_SYSTEM_LABEL, color: .cellSecondaryText), Stack.views(on: .horizontal, spacing: 5, systemLabel, Label(text: Translations.COST_UNIT, color: .cellSecondaryText))),
+                Stack.views(on: .horizontal, Label(text: Translations.GRID_DETAILS_TRANSMISSION_LABEL, color: .cellSecondaryText), Stack.views(on: .horizontal, spacing: 5, transmissionLabel, Label(text: Translations.COST_UNIT, color: .cellSecondaryText))),
+                Stack.views(on: .horizontal, Label(text: Translations.GRID_DETAILS_CHARGE_LABEL, color: .cellSecondaryText), Stack.views(on: .horizontal, spacing: 5, chargeLabel, Label(text: Translations.COST_UNIT, color: .cellSecondaryText)))
             ).layout(in: contentView) { (make, its) in
                 make(its.topAnchor.constraint(equalTo: contentView.topAnchor))
                 make(its.bottomAnchor.constraint(equalTo: contentView.bottomAnchor))
