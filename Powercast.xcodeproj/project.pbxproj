@@ -18,20 +18,6 @@
 		384E643A288DAA56004ADCB1 /* Sourcery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6439288DAA56004ADCB1 /* Sourcery.swift */; };
 		384E6444288DBD53004ADCB1 /* AlexBrush-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6443288DBD53004ADCB1 /* AlexBrush-Regular.ttf */; };
 		384E6446288DC430004ADCB1 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E6445288DC430004ADCB1 /* Fonts.swift */; };
-		384E6455288DC80E004ADCB1 /* CooperHewitt-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6447288DC80D004ADCB1 /* CooperHewitt-Heavy.otf */; };
-		384E6456288DC80E004ADCB1 /* CooperHewitt-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6448288DC80D004ADCB1 /* CooperHewitt-LightItalic.otf */; };
-		384E6457288DC80E004ADCB1 /* CooperHewitt-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6449288DC80D004ADCB1 /* CooperHewitt-Bold.otf */; };
-		384E6458288DC80E004ADCB1 /* CooperHewitt-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E644A288DC80D004ADCB1 /* CooperHewitt-Book.otf */; };
-		384E6459288DC80E004ADCB1 /* CooperHewitt-BookItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E644B288DC80D004ADCB1 /* CooperHewitt-BookItalic.otf */; };
-		384E645A288DC80E004ADCB1 /* CooperHewitt-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E644C288DC80E004ADCB1 /* CooperHewitt-ThinItalic.otf */; };
-		384E645B288DC80E004ADCB1 /* CooperHewitt-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E644D288DC80E004ADCB1 /* CooperHewitt-Medium.otf */; };
-		384E645C288DC80E004ADCB1 /* CooperHewitt-SemiboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E644E288DC80E004ADCB1 /* CooperHewitt-SemiboldItalic.otf */; };
-		384E645D288DC80E004ADCB1 /* CooperHewitt-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E644F288DC80E004ADCB1 /* CooperHewitt-Thin.otf */; };
-		384E645E288DC80E004ADCB1 /* CooperHewitt-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6450288DC80E004ADCB1 /* CooperHewitt-Semibold.otf */; };
-		384E645F288DC80E004ADCB1 /* CooperHewitt-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6451288DC80E004ADCB1 /* CooperHewitt-MediumItalic.otf */; };
-		384E6460288DC80E004ADCB1 /* CooperHewitt-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6452288DC80E004ADCB1 /* CooperHewitt-Light.otf */; };
-		384E6461288DC80E004ADCB1 /* CooperHewitt-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6453288DC80E004ADCB1 /* CooperHewitt-BoldItalic.otf */; };
-		384E6462288DC80E004ADCB1 /* CooperHewitt-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 384E6454288DC80E004ADCB1 /* CooperHewitt-HeavyItalic.otf */; };
 		384E646B288EDAAF004ADCB1 /* Appearence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E646A288EDAAF004ADCB1 /* Appearence.swift */; };
 		384E64792891650E004ADCB1 /* DataLoadingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E64772891650E004ADCB1 /* DataLoadingInteractor.swift */; };
 		384E647A2891650E004ADCB1 /* DataLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384E64782891650E004ADCB1 /* DataLoadingViewController.swift */; };
@@ -137,20 +123,6 @@
 		384E6439288DAA56004ADCB1 /* Sourcery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sourcery.swift; sourceTree = "<group>"; };
 		384E6443288DBD53004ADCB1 /* AlexBrush-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlexBrush-Regular.ttf"; sourceTree = "<group>"; };
 		384E6445288DC430004ADCB1 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
-		384E6447288DC80D004ADCB1 /* CooperHewitt-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Heavy.otf"; sourceTree = "<group>"; };
-		384E6448288DC80D004ADCB1 /* CooperHewitt-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-LightItalic.otf"; sourceTree = "<group>"; };
-		384E6449288DC80D004ADCB1 /* CooperHewitt-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Bold.otf"; sourceTree = "<group>"; };
-		384E644A288DC80D004ADCB1 /* CooperHewitt-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Book.otf"; sourceTree = "<group>"; };
-		384E644B288DC80D004ADCB1 /* CooperHewitt-BookItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-BookItalic.otf"; sourceTree = "<group>"; };
-		384E644C288DC80E004ADCB1 /* CooperHewitt-ThinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-ThinItalic.otf"; sourceTree = "<group>"; };
-		384E644D288DC80E004ADCB1 /* CooperHewitt-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Medium.otf"; sourceTree = "<group>"; };
-		384E644E288DC80E004ADCB1 /* CooperHewitt-SemiboldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-SemiboldItalic.otf"; sourceTree = "<group>"; };
-		384E644F288DC80E004ADCB1 /* CooperHewitt-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Thin.otf"; sourceTree = "<group>"; };
-		384E6450288DC80E004ADCB1 /* CooperHewitt-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Semibold.otf"; sourceTree = "<group>"; };
-		384E6451288DC80E004ADCB1 /* CooperHewitt-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-MediumItalic.otf"; sourceTree = "<group>"; };
-		384E6452288DC80E004ADCB1 /* CooperHewitt-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Light.otf"; sourceTree = "<group>"; };
-		384E6453288DC80E004ADCB1 /* CooperHewitt-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-BoldItalic.otf"; sourceTree = "<group>"; };
-		384E6454288DC80E004ADCB1 /* CooperHewitt-HeavyItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-HeavyItalic.otf"; sourceTree = "<group>"; };
 		384E646A288EDAAF004ADCB1 /* Appearence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearence.swift; sourceTree = "<group>"; };
 		384E64772891650E004ADCB1 /* DataLoadingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLoadingInteractor.swift; sourceTree = "<group>"; };
 		384E64782891650E004ADCB1 /* DataLoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLoadingViewController.swift; sourceTree = "<group>"; };
@@ -309,20 +281,6 @@
 		384E6442288DBD53004ADCB1 /* Assets.Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				384E6449288DC80D004ADCB1 /* CooperHewitt-Bold.otf */,
-				384E6453288DC80E004ADCB1 /* CooperHewitt-BoldItalic.otf */,
-				384E644A288DC80D004ADCB1 /* CooperHewitt-Book.otf */,
-				384E644B288DC80D004ADCB1 /* CooperHewitt-BookItalic.otf */,
-				384E6447288DC80D004ADCB1 /* CooperHewitt-Heavy.otf */,
-				384E6454288DC80E004ADCB1 /* CooperHewitt-HeavyItalic.otf */,
-				384E6452288DC80E004ADCB1 /* CooperHewitt-Light.otf */,
-				384E6448288DC80D004ADCB1 /* CooperHewitt-LightItalic.otf */,
-				384E644D288DC80E004ADCB1 /* CooperHewitt-Medium.otf */,
-				384E6451288DC80E004ADCB1 /* CooperHewitt-MediumItalic.otf */,
-				384E6450288DC80E004ADCB1 /* CooperHewitt-Semibold.otf */,
-				384E644E288DC80E004ADCB1 /* CooperHewitt-SemiboldItalic.otf */,
-				384E644F288DC80E004ADCB1 /* CooperHewitt-Thin.otf */,
-				384E644C288DC80E004ADCB1 /* CooperHewitt-ThinItalic.otf */,
 				384E6443288DBD53004ADCB1 /* AlexBrush-Regular.ttf */,
 			);
 			path = Assets.Fonts;
@@ -701,27 +659,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				384E6459288DC80E004ADCB1 /* CooperHewitt-BookItalic.otf in Resources */,
-				384E6457288DC80E004ADCB1 /* CooperHewitt-Bold.otf in Resources */,
-				384E6462288DC80E004ADCB1 /* CooperHewitt-HeavyItalic.otf in Resources */,
 				387FF606286B90A40051E3DC /* LaunchScreen.storyboard in Resources */,
 				380CE8EC288893E30003FF36 /* 112626-connecting.json in Resources */,
 				38DF5AC928708077008630FB /* InfoPlist.strings in Resources */,
-				384E645A288DC80E004ADCB1 /* CooperHewitt-ThinItalic.otf in Resources */,
-				384E6461288DC80E004ADCB1 /* CooperHewitt-BoldItalic.otf in Resources */,
-				384E6455288DC80E004ADCB1 /* CooperHewitt-Heavy.otf in Resources */,
-				384E645C288DC80E004ADCB1 /* CooperHewitt-SemiboldItalic.otf in Resources */,
-				384E645D288DC80E004ADCB1 /* CooperHewitt-Thin.otf in Resources */,
-				384E6460288DC80E004ADCB1 /* CooperHewitt-Light.otf in Resources */,
-				384E6458288DC80E004ADCB1 /* CooperHewitt-Book.otf in Resources */,
 				38DF5AC828708077008630FB /* Localizable.strings in Resources */,
 				387FF603286B90A40051E3DC /* Assets.xcassets in Resources */,
 				CD5E309328B2583600DBA019 /* packages in Resources */,
-				384E645F288DC80E004ADCB1 /* CooperHewitt-MediumItalic.otf in Resources */,
 				384E6444288DBD53004ADCB1 /* AlexBrush-Regular.ttf in Resources */,
-				384E6456288DC80E004ADCB1 /* CooperHewitt-LightItalic.otf in Resources */,
-				384E645E288DC80E004ADCB1 /* CooperHewitt-Semibold.otf in Resources */,
-				384E645B288DC80E004ADCB1 /* CooperHewitt-Medium.otf in Resources */,
 				CD5E309228B2583600DBA019 /* assets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
