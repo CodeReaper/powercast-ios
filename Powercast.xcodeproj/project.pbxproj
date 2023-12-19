@@ -88,6 +88,7 @@
 		CD36624729281614009FAC8B /* Flogger in Frameworks */ = {isa = PBXBuildFile; productRef = CD36624629281614009FAC8B /* Flogger */; };
 		CD4022E82A34AA2B00027798 /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD4022E72A34AA2B00027798 /* SugarKit */; };
 		CD4022EC2A34ADA600027798 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4022EB2A34ADA600027798 /* LoadingView.swift */; };
+		CD484BA02B32225000AC72E2 /* PriceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD484B9F2B32225000AC72E2 /* PriceHeaderView.swift */; };
 		CD51C6692B27AF2F002524A6 /* ConfigurationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD51C6682B27AF2F002524A6 /* ConfigurationService.swift */; };
 		CD51C66B2B27AFAB002524A6 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD51C66A2B27AFAB002524A6 /* Configuration.swift */; };
 		CD5C58CC2ADBFD4A00143060 /* CSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = CD5C58CB2ADBFD4A00143060 /* CSQLite */; };
@@ -209,6 +210,7 @@
 		CD1068C92B13870300FD5B0E /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		CD4022EB2A34ADA600027798 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		CD484B9F2B32225000AC72E2 /* PriceHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceHeaderView.swift; sourceTree = "<group>"; };
 		CD51C6682B27AF2F002524A6 /* ConfigurationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationService.swift; sourceTree = "<group>"; };
 		CD51C66A2B27AFAB002524A6 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		CD5C58CF2AE4824900143060 /* ChargesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargesRepository.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 				CD4022EB2A34ADA600027798 /* LoadingView.swift */,
 				CDA37DF22ADB3174004B44B0 /* MultiColorGaugeView.swift */,
 				CD1068B92B092D3300FD5B0E /* PriceCell.swift */,
+				CD484B9F2B32225000AC72E2 /* PriceHeaderView.swift */,
 				CDEAF3322B1BAEA700C4ED7A /* StackviewCell.swift */,
 				380CE8F9288AE55A0003FF36 /* ViewControllers.swift */,
 			);
@@ -832,6 +835,7 @@
 				CDEAF3332B1BAEA700C4ED7A /* StackviewCell.swift in Sources */,
 				CD1068AB2B07F17800FD5B0E /* DateInterval.swift in Sources */,
 				38ECF94B289B0ACF00ED8372 /* Date.swift in Sources */,
+				CD484BA02B32225000AC72E2 /* PriceHeaderView.swift in Sources */,
 				CD2CFE0128E0D2A500DC55C1 /* NotificationScheduler.swift in Sources */,
 				CD1068BA2B092D3300FD5B0E /* PriceCell.swift in Sources */,
 				38E0FA68288476C40096B98A /* EnergyPriceService.swift in Sources */,

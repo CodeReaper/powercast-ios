@@ -4,6 +4,7 @@ struct Price {
     let price: Double
     let priceSpan: ClosedRange<Double>
     let rawPrice: Double
+    let rawPriceSpan: ClosedRange<Double>
     let fees: Double
     let fixedFees: Double
     let variableFees: Double
@@ -22,6 +23,7 @@ extension Price {
             price: charges.format(model.price, at: model.timestamp),
             priceSpan: items.map({ charges.format($0.price, at: $0.timestamp) }).span(),
             rawPrice: charges.convert(model.price, at: model.timestamp),
+            rawPriceSpan: items.map({ charges.convert($0.price, at: $0.timestamp) }).span(),
             fees: charges.fees(at: model.timestamp),
             fixedFees: charges.fixedFees(at: model.timestamp),
             variableFees: charges.variableFees(at: model.timestamp),

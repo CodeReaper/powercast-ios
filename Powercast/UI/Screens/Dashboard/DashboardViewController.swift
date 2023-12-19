@@ -43,7 +43,7 @@ class DashboardViewController: ViewController {
             .set(hidden: true)
 
         tableView
-            .registerClass(Header.self)
+            .registerClass(PriceHeaderView.self)
             .registerClass(PriceCell.self)
             .set(datasource: self, delegate: self)
             .set(backgroundColor: .tableBackground)
@@ -51,6 +51,7 @@ class DashboardViewController: ViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.sectionFooterHeight = 0
         tableView.sectionHeaderHeight = UITableView.automaticDimension
+        tableView.estimatedSectionHeaderHeight = 100
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
         }
@@ -108,36 +109,6 @@ class DashboardViewController: ViewController {
     @objc func didPullToRefresh() {
         interactor.refreshData()
     }
-
-    private class Header: UITableViewHeaderFooterView {
-        private static let dateFormatter = DateFormatter.with(dateStyle: .medium, timeStyle: .none)
-        private static let numberFormatter = NumberFormatter.with(style: .decimal, fractionDigits: 0)
-
-        private let dateLabel = Label(style: .body, color: .cellHeaderText)
-        private let pricesLabel = Label(style: .body, color: .cellHeaderText)
-
-        override init(reuseIdentifier: String?) {
-            super.init(reuseIdentifier: reuseIdentifier)
-
-            contentView.backgroundColor = .cellHeaderBackground
-
-            Stack.views(
-                spacing: 10,
-                inset: NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10),
-                dateLabel,
-                pricesLabel
-            ).setup(in: contentView)
-        }
-
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-
-        func update(using price: Price) {
-            dateLabel.text = Self.dateFormatter.string(from: price.duration.lowerBound)
-            pricesLabel.text = Translations.DASHBOARD_DAY_PRICE_SPAN(Self.numberFormatter.string(with: price.priceSpan.lowerBound), Self.numberFormatter.string(with: price.priceSpan.upperBound))
-        }
-    }
 }
 
 extension DashboardViewController: UITableViewDataSource, UITableViewDelegate {
@@ -150,13 +121,13 @@ extension DashboardViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let indexPath = IndexPath(item: 0, section: section)
         guard
-            let price = priceSource.item(at: IndexPath(item: 0, section: section))
+            let price = priceSource.item(at: indexPath),
+            let emission = emissionSource.item(at: indexPath)
         else { return nil }
 
-        let view = tableView.dequeueReusableHeaderFooter(Header.self)
-        view.update(using: price)
-        return view
+        return tableView.dequeueReusableHeaderFooter(PriceHeaderView.self).update(using: price, and: emission, current: price.duration.contains(now))
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -115,11 +115,11 @@ class NetworkDetailsViewController: ViewController {
                         spacing: 15,
                         Stack.views(
                             Label(text: "\(formatter.string(with: index)) - \(formatter.string(with: (index + 1)))", color: .cellSecondaryText),
-                            Stack.views(spacing: 5, labels[index], Label(text: Translations.NETWORK_DETAILS_PRICE_LABEL, color: .cellSecondaryText).updateContentCompressionResistancePriority(.required, for: .horizontal))
+                            Stack.views(spacing: 5, labels[index], Label(text: Translations.COST_UNIT, color: .cellSecondaryText).updateContentCompressionResistancePriority(.required, for: .horizontal))
                         ),
                         Stack.views(
                             Label(text: "\(formatter.string(with: (index + 12))) - \(formatter.string(with: (index + 13)))", color: .cellSecondaryText),
-                            Stack.views(spacing: 5, labels[index + 12], Label(text: Translations.NETWORK_DETAILS_PRICE_LABEL, color: .cellSecondaryText).updateContentCompressionResistancePriority(.required, for: .horizontal))
+                            Stack.views(spacing: 5, labels[index + 12], Label(text: Translations.COST_UNIT, color: .cellSecondaryText).updateContentCompressionResistancePriority(.required, for: .horizontal))
                         )
                     )
                 )
