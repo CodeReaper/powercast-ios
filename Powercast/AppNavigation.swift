@@ -3,6 +3,7 @@ import SugarKit
 
 indirect enum Navigation {
     case launch
+    case introduction
     case networkSelection(forceSelection: Bool)
     case loadData(network: Network)
     case dashboard
@@ -73,6 +74,8 @@ class AppNavigation {
                 service: dependencies.configurationService
             )
             navigationController.setViewControllers([viewController], animated: true)
+        case .introduction:
+            navigationController.setViewControllers([IntroductionViewController(navigation: self)], animated: true)
         case let .networkSelection(force):
             if !force && network != nil {
                 navigate(to: .dashboard)

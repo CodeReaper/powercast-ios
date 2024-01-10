@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		380CE8E62888901A0003FF36 /* EnergyPriceDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE8E52888901A0003FF36 /* EnergyPriceDatabase.swift */; };
 		380CE8E9288892490003FF36 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 380CE8E8288892490003FF36 /* Lottie */; };
-		380CE8EC288893E30003FF36 /* 112626-connecting.json in Resources */ = {isa = PBXBuildFile; fileRef = 380CE8EB288893E30003FF36 /* 112626-connecting.json */; };
 		380CE8EE288893F90003FF36 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE8ED288893F90003FF36 /* Animations.swift */; };
 		380CE8FF288AE55A0003FF36 /* ViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE8F9288AE55A0003FF36 /* ViewControllers.swift */; };
 		380CE905288AF2040003FF36 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380CE904288AF2040003FF36 /* AppConfiguration.swift */; };
@@ -98,6 +97,11 @@
 		CDA7A6012B254241004CF7D1 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA7A6002B254241004CF7D1 /* Bundle.swift */; };
 		CDA7A6032B2619FE004CF7D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDA7A6022B2619FE004CF7D1 /* StoreKit.framework */; };
 		CDA7A6072B2649BA004CF7D1 /* StoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA7A6062B2649BA004CF7D1 /* StoreRepository.swift */; };
+		CDC25BC32B49C553005453F8 /* IntroductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC25BC22B49C553005453F8 /* IntroductionViewController.swift */; };
+		CDC25BCB2B4F38B2005453F8 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = CDC25BC82B4F38B2005453F8 /* loading.json */; };
+		CDC25BCC2B4F38B2005453F8 /* question-mark.json in Resources */ = {isa = PBXBuildFile; fileRef = CDC25BC92B4F38B2005453F8 /* question-mark.json */; };
+		CDC25BCD2B4F38B2005453F8 /* location-selection.json in Resources */ = {isa = PBXBuildFile; fileRef = CDC25BCA2B4F38B2005453F8 /* location-selection.json */; };
+		CDC25BCF2B4F3D93005453F8 /* QuestionMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC25BCE2B4F3D93005453F8 /* QuestionMarkView.swift */; };
 		CDE77AC428C369370021EEDD /* Migratable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE77AC328C369370021EEDD /* Migratable.swift */; };
 		CDEAF3332B1BAEA700C4ED7A /* StackviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEAF3322B1BAEA700C4ED7A /* StackviewCell.swift */; };
 /* End PBXBuildFile section */
@@ -114,7 +118,6 @@
 
 /* Begin PBXFileReference section */
 		380CE8E52888901A0003FF36 /* EnergyPriceDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyPriceDatabase.swift; sourceTree = "<group>"; };
-		380CE8EB288893E30003FF36 /* 112626-connecting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "112626-connecting.json"; sourceTree = "<group>"; };
 		380CE8ED288893F90003FF36 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		380CE8F9288AE55A0003FF36 /* ViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllers.swift; sourceTree = "<group>"; };
 		380CE904288AF2040003FF36 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
@@ -206,6 +209,11 @@
 		CDA7A6022B2619FE004CF7D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		CDA7A6062B2649BA004CF7D1 /* StoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRepository.swift; sourceTree = "<group>"; };
 		CDA7A6082B265962004CF7D1 /* Powercast.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Powercast.storekit; sourceTree = "<group>"; };
+		CDC25BC22B49C553005453F8 /* IntroductionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionViewController.swift; sourceTree = "<group>"; };
+		CDC25BC82B4F38B2005453F8 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
+		CDC25BC92B4F38B2005453F8 /* question-mark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "question-mark.json"; sourceTree = "<group>"; };
+		CDC25BCA2B4F38B2005453F8 /* location-selection.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "location-selection.json"; sourceTree = "<group>"; };
+		CDC25BCE2B4F3D93005453F8 /* QuestionMarkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionMarkView.swift; sourceTree = "<group>"; };
 		CDE77AC328C369370021EEDD /* Migratable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migratable.swift; sourceTree = "<group>"; };
 		CDEAF3322B1BAEA700C4ED7A /* StackviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackviewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -250,7 +258,9 @@
 		380CE8EA288893E30003FF36 /* Assets.Animations */ = {
 			isa = PBXGroup;
 			children = (
-				380CE8EB288893E30003FF36 /* 112626-connecting.json */,
+				CDC25BC82B4F38B2005453F8 /* loading.json */,
+				CDC25BCA2B4F38B2005453F8 /* location-selection.json */,
+				CDC25BC92B4F38B2005453F8 /* question-mark.json */,
 			);
 			path = Assets.Animations;
 			sourceTree = "<group>";
@@ -263,6 +273,7 @@
 				CDA37DF22ADB3174004B44B0 /* MultiColorGaugeView.swift */,
 				CD1068B92B092D3300FD5B0E /* PriceCell.swift */,
 				CD484B9F2B32225000AC72E2 /* PriceHeaderView.swift */,
+				CDC25BCE2B4F3D93005453F8 /* QuestionMarkView.swift */,
 				CDEAF3322B1BAEA700C4ED7A /* StackviewCell.swift */,
 				380CE8F9288AE55A0003FF36 /* ViewControllers.swift */,
 			);
@@ -447,6 +458,7 @@
 		38FD15CD28833AEA001C38F9 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				CDC25BC22B49C553005453F8 /* IntroductionViewController.swift */,
 				38FD15DE28835528001C38F9 /* LicensesViewController.swift */,
 				CD5E309428B25B1800DBA019 /* LicenseViewController.swift */,
 				389F717C28997B2B0007C2E0 /* MenuViewController.swift */,
@@ -660,11 +672,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				387FF606286B90A40051E3DC /* LaunchScreen.storyboard in Resources */,
-				380CE8EC288893E30003FF36 /* 112626-connecting.json in Resources */,
 				38DF5AC928708077008630FB /* InfoPlist.strings in Resources */,
+				CDC25BCB2B4F38B2005453F8 /* loading.json in Resources */,
+				CDC25BCD2B4F38B2005453F8 /* location-selection.json in Resources */,
 				38DF5AC828708077008630FB /* Localizable.strings in Resources */,
 				387FF603286B90A40051E3DC /* Assets.xcassets in Resources */,
 				CD5E309328B2583600DBA019 /* packages in Resources */,
+				CDC25BCC2B4F38B2005453F8 /* question-mark.json in Resources */,
 				384E6444288DBD53004ADCB1 /* AlexBrush-Regular.ttf in Resources */,
 				CD5E309228B2583600DBA019 /* assets in Resources */,
 			);
@@ -771,6 +785,7 @@
 				384E642E288D90EF004ADCB1 /* BackgroundScheduler.swift in Sources */,
 				380CE905288AF2040003FF36 /* AppConfiguration.swift in Sources */,
 				CD10688C2AFC333500FD5B0E /* LaunchInteractor.swift in Sources */,
+				CDC25BCF2B4F3D93005453F8 /* QuestionMarkView.swift in Sources */,
 				384E646B288EDAAF004ADCB1 /* Appearence.swift in Sources */,
 				38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */,
 				CD1068952B040F5A00FD5B0E /* EmissionService.swift in Sources */,
@@ -785,6 +800,7 @@
 				38E0FA68288476C40096B98A /* EnergyPriceService.swift in Sources */,
 				38ECF94D289C467B00ED8372 /* TimeInterval.swift in Sources */,
 				CDA37DF12ADB24F0004B44B0 /* ChargesService.swift in Sources */,
+				CDC25BC32B49C553005453F8 /* IntroductionViewController.swift in Sources */,
 				387FF610286B95BB0051E3DC /* global.swift in Sources */,
 				CD10688F2AFEF62D00FD5B0E /* Observer.swift in Sources */,
 				384E643A288DAA56004ADCB1 /* Sourcery.swift in Sources */,

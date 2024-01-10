@@ -52,7 +52,7 @@ class LaunchViewController: ViewController {
 
 extension LaunchViewController: LaunchDelegate {
     func showNetworkSelection() {
-        navigate(to: .networkSelection(forceSelection: false))
+        navigate(to: .introduction)
     }
 
     func showUpgradeRequired() {
