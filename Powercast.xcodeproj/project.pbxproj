@@ -72,7 +72,6 @@
 		CD2CFE0128E0D2A500DC55C1 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationScheduler.swift */; };
 		CD36624729281614009FAC8B /* Flogger in Frameworks */ = {isa = PBXBuildFile; productRef = CD36624629281614009FAC8B /* Flogger */; };
 		CD4022E82A34AA2B00027798 /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD4022E72A34AA2B00027798 /* SugarKit */; };
-		CD4022EC2A34ADA600027798 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4022EB2A34ADA600027798 /* LoadingView.swift */; };
 		CD484BA02B32225000AC72E2 /* PriceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD484B9F2B32225000AC72E2 /* PriceHeaderView.swift */; };
 		CD51C6692B27AF2F002524A6 /* ConfigurationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD51C6682B27AF2F002524A6 /* ConfigurationService.swift */; };
 		CD51C66B2B27AFAB002524A6 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD51C66A2B27AFAB002524A6 /* Configuration.swift */; };
@@ -89,6 +88,8 @@
 		CD81C59B2A6DBDD300E88418 /* Charges.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD81C59A2A6DBDD300E88418 /* Charges.swift */; };
 		CD8801242A61E18300A30B1D /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD8801232A61E18300A30B1D /* SugarKit */; };
 		CD8A4BC528BA6DB000EC68E3 /* Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BC428BA6DB000EC68E3 /* Price.swift */; };
+		CD8B43B42B509A1F00AE93F2 /* electricity.json in Resources */ = {isa = PBXBuildFile; fileRef = CD8B43B32B509A1F00AE93F2 /* electricity.json */; };
+		CD8B43B62B509B1000AE93F2 /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8B43B52B509B1000AE93F2 /* AnimationView.swift */; };
 		CDA0E40A2AC8C0DA00FF364D /* Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0E4092AC8C0DA00FF364D /* Evaluation.swift */; };
 		CDA0E4122AC982EC00FF364D /* EvaluationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0E4112AC982EC00FF364D /* EvaluationTests.swift */; };
 		CDA0E4192AC988A000FF364D /* EnergyPrices.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0E4182AC988A000FF364D /* EnergyPrices.swift */; };
@@ -101,7 +102,6 @@
 		CDC25BCB2B4F38B2005453F8 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = CDC25BC82B4F38B2005453F8 /* loading.json */; };
 		CDC25BCC2B4F38B2005453F8 /* question-mark.json in Resources */ = {isa = PBXBuildFile; fileRef = CDC25BC92B4F38B2005453F8 /* question-mark.json */; };
 		CDC25BCD2B4F38B2005453F8 /* location-selection.json in Resources */ = {isa = PBXBuildFile; fileRef = CDC25BCA2B4F38B2005453F8 /* location-selection.json */; };
-		CDC25BCF2B4F3D93005453F8 /* QuestionMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC25BCE2B4F3D93005453F8 /* QuestionMarkView.swift */; };
 		CDE77AC428C369370021EEDD /* Migratable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE77AC328C369370021EEDD /* Migratable.swift */; };
 		CDEAF3332B1BAEA700C4ED7A /* StackviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEAF3322B1BAEA700C4ED7A /* StackviewCell.swift */; };
 /* End PBXBuildFile section */
@@ -184,7 +184,6 @@
 		CD1068C62B12BC2400FD5B0E /* AutoCopyNotification.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCopyNotification.generated.swift; sourceTree = "<group>"; };
 		CD1068C92B13870300FD5B0E /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
-		CD4022EB2A34ADA600027798 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CD484B9F2B32225000AC72E2 /* PriceHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceHeaderView.swift; sourceTree = "<group>"; };
 		CD51C6682B27AF2F002524A6 /* ConfigurationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationService.swift; sourceTree = "<group>"; };
 		CD51C66A2B27AFAB002524A6 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -199,6 +198,8 @@
 		CD81C59A2A6DBDD300E88418 /* Charges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charges.swift; sourceTree = "<group>"; };
 		CD8A4BC428BA6DB000EC68E3 /* Price.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
 		CD8A4BC928BC1B9100EC68E3 /* Local.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
+		CD8B43B32B509A1F00AE93F2 /* electricity.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = electricity.json; sourceTree = "<group>"; };
+		CD8B43B52B509B1000AE93F2 /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
 		CDA0E4092AC8C0DA00FF364D /* Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evaluation.swift; sourceTree = "<group>"; };
 		CDA0E40F2AC982EC00FF364D /* PowercastTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PowercastTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDA0E4112AC982EC00FF364D /* EvaluationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationTests.swift; sourceTree = "<group>"; };
@@ -213,7 +214,6 @@
 		CDC25BC82B4F38B2005453F8 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		CDC25BC92B4F38B2005453F8 /* question-mark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "question-mark.json"; sourceTree = "<group>"; };
 		CDC25BCA2B4F38B2005453F8 /* location-selection.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "location-selection.json"; sourceTree = "<group>"; };
-		CDC25BCE2B4F3D93005453F8 /* QuestionMarkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionMarkView.swift; sourceTree = "<group>"; };
 		CDE77AC328C369370021EEDD /* Migratable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migratable.swift; sourceTree = "<group>"; };
 		CDEAF3322B1BAEA700C4ED7A /* StackviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackviewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -258,6 +258,7 @@
 		380CE8EA288893E30003FF36 /* Assets.Animations */ = {
 			isa = PBXGroup;
 			children = (
+				CD8B43B32B509A1F00AE93F2 /* electricity.json */,
 				CDC25BC82B4F38B2005453F8 /* loading.json */,
 				CDC25BCA2B4F38B2005453F8 /* location-selection.json */,
 				CDC25BC92B4F38B2005453F8 /* question-mark.json */,
@@ -268,12 +269,11 @@
 		380CE8F2288AE55A0003FF36 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				CD8B43B52B509B1000AE93F2 /* AnimationView.swift */,
 				389F717E289982630007C2E0 /* Drawer.swift */,
-				CD4022EB2A34ADA600027798 /* LoadingView.swift */,
 				CDA37DF22ADB3174004B44B0 /* MultiColorGaugeView.swift */,
 				CD1068B92B092D3300FD5B0E /* PriceCell.swift */,
 				CD484B9F2B32225000AC72E2 /* PriceHeaderView.swift */,
-				CDC25BCE2B4F3D93005453F8 /* QuestionMarkView.swift */,
 				CDEAF3322B1BAEA700C4ED7A /* StackviewCell.swift */,
 				380CE8F9288AE55A0003FF36 /* ViewControllers.swift */,
 			);
@@ -672,6 +672,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				387FF606286B90A40051E3DC /* LaunchScreen.storyboard in Resources */,
+				CD8B43B42B509A1F00AE93F2 /* electricity.json in Resources */,
 				38DF5AC928708077008630FB /* InfoPlist.strings in Resources */,
 				CDC25BCB2B4F38B2005453F8 /* loading.json in Resources */,
 				CDC25BCD2B4F38B2005453F8 /* location-selection.json in Resources */,
@@ -785,7 +786,6 @@
 				384E642E288D90EF004ADCB1 /* BackgroundScheduler.swift in Sources */,
 				380CE905288AF2040003FF36 /* AppConfiguration.swift in Sources */,
 				CD10688C2AFC333500FD5B0E /* LaunchInteractor.swift in Sources */,
-				CDC25BCF2B4F3D93005453F8 /* QuestionMarkView.swift in Sources */,
 				384E646B288EDAAF004ADCB1 /* Appearence.swift in Sources */,
 				38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */,
 				CD1068952B040F5A00FD5B0E /* EmissionService.swift in Sources */,
@@ -805,9 +805,9 @@
 				CD10688F2AFEF62D00FD5B0E /* Observer.swift in Sources */,
 				384E643A288DAA56004ADCB1 /* Sourcery.swift in Sources */,
 				CD10688D2AFC333500FD5B0E /* LaunchViewController.swift in Sources */,
-				CD4022EC2A34ADA600027798 /* LoadingView.swift in Sources */,
 				384E6446288DC430004ADCB1 /* Fonts.swift in Sources */,
 				CD1068A12B05476600FD5B0E /* EmissionTableDataSource.swift in Sources */,
+				CD8B43B62B509B1000AE93F2 /* AnimationView.swift in Sources */,
 				CD8A4BC528BA6DB000EC68E3 /* Price.swift in Sources */,
 				CD1068B32B081B8800FD5B0E /* DataDetailsViewController.swift in Sources */,
 				38E0FA722884822C0096B98A /* _Database.swift in Sources */,
