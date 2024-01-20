@@ -56,6 +56,12 @@
 "NOTIFICATION_TITLE" = "Notifikation";
 "NOTIFICATION_TRIGGER_LABEL" = "Valgte klokkeslæt";
 "NOTIFICATION_TRIGGER_TITLE" = "Igangsættelse";
+"ONBOARDING_BUTTON_DONE" = "";
+"ONBOARDING_BUTTON_NEXT" = "";
+"ONBOARDING_PAGE_LOCATION" = "Din **lokation**\npåvirker\nDin **pris**";
+"ONBOARDING_PAGE_LOOKUP" = "";
+"ONBOARDING_PAGE_TARIFS" = "Dit **elselskab**\nbestemmer\nDine **tariffer**";
+"ONBOARDING_PAGE_VARIABLE_COSTS" = "Prisen indeholder\n**variable** tariffer\nog\nselve **el prisen**";
 "PRICE_ARCHIVE_FAILURE_MESSAGE" = "Kunne ikke hente data";
 "PRICE_ARCHIVE_TITLE" = "Pris arkiv";
 "SETTINGS_NETWORK_TITLE" = "Netværk";

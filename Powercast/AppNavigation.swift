@@ -3,8 +3,8 @@ import SugarKit
 
 indirect enum Navigation {
     case launch
-    case introduction
-    case networkSelection(forceSelection: Bool)
+    case onBoarding
+    case networkSelection
     case loadData(network: Network)
     case dashboard
     case dataDetails(price: Price, emission: Emission.Co2?)
@@ -74,20 +74,16 @@ class AppNavigation {
                 service: dependencies.configurationService
             )
             navigationController.setViewControllers([viewController], animated: true)
-        case .introduction:
-            navigationController.setViewControllers([IntroductionViewController(navigation: self)], animated: true)
-        case let .networkSelection(force):
-            if !force && network != nil {
-                navigate(to: .dashboard)
-                return
-            }
+        case .onBoarding:
+            let viewController = OnBoardingViewController(navigation: self)
+            navigationController.setViewControllers([viewController], animated: true)
+        case .networkSelection:
             let viewController = NetworkSelectionViewController(
                 navigation: self,
                 networks: networks ?? [],
-                charges: dependencies.chargesRepository,
-                cancelable: force
+                charges: dependencies.chargesRepository
             )
-            navigationController.setViewControllers([viewController], animated: true)
+            navigationController.pushViewController(viewController, animated: true)
         case let .loadData(network):
             let viewController = DataLoadingViewController(
                 navigation: self,

@@ -13,6 +13,13 @@ class AnimationView {
         }
     }
 
+    class Euro: LottieAnimationView {
+        convenience init(mode: LottieLoopMode = .loop) {
+            self.init(name: Animations.euro)
+            loopMode = mode
+        }
+    }
+
     class Loading: LottieAnimationView {
         convenience init(color: UIColor = .black, mode: LottieLoopMode = .loop) {
             self.init(name: Animations.loading)

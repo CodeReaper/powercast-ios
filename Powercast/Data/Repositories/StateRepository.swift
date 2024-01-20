@@ -1,30 +1,17 @@
 import UIKit
 import UserNotifications
 
-protocol NetworkState: Observerable {
-    var network: Network { get }
+protocol DataLoadingState: Observerable {
     func select(network: Network)
-    func forgetNetwork()
 }
 
-protocol NotificationState: Observerable {
-    var notifications: [Notification] { get }
-    func notification(by id: String) -> Notification?
-    func update(notification: Notification)
-    func forget(notification: Notification)
-}
-
-protocol SystemState: Observerable {
-    var notificationStatus: UNAuthorizationStatus { get }
-    var backgroundRefreshStatus: UIBackgroundRefreshStatus { get }
-}
-
-protocol ConfigurationState {
+protocol LaunchState {
+    var network: Network { get }
     var configuration: Configuration { get }
     func save(configuration: Configuration)
 }
 
-class StateRepository: Observerable, NetworkState, NotificationState, SystemState, ConfigurationState {
+class StateRepository: Observerable, DataLoadingState, LaunchState {
     private let store: UserDefaults
 
     var configuration: Configuration {

@@ -2,40 +2,35 @@ import UIKit
 import Lottie
 import SugarKit
 
-class IntroductionViewController: UIPageViewController {
+class OnBoardingViewController: UIPageViewController {
     // FIXME: colors, translations
     private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-
-    private let pages: [UIViewController]
     private let navigation: AppNavigation
-
+    private var pages: [UIViewController]!
     private var button: Button!
 
     init(navigation: AppNavigation) {
-        let locationText = "Your **location**\nAffects\nYour **price**".components(separatedBy: "**").enumerated().reduce(into: NSMutableAttributedString(), { string, pair in
-            let font = !pair.offset.isMultiple(of: 2) ? UIFont.boldSystemFont(ofSize: 48) : UIFont.italicSystemFont(ofSize: 40)
-            string.append(NSAttributedString(string: pair.element, attributes: [NSAttributedString.Key.font: font]))
-        })
-
-        let locationText2 = "Your2 **location**\nAffects\nYour **price**".components(separatedBy: "**").enumerated().reduce(into: NSMutableAttributedString(), { string, pair in
-            let font = !pair.offset.isMultiple(of: 2) ? UIFont.boldSystemFont(ofSize: 48) : UIFont.italicSystemFont(ofSize: 40)
-            string.append(NSAttributedString(string: pair.element, attributes: [NSAttributedString.Key.font: font]))
-        })
-
-        let locationText3 = "Your3 **location**\nAffects\nYour **price**".components(separatedBy: "**").enumerated().reduce(into: NSMutableAttributedString(), { string, pair in
-            let font = !pair.offset.isMultiple(of: 2) ? UIFont.boldSystemFont(ofSize: 48) : UIFont.italicSystemFont(ofSize: 40)
-            string.append(NSAttributedString(string: pair.element, attributes: [NSAttributedString.Key.font: font]))
-        })
-
-        self.pages = [
-            Page(supportingView: AnimationView.LocationSelection(mode: .playOnce), information: locationText),
-            Page(supportingView: AnimationView.Electricity(color: .white), information: locationText2),
-            Page(supportingView: AnimationView.QuestionMark(color: .white, mode: .playOnce), information: locationText3)
-        ]
         self.navigation = navigation
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
-
-        button = Button(text: "Continue", target: self, action: #selector(didTapNext))
+        self.pages = [
+            Page(supportingView: AnimationView.LocationSelection(mode: .playOnce), information: formatted(
+                string: Translations.ONBOARDING_PAGE_LOCATION,
+                font: .italicSystemFont(ofSize: 40)
+            )),
+            Page(supportingView: AnimationView.Euro(mode: .playOnce), information: formatted(
+                string: Translations.ONBOARDING_PAGE_VARIABLE_COSTS,
+                font: .italicSystemFont(ofSize: 40)
+            )),
+            Page(supportingView: AnimationView.Electricity(color: .white), information: formatted(
+                string: Translations.ONBOARDING_PAGE_TARIFS,
+                font: .italicSystemFont(ofSize: 40)
+            )),
+            Page(supportingView: AnimationView.QuestionMark(color: .white, mode: .playOnce), information: formatted(
+                string: Translations.ONBOARDING_PAGE_LOOKUP,
+                font: .italicSystemFont(ofSize: 40)
+            ))
+        ]
+        button = Button(text: Translations.ONBOARDING_BUTTON_DONE, target: self, action: #selector(didTapNext))
     }
 
     required init?(coder: NSCoder) {
@@ -78,7 +73,21 @@ class IntroductionViewController: UIPageViewController {
     }
 
     @objc private func didTapNext() {
-        navigation.navigate(to: .networkSelection(forceSelection: false))
+        let index = presentationIndex(for: pageViewController)
+        if let next = pageViewController(pageViewController, viewControllerAfter: pages[index]) {
+            pageViewController.setViewControllers([next], direction: .forward, animated: true) {
+                self.pageViewController(self.pageViewController, didFinishAnimating: $0, previousViewControllers: [], transitionCompleted: true)
+            }
+        } else {
+            navigation.navigate(to: .networkSelection)
+        }
+    }
+
+    private func formatted(string: String, font normal: UIFont) -> NSAttributedString {
+        string.components(separatedBy: "**").enumerated().reduce(into: NSMutableAttributedString(), { string, pair in
+            let font = !pair.offset.isMultiple(of: 2) ? UIFont.boldSystemFont(ofSize: normal.pointSize + 8) : normal
+            string.append(NSAttributedString(string: pair.element, attributes: [NSAttributedString.Key.font: font]))
+        })
     }
 
     private class Page: UIViewController {
@@ -96,19 +105,25 @@ class IntroductionViewController: UIPageViewController {
 
         override func viewDidLoad() {
             super.viewDidLoad()
-            supportingView.loopMode = .playOnce
-            supportingView.layout(in: view) { (make, its) in
-                make(its.heightAnchor.constraint(equalToConstant: 100))
-                make(its.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor))
-                make(its.leftAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.leftAnchor))
-                make(its.rightAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.rightAnchor))
-            }
-            Label(attributedString: information).layout(in: view) { (make, its) in
-                make(its.topAnchor.constraint(equalTo: supportingView.bottomAnchor))
-                make(its.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor))
-                make(its.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor))
-                make(its.leftAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.leftAnchor))
-                make(its.rightAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.rightAnchor))
+
+            let label = Label(attributedString: information)
+            label.adjustsFontSizeToFitWidth = true
+
+            supportingView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+            Stack.views(
+                aligned: .center,
+                on: .vertical,
+                spacing: 15,
+                inset: NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15),
+                FlexibleSpace(),
+                supportingView,
+                label,
+                FlexibleSpace()
+            ).apply(flexible: .fillEqual).layout(in: view) { (make, its) in
+                make(its.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor))
+                make(its.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor))
+                make(its.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor))
+                make(its.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor))
             }
         }
 
@@ -124,7 +139,7 @@ class IntroductionViewController: UIPageViewController {
     }
 }
 
-extension IntroductionViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+extension OnBoardingViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard
             let index = pages.firstIndex(of: viewController),
@@ -164,9 +179,9 @@ extension IntroductionViewController: UIPageViewControllerDataSource, UIPageView
         guard let current = pageViewController.viewControllers?.first, completed else { return }
 
         if self.pageViewController(pageViewController, viewControllerAfter: current) == nil {
-            button.setTitle("Done", for: .normal)
+            button.setTitle(Translations.ONBOARDING_BUTTON_DONE, for: .normal)
         } else {
-            button.setTitle("Continue", for: .normal)
+            button.setTitle(Translations.ONBOARDING_BUTTON_NEXT, for: .normal)
         }
     }
 }

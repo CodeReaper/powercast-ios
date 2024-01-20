@@ -7,7 +7,7 @@ class DataLoadingViewController: ViewController {
 
     private var interactor: DataLoadingInteractor!
 
-    init(navigation: AppNavigation, prices: EnergyPriceRepository, charges: ChargesRepository, emission: EmissionRepository, state: NetworkState, network: Network) {
+    init(navigation: AppNavigation, prices: EnergyPriceRepository, charges: ChargesRepository, emission: EmissionRepository, state: DataLoadingState, network: Network) {
         super.init(navigation: navigation)
         interactor = DataLoadingInteractor(
             navigation: navigation,
