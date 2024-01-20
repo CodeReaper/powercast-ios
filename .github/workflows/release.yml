@@ -38,7 +38,7 @@ jobs:
           } | tee Powercast/Local.xcconfig
 
       - name: Cache DerivedData
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/Library/Developer/Xcode/DerivedData/Powercast-*
           key: ${{ runner.os }}-xcode-${{ hashFiles('**/*.pbxproj', '**/swiftpm/Package.resolved') }}
