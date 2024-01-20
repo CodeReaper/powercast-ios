@@ -2,7 +2,8 @@ import Foundation
 import SugarKit
 
 protocol LaunchDelegate: AnyObject {
-    func showNetworkSelection()
+    func showOnBoarding()
+    func showDashboard()
     func showUpgradeRequired()
 }
 
@@ -10,12 +11,12 @@ struct LaunchInteractor {
     private let databases: [Migratable]
     private let store: StoreRepository
     private let charges: ChargesRepository
-    private let state: ConfigurationState
+    private let state: LaunchState
     private let service: ConfigurationService
 
     private weak var delegate: LaunchDelegate?
 
-    init(delegate: LaunchDelegate, databases: [Migratable], store: StoreRepository, charges: ChargesRepository, state: ConfigurationState, service: ConfigurationService) {
+    init(delegate: LaunchDelegate, databases: [Migratable], store: StoreRepository, charges: ChargesRepository, state: LaunchState, service: ConfigurationService) {
         self.delegate = delegate
         self.databases = databases
         self.store = store
@@ -65,10 +66,12 @@ struct LaunchInteractor {
         }
 
         dispatch.notify(queue: .main) {
-            if Int(Bundle.version)! >= state.configuration.minimumBuildVersion {
-                delegate?.showNetworkSelection()
-            } else {
+            if Int(Bundle.version)! < state.configuration.minimumBuildVersion {
                 delegate?.showUpgradeRequired()
+            } else if charges.network(by: state.network.id) == nil {
+                delegate?.showOnBoarding()
+            } else {
+                delegate?.showDashboard()
             }
         }
     }

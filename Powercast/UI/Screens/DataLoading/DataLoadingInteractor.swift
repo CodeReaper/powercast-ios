@@ -10,12 +10,12 @@ class DataLoadingInteractor {
     private let prices: EnergyPriceRepository
     private let charges: ChargesRepository
     private let emission: EmissionRepository
-    private let state: NetworkState
+    private let state: DataLoadingState
     private let network: Network
 
     private weak var delegate: DataLoadingDelegate?
 
-    init(navigation: AppNavigation, delegate: DataLoadingDelegate, prices: EnergyPriceRepository, charges: ChargesRepository, emission: EmissionRepository, state: NetworkState, network: Network) {
+    init(navigation: AppNavigation, delegate: DataLoadingDelegate, prices: EnergyPriceRepository, charges: ChargesRepository, emission: EmissionRepository, state: DataLoadingState, network: Network) {
         self.navigation = navigation
         self.delegate = delegate
         self.prices = prices

@@ -174,7 +174,7 @@ extension SettingsViewController {
         SettingsViewController.Section(
             title: Translations.SETTINGS_NETWORK_TITLE,
             rows: [
-                .navigate(label: state.network.name, detailLabel: nil, endpoint: .networkSelection(forceSelection: true))
+                .navigate(label: state.network.name, detailLabel: nil, endpoint: .networkSelection)
             ]
         )
     }

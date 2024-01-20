@@ -8,16 +8,14 @@ class NetworkSelectionViewController: ViewController {
     private let helpURL = URL(string: "https://greenpowerdenmark.dk/vejledning-teknik/nettilslutning/find-netselskab")!
 
     private let charges: ChargesRepository
-    private let cancelable: Bool
 
     private var zones: [Zone] = []
     private var items: [[Network]] = []
 
     private var retryButton: UIButton!
 
-    init(navigation: AppNavigation, networks: [Network], charges: ChargesRepository, cancelable: Bool) {
+    init(navigation: AppNavigation, networks: [Network], charges: ChargesRepository) {
         self.charges = charges
-        self.cancelable = cancelable
         super.init(navigation: navigation)
         retryButton = Button(text: Translations.NETWORK_SELECTION_EMPTY_BUTTON, textColor: .buttonText, target: self, action: #selector(didTapRetry))
         show(networks)
@@ -32,9 +30,6 @@ class NetworkSelectionViewController: ViewController {
 
         title = Translations.NETWORK_SELECTION_TITLE
 
-        if cancelable {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
-        }
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark.circle"), style: .plain, target: self, action: #selector(didTapHelp))
 
         tableView.showsVerticalScrollIndicator = false
@@ -73,10 +68,6 @@ class NetworkSelectionViewController: ViewController {
             networks.filter({ $0.zone == zone }).sorted(by: { $0.name < $1.name })
         }
         emptyView.set(hidden: zones.count != 0)
-    }
-
-    @objc private func didTapCancel() {
-        navigate(to: .networkSelection(forceSelection: false))
     }
 
     @objc private func didTapHelp() {

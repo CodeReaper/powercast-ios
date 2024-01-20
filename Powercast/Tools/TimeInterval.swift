@@ -7,6 +7,9 @@ extension TimeInterval {
 
 extension Array where Element == TimeInterval {
     func span() -> ClosedRange<TimeInterval> {
-        reduce(Double.infinity, { $0 > $1 ? $1 : $0 })...reduce(-Double.infinity, { $0 < $1 ? $1 : $0 })
+        if isEmpty {
+            return (-Double.infinity)...Double.infinity
+        }
+        return reduce(Double.infinity, { $0 > $1 ? $1 : $0 })...reduce(-Double.infinity, { $0 < $1 ? $1 : $0 })
     }
 }
