@@ -59,7 +59,7 @@
 "ONBOARDING_BUTTON_DONE" = "";
 "ONBOARDING_BUTTON_NEXT" = "";
 "ONBOARDING_PAGE_LOCATION" = "Din **lokation**\npåvirker\nDin **pris**";
-"ONBOARDING_PAGE_LOOKUP" = "";
+"ONBOARDING_PAGE_LOOKUP" = "Anvend ? ikonet\nfor at finde\ndit **elselskab**";
 "ONBOARDING_PAGE_TARIFS" = "Dit **elselskab**\nbestemmer\nDine **tariffer**";
 "ONBOARDING_PAGE_VARIABLE_COSTS" = "Prisen indeholder\n**variable** tariffer\nog\nselve **el prisen**";
 "PRICE_ARCHIVE_FAILURE_MESSAGE" = "Kunne ikke hente data";

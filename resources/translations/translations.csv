@@ -8,7 +8,7 @@
 "ONBOARDING_PAGE_LOCATION","","Your **location**\naffects\nYour **price**","Din **lokation**\npåvirker\nDin **pris**",""
 "ONBOARDING_PAGE_VARIABLE_COSTS","","Prices includes\n**variable** tarifs\nand\n**variable** costs","Prisen indeholder\n**variable** tariffer\nog\nselve **el prisen**",""
 "ONBOARDING_PAGE_TARIFS","","Your **supplier**\nsets\nYour **tarifs**","Dit **elselskab**\nbestemmer\nDine **tariffer**",""
-"ONBOARDING_PAGE_LOOKUP","","Look up your\nsupplier in the **list**\nwith **question mark**","",""
+"ONBOARDING_PAGE_LOOKUP","","Identify your\n**supplier** by using\nthe ? symbol","Anvend ? ikonet\nfor at finde\ndit **elselskab**",""
 "DASHBOARD_TITLE","","Dashboard","Dashboard",""
 "DASHBOARD_REFRESH_FAILED_MESSAGE","","Unable to fetch latest data","Kunne ikke hente nyeste data",""
 "DASHBOARD_REFRESH_CONTROL_MESSAGE","","Pull to refresh","Træk for at hente data",""

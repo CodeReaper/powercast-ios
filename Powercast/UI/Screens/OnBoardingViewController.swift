@@ -3,7 +3,6 @@ import Lottie
 import SugarKit
 
 class OnBoardingViewController: UIPageViewController {
-    // FIXME: colors, translations
     private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     private let navigation: AppNavigation
     private var pages: [UIViewController]!
@@ -13,24 +12,12 @@ class OnBoardingViewController: UIPageViewController {
         self.navigation = navigation
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
         self.pages = [
-            Page(supportingView: AnimationView.LocationSelection(mode: .playOnce), information: formatted(
-                string: Translations.ONBOARDING_PAGE_LOCATION,
-                font: .italicSystemFont(ofSize: 40)
-            )),
-            Page(supportingView: AnimationView.Euro(mode: .playOnce), information: formatted(
-                string: Translations.ONBOARDING_PAGE_VARIABLE_COSTS,
-                font: .italicSystemFont(ofSize: 40)
-            )),
-            Page(supportingView: AnimationView.Electricity(color: .white), information: formatted(
-                string: Translations.ONBOARDING_PAGE_TARIFS,
-                font: .italicSystemFont(ofSize: 40)
-            )),
-            Page(supportingView: AnimationView.QuestionMark(color: .white, mode: .playOnce), information: formatted(
-                string: Translations.ONBOARDING_PAGE_LOOKUP,
-                font: .italicSystemFont(ofSize: 40)
-            ))
+            Page(supportingView: AnimationView.LocationSelection(mode: .playOnce), information: formatted(string: Translations.ONBOARDING_PAGE_LOCATION)),
+            Page(supportingView: AnimationView.Euro(mode: .playOnce), information: formatted(string: Translations.ONBOARDING_PAGE_VARIABLE_COSTS)),
+            Page(supportingView: AnimationView.Electricity(color: .white), information: formatted(string: Translations.ONBOARDING_PAGE_TARIFS)),
+            Page(supportingView: AnimationView.QuestionMark(color: .white, mode: .playOnce), information: formatted(string: Translations.ONBOARDING_PAGE_LOOKUP))
         ]
-        button = Button(text: Translations.ONBOARDING_BUTTON_DONE, target: self, action: #selector(didTapNext))
+        button = Button(text: Translations.ONBOARDING_BUTTON_NEXT, target: self, action: #selector(didTapNext))
     }
 
     required init?(coder: NSCoder) {
@@ -83,8 +70,9 @@ class OnBoardingViewController: UIPageViewController {
         }
     }
 
-    private func formatted(string: String, font normal: UIFont) -> NSAttributedString {
-        string.components(separatedBy: "**").enumerated().reduce(into: NSMutableAttributedString(), { string, pair in
+    private func formatted(string: String) -> NSAttributedString {
+        let normal = UIFont.italicSystemFont(ofSize: 40)
+        return string.components(separatedBy: "**").enumerated().reduce(into: NSMutableAttributedString(), { string, pair in
             let font = !pair.offset.isMultiple(of: 2) ? UIFont.boldSystemFont(ofSize: normal.pointSize + 8) : normal
             string.append(NSAttributedString(string: pair.element, attributes: [NSAttributedString.Key.font: font]))
         })
