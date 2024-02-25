@@ -21,7 +21,6 @@ Below follows a roadmap arranged by current best guess for completion:
  - [x] Logo
  - [x] Historic drilldown of prices
  - [x] Dark mode
- - [x] IAP
  - [x] Create privacy policy page
  - [x] Pipeline for deployment to App Store
 
@@ -29,6 +28,7 @@ Below follows a roadmap arranged by current best guess for completion:
 
 - FAQ, specifically about price calculation, euro conversion and update schedules
 - Display setting for currency
+- Display setting for price composition
 - Price comparisons between network companies
 - Allocate a type-of-power-usage-session to estimate a price and savings, if delayed
-- Enrollment in this [program](https://developer.apple.com/app-store/small-business-program/)
+- Leave a tip IAP and maybe enrollment in this [program](https://developer.apple.com/app-store/small-business-program/)

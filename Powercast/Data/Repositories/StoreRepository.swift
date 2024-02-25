@@ -3,12 +3,13 @@ import StoreKit
 
 typealias Transaction = StoreKit.Transaction
 
+// NOTE: Largely disabled while evaluating how to handle IAPs
 class StoreRepository {
     private enum Item: String, CaseIterable {
-        case unlimitedNotifications = "notification.additional"
+        case none
     }
 
-    private(set) var notification: Product?
+//    private(set) var notification: Product?
 
     private var updatingTask: Task<Void, Never>!
 
@@ -30,9 +31,9 @@ class StoreRepository {
     }
 
     func load() async throws {
-        let ids = Item.allCases.map { $0.rawValue }
-        let products = try await Product.products(for: ids)
-        notification = products.filter { $0.id == Item.unlimitedNotifications.rawValue && $0.type == .nonConsumable }.first
+//        let ids = Item.allCases.map { $0.rawValue }
+//        let products = try await Product.products(for: ids)
+//        notification = products.filter { $0.id == Item.unlimitedNotifications.rawValue && $0.type == .nonConsumable }.first
         await updateProducts()
     }
 
@@ -52,12 +53,12 @@ class StoreRepository {
     }
 
     private func updateProducts() async {
-        var purchasedProducts: [Product] = []
-        for await result in Transaction.currentEntitlements {
-            if case let VerificationResult.verified(transaction) = result, let notification = notification, transaction.productID == notification.id {
-                purchasedProducts.append(notification)
-            }
-        }
-        self.purchasedProducts = purchasedProducts
+//        var purchasedProducts: [Product] = []
+//        for await result in Transaction.currentEntitlements {
+//            if case let VerificationResult.verified(transaction) = result, let notification = notification, transaction.productID == notification.id {
+//                purchasedProducts.append(notification)
+//            }
+//        }
+//        self.purchasedProducts = purchasedProducts
     }
 }
