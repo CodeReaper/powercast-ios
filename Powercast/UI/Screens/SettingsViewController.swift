@@ -5,14 +5,12 @@ class SettingsViewController: ViewController {
     private let tableView = UITableView(frame: .zero, style: .grouped)
 
     private let state: StateRepository
-    private let store: StoreRepository
     private let notifications: NotificationScheduler
 
     private var sections: [Section] = []
 
-    init(navigation: AppNavigation, state: StateRepository, store: StoreRepository, notifications: NotificationScheduler) {
+    init(navigation: AppNavigation, state: StateRepository, notifications: NotificationScheduler) {
         self.state = state
-        self.store = store
         self.notifications = notifications
         super.init(navigation: navigation)
     }
@@ -63,7 +61,6 @@ class SettingsViewController: ViewController {
     private enum Row {
         case navigate(label: String, detailLabel: String?, endpoint: Navigation?)
         case notification
-        case purchase
         case disabled
     }
 
@@ -124,8 +121,6 @@ extension SettingsViewController: UITableViewDataSource {
             return tableView.dequeueReusableCell(NavigationCell.self, forIndexPath: indexPath).update(title: label, label: detail, enabled: endpoint != nil)
         case .notification:
             return tableView.dequeueReusableCell(NavigationCell.self, forIndexPath: indexPath).update(title: Translations.SETTINGS_NOTIFICATIONS_ADD_BUTTON, label: nil, enabled: true)
-        case .purchase:
-            return tableView.dequeueReusableCell(NavigationCell.self, forIndexPath: indexPath).update(title: store.notification?.displayName ?? "", label: nil, enabled: true)
         case .disabled:
             return tableView.dequeueReusableCell(MessageCell.self, forIndexPath: indexPath).update(with: Translations.SETTINGS_NOTIFICATIONS_SYSTEM_DISABLED)
         }
@@ -139,11 +134,6 @@ extension SettingsViewController: UITableViewDelegate {
         case let .navigate(_, _, endpoint):
             if let endpoint = endpoint {
                 navigate(to: endpoint)
-            }
-        case .purchase:
-            Task {
-                await store.purchase(product: store.notification)
-                updated()
             }
         case .notification:
             switch state.notificationStatus {
@@ -203,13 +193,7 @@ extension SettingsViewController {
             }).map { notification in
                 Row.navigate(label: notification.description, detailLabel: notification.action, endpoint: .notification(notification: notification))
             }
-            if rows.isEmpty {
-                rows = [.notification]
-            } else if store.is(purchased: store.notification) {
-                rows.append(.notification)
-            } else if store.notification != nil {
-                rows.append(.purchase)
-            }
+            rows.append(.notification)
             return SettingsViewController.Section(
                 title: Translations.SETTINGS_NOTIFICATIONS_TITLE,
                 rows: rows
