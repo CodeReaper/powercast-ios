@@ -18,6 +18,7 @@ indirect enum Navigation {
     case actionSheet(options: [ActionSheetOption])
     case menu
     case systemSettings
+    case reset
 }
 
 class AppNavigation {
@@ -137,6 +138,13 @@ class AppNavigation {
             (navigationController.topViewController ?? navigationController).present(UIAlertController.build(with: options), animated: true)
         case .systemSettings:
             UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+        case .reset:
+            let viewController = NetworkSelectionViewController(
+                navigation: self,
+                networks: networks ?? [],
+                charges: dependencies.chargesRepository
+            )
+            navigationController.setViewControllers([OnBoardingViewController(navigation: self), viewController], animated: true)
         }
     }
 }

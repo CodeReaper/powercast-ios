@@ -50,6 +50,8 @@ struct Translations {
 	static let NOTIFICATION_MESSAGE_ACTION_DISABLED = NSLocalizedString("NOTIFICATION_MESSAGE_ACTION_DISABLED", comment: "")
 	static func NOTIFICATION_MESSAGE_ACTION_ENABLED(_ p1: String) -> String { return NSLocalizedString("NOTIFICATION_MESSAGE_ACTION_ENABLED", comment: "").replacingOccurrences(of: "%1", with: p1) }
 	static func NOTIFICATION_MESSAGE_DESCRIPTION(_ p1: String, _ p2: String) -> String { return NSLocalizedString("NOTIFICATION_MESSAGE_DESCRIPTION", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2) }
+	static func NOTIFICATION_MESSAGE_DISCONTINUATION_MESSAGE(_ p1: String) -> String { return NSLocalizedString("NOTIFICATION_MESSAGE_DISCONTINUATION_MESSAGE", comment: "").replacingOccurrences(of: "%1", with: p1) }
+	static let NOTIFICATION_MESSAGE_DISCONTINUATION_TITLE = NSLocalizedString("NOTIFICATION_MESSAGE_DISCONTINUATION_TITLE", comment: "")
 	static func NOTIFICATION_MESSAGE_FULL_DESCRIPTION(_ p1: String, _ p2: String, _ p3: String) -> String { return NSLocalizedString("NOTIFICATION_MESSAGE_FULL_DESCRIPTION", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2).replacingOccurrences(of: "%3", with: p3) }
 	static func NOTIFICATION_MESSAGE_TEMPLATE_BODY(_ p1: String, _ p2: String, _ p3: String, _ p4: String) -> String { return NSLocalizedString("NOTIFICATION_MESSAGE_TEMPLATE_BODY", comment: "").replacingOccurrences(of: "%1", with: p1).replacingOccurrences(of: "%2", with: p2).replacingOccurrences(of: "%3", with: p3).replacingOccurrences(of: "%4", with: p4) }
 	static let NOTIFICATION_MESSAGE_TITLE = NSLocalizedString("NOTIFICATION_MESSAGE_TITLE", comment: "")
