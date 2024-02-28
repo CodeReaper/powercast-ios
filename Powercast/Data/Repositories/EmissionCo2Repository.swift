@@ -69,7 +69,7 @@ class EmissionCo2Repository {
         try await database.write { [items] db in
             try items.map { Database.Co2.from(model: $0) }.forEach {
                 var item = $0
-                try item.insert(db)
+                try item.upsert(db)
             }
         }
     }

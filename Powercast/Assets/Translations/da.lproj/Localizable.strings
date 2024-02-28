@@ -47,6 +47,8 @@
 "NOTIFICATION_MESSAGE_ACTION_DISABLED" = "Inaktiv";
 "NOTIFICATION_MESSAGE_ACTION_ENABLED" = "Vil blive vist kl %1";
 "NOTIFICATION_MESSAGE_DESCRIPTION" = "Priser mellem %1 og %2";
+"NOTIFICATION_MESSAGE_DISCONTINUATION_MESSAGE" = "Netværket '%1' er blevet ugyldig og notikationer er nu slået fra. Vælg venligst dit nye netværk i appen.";
+"NOTIFICATION_MESSAGE_DISCONTINUATION_TITLE" = "Notikationer slået fra";
 "NOTIFICATION_MESSAGE_FULL_DESCRIPTION" = "Vis kl %1 priserne mellem %2 og %3";
 "NOTIFICATION_MESSAGE_TEMPLATE_BODY" = "Mellem %1 og %2 er priserne mellem %3 og %4 øre/kWh";
 "NOTIFICATION_MESSAGE_TITLE" = "Pris opdatering";

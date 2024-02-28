@@ -47,6 +47,7 @@ class App: Dependenables {
 
     var backgroundScheduler: BackgroundScheduler {
         BackgroundScheduler(
+            navigation: navigation,
             charges: chargesRepository,
             prices: energyPriceRepository,
             emission: emissionRepository,
