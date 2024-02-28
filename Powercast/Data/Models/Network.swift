@@ -14,7 +14,7 @@ extension Network {
 }
 
 extension Database {
-    struct Network: Codable, FetchableRecord, MutablePersistableRecord {
+    struct Network: Codable, Identifiable, FetchableRecord, MutablePersistableRecord {
         let id: Int
         let name: String
         let zone: Zone

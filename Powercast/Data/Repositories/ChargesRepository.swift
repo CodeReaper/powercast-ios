@@ -90,15 +90,18 @@ class ChargesRepository: ChargesLookup {
         let items = try await service.grid()
         Flog.debug("ChargesRepository: Updating \(items.count) grid price rows")
         try await database.write { db in
-            try items.map { try Database.GridPrice.from(model: $0) }.forEach { var item = $0; try item.insert(db) }
+            try items.map { try Database.GridPrice.from(model: $0) }.forEach { var item = $0; try item.upsert(db) }
         }
     }
 
     func pullNetworks() async throws {
+        let known = try networks().map { $0.id }
         let items = try await service.networks()
-        Flog.debug("ChargesRepository: Updating \(items.count) network rows")
+        let removables = Set(known).subtracting(Set(items.map { $0.id }))
+        Flog.debug("ChargesRepository: Updating \(items.count) network rows and removing \(removables.count) rows")
         try await database.write { db in
             try items.map { try Database.Network.from(model: $0) }.forEach { var item = $0; try item.upsert(db) }
+            try Database.Network.deleteAll(db, ids: removables)
         }
     }
 
@@ -107,7 +110,7 @@ class ChargesRepository: ChargesLookup {
             let items = try await service.network(id: id)
             Flog.debug("ChargesRepository: Updating \(items.count) network price rows")
             try await database.write { db in
-                try items.map { try Database.NetworkPrice.from(model: $0) }.forEach { var item = $0; try item.insert(db) }
+                try items.map { try Database.NetworkPrice.from(model: $0) }.forEach { var item = $0; try item.upsert(db) }
             }
         }
     }

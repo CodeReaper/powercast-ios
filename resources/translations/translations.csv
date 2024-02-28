@@ -81,3 +81,5 @@
 "NOTIFICATION_MESSAGE_DESCRIPTION","","Prices between %1 and %2","Priser mellem %1 og %2",""
 "NOTIFICATION_MESSAGE_ACTION_ENABLED","","Will display at %1","Vil blive vist kl %1",""
 "NOTIFICATION_MESSAGE_ACTION_DISABLED","","Disabled","Inaktiv",""
+"NOTIFICATION_MESSAGE_DISCONTINUATION_TITLE","","Notications disabled","Notikationer slået fra",""
+"NOTIFICATION_MESSAGE_DISCONTINUATION_MESSAGE","","The network '%1' has been discontinued and notifications will no longer be received. Please select your new network in the app.","Netværket '%1' er blevet ugyldig og notikationer er nu slået fra. Vælg venligst dit nye netværk i appen.",""

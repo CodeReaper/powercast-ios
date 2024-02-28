@@ -56,6 +56,21 @@ class NotificationScheduler {
         }
     }
 
+    func discontinue(network name: String) async throws {
+        let content = UNMutableNotificationContent()
+        content.title = Translations.NOTIFICATION_MESSAGE_DISCONTINUATION_TITLE
+        content.body = Translations.NOTIFICATION_MESSAGE_DISCONTINUATION_MESSAGE(name)
+
+        Flog.info("Prepared discontinuation notification with message: \(content.body)")
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+
+        let center = UNUserNotificationCenter.current()
+        center.removeAllPendingNotificationRequests()
+        try await center.add(request)
+    }
+
     class Delegate: NSObject {
         private let state: StateRepository
 

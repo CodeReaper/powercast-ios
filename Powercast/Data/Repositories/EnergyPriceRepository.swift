@@ -59,7 +59,7 @@ class EnergyPriceRepository {
         try await database.write { [items] db in
             try items.map { Database.EnergyPrice.from(model: $0) }.forEach {
                 var item = $0
-                try item.insert(db)
+                try item.upsert(db)
             }
         }
     }

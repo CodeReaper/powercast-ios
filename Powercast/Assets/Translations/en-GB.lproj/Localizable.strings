@@ -47,6 +47,8 @@
 "NOTIFICATION_MESSAGE_ACTION_DISABLED" = "Disabled";
 "NOTIFICATION_MESSAGE_ACTION_ENABLED" = "Will display at %1";
 "NOTIFICATION_MESSAGE_DESCRIPTION" = "Prices between %1 and %2";
+"NOTIFICATION_MESSAGE_DISCONTINUATION_MESSAGE" = "The network '%1' has been discontinued and notifications will no longer be received. Please select your new network in the app.";
+"NOTIFICATION_MESSAGE_DISCONTINUATION_TITLE" = "Notications disabled";
 "NOTIFICATION_MESSAGE_FULL_DESCRIPTION" = "Display at %1 prices between %2 and %3";
 "NOTIFICATION_MESSAGE_TEMPLATE_BODY" = "Between %1 and %2 the prices range from %3 to %4 øre/kWh";
 "NOTIFICATION_MESSAGE_TITLE" = "Price update";
