@@ -84,8 +84,9 @@
 		CD5C58DA2AE8612100143060 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5C58D92AE8612100143060 /* Network.swift */; };
 		CD5E309228B2583600DBA019 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309028B2583600DBA019 /* assets */; };
 		CD5E309328B2583600DBA019 /* packages in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309128B2583600DBA019 /* packages */; };
-		CD5E309528B25B1800DBA019 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5E309428B25B1800DBA019 /* LicenseViewController.swift */; };
+		CD5E309528B25B1800DBA019 /* TitleAndTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5E309428B25B1800DBA019 /* TitleAndTextViewController.swift */; };
 		CD81C59B2A6DBDD300E88418 /* Charges.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD81C59A2A6DBDD300E88418 /* Charges.swift */; };
+		CD821E002B91111200754FDE /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD821DFF2B91111200754FDE /* FAQViewController.swift */; };
 		CD8801242A61E18300A30B1D /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD8801232A61E18300A30B1D /* SugarKit */; };
 		CD8A4BC528BA6DB000EC68E3 /* Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A4BC428BA6DB000EC68E3 /* Price.swift */; };
 		CD8B43B42B509A1F00AE93F2 /* electricity.json in Resources */ = {isa = PBXBuildFile; fileRef = CD8B43B32B509A1F00AE93F2 /* electricity.json */; };
@@ -195,8 +196,9 @@
 		CD5C58D92AE8612100143060 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		CD5E309028B2583600DBA019 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		CD5E309128B2583600DBA019 /* packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = packages; sourceTree = "<group>"; };
-		CD5E309428B25B1800DBA019 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
+		CD5E309428B25B1800DBA019 /* TitleAndTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleAndTextViewController.swift; sourceTree = "<group>"; };
 		CD81C59A2A6DBDD300E88418 /* Charges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charges.swift; sourceTree = "<group>"; };
+		CD821DFF2B91111200754FDE /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
 		CD8A4BC428BA6DB000EC68E3 /* Price.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
 		CD8A4BC928BC1B9100EC68E3 /* Local.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
 		CD8B43B32B509A1F00AE93F2 /* electricity.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = electricity.json; sourceTree = "<group>"; };
@@ -461,12 +463,13 @@
 		38FD15CD28833AEA001C38F9 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				CDC25BC22B49C553005453F8 /* OnBoardingViewController.swift */,
+				CD821DFF2B91111200754FDE /* FAQViewController.swift */,
 				38FD15DE28835528001C38F9 /* LicensesViewController.swift */,
-				CD5E309428B25B1800DBA019 /* LicenseViewController.swift */,
 				389F717C28997B2B0007C2E0 /* MenuViewController.swift */,
 				CD1068C92B13870300FD5B0E /* NotificationViewController.swift */,
+				CDC25BC22B49C553005453F8 /* OnBoardingViewController.swift */,
 				38FD15DA28835353001C38F9 /* SettingsViewController.swift */,
+				CD5E309428B25B1800DBA019 /* TitleAndTextViewController.swift */,
 				CD1068A22B06AF6D00FD5B0E /* Dashboard */,
 				CD1068B12B081B8800FD5B0E /* DataDetailsViewController */,
 				384E64762891650E004ADCB1 /* DataLoading */,
@@ -748,6 +751,7 @@
 				CDA37DF32ADB3174004B44B0 /* MultiColorGaugeView.swift in Sources */,
 				CD1068A52B06AF6D00FD5B0E /* DashboardInteractor.swift in Sources */,
 				CD51C6692B27AF2F002524A6 /* ConfigurationService.swift in Sources */,
+				CD821E002B91111200754FDE /* FAQViewController.swift in Sources */,
 				380CE8E62888901A0003FF36 /* EnergyPriceDatabase.swift in Sources */,
 				38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */,
 				38E0FA702884808D0096B98A /* Zone.swift in Sources */,
@@ -760,7 +764,7 @@
 				CD10689B2B0412F300FD5B0E /* EmissionCo2Repository.swift in Sources */,
 				38E0FA652884759B0096B98A /* EnergyPriceRepository.swift in Sources */,
 				CD1068872AF95A7300FD5B0E /* NetworkSelectionViewController.swift in Sources */,
-				CD5E309528B25B1800DBA019 /* LicenseViewController.swift in Sources */,
+				CD5E309528B25B1800DBA019 /* TitleAndTextViewController.swift in Sources */,
 				38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */,
 				CD5C58D02AE4824900143060 /* ChargesRepository.swift in Sources */,
 				CD1068972B0410F100FD5B0E /* Co2.swift in Sources */,

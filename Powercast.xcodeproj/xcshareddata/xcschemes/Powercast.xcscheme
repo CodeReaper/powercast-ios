@@ -61,6 +61,12 @@
             ReferencedContainer = "container:Powercast.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-AppleLanguages &quot;(da-DK)&quot;"
+            isEnabled = "NO">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <StoreKitConfigurationFileReference
          identifier = "../../Powercast/Powercast.storekit">
       </StoreKitConfigurationFileReference>

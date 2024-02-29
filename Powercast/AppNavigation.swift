@@ -14,7 +14,8 @@ indirect enum Navigation {
     case networkDetails(network: Network)
     case gridDetails(zone: Zone)
     case licenses
-    case license(title: String, content: String)
+    case show(title: String, content: String)
+    case faq
     case actionSheet(options: [ActionSheetOption])
     case menu
     case systemSettings
@@ -132,8 +133,10 @@ class AppNavigation {
             navigationController.pushViewController(viewController, animated: true)
         case .licenses:
             navigationController.pushViewController(LicensesViewController(navigation: self), animated: true)
-        case let .license(title, content):
-            navigationController.pushViewController(LicenseViewController(navigation: self, title: title, content: content), animated: true)
+        case let .show(title, content):
+            navigationController.pushViewController(TitleAndTextViewController(navigation: self, title: title, content: content), animated: true)
+        case .faq:
+            navigationController.pushViewController(FAQViewController(navigation: self), animated: true)
         case .actionSheet(let options):
             (navigationController.topViewController ?? navigationController).present(UIAlertController.build(with: options), animated: true)
         case .systemSettings:
