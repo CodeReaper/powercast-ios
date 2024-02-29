@@ -23,6 +23,7 @@ class MenuViewController: ViewController {
             .item(name: Translations.GRID_DETAILS_TITLE, symbol: "bolt.fill", endpoint: .gridDetails(zone: state.network.zone)),
             .item(name: Translations.PRICE_ARCHIVE_TITLE, symbol: "archivebox.fill", endpoint: .priceArchive),
             .item(name: Translations.SETTINGS_TITLE, symbol: "gearshape", endpoint: .settings),
+            .item(name: Translations.FAQ_TITLE, symbol: "questionmark.bubble", endpoint: .faq),
             .item(name: Translations.LICENSES_TITLE, symbol: "paragraphsign", endpoint: .licenses),
             .version
         ]

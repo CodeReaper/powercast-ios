@@ -1,7 +1,7 @@
 import UIKit
 import SugarKit
 
-class LicenseViewController: ViewController {
+class TitleAndTextViewController: ViewController {
     private let content: String
 
     init(navigation: AppNavigation, title: String, content: String) {
@@ -24,7 +24,7 @@ class LicenseViewController: ViewController {
 
         Stack
             .views(
-                aligned: .center,
+                aligned: .leading,
                 on: .vertical,
                 inset: NSDirectionalEdgeInsets(top: 25, leading: 15, bottom: 5, trailing: 15),
                 Label(text: content, color: .labelText)

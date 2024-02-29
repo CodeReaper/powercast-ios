@@ -1,6 +1,6 @@
 import UIKit
 
-class LicensesViewController: ViewController {
+class FAQViewController: ViewController {
     private let tableView = UITableView(frame: .zero, style: .grouped)
 
     private var sections: [Section]!
@@ -8,11 +8,19 @@ class LicensesViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = Translations.LICENSES_TITLE
+        title = Translations.FAQ_TITLE
 
         sections = [
-            build(title: Translations.LICENSES_ASSETS_TITLE, urls: Bundle.main.urls(forResourcesWithExtension: "json", subdirectory: "assets") ?? []),
-            build(title: Translations.LICENSES_PACKAGES_TITLE, urls: Bundle.main.urls(forResourcesWithExtension: "json", subdirectory: "packages") ?? [])
+            Section(title: Translations.FAQ_SECTION_APP_TITLE, rows: [
+                Row(name: Translations.FAQ_SECTION_APP_REPORT_QUESTION, content: Translations.FAQ_SECTION_APP_REPORT_ANSWER),
+                Row(name: Translations.FAQ_SECTION_APP_SUGGESTION_QUESTION, content: Translations.FAQ_SECTION_APP_SUGGESTION_ANSWER),
+                Row(name: Translations.FAQ_SECTION_APP_ANDROID_QUESTION, content: Translations.FAQ_SECTION_APP_ANDROID_ANSWER)
+            ]),
+            Section(title: Translations.FAQ_SECTION_DATA_TITLE, rows: [
+                Row(name: Translations.FAQ_SECTION_DATA_SOURCE_QUESTION, content: Translations.FAQ_SECTION_DATA_SOURCE_ANSWER),
+                Row(name: Translations.FAQ_SECTION_DATA_CALCULATION_QUESTION, content: Translations.FAQ_SECTION_DATA_CALCULATION_ANSWER),
+                Row(name: Translations.FAQ_SECTION_DATA_UPDATE_QUESTION, content: Translations.FAQ_SECTION_DATA_UPDATE_ANSWER)
+            ])
         ]
 
         tableView
@@ -25,17 +33,6 @@ class LicensesViewController: ViewController {
                 make(its.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor))
                 make(its.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor))
             }
-    }
-
-    private func build(title: String, urls: [URL]) -> Section {
-        Section(
-            title: title,
-            rows: urls.compactMap { url in
-                try? JSONDecoder().decode(Row.self, from: Data(contentsOf: url))
-            }.sorted(by: { lhs, rhs in
-                lhs.name < rhs.name
-            })
-        )
     }
 
     private struct Section {
@@ -61,12 +58,13 @@ class LicensesViewController: ViewController {
         func update(name: String) -> Self {
             textLabel?.text = name
             textLabel?.textColor = .cellText
+            textLabel?.numberOfLines = 0
             return self
         }
     }
 }
 
-extension LicensesViewController: UITableViewDataSource {
+extension FAQViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         sections.count
     }
@@ -84,7 +82,7 @@ extension LicensesViewController: UITableViewDataSource {
     }
 }
 
-extension LicensesViewController: UITableViewDelegate {
+extension FAQViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 

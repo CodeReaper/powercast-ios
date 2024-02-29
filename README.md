@@ -26,7 +26,6 @@ Below follows a roadmap arranged by current best guess for completion:
 
 ## Possible future features and tasks
 
-- FAQ, specifically about price calculation, euro conversion and update schedules
 - Display setting for currency
 - Display setting for price composition
 - Price comparisons between network companies
