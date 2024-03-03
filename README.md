@@ -30,4 +30,3 @@ Below follows a roadmap arranged by current best guess for completion:
 - Display setting for price composition
 - Price comparisons between network companies
 - Allocate a type-of-power-usage-session to estimate a price and savings, if delayed
-- Leave a tip IAP and maybe enrollment in this [program](https://developer.apple.com/app-store/small-business-program/)
