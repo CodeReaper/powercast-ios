@@ -95,6 +95,7 @@ class NetworkSelectionViewController: ViewController {
                 self.indicator.set(hidden: true)
                 self.retryButton!.set(hidden: false)
                 self.show(networks ?? [])
+                self.tableView.reloadData()
             }
         }
     }
