@@ -22,12 +22,25 @@ class TitleAndTextViewController: ViewController {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.contentInsetAdjustmentBehavior = .never
 
+        let textView = UITextView()
+        textView.text = content
+        textView.textColor = .labelText
+        textView.font = UIFont.preferredFont(forTextStyle: .body)
+        textView.backgroundColor = .clear
+        textView.isEditable = false
+        textView.dataDetectorTypes = .link
+        textView.isScrollEnabled = false
+        textView.linkTextAttributes = [
+            .foregroundColor: UIColor.labelLinkText,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+
         Stack
             .views(
                 aligned: .leading,
                 on: .vertical,
                 inset: NSDirectionalEdgeInsets(top: 25, leading: 15, bottom: 5, trailing: 15),
-                Label(text: content, color: .labelText)
+                textView
             )
             .layout(in: scrollView) { make, its in
                 make(its.topAnchor.constraint(equalTo: scrollView.topAnchor))
