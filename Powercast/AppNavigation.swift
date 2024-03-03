@@ -70,7 +70,6 @@ class AppNavigation {
             let viewController = LaunchViewController(
                 navigation: self,
                 databases: dependencies.databases,
-                store: dependencies.storeRepository,
                 charges: dependencies.chargesRepository,
                 state: dependencies.stateRepository,
                 service: dependencies.configurationService

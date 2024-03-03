@@ -7,9 +7,9 @@ class LaunchViewController: ViewController {
 
     private var interactor: LaunchInteractor!
 
-    init(navigation: AppNavigation, databases: [Migratable], store: StoreRepository, charges: ChargesRepository, state: LaunchState, service: ConfigurationService) {
+    init(navigation: AppNavigation, databases: [Migratable], charges: ChargesRepository, state: LaunchState, service: ConfigurationService) {
         super.init(navigation: navigation)
-        self.interactor = LaunchInteractor(delegate: self, databases: databases, store: store, charges: charges, state: state, service: service)
+        self.interactor = LaunchInteractor(delegate: self, databases: databases, charges: charges, state: state, service: service)
     }
 
     required init?(coder: NSCoder) {

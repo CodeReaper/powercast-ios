@@ -15,7 +15,6 @@ protocol Dependenables: AnyObject {
     var emissionRepository: EmissionRepository { get }
     var energyPriceRepository: EnergyPriceRepository { get }
     var stateRepository: StateRepository { get }
-    var storeRepository: StoreRepository { get }
 
     var configurationService: ConfigurationService { get }
 
@@ -35,7 +34,6 @@ class App: Dependenables {
 
     let configurationService = ConfigurationServiceAPI() as ConfigurationService
 
-    lazy var storeRepository = StoreRepository()
     lazy var chargesRepository = ChargesRepository(database: chargesDatabase.queue, service: ChargesServiceAPI())
     lazy var emissionRepository = EmissionRepository(database: emissionDatabase, service: EmissionServiceAPI())
     lazy var energyPriceRepository = EnergyPriceRepository(database: energyPriceDatabase.queue, service: EnergyPriceServiceAPI(), lookup: chargesRepository)
