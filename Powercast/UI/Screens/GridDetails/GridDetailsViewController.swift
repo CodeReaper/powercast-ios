@@ -126,7 +126,7 @@ class GridDetailsViewController: ViewController {
         }
 
         func update(with price: GridPrice, and formatter: NumberFormatter, current: Bool) -> Self {
-            contentView.backgroundColor = current ? .cellActiveBackground : .cellBackground
+            contentView.backgroundColor = !current ? .cellActiveBackground : .cellBackground
             selectionIndicator.set(hidden: !current)
             systemLabel.text = formatter.string(with: price.systemTariff)
             transmissionLabel.text = formatter.string(with: price.transmissionTariff)

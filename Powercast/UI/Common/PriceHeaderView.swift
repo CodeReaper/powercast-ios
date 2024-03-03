@@ -22,15 +22,15 @@ class PriceHeaderView: UITableViewHeaderFooterView {
                 on: .vertical,
                 spacing: 5,
                 dateLabel,
-                Label(style: .body, text: Translations.DASHBOARD_RAW_PRICE_VARIATION, color: .secondaryLabel),
-                Label(style: .body, text: Translations.DASHBOARD_CO2_VARIATION, color: .secondaryLabel)
+                Label(style: .body, text: Translations.DASHBOARD_RAW_PRICE_VARIATION, color: .secondaryLabelText),
+                Label(style: .body, text: Translations.DASHBOARD_CO2_VARIATION, color: .secondaryLabelText)
             ),
             Stack.views(
                 on: .vertical,
                 spacing: 5,
-                Stack.views(spacing: 3, pricesLabel, Label(style: .body, text: Translations.COST_UNIT, color: .secondaryLabel)),
-                Stack.views(spacing: 3, rawLabel, Label(style: .body, text: Translations.COST_UNIT, color: .secondaryLabel)),
-                Stack.views(spacing: 3, emissionLabel, Label(style: .body, text: Translations.CO2_UNIT, color: .secondaryLabel))
+                Stack.views(spacing: 3, pricesLabel, Label(style: .body, text: Translations.COST_UNIT, color: .secondaryLabelText)),
+                Stack.views(spacing: 3, rawLabel, Label(style: .body, text: Translations.COST_UNIT, color: .secondaryLabelText)),
+                Stack.views(spacing: 3, emissionLabel, Label(style: .body, text: Translations.CO2_UNIT, color: .secondaryLabelText))
             )
         ).setup(in: contentView)
     }

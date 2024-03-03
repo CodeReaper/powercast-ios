@@ -139,7 +139,7 @@ class NetworkDetailsViewController: ViewController {
         }
 
         func update(with price: NetworkPrice, and formatter: NumberFormatter, current: Bool) -> Self {
-            backgroundColor = current ? .cellActiveBackground : .cellBackground
+            backgroundColor = !current ? .cellActiveBackground : .cellBackground
             selectionIndicator.set(hidden: !current)
             for (index, price) in price.loadTariff.enumerated() {
                 labels[index].text = formatter.string(with: price)
