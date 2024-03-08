@@ -2,6 +2,8 @@
 
 Powercast is meant to be an easy-to-use tool to keep up-to-date with the price of energy.
 
+<a href="https://apps.apple.com/dk/app/powercast/id6474047263?itsct=apps_box_badge&itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&releaseDate=1709596800" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
+
 ## Roadmap
 
 Below follows a roadmap arranged by current best guess for completion:
