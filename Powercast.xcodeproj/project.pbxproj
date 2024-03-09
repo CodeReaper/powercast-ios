@@ -129,7 +129,7 @@
 		384E646A288EDAAF004ADCB1 /* Appearence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearence.swift; sourceTree = "<group>"; };
 		384E64772891650E004ADCB1 /* DataLoadingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLoadingInteractor.swift; sourceTree = "<group>"; };
 		384E64782891650E004ADCB1 /* DataLoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLoadingViewController.swift; sourceTree = "<group>"; };
-		387FF5F6286B909B0051E3DC /* Powercast.debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Powercast.debug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		387FF5F6286B909B0051E3DC /* Powercast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Powercast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		387FF5F9286B909B0051E3DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		387FF5FB286B909B0051E3DC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		387FF602286B90A40051E3DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -338,7 +338,7 @@
 		387FF5F7286B909B0051E3DC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				387FF5F6286B909B0051E3DC /* Powercast.debug.app */,
+				387FF5F6286B909B0051E3DC /* Powercast.app */,
 				CDA0E40F2AC982EC00FF364D /* PowercastTests.xctest */,
 			);
 			name = Products;
@@ -595,7 +595,7 @@
 				CD5C58CD2ADBFD5E00143060 /* CSQLite */,
 			);
 			productName = Powercast;
-			productReference = 387FF5F6286B909B0051E3DC /* Powercast.debug.app */;
+			productReference = 387FF5F6286B909B0051E3DC /* Powercast.app */;
 			productType = "com.apple.product-type.application";
 		};
 		CDA0E40E2AC982EC00FF364D /* PowercastTests */ = {
@@ -992,6 +992,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CD8A4BC928BC1B9100EC68E3 /* Local.xcconfig */;
 			buildSettings = {
+				APP_NAME = Powercast.debug;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -1010,7 +1011,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).Powercast";
-				PRODUCT_NAME = "$(TARGET_NAME).debug";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -1020,6 +1021,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CD8A4BC928BC1B9100EC68E3 /* Local.xcconfig */;
 			buildSettings = {
+				APP_NAME = Powercast;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Distribution";
