@@ -29,27 +29,15 @@ struct LaunchInteractor {
         dispatch.enter()
         Task {
             try? await Task.sleep(seconds: 0.5)
-            dispatch.leave()
-        }
 
-        // swiftlint:disable force_try
-        for database in databases {
-            dispatch.enter()
-            Task {
+            // swiftlint:disable force_try
+            for database in databases {
                 try! database.migrate()
-                dispatch.leave()
             }
-        }
-        // swiftlint:enable force_try
+            // swiftlint:enable force_try
 
-        dispatch.enter()
-        Task {
             try? await charges.pullNetworks()
-            dispatch.leave()
-        }
 
-        dispatch.enter()
-        Task {
             if let configuration = try? await service.configuration() {
                 state.save(configuration: configuration)
             }
