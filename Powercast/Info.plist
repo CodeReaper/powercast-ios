@@ -6,12 +6,18 @@
 	<array>
 		<string>Powercast.energyprice.refresh</string>
 	</array>
+	<key>COMMIT</key>
+	<string>$(COMMIT)</string>
 	<key>HUMIO_DATA_SPACE</key>
 	<string>$(HUMIO_DATA_SPACE)</string>
 	<key>HUMIO_INGEST_TOKEN</key>
 	<string>$(HUMIO_INGEST_TOKEN)</string>
-	<key>COMMIT</key>
-	<string>$(COMMIT)</string>
+    <key>CFBundleName</key>
+    <string>$(APP_NAME)</string>
+    <key>CFBundleDisplayName</key>
+    <string>$(APP_NAME)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AlexBrush-Regular.ttf</string>
@@ -39,8 +45,6 @@
 		<string>processing</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
-	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 </dict>
 </plist>
