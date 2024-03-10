@@ -77,7 +77,7 @@ jobs:
           find . -name "*.strings" -exec grep -Hin '= "";' {} \; > $$
           echo "Found missing translations:"
           cat $$
-          test -s $$ || exit 1
+          test -s $$ && exit 1
 
   tests-succeeded:
     name: Tests Succeeded
