@@ -75,7 +75,9 @@ jobs:
         run: |
           find . -name "*.strings" -exec grep -Hin '= "";' {} \; > $$
           echo "Found missing translations:"
+          md5sum $$
           cat $$
+          echo testing
           test -s $$ && exit 1
 
   tests-succeeded:
