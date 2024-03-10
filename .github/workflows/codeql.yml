@@ -46,9 +46,9 @@ jobs:
           -scheme Powercast \
           -sdk iphonesimulator \
           -derivedDataPath './output' \
+          -quiet \
           build \
           CODE_SIGNING_ALLOWED=NO \
-          | xcpretty
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
