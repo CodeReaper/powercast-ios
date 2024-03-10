@@ -88,6 +88,7 @@ jobs:
       - editorconfig
       - lane
       - dependabot
+      - translations-check
 
     runs-on: ubuntu-latest
     steps:
