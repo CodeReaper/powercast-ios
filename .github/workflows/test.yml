@@ -72,7 +72,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Check for missing translations
-        shell: bash
         run: |
           find . -name "*.strings" -exec grep -Hin '= "";' {} \; > $$
           echo "Found missing translations:"
