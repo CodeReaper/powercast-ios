@@ -74,7 +74,7 @@
 "NOTIFICATION_TRIGGER_LABEL" = "Valgte klokkeslæt";
 "NOTIFICATION_TRIGGER_TITLE" = "Igangsættelse";
 "ONBOARDING_BUTTON_DONE" = "Vælg elselskab";
-"ONBOARDING_BUTTON_NEXT" = "";
+"ONBOARDING_BUTTON_NEXT" = "Næste";
 "ONBOARDING_PAGE_LOCATION" = "Din **lokation**\npåvirker\nDin **pris**";
 "ONBOARDING_PAGE_LOOKUP" = "Anvend ? ikonet\nfor at finde\ndit **elselskab**";
 "ONBOARDING_PAGE_TARIFS" = "Dit **elselskab**\nbestemmer\nDine **tariffer**";

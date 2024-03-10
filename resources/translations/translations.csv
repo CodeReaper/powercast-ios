@@ -3,7 +3,7 @@
 "COST_UNIT","","øre/kWh","øre/kWh",""
 "CO2_UNIT","","g/kWh","g/kWh",""
 "CO2_LABEL","","CO₂","CO₂",""
-"ONBOARDING_BUTTON_NEXT","","Continue","",""
+"ONBOARDING_BUTTON_NEXT","","Continue","Næste",""
 "ONBOARDING_BUTTON_DONE","","Select supplier","Vælg elselskab",""
 "ONBOARDING_PAGE_LOCATION","","Your **location**\naffects\nYour **price**","Din **lokation**\npåvirker\nDin **pris**",""
 "ONBOARDING_PAGE_VARIABLE_COSTS","","Prices includes\n**variable** tarifs\nand\n**variable** costs","Prisen indeholder\n**variable** tariffer\nog\nselve **el prisen**",""
