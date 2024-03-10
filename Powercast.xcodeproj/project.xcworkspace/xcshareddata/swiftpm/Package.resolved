@@ -1,0 +1,42 @@
+{
+  "originHash" : "98a62017db9a8427338d882d1f553e3826615487af92da22596cc32f319179b0",
+  "pins" : [
+    {
+      "identity" : "flogger",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/CodeReaper/Flogger.git",
+      "state" : {
+        "revision" : "be64d82dff20b32feff9bd0610b7915d1eb7682d",
+        "version" : "1.0.2"
+      }
+    },
+    {
+      "identity" : "grdb.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/groue/GRDB.swift.git",
+      "state" : {
+        "revision" : "eacbdf23af4228dea3bd0e5feb17c0f953829c15",
+        "version" : "6.23.0"
+      }
+    },
+    {
+      "identity" : "lottie-spm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/airbnb/lottie-spm.git",
+      "state" : {
+        "revision" : "96790253c1a82223bd43da651121abfd7e96d0f3",
+        "version" : "4.3.4"
+      }
+    },
+    {
+      "identity" : "sugarkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/CodeReaper/SugarKit",
+      "state" : {
+        "revision" : "9f31ed4ffb33da79415183d06eb3d94721b2f7fd",
+        "version" : "1.0.1"
+      }
+    }
+  ],
+  "version" : 3
+}
