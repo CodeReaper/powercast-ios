@@ -66,15 +66,16 @@ jobs:
     if: needs.changes.outputs.dependabot == 'true'
     uses: ./.github/workflows/dependabot-validate.yml
 
-  translations-check:
+  translations:
     runs-on: ubuntu-latest
-    name: Check translations
+    name: Verify translations
     steps:
+      - uses: actions/checkout@v4
       - name: Check for missing translations
         shell: bash
         run: |
-          find . -name "*.strings" -exec grep -Hin '= "";' {} \; > $$
-          if [ ! -s $$ ]; then
+          find . -name "*.strings" -exec grep -Hin '= "";' {} \; > tmp
+          if [ ! -s tmp ]; then
             echo "Found missing translations:"
             cat $$
             exit 1
@@ -88,7 +89,7 @@ jobs:
       - editorconfig
       - lane
       - dependabot
-      - translations-check
+      - translations
 
     runs-on: ubuntu-latest
     steps:
