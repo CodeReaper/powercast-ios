@@ -85,7 +85,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Git stuff
         env:
-          GT_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           commits=$(gh api repos/${{ github.repository }}/commits?sha=main --paginate | jq length)
           echo "Number of commits: $commits"
