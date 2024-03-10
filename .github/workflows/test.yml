@@ -87,7 +87,7 @@ jobs:
         env:
           GT_TOKEN: ${{ github.token }}
         run: |
-          commits=$(gh api repos/${{ github.repository }}/commits --paginate --branch main | jq length)
+          commits=$(gh api repos/${{ github.repository }}/commits?sha=main --paginate | jq length)
           echo "Number of commits: $commits"
 
   tests-succeeded:
