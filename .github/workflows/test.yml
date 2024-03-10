@@ -74,12 +74,10 @@ jobs:
       - name: Check for missing translations
         shell: bash
         run: |
-          find . -name "*.strings" -exec grep -Hin '= "";' {} \; > tmp
-          if [ ! -s tmp ]; then
-            echo "Found missing translations:"
-            cat $$
-            exit 1
-          fi
+          find . -name "*.strings" -exec grep -Hin '= "";' {} \; > $$
+          echo "Found missing translations:"
+          cat $$
+          test -s $$ || exit 1
 
   tests-succeeded:
     name: Tests Succeeded
