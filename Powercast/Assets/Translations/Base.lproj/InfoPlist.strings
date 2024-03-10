@@ -73,7 +73,7 @@
 "NOTIFICATION_TITLE" = "Notification";
 "NOTIFICATION_TRIGGER_LABEL" = "At selected time";
 "NOTIFICATION_TRIGGER_TITLE" = "Trigger";
-"ONBOARDING_BUTTON_DONE" = "Finish";
+"ONBOARDING_BUTTON_DONE" = "Select supplier";
 "ONBOARDING_BUTTON_NEXT" = "Continue";
 "ONBOARDING_PAGE_LOCATION" = "Your **location**\naffects\nYour **price**";
 "ONBOARDING_PAGE_LOOKUP" = "Identify your\n**supplier** by using\nthe ? symbol";
