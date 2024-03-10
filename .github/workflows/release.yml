@@ -27,6 +27,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Setup configuration
+        env:
+          GT_TOKEN: ${{ github.token }}
         run: |
           {
             echo 'DEVELOPMENT_TEAM = ${{ vars.DEVELOPMENT_TEAM }};'
@@ -34,6 +36,7 @@ jobs:
             echo 'HUMIO_INGEST_TOKEN = ${{ secrets.HUMIO_INGEST_TOKEN }};'
             echo 'HUMIO_DATA_SPACE = ${{ secrets.HUMIO_DATA_SPACE }};'
             echo 'MARKETING_VERSION = ${{ inputs.major }}.${{ inputs.minor }};'
+            echo 'CURRENT_PROJECT_VERSION = $(gh api repos/${{ github.repository }}/commits --paginate --branch main | jq length | tr -d \\n);'
             echo "COMMIT = $(git rev-parse --short ${{ github.sha }});"
           } | tee Powercast/Local.xcconfig
 

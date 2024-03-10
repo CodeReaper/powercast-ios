@@ -78,6 +78,18 @@ jobs:
           cat $$
           test -s $$ && exit 1 || true
 
+  gitstuff:
+    runs-on: ubuntu-latest
+    name: Testing
+    steps:
+      - uses: actions/checkout@v4
+      - name: Git stuff
+        env:
+          GT_TOKEN: ${{ github.token }}
+        run: |
+          commits=$(gh api repos/${{ github.repository }}/commits --paginate --branch main | jq length)
+          echo "Number of commits: $commits"
+
   tests-succeeded:
     name: Tests Succeeded
     needs:
