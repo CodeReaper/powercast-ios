@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/CodeReaper/Flogger.git",
       "state" : {
-        "revision" : "be64d82dff20b32feff9bd0610b7915d1eb7682d",
-        "version" : "1.0.2"
+        "revision" : "320edb87dd2400bf9c77fc442242ae32d5953488",
+        "version" : "1.0.3"
       }
     },
     {
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/groue/GRDB.swift.git",
       "state" : {
-        "revision" : "eacbdf23af4228dea3bd0e5feb17c0f953829c15",
-        "version" : "6.23.0"
+        "revision" : "bd9aea303d9dab3a4941ee838a0e4ff51c9448df",
+        "version" : "6.25.0"
       }
     },
     {
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/airbnb/lottie-spm.git",
       "state" : {
-        "revision" : "96790253c1a82223bd43da651121abfd7e96d0f3",
-        "version" : "4.3.4"
+        "revision" : "3bd43e12d6fb54654366a61f7cfaca787318b8ce",
+        "version" : "4.4.1"
       }
     },
     {
