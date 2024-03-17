@@ -3,7 +3,8 @@ import SugarKit
 
 class DashboardViewController: ViewController {
     private let spinnerView = SpinnerView(color: .spinner)
-    private let updateFailedLabel = Label(style: .subheadline, text: Translations.DASHBOARD_REFRESH_FAILED_MESSAGE, color: .warningText)
+    private let spinnerMessage = MessageView(backgroundColor: .viewBackground, spinner: SpinnerView(color: .spinner))
+    private let warningMessage = MessageView(backgroundColor: .warningBackground)
     private let tableView = UITableView(frame: .zero, style: .plain)
     private let refreshControl = UIRefreshControl()
 
@@ -37,10 +38,8 @@ class DashboardViewController: ViewController {
         bar.delegate = self
         bar.items = [item]
 
-        updateFailedLabel.textAlignment = .center
-        updateFailedLabel
-            .set(backgroundColor: .warningBackground)
-            .set(hidden: true)
+        spinnerMessage.set(hidden: true)
+        warningMessage.set(hidden: true)
 
         tableView
             .registerClass(PriceHeaderView.self)
@@ -90,10 +89,11 @@ class DashboardViewController: ViewController {
 
         spinnerView.setup(centeredIn: view)
 
-        updateFailedLabel.set(height: 33)
+        spinnerMessage.set(height: 33)
+        warningMessage.set(height: 33)
 
         Stack
-            .views(on: .vertical, tableView, updateFailedLabel)
+            .views(on: .vertical, tableView, spinnerMessage, warningMessage)
             .layout(in: view) { make, its in
                 make(its.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor))
                 make(its.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor))
@@ -108,6 +108,7 @@ class DashboardViewController: ViewController {
 
     @objc func didPullToRefresh() {
         interactor.refreshData()
+        refreshControl.endRefreshing()
     }
 }
 
@@ -162,7 +163,6 @@ extension DashboardViewController: DashboardDelegate {
     func show(priceData: PriceTableDatasource, emissionData: EmissionTableDataSource, forceOffsetUpdate: Bool) {
         let applyOffset = forceOffsetUpdate || priceData.isUpdated(comparedTo: priceSource)
 
-        updateFailedLabel.set(hidden: true)
         now = Date()
         priceSource = priceData
         emissionSource = emissionData
@@ -175,15 +175,36 @@ extension DashboardViewController: DashboardDelegate {
         }
     }
 
-    func showNoData() {
-        updateFailedLabel.set(hidden: true)
-        priceSource = EmptyPriceTableDatasource()
-        emissionSource = EmptyEmissionTableDataSource()
-        tableView.reloadData()
-    }
-
-    func showRefreshFailed() {
-        updateFailedLabel.set(hidden: false)
+    func show(message: DashboardMessage) {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .beginFromCurrentState, animations: { [warningMessage, spinnerMessage] in
+            switch message {
+            case .hidden:
+                warningMessage.alpha = 0
+                spinnerMessage.alpha = 0
+            case .spinner(let message):
+                warningMessage.alpha = 0
+                spinnerMessage.alpha = 1
+                spinnerMessage.label.text = message
+                spinnerMessage.spinner?.startAnimating()
+            case .warning(let message):
+                spinnerMessage.alpha = 0
+                warningMessage.alpha = 1
+                warningMessage.label.text = message
+            }
+        }, completion: { [warningMessage, spinnerMessage] _ in
+            switch message {
+            case .hidden:
+                warningMessage.isHidden = true
+                spinnerMessage.isHidden = true
+                spinnerMessage.spinner?.stopAnimating()
+            case .spinner:
+                warningMessage.isHidden = true
+                spinnerMessage.isHidden = false
+            case .warning:
+                spinnerMessage.isHidden = true
+                warningMessage.isHidden = false
+            }
+        })
     }
 
     func show(loading: Bool) {
@@ -194,10 +215,6 @@ extension DashboardViewController: DashboardDelegate {
             spinnerView.stopAnimating().isHidden = true
             tableView.isHidden = false
         }
-    }
-
-    func endRefreshing() {
-        refreshControl.endRefreshing()
     }
 }
 

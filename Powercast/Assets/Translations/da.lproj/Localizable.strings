@@ -4,7 +4,10 @@
 "COMMIT_LABEL" = "kommit %1";
 "COST_UNIT" = "øre/kWh";
 "DASHBOARD_CO2_VARIATION" = "CO₂ interval";
+"DASHBOARD_NO_DATA_MESSAGE" = "Ingen data tilgængelig";
+"DASHBOARD_OUTDATED_DATA_MESSAGE" = "Tilgænglige data er forældet";
 "DASHBOARD_RAW_PRICE_VARIATION" = "Grundpris udsving";
+"DASHBOARD_REFRESHING_MESSAGE" = "Henter nyeste data";
 "DASHBOARD_REFRESH_CONTROL_MESSAGE" = "Træk for at hente data";
 "DASHBOARD_REFRESH_FAILED_MESSAGE" = "Kunne ikke hente nyeste data";
 "DASHBOARD_TITLE" = "Dashboard";
