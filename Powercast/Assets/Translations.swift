@@ -7,7 +7,10 @@ struct Translations {
 	static func COMMIT_LABEL(_ p1: String) -> String { return NSLocalizedString("COMMIT_LABEL", comment: "").replacingOccurrences(of: "%1", with: p1) }
 	static let COST_UNIT = NSLocalizedString("COST_UNIT", comment: "")
 	static let DASHBOARD_CO2_VARIATION = NSLocalizedString("DASHBOARD_CO2_VARIATION", comment: "")
+	static let DASHBOARD_NO_DATA_MESSAGE = NSLocalizedString("DASHBOARD_NO_DATA_MESSAGE", comment: "")
+	static let DASHBOARD_OUTDATED_DATA_MESSAGE = NSLocalizedString("DASHBOARD_OUTDATED_DATA_MESSAGE", comment: "")
 	static let DASHBOARD_RAW_PRICE_VARIATION = NSLocalizedString("DASHBOARD_RAW_PRICE_VARIATION", comment: "")
+	static let DASHBOARD_REFRESHING_MESSAGE = NSLocalizedString("DASHBOARD_REFRESHING_MESSAGE", comment: "")
 	static let DASHBOARD_REFRESH_CONTROL_MESSAGE = NSLocalizedString("DASHBOARD_REFRESH_CONTROL_MESSAGE", comment: "")
 	static let DASHBOARD_REFRESH_FAILED_MESSAGE = NSLocalizedString("DASHBOARD_REFRESH_FAILED_MESSAGE", comment: "")
 	static let DASHBOARD_TITLE = NSLocalizedString("DASHBOARD_TITLE", comment: "")

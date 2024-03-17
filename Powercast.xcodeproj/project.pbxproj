@@ -71,6 +71,7 @@
 		CD1068CA2B13870300FD5B0E /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1068C92B13870300FD5B0E /* NotificationViewController.swift */; };
 		CD2CFE0128E0D2A500DC55C1 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2CFE0028E0D2A500DC55C1 /* NotificationScheduler.swift */; };
 		CD36624729281614009FAC8B /* Flogger in Frameworks */ = {isa = PBXBuildFile; productRef = CD36624629281614009FAC8B /* Flogger */; };
+		CD38A3932BA7202C00DE281F /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD38A3922BA7202C00DE281F /* MessageView.swift */; };
 		CD4022E82A34AA2B00027798 /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD4022E72A34AA2B00027798 /* SugarKit */; };
 		CD484BA02B32225000AC72E2 /* PriceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD484B9F2B32225000AC72E2 /* PriceHeaderView.swift */; };
 		CD51C6692B27AF2F002524A6 /* ConfigurationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD51C6682B27AF2F002524A6 /* ConfigurationService.swift */; };
@@ -184,6 +185,7 @@
 		CD1068C62B12BC2400FD5B0E /* AutoCopyNotification.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCopyNotification.generated.swift; sourceTree = "<group>"; };
 		CD1068C92B13870300FD5B0E /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
+		CD38A3922BA7202C00DE281F /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		CD484B9F2B32225000AC72E2 /* PriceHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceHeaderView.swift; sourceTree = "<group>"; };
 		CD51C6682B27AF2F002524A6 /* ConfigurationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationService.swift; sourceTree = "<group>"; };
 		CD51C66A2B27AFAB002524A6 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 			children = (
 				CD8B43B52B509B1000AE93F2 /* AnimationView.swift */,
 				389F717E289982630007C2E0 /* Drawer.swift */,
+				CD38A3922BA7202C00DE281F /* MessageView.swift */,
 				CDA37DF22ADB3174004B44B0 /* MultiColorGaugeView.swift */,
 				CD1068B92B092D3300FD5B0E /* PriceCell.swift */,
 				CD484B9F2B32225000AC72E2 /* PriceHeaderView.swift */,
@@ -801,6 +804,7 @@
 				38E0FA68288476C40096B98A /* EnergyPriceService.swift in Sources */,
 				38ECF94D289C467B00ED8372 /* TimeInterval.swift in Sources */,
 				CDA37DF12ADB24F0004B44B0 /* ChargesService.swift in Sources */,
+				CD38A3932BA7202C00DE281F /* MessageView.swift in Sources */,
 				CDC25BC32B49C553005453F8 /* OnBoardingViewController.swift in Sources */,
 				387FF610286B95BB0051E3DC /* global.swift in Sources */,
 				CD10688F2AFEF62D00FD5B0E /* Observer.swift in Sources */,
@@ -1129,7 +1133,7 @@
 			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
 			requirement = {
 				kind = exactVersion;
-				version = 4.3.4;
+				version = 4.4.1;
 			};
 		};
 		38E0FA5F288441BE0096B98A /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
@@ -1137,7 +1141,7 @@
 			repositoryURL = "https://github.com/groue/GRDB.swift.git";
 			requirement = {
 				kind = exactVersion;
-				version = 6.23.0;
+				version = 6.25.0;
 			};
 		};
 		CD36624529281614009FAC8B /* XCRemoteSwiftPackageReference "Flogger" */ = {
@@ -1145,7 +1149,7 @@
 			repositoryURL = "https://github.com/CodeReaper/Flogger.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.0.2;
+				version = 1.0.3;
 			};
 		};
 		CD8801222A61E18300A30B1D /* XCRemoteSwiftPackageReference "SugarKit" */ = {
