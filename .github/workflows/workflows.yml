@@ -11,7 +11,7 @@ jobs:
       - uses: asdf-vm/actions/install@v3
         with:
           tool_versions: |
-            action-validator 0.5.1
+            action-validator 0.6.0
       - name: Lint workflows
         run: find .github/workflows -type f \( -iname \*.yaml -o -iname \*.yml \) | xargs -I {} echo action-validator --verbose {} | sh -ex
         shell: bash
