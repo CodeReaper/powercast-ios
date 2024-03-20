@@ -16,6 +16,7 @@ jobs:
       lint: ${{ steps.lint.outputs.matches }}
       dependabot: ${{ steps.dependabot.outputs.matches }}
       lane: ${{ steps.lane.outputs.matches }}
+      workflows: ${{ steps.workflows.outputs.matches }}
     steps:
       - uses: CodeReaper/find-diff-action@v3
         name: Changes requiring xcodebuild
@@ -37,6 +38,11 @@ jobs:
         id: lane
         with:
           paths: lanes resources .github/workflows/lane.yml
+      - uses: CodeReaper/find-diff-action@v3
+        name: Changes requiring validation of GitHub Workflows
+        id: workflows
+        with:
+          paths: .github/workflows/
 
   build:
     needs: changes
@@ -78,6 +84,11 @@ jobs:
           cat $$
           test -s $$ && exit 1 || true
 
+  workflows:
+    needs: changes
+    if: needs.changes.outputs.workflows == 'true'
+    uses: ./.github/workflows/workflows.yml
+
   tests-succeeded:
     name: Tests Succeeded
     needs:
@@ -87,6 +98,7 @@ jobs:
       - lane
       - dependabot
       - translations
+      - workflows
 
     runs-on: ubuntu-latest
     steps:
