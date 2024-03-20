@@ -13,7 +13,7 @@ protocol DashboardDelegate: AnyObject {
 }
 
 class DashboardInteractor {
-    let timeBetweenRefreshes: TimeInterval = 900
+    let timeBetweenRefreshes: TimeInterval = 120
     let timeBetweenOffsetUpdates: TimeInterval = 900
 
     private let notifications: NotificationScheduler
@@ -21,8 +21,8 @@ class DashboardInteractor {
     private let emission: EmissionRepository
     private let state: StateRepository
 
-    private var nextRefresh = 0.0
-    private var nextOffsetUpdate = 0.0
+    private var nextRefresh = Date.distantFuture.timeIntervalSince1970
+    private var nextOffsetUpdate: Double
 
     private weak var delegate: DashboardDelegate?
 
@@ -32,6 +32,7 @@ class DashboardInteractor {
         self.prices = prices
         self.emission = emission
         self.state = state
+        self.nextOffsetUpdate = Date.now.timeIntervalSince1970 + timeBetweenOffsetUpdates
     }
 
     func viewDidLoad() {
@@ -44,6 +45,7 @@ class DashboardInteractor {
             let priceSource = try? prices.source(for: state.network)
             let emissionSource = try? emission.co2.source(for: state.network.zone)
             let isOutdated = priceSource?.isOutdated(comparedTo: now) ?? true
+            let needsRefresh = priceSource?.needsRefresh(comparedTo: now) ?? true
 
             DispatchQueue.main.async { [delegate] in
                 defer { delegate?.show(loading: false) }
@@ -54,7 +56,7 @@ class DashboardInteractor {
                 delegate?.show(priceData: priceSource, emissionData: emissionSource ?? EmptyEmissionTableDataSource(), forceOffsetUpdate: false)
             }
 
-            if now.timeIntervalSince1970 > nextRefresh {
+            if needsRefresh && now.timeIntervalSince1970 <= nextRefresh {
                 nextRefresh = now.timeIntervalSince1970 + timeBetweenRefreshes
                 await refreshAsync()
             } else if isOutdated {
@@ -128,5 +130,16 @@ private extension PriceTableDatasource {
         }
 
         return date > item.duration.upperBound
+    }
+
+    func needsRefresh(comparedTo date: Date) -> Bool {
+        guard
+            let item = item(at: IndexPath(row: 0, section: 0)),
+            let minimum = Calendar.current.date(byAdding: .hour, value: -11, to: item.duration.upperBound)
+        else {
+            return true
+        }
+
+        return date >= minimum
     }
 }
