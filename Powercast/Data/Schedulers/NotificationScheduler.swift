@@ -45,7 +45,7 @@ class NotificationScheduler {
 
         do {
             for date in [Date.now, .now.endOfDay] {
-                for notification in state.notifications {
+                for notification in state.notifications where notification.enabled {
                     if let request = notification.create(at: date, in: network, using: prices, and: charges) {
                         try await center.add(request)
                     }
