@@ -1,7 +1,16 @@
 name: xcodebuild
 
 on:
-  workflow_call: {}
+  pull_request:
+    paths:
+      - Powercast/
+      - PowercastTests/
+      - Powercast.xcodeproj/
+      - .github/workflows/status-check-xcodebuild.yml
+
+concurrency:
+  group: running-tests-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate:
@@ -45,3 +54,8 @@ jobs:
           -quiet \
           test \
           CODE_SIGNING_ALLOWED=NO
+
+  tests-succeeded:
+    runs-on: macos-latest
+    needs: validate
+    name: Tests Succeeded

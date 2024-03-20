@@ -1,7 +1,12 @@
 name: lane
 
 on:
-  workflow_call: {}
+  pull_request:
+    paths:
+      - lanes
+      - resources
+      - .github/workflows/status-check-lane.yml
+      - .tool-versions
 
 jobs:
   validate:
@@ -28,3 +33,8 @@ jobs:
             echo "::endgroup::"
             exit 1
           fi
+
+  tests-succeeded:
+    runs-on: macos-latest
+    needs: validate
+    name: Tests Succeeded

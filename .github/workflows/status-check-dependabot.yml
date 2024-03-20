@@ -1,7 +1,10 @@
-name: dependabot validate
+name: Dependabot
 
 on:
-  workflow_call: {}
+  pull_request:
+    paths:
+      - .github/dependabot.yml
+      - .github/workflows/status-check-dependabot.yml
 
 jobs:
   validate:
@@ -14,3 +17,8 @@ jobs:
         shell: bash
       - run: check-jsonschema --schemafile schema.json .github/dependabot.yml
         shell: bash
+
+  tests-succeeded:
+    runs-on: macos-latest
+    needs: validate
+    name: Tests Succeeded

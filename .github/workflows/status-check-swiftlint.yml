@@ -1,0 +1,24 @@
+name: Swiftlint
+
+on:
+  pull_request:
+    paths:
+      - Powercast/
+      - PowercastTests/
+      - Powercast.xcodeproj/
+      - .github/workflows/status-check-swiftlint.yml
+      - .swiftlint.yml
+      - .swiftlint.ci.yml
+      - .tool-versions
+
+jobs:
+  validate:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: swiftlint --strict --config .swiftlint.ci.yml --config .swiftlint.yml
+
+  tests-succeeded:
+    runs-on: macos-latest
+    needs: validate
+    name: Tests Succeeded
