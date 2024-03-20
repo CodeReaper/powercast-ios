@@ -13,4 +13,5 @@ jobs:
           tool_versions: |
             action-validator 0.5.1
       - name: Lint workflows
-        run: find .github/workflows -type f \( -iname \*.yaml -o -iname \*.yml \) | xargs -I {} echo action-validator --verbose {} | sh -x
+        run: find .github/workflows -type f \( -iname \*.yaml -o -iname \*.yml \) | xargs -I {} echo action-validator --verbose {} | sh -ex
+        shell: bash
