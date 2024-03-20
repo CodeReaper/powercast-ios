@@ -21,3 +21,6 @@ jobs:
     runs-on: macos-latest
     needs: validate
     name: Tests Succeeded
+    steps:
+      - name: Succeed
+        run: exit 0
