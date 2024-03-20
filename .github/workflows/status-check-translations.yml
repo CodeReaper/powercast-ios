@@ -1,0 +1,26 @@
+
+name: Translations
+
+on:
+  pull_request: {}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Verify translations
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for missing translations
+        run: |
+          find . -name "*.strings" -exec grep -Hin '= "";' {} \; > $$
+          echo "Found missing translations:"
+          cat $$
+          test -s $$ && exit 1 || true
+
+  tests-succeeded:
+    runs-on: macos-latest
+    needs: validate
+    name: Tests Succeeded
+    steps:
+      - name: Succeed
+        run: exit 0

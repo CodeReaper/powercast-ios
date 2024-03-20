@@ -1,0 +1,26 @@
+name: Workflows
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: asdf-vm/actions/install@v3
+        with:
+          tool_versions: |
+            action-validator 0.5.1
+      - name: Lint workflows
+        run: find .github/workflows -type f \( -iname \*.yaml -o -iname \*.yml \) | xargs -I {} echo action-validator --verbose {} | sh -x
+
+  tests-succeeded:
+    runs-on: macos-latest
+    needs: validate
+    name: Tests Succeeded
+    steps:
+      - name: Succeed
+        run: exit 0
