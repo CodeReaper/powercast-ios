@@ -15,7 +15,7 @@ on:
 jobs:
   release:
     name: Release ${{ inputs.major }}.${{ inputs.minor }}
-    runs-on: macos-latest
+    runs-on: macos-14
     steps:
       - uses: maxim-lobanov/setup-xcode@v1
         with:

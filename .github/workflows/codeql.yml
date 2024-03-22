@@ -12,7 +12,7 @@ on:
 jobs:
   analyze-swift:
     name: Analyze swift
-    runs-on: macos-latest
+    runs-on: macos-14
     permissions:
       actions: read
       contents: read
