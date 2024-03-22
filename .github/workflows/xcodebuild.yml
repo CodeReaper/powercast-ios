@@ -5,11 +5,11 @@ on:
 
 jobs:
   validate:
-    runs-on: macos-13
+    runs-on: macos-latest
     steps:
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '^15.0'
+          xcode-version: '^15.2'
 
       - name: Version information
         run: |
