@@ -160,15 +160,13 @@ extension DashboardViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension DashboardViewController: DashboardDelegate {
-    func show(priceData: PriceTableDatasource, emissionData: EmissionTableDataSource, forceOffsetUpdate: Bool) {
-        let applyOffset = forceOffsetUpdate || priceData.isUpdated(comparedTo: priceSource)
-
+    func show(priceData: PriceTableDatasource, emissionData: EmissionTableDataSource, updateOffset: Bool) {
         now = Date()
         priceSource = priceData
         emissionSource = emissionData
         tableView.reloadData()
 
-        if let indexPath = priceSource.activeIndexPath(at: now), applyOffset {
+        if let indexPath = priceSource.activeIndexPath(at: now), updateOffset {
             DispatchQueue.main.async { [tableView] in
                 tableView.scrollToRow(at: indexPath, at: .middle, animated: false)
             }
@@ -221,16 +219,5 @@ extension DashboardViewController: DashboardDelegate {
 extension DashboardViewController: UINavigationBarDelegate {
     func position(for bar: UIBarPositioning) -> UIBarPosition {
         return .topAttached
-    }
-}
-
-private extension PriceTableDatasource {
-    func isUpdated(comparedTo source: PriceTableDatasource) -> Bool {
-        guard sectionCount == source.sectionCount else { return true }
-
-        let section = sectionCount - 1
-        guard section >= 0 else { return false }
-
-        return numberOfRows(in: section) != source.numberOfRows(in: section)
     }
 }
