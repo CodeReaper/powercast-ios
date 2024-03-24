@@ -1141,7 +1141,7 @@
 			repositoryURL = "https://github.com/groue/GRDB.swift.git";
 			requirement = {
 				kind = exactVersion;
-				version = 6.25.0;
+				version = 6.26.0;
 			};
 		};
 		CD36624529281614009FAC8B /* XCRemoteSwiftPackageReference "Flogger" */ = {
