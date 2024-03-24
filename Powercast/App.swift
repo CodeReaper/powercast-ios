@@ -63,6 +63,12 @@ class App: Dependenables {
     }
 
     func didLaunch(with window: UIWindow) {
+        if configuration.isRunningUnitTests { return }
+
+        navigation.setup(using: window)
+    }
+
+    func didLaunch() {
         let tags = ["session": UUID().uuidString, "release": "\(configuration.isReleaseBuild)", "commit": Bundle.commit]
         if configuration.isRunningOnSimulator || configuration.isRunningUnitTests {
             Flogger(level: .debug, [ConsoleLogger()])
@@ -80,7 +86,6 @@ class App: Dependenables {
         backgroundScheduler.register()
         backgroundScheduler.schedule()
         notificationScheduler.register()
-        navigation.setup(using: window)
     }
 
     func willEnterForeground() { }
