@@ -186,6 +186,7 @@
 		CD1068C92B13870300FD5B0E /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		CD2CFE0028E0D2A500DC55C1 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		CD38A3922BA7202C00DE281F /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		CD38A3942BB0845800DE281F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		CD484B9F2B32225000AC72E2 /* PriceHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceHeaderView.swift; sourceTree = "<group>"; };
 		CD51C6682B27AF2F002524A6 /* ConfigurationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationService.swift; sourceTree = "<group>"; };
 		CD51C66A2B27AFAB002524A6 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -360,6 +361,7 @@
 				384E6439288DAA56004ADCB1 /* Sourcery.swift */,
 				387FF602286B90A40051E3DC /* Assets.xcassets */,
 				CD8A4BC928BC1B9100EC68E3 /* Local.xcconfig */,
+				CD38A3942BB0845800DE281F /* PrivacyInfo.xcprivacy */,
 				38DF5AAB287079DE008630FB /* Assets */,
 				380CE8EA288893E30003FF36 /* Assets.Animations */,
 				384E6442288DBD53004ADCB1 /* Assets.Fonts */,
