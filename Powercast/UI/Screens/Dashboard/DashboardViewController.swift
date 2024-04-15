@@ -123,23 +123,18 @@ extension DashboardViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let indexPath = IndexPath(item: 0, section: section)
-        guard
-            let price = priceSource.item(at: indexPath),
-            let emission = emissionSource.item(at: indexPath)
-        else { return nil }
 
-        return tableView.dequeueReusableHeaderFooter(PriceHeaderView.self).update(using: price, and: emission, current: price.duration.contains(now))
+        guard let price = priceSource.item(at: indexPath) else { return nil }
+
+        return tableView.dequeueReusableHeaderFooter(PriceHeaderView.self).update(using: price, and: emissionSource.item(at: indexPath), current: price.duration.contains(now))
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(PriceCell.self, forIndexPath: indexPath)
 
-        guard
-            let price = priceSource.item(at: indexPath),
-            let emission = emissionSource.item(at: indexPath)
-        else { return cell }
+        guard let price = priceSource.item(at: indexPath) else { return cell }
 
-        return cell.update(using: price, and: emission, current: price.duration.contains(now), emissionRange: emissionSource.range)
+        return cell.update(using: price, and: emissionSource.item(at: indexPath), current: price.duration.contains(now), emissionRange: emissionSource.range)
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

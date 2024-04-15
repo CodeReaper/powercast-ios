@@ -148,6 +148,11 @@ class App: Dependenables {
         values.isExcludedFromBackup = true
         try! url.setResourceValues(values)
         // swiftlint:enable force_try
+
+        if configuration.isRunningOnSimulator {
+            NSLog("Prepared database at path: \(url.path)")
+        }
+
         return database
     }
 }
