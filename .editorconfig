@@ -14,6 +14,18 @@ indent_style = space
 indent_size = 4
 indent_style = space
 
-[*.{yml,yaml}]
+[*.yml]
 indent_size = 2
 indent_style = space
+
+[*.yaml]
+indent_size = 2
+indent_style = space
+
+[*.md]
+indent_size = unset
+indent_style = unset
+
+[Makefile]
+indent_style = tab
+indent_size = 4

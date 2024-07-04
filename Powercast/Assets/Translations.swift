@@ -10,9 +10,9 @@ struct Translations {
 	static let DASHBOARD_NO_DATA_MESSAGE = NSLocalizedString("DASHBOARD_NO_DATA_MESSAGE", comment: "")
 	static let DASHBOARD_OUTDATED_DATA_MESSAGE = NSLocalizedString("DASHBOARD_OUTDATED_DATA_MESSAGE", comment: "")
 	static let DASHBOARD_RAW_PRICE_VARIATION = NSLocalizedString("DASHBOARD_RAW_PRICE_VARIATION", comment: "")
-	static let DASHBOARD_REFRESHING_MESSAGE = NSLocalizedString("DASHBOARD_REFRESHING_MESSAGE", comment: "")
 	static let DASHBOARD_REFRESH_CONTROL_MESSAGE = NSLocalizedString("DASHBOARD_REFRESH_CONTROL_MESSAGE", comment: "")
 	static let DASHBOARD_REFRESH_FAILED_MESSAGE = NSLocalizedString("DASHBOARD_REFRESH_FAILED_MESSAGE", comment: "")
+	static let DASHBOARD_REFRESHING_MESSAGE = NSLocalizedString("DASHBOARD_REFRESHING_MESSAGE", comment: "")
 	static let DASHBOARD_TITLE = NSLocalizedString("DASHBOARD_TITLE", comment: "")
 	static let DATA_DETAILS_FIXED_FEES_LABEL = NSLocalizedString("DATA_DETAILS_FIXED_FEES_LABEL", comment: "")
 	static func DATA_DETAILS_PERCENTAGE(_ p1: String) -> String { return NSLocalizedString("DATA_DETAILS_PERCENTAGE", comment: "").replacingOccurrences(of: "%1", with: p1) }
