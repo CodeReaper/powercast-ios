@@ -15,8 +15,6 @@ jobs:
       xcode: ${{ steps.xcode.outputs.matches }}
       lint: ${{ steps.lint.outputs.matches }}
       dependabot: ${{ steps.dependabot.outputs.matches }}
-      lane: ${{ steps.lane.outputs.matches }}
-      workflows: ${{ steps.workflows.outputs.matches }}
     steps:
       - uses: CodeReaper/find-diff-action@v3
         name: Changes requiring xcodebuild
@@ -33,16 +31,6 @@ jobs:
         id: dependabot
         with:
           paths: .github/dependabot.yml .github/workflows/dependabot-validate.yml
-      - uses: CodeReaper/find-diff-action@v3
-        name: Changes requiring validation of lane
-        id: lane
-        with:
-          paths: lanes resources .github/workflows/lane.yml
-      - uses: CodeReaper/find-diff-action@v3
-        name: Changes requiring validation of GitHub Workflows
-        id: workflows
-        with:
-          paths: .github/workflows/
 
   build:
     needs: changes
@@ -62,32 +50,13 @@ jobs:
       - uses: editorconfig-checker/action-editorconfig-checker@main
       - run: editorconfig-checker
 
-  lane:
-    needs: changes
-    if: needs.changes.outputs.lane == 'true'
-    uses: ./.github/workflows/lane.yml
+  make:
+    uses: ./.github/workflows/make.yml
 
   dependabot:
     needs: changes
     if: needs.changes.outputs.dependabot == 'true'
     uses: ./.github/workflows/dependabot-validate.yml
-
-  translations:
-    runs-on: ubuntu-latest
-    name: Verify translations
-    steps:
-      - uses: actions/checkout@v4
-      - name: Check for missing translations
-        run: |
-          find . -name "*.strings" -exec grep -Hin '= "";' {} \; > $$
-          echo "Found missing translations:"
-          cat $$
-          test -s $$ && exit 1 || true
-
-  workflows:
-    needs: changes
-    if: needs.changes.outputs.workflows == 'true'
-    uses: ./.github/workflows/workflows.yml
 
   tests-succeeded:
     name: Tests Succeeded
@@ -95,10 +64,8 @@ jobs:
       - build
       - swiftlint
       - editorconfig
-      - lane
+      - make
       - dependabot
-      - translations
-      - workflows
 
     runs-on: ubuntu-latest
     steps:
