@@ -3,7 +3,7 @@
 help:
 	@echo 'This Makefile contains generation (update-* targets) and verification (verify-* targets) targets. Run all updates and verifications with `make all`.'
 
-all: update-translations update-licenses verify-translations verify-workflows verify-no-changes
+all: update-translations update-licenses verify-translations verify-workflows verify-swiftlint verify-no-changes
 
 update-translations:
 	lane translations generate -i resources/translations/translations.csv -o Powercast/Assets/Translations.swift -t ios -m 3 -k 1 \
@@ -23,6 +23,9 @@ verify-translations:
 
 verify-workflows:
 	find .github/workflows -type f -name \*.yml | xargs -I {} echo action-validator --verbose {} | sh -ex
+
+verify-swiftlint:
+	swiftlint --strict --config .swiftlint.ci.yml --config .swiftlint.yml
 
 verify-no-changes:
 	@git diff --quiet --exit-code || (echo 'Error: Workplace is dirty:'; git status; exit 1)
