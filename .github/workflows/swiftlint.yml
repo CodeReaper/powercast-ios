@@ -8,4 +8,5 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: asdf-vm/actions/install@v3
       - run: swiftlint --strict --config .swiftlint.ci.yml --config .swiftlint.yml
