@@ -86,6 +86,10 @@
 		CD5E309228B2583600DBA019 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309028B2583600DBA019 /* assets */; };
 		CD5E309328B2583600DBA019 /* packages in Resources */ = {isa = PBXBuildFile; fileRef = CD5E309128B2583600DBA019 /* packages */; };
 		CD5E309528B25B1800DBA019 /* TitleAndTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5E309428B25B1800DBA019 /* TitleAndTextViewController.swift */; };
+		CD74F7652C0216AB004BB6F6 /* ArchivesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD74F7642C0216AB004BB6F6 /* ArchivesViewController.swift */; };
+		CD74F7672C021CFC004BB6F6 /* DelaysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD74F7662C021CFC004BB6F6 /* DelaysViewController.swift */; };
+		CD74F7692C021DD4004BB6F6 /* IncidentsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD74F7682C021DD4004BB6F6 /* IncidentsService.swift */; };
+		CD74F76B2C021EB8004BB6F6 /* Delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD74F76A2C021EB8004BB6F6 /* Delay.swift */; };
 		CD81C59B2A6DBDD300E88418 /* Charges.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD81C59A2A6DBDD300E88418 /* Charges.swift */; };
 		CD821E002B91111200754FDE /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD821DFF2B91111200754FDE /* FAQViewController.swift */; };
 		CD8801242A61E18300A30B1D /* SugarKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD8801232A61E18300A30B1D /* SugarKit */; };
@@ -198,6 +202,10 @@
 		CD5E309028B2583600DBA019 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		CD5E309128B2583600DBA019 /* packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = packages; sourceTree = "<group>"; };
 		CD5E309428B25B1800DBA019 /* TitleAndTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleAndTextViewController.swift; sourceTree = "<group>"; };
+		CD74F7642C0216AB004BB6F6 /* ArchivesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchivesViewController.swift; sourceTree = "<group>"; };
+		CD74F7662C021CFC004BB6F6 /* DelaysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelaysViewController.swift; sourceTree = "<group>"; };
+		CD74F7682C021DD4004BB6F6 /* IncidentsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncidentsService.swift; sourceTree = "<group>"; };
+		CD74F76A2C021EB8004BB6F6 /* Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delay.swift; sourceTree = "<group>"; };
 		CD81C59A2A6DBDD300E88418 /* Charges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charges.swift; sourceTree = "<group>"; };
 		CD821DFF2B91111200754FDE /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
 		CD8A4BC428BA6DB000EC68E3 /* Price.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
@@ -426,6 +434,7 @@
 				CD51C6682B27AF2F002524A6 /* ConfigurationService.swift */,
 				CD1068942B040F5A00FD5B0E /* EmissionService.swift */,
 				38E0FA67288476C40096B98A /* EnergyPriceService.swift */,
+				CD74F7682C021DD4004BB6F6 /* IncidentsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -437,6 +446,7 @@
 				CD81C59A2A6DBDD300E88418 /* Charges.swift */,
 				CD1068962B0410F100FD5B0E /* Co2.swift */,
 				CD51C66A2B27AFAB002524A6 /* Configuration.swift */,
+				CD74F76A2C021EB8004BB6F6 /* Delay.swift */,
 				CD10689E2B05425B00FD5B0E /* Emission.swift */,
 				38E0FA6D2884803F0096B98A /* EnergyPrice.swift */,
 				CD5C58D72AE7018E00143060 /* GridPrice.swift */,
@@ -461,6 +471,8 @@
 		38FD15CD28833AEA001C38F9 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				CD74F7642C0216AB004BB6F6 /* ArchivesViewController.swift */,
+				CD74F7662C021CFC004BB6F6 /* DelaysViewController.swift */,
 				CD821DFF2B91111200754FDE /* FAQViewController.swift */,
 				38FD15DE28835528001C38F9 /* LicensesViewController.swift */,
 				389F717C28997B2B0007C2E0 /* MenuViewController.swift */,
@@ -751,6 +763,7 @@
 				CD51C6692B27AF2F002524A6 /* ConfigurationService.swift in Sources */,
 				CD821E002B91111200754FDE /* FAQViewController.swift in Sources */,
 				380CE8E62888901A0003FF36 /* EnergyPriceDatabase.swift in Sources */,
+				CD74F76B2C021EB8004BB6F6 /* Delay.swift in Sources */,
 				38FD15DF28835528001C38F9 /* LicensesViewController.swift in Sources */,
 				38E0FA702884808D0096B98A /* Zone.swift in Sources */,
 				CD1068B02B080AA600FD5B0E /* View.swift in Sources */,
@@ -765,6 +778,7 @@
 				CD5E309528B25B1800DBA019 /* TitleAndTextViewController.swift in Sources */,
 				38FD15DB28835353001C38F9 /* SettingsViewController.swift in Sources */,
 				CD5C58D02AE4824900143060 /* ChargesRepository.swift in Sources */,
+				CD74F7672C021CFC004BB6F6 /* DelaysViewController.swift in Sources */,
 				CD1068972B0410F100FD5B0E /* Co2.swift in Sources */,
 				CD51C66B2B27AFAB002524A6 /* Configuration.swift in Sources */,
 				CD10689F2B05425B00FD5B0E /* Emission.swift in Sources */,
@@ -795,6 +809,7 @@
 				384E646B288EDAAF004ADCB1 /* Appearence.swift in Sources */,
 				38FD15C928833A5B001C38F9 /* AppNavigation.swift in Sources */,
 				CD1068952B040F5A00FD5B0E /* EmissionService.swift in Sources */,
+				CD74F7692C021DD4004BB6F6 /* IncidentsService.swift in Sources */,
 				38E0FA6E2884803F0096B98A /* EnergyPrice.swift in Sources */,
 				387FF5FC286B909B0051E3DC /* SceneDelegate.swift in Sources */,
 				CDEAF3332B1BAEA700C4ED7A /* StackviewCell.swift in Sources */,
@@ -802,6 +817,7 @@
 				38ECF94B289B0ACF00ED8372 /* Date.swift in Sources */,
 				CD484BA02B32225000AC72E2 /* PriceHeaderView.swift in Sources */,
 				CD2CFE0128E0D2A500DC55C1 /* NotificationScheduler.swift in Sources */,
+				CD74F7652C0216AB004BB6F6 /* ArchivesViewController.swift in Sources */,
 				CD1068BA2B092D3300FD5B0E /* PriceCell.swift in Sources */,
 				38E0FA68288476C40096B98A /* EnergyPriceService.swift in Sources */,
 				38ECF94D289C467B00ED8372 /* TimeInterval.swift in Sources */,

@@ -19,9 +19,10 @@ class MenuViewController: ViewController {
         self.rows = [
             Row.title,
             .item(name: Translations.DASHBOARD_TITLE, symbol: "square.3.stack.3d.middle.filled", endpoint: .dashboard),
-            .item(name: Translations.NETWORK_DETAILS_TITLE, symbol: "poweroutlet.type.k.fill", endpoint: .networkDetails(network: state.network)),
-            .item(name: Translations.GRID_DETAILS_TITLE, symbol: "bolt.fill", endpoint: .gridDetails(zone: state.network.zone)),
-            .item(name: Translations.PRICE_ARCHIVE_TITLE, symbol: "archivebox.fill", endpoint: .priceArchive),
+            .item(name: "Archivez", symbol: "archivebox.fill", endpoint: .archives), // FIXME: translation
+//            .item(name: Translations.NETWORK_DETAILS_TITLE, symbol: "poweroutlet.type.k.fill", endpoint: .networkDetails(network: state.network)),
+//            .item(name: Translations.GRID_DETAILS_TITLE, symbol: "bolt.fill", endpoint: .gridDetails(zone: state.network.zone)),
+//            .item(name: Translations.PRICE_ARCHIVE_TITLE, symbol: "archivebox.fill", endpoint: .priceArchive),
             .item(name: Translations.SETTINGS_TITLE, symbol: "gearshape", endpoint: .settings),
             .item(name: Translations.FAQ_TITLE, symbol: "questionmark.bubble", endpoint: .faq),
             .item(name: Translations.LICENSES_TITLE, symbol: "paragraphsign", endpoint: .licenses),

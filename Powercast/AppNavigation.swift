@@ -7,8 +7,10 @@ indirect enum Navigation {
     case networkSelection
     case loadData(network: Network)
     case dashboard
+    case archives
     case dataDetails(price: Price, emission: Emission.Co2?)
     case priceArchive
+    case delays
     case settings
     case notification(notification: Notification?)
     case networkDetails(network: Network)
@@ -147,6 +149,10 @@ class AppNavigation {
                 charges: dependencies.chargesRepository
             )
             navigationController.setViewControllers([OnBoardingViewController(navigation: self), viewController], animated: true)
+        case .archives:
+            navigationController.pushViewController(ArchivesViewController(navigation: self, state: dependencies.stateRepository), animated: true)
+        case .delays:
+            navigationController.pushViewController(DelaysViewController(navigation: self, service: dependencies.incidentsService, zone: dependencies.stateRepository.network.zone), animated: true)
         }
     }
 }

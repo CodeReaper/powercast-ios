@@ -25,6 +25,7 @@ Below follows a roadmap arranged by current best guess for completion:
  - [x] Dark mode
  - [x] Create privacy policy page
  - [x] Pipeline for deployment to App Store
+ - [ ] Request app ratings
 
 ## Possible future features and tasks
 
@@ -32,3 +33,7 @@ Below follows a roadmap arranged by current best guess for completion:
 - Display setting for price composition
 - Price comparisons between network companies
 - Allocate a type-of-power-usage-session to estimate a price and savings, if delayed
+- widget?
+
+- link backup to https://data.nordpoolgroup.com/auction/day-ahead/prices?deliveryDate=2024-04-13&currency=DKK&aggregation=Hourly&deliveryAreas=DK1,DK2
+  with driftsinfo?

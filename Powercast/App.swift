@@ -17,6 +17,7 @@ protocol Dependenables: AnyObject {
     var stateRepository: StateRepository { get }
 
     var configurationService: ConfigurationService { get }
+    var incidentsService: IncidentsService { get }
 
     var notificationScheduler: NotificationScheduler { get }
     var backgroundScheduler: BackgroundScheduler { get }
@@ -33,6 +34,7 @@ class App: Dependenables {
     let databases: [Migratable]
 
     let configurationService = ConfigurationServiceAPI() as ConfigurationService
+    let incidentsService = IncidentsServiceAPI() as IncidentsService
 
     lazy var chargesRepository = ChargesRepository(database: chargesDatabase.queue, service: ChargesServiceAPI())
     lazy var emissionRepository = EmissionRepository(database: emissionDatabase, service: EmissionServiceAPI())

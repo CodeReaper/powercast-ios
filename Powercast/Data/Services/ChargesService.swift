@@ -51,7 +51,7 @@ class ChargesServiceAPI: ChargesService {
 private struct GridItem: Codable {
     let zone: String
     let from: TimeInterval
-    let to: TimeInterval? // swiftlint:disable:this identifier_name
+    let to: TimeInterval?
     let transmissionTariff: Double
     let systemTariff: Double
     let electricityCharge: Double
@@ -59,6 +59,6 @@ private struct GridItem: Codable {
 
 private struct NetworkItem: Codable {
     let from: TimeInterval
-    let to: TimeInterval? // swiftlint:disable:this identifier_name
+    let to: TimeInterval?
     let tariffs: [Double]
 }
