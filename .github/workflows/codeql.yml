@@ -6,8 +6,6 @@ on:
       - main
     paths:
       - .github/workflows/codeql.yml
-  schedule:
-    - cron: "23 5 * * 0"
 
 jobs:
   analyze-swift:
