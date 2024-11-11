@@ -20,14 +20,14 @@ update-translations:
 		-c "3 Powercast/Assets/Translations/Base.lproj/InfoPlist.strings"
 
 update-licenses:
-	$(COMPOSE_RUN) builder sh resources/update-licenses.sh
+	$(COMPOSE_RUN) builder sh scripts/update-licenses.sh
 
 # does not work yet - see https://github.com/krzysztofzablocki/Sourcery/issues/1382
 # update-sourcery:
 # 	$(COMPOSE_RUN) sourcery
 
 verify-translations:
-	$(COMPOSE_RUN) builder sh -x resources/verify-translations.sh
+	$(COMPOSE_RUN) builder sh -x scripts/verify-translations.sh
 
 verify-workflows:
 	$(COMPOSE_RUN) jsonschema sh -ec 'find .github/workflows -type f -name \*.yml | xargs -I {} echo check-jsonschema --builtin-schema vendor.github-workflows {} | sh -ex'
@@ -45,4 +45,4 @@ verify-swiftlint:
 	$(COMPOSE_RUN) swiftlint swiftlint --strict --config .swiftlint.ci.yml --config .swiftlint.yml
 
 verify-no-changes:
-	$(COMPOSE_RUN) builder sh -x resources/verify-no-changes.sh
+	$(COMPOSE_RUN) builder sh scripts/verify-no-changes.sh

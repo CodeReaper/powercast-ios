@@ -1,1 +1,0 @@
-git diff --quiet --exit-code || (echo 'Error: Workplace is dirty:'; git status; exit 1)
