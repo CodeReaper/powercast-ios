@@ -1,6 +1,6 @@
 // swiftlint:disable all
 import Foundation
-struct Translations {
+public struct Translations {
 	static func BUILD_LABEL(_ p1: String) -> String { return NSLocalizedString("BUILD_LABEL", comment: "").replacingOccurrences(of: "%1", with: p1) }
 	static let CO2_LABEL = NSLocalizedString("CO2_LABEL", comment: "")
 	static let CO2_UNIT = NSLocalizedString("CO2_UNIT", comment: "")

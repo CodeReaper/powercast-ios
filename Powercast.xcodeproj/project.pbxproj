@@ -1135,7 +1135,7 @@
 			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
 			requirement = {
 				kind = exactVersion;
-				version = 4.4.1;
+				version = 4.5.0;
 			};
 		};
 		38E0FA5F288441BE0096B98A /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
@@ -1143,7 +1143,7 @@
 			repositoryURL = "https://github.com/groue/GRDB.swift.git";
 			requirement = {
 				kind = exactVersion;
-				version = 6.26.0;
+				version = 6.29.3;
 			};
 		};
 		CD36624529281614009FAC8B /* XCRemoteSwiftPackageReference "Flogger" */ = {
