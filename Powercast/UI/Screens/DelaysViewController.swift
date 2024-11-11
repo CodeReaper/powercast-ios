@@ -90,14 +90,43 @@ class DelaysViewController: ViewController {
     }
 
     private func update(prices: [Delay], and emissions: [Delay]) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateStyle = .none
+        timeFormatter.timeStyle = .short
+
+        var rows: [String: [Row]] = [:]
+
+        for item in prices {
+            let duration: String
+            let end: String
+            if let to = item.to {
+                let dddd = to.timeIntervalSince(item.from)
+                duration = format(time: dddd)
+                end = timeFormatter.string(from: to)
+            } else {
+                duration = "-"
+                end="-"
+            }
+            let key = dateFormatter.string(from: item.from)
+            if !rows.keys.contains(key) {
+                rows[key] = []
+            }
+            rows[key]!.append(Row(type: "Pricez", duration: duration, startDate: timeFormatter.string(from: item.from), endDate: end))
+        }
+
+        sections = rows.keys.map { Section(date: $0, rows: rows[$0]!) }
+
         show(loading: false)
-        print("prices: \(prices)")
-        print("emissions: \(emissions)")
-        sections = [
-            Section(date: "202804", rows: [
-                Row(type: "TTTTT", duration: "daja ljga kjas", startDate: "safdsf", endDate: "asdfasdf")
-            ])
-        ]
+//        print("prices: \(prices)")
+//        print("emissions: \(emissions)")
+//        sections = [
+//            Section(date: "202804", rows: [
+//                Row(type: "TTTTT", duration: "daja ljga kjas", startDate: "safdsf", endDate: "asdfasdf")
+//            ])
+//        ]
         tableView.reloadData()
     }
 
@@ -116,6 +145,19 @@ class DelaysViewController: ViewController {
                     update([], []) // FIXME: empty state
                 }
             }
+        }
+    }
+
+    private func format(time: TimeInterval) -> String {
+        switch true {
+        case time/3600 < 24:
+            return "\(Int(round(time/3600))) hours"
+        case time/86400 < 7:
+            return "\(Int(round(time/86400))) days"
+        case time/604800 < 5:
+            return "\(Int(round(time/604800))) weeks"
+        default:
+            return "\(Int(round(time/2592000))) months"
         }
     }
 }
