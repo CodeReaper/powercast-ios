@@ -123,7 +123,7 @@ final class Drawer: UIViewController {
             withDuration: duration,
             delay: 0,
             options: .curveEaseOut,
-            animations: { () -> Void in
+            animations: {
                 switch state {
                 case .closed:
                     constraint.constant = 0
