@@ -2,7 +2,7 @@ import UIKit
 import Lottie
 import SugarKit
 
-class OnBoardingViewController: UIPageViewController {
+class OnBoardingViewController: UIViewController {
     private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     private let navigation: AppNavigation
     private var pages: [UIViewController]!
@@ -10,7 +10,7 @@ class OnBoardingViewController: UIPageViewController {
 
     init(navigation: AppNavigation) {
         self.navigation = navigation
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
+        super.init(nibName: nil, bundle: nil)
         self.pages = [
             Page(supportingView: AnimationView.LocationSelection(mode: .playOnce), information: formatted(string: Translations.ONBOARDING_PAGE_LOCATION)),
             Page(supportingView: AnimationView.Euro(mode: .playOnce), information: formatted(string: Translations.ONBOARDING_PAGE_VARIABLE_COSTS)),
@@ -121,7 +121,7 @@ class OnBoardingViewController: UIPageViewController {
         }
 
         override func viewWillDisappear(_ animated: Bool) {
-            supportingView.pause()
+            supportingView.stop()
             super.viewWillDisappear(animated)
         }
     }
