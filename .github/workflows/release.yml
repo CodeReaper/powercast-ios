@@ -24,7 +24,7 @@ jobs:
       - name: Version information
         run: xcrun xcodebuild -version
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup configuration
         env:
@@ -41,7 +41,7 @@ jobs:
           } | tee Powercast/Local.xcconfig
 
       - name: Cache DerivedData
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/Library/Developer/Xcode/DerivedData/Powercast-*
           key: ${{ runner.os }}-xcode-${{ hashFiles('**/*.pbxproj', '**/swiftpm/Package.resolved') }}
